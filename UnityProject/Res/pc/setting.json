@@ -1,0 +1,19 @@
+{
+    "client": {
+        "url": "http://wepieces.cn/unity/roushan/Res/",
+        "version": "0.1"
+    },
+    "netResRoot": "http://wepieces.cn/unity/roushan/Res/",
+    "settingJump": {
+        "6.6.6": "fuckworld",
+        "7.7.7": "helloworld"
+    },
+    "startupParams": {
+        "ilruntime": "dll",
+        "serverHost": "www.baidu.com",
+        "serverPort": "1111"
+    },
+    "startupResGroups": [
+        "/"
+    ]
+}
