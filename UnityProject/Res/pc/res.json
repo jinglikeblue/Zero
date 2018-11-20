@@ -1,0 +1,41 @@
+{
+    "items": [
+        {
+            "name": "setting.json",
+            "version": "6e90bec46f7da4c5c4ec33c72a8b4284"
+        },
+        {
+            "name": "ab/hot_res.ab",
+            "version": "e778710b01e5a7f3ca514e1f943bcfda"
+        },
+        {
+            "name": "ab/manifest.ab",
+            "version": "ad599624f5c624183c96a9acc705916e"
+        },
+        {
+            "name": "ab/auto_depends/cross_0.ab",
+            "version": "eb544323788b5c309332631f2e837b20"
+        },
+        {
+            "name": "ab/hot_res/prefabs/panels.ab",
+            "version": "809078a202fd8d3bed561a58e6aa9141"
+        },
+        {
+            "name": "ab/hot_res/prefabs/stages.ab",
+            "version": "8fb59265c5102627067884bc8e1cb2af"
+        },
+        {
+            "name": "ab/hot_res/prefabs/wins.ab",
+            "version": "cb7561ba9c624f7642ee1afa8bcd7bc9"
+        },
+        {
+            "name": "dll/ZeroIL.dll",
+            "version": "e8e738a54960708b3a4d2d527de5c688"
+        },
+        {
+            "name": "dll/ZeroIL.pdb",
+            "version": "d41b89f08429ca45551629b5d7c9bc8c"
+        }
+    ],
+    "manifestName": "ab/manifest.ab"
+}

@@ -1,3 +1,3 @@
 # Zero
 
-[文档](Docs/Intro.md)
+[文档](https://jinglikeblue.github.io/Zero/)
