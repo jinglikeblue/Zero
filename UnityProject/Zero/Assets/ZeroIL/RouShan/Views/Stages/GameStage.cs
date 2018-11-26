@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using Zero;
+﻿using UnityEngine;
 using ZeroIL.Zero;
 
 namespace ZeroIL.RouShan
@@ -10,9 +8,7 @@ namespace ZeroIL.RouShan
         Transform _blocks;
         GameObject _blockPrefab;
 
-        Boss _boss;
-
-        List<GameObject> _blockObjList = new List<GameObject>();              
+        Boss _boss;              
 
         protected override void OnInit()
         {
@@ -26,8 +22,12 @@ namespace ZeroIL.RouShan
 
         public void CreateBlock()
         {
-            GameObject block = GameObject.Instantiate(_blockPrefab,_blocks);
-            _blockObjList.Add(block);            
+            //以同步方式创建Block
+            AView.Create<Block>(_blockPrefab, this, _blocks);
+
+            //以异步方式创建Block
+            //AView.CreateAsync<Block>("Block", "hot_res/prefabs/stages/gamestage.ab", this, _blocks, null, OnCreated);
+
         }
     }
 }

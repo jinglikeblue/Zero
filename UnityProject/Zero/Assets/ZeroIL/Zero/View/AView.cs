@@ -13,33 +13,19 @@ namespace ZeroIL.Zero
     public abstract class AView
     {
         /// <summary>
-        /// 创建AView对象
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="viewName"></param>
-        /// <param name="abName"></param>
-        /// <param name="parent"></param>
-        /// <returns></returns>
-        public static T Create<T>(string viewName, string abName, AView parent, object data = null) where T:AView
-        {
-            GameObject prefab = ResMgr.Ins.Load<GameObject>(abName, viewName);
-            AView view = Create<T>(prefab, parent, data);
-            return view as T;
-        }
-
-        /// <summary>
         /// 通过Prefab创建AView对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="viewName"></param>
-        /// <param name="abName"></param>
-        /// <param name="parent"></param>
+        /// <param name="prefab">Prefab对象</param>
+        /// <param name="parentView">作为父对象的AView</param>
+        /// <param name="parentTransform">父Transform容器</param>
+        /// <param name="data">携带的参数</param>
         /// <returns></returns>
-        public static T Create<T>(GameObject prefab, AView parent, object data = null) where T : AView
+        public static T Create<T>(GameObject prefab, AView parentView, Transform parentTransform, object data = null) where T : AView
         {
-            AView view = AViewMgr.CreateViewFromPrefab(prefab, parent.gameObject.transform, prefab.name, typeof(T));
-            parent.AddChild(view);            
-            if(data != null)
+            AView view = AViewMgr.CreateViewFromPrefab(prefab, parentTransform, prefab.name, typeof(T));
+            parentView.AddChild(view);
+            if (data != null)
             {
                 view.SetData(data);
             }
@@ -50,17 +36,20 @@ namespace ZeroIL.Zero
         /// 异步创建AView对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="viewName"></param>
-        /// <param name="abName"></param>
-        /// <param name="parent"></param>
-        /// <returns></returns>
-        public static void CreateAsync<T>(string viewName, string abName, AView parent, object data = null, Action<T> onCreated = null, Action<float> onProgress = null) where T : AView
+        /// <param name="viewName">Prefab名称</param>
+        /// <param name="abName">Prefab所在资源AB包</param>
+        /// <param name="parentView">作为父对象的AView</param>
+        /// <param name="parentTransform">父Transform容器</param>
+        /// <param name="data">携带的参数</param>
+        /// <param name="onCreated">创建完成时调用</param>
+        /// <param name="onProgress">创建进度</param>
+        public static void CreateAsync<T>(string viewName, string abName, AView parentView, Transform parentTransform, object data = null, Action<T> onCreated = null, Action<float> onProgress = null) where T : AView
         {
             ResMgr.Ins.LoadAsync(abName, viewName,
             (UnityEngine.Object asset) =>
             {
                 GameObject prefab = asset as GameObject;
-                T view = Create<T>(prefab, parent, data);
+                T view = Create<T>(prefab, parentView, parentTransform, data);
                 onCreated(view);
             },
             onProgress);
