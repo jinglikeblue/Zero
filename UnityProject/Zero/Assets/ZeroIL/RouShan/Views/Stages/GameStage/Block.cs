@@ -12,8 +12,7 @@ namespace ZeroIL.RouShan
     {
         protected override void OnInit()
         {            
-            Physics2DEventListener.Get(this.gameObject).onTriggerEnter2D += OnTrigger;
-            //Log.CI(Log.COLOR_BLUE, gameObject.transform.position.ToString());            
+            Physics2DEventListener.Get(this.gameObject).onTriggerEnter2D += OnTrigger;                      
         }        
 
         private void OnTrigger(Collider2D obj)

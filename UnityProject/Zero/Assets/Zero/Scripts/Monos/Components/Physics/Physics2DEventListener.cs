@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Zero
 {
     /// <summary>
-    /// 物理2D事件的捕获器
+    /// 2D物理碰撞事件的捕获器
     /// </summary>
     public class Physics2DEventListener : MonoBehaviour
     {
