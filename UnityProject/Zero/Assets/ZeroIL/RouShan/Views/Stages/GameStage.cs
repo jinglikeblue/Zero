@@ -13,15 +13,14 @@ namespace ZeroIL.RouShan
         protected override void OnInit()
         {
             _blocks = GetChild("Blocks");
-            _blockPrefab = (GameObject)GetBindingObject("blockPrefab")[0];
-            //_blockPrefab = (GameObject)gameObject.GetComponent<ObjectBindingData>().Find("blockPrefab").Value.list[0];
+            _blockPrefab = (GameObject)GetBindingObject("blockPrefab")[0];            
             _boss = CreateViewChlid<Boss>("Boss");
 
             UIPanelMgr.Ins.Switch<GamePanel>(this);
         }
 
         public void CreateBlock()
-        {
+        {            
             //以同步方式创建Block
             AView.Create<Block>(_blockPrefab, this, _blocks);
 

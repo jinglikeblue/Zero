@@ -56,6 +56,11 @@ namespace ZeroIL.Zero
         }
 
         /// <summary>
+        /// 关联的父级对象
+        /// </summary>
+        protected AView parent { get; private set; }
+
+        /// <summary>
         /// 销毁委托事件
         /// </summary>
         public Action<AView> onDestroyHandler;
@@ -334,12 +339,41 @@ namespace ZeroIL.Zero
         }
 
         /// <summary>
+        /// 从父对象移除
+        /// </summary>
+        void RemoveFromParent()
+        {
+            if (null != parent)
+            {
+                parent.RemoveChild(this);                
+            }
+        }
+
+        /// <summary>
         /// 添加子视图
         /// </summary>
         /// <param name="child"></param>
         private void AddChild(AView child)
+        {            
+            if(child.parent != this)
+            {
+                child.RemoveFromParent();
+                child.parent = this;
+                _childViewList.Add(child);
+            }
+        }
+
+        /// <summary>
+        /// 移除子视图
+        /// </summary>
+        /// <param name="child"></param>
+        public void RemoveChild(AView child)
         {
-            _childViewList.Add(child);
+            if (child.parent == this)
+            {
+                child.parent = null;
+                _childViewList.Remove(child);
+            }
         }
 
         /// <summary>
@@ -353,6 +387,7 @@ namespace ZeroIL.Zero
             }
 
             WhenDisable();
+            RemoveFromParent();
             AViewMgr.DestroyView(this);
             gameObject = null;
             WhenDestroy();
@@ -370,8 +405,7 @@ namespace ZeroIL.Zero
             foreach (var childView in _childViewList)
             {
                 childView.WhenEnable();
-            }
-            
+            }            
         }
 
         internal void WhenDisable()
