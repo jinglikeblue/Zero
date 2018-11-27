@@ -1,3 +1,5 @@
+![](icon.png)
+
 ### 目录
 - [Zero简介](#Zero简介)
 - [从Demo开始](#从Demo开始)
