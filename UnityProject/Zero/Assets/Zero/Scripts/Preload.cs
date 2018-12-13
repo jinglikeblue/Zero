@@ -51,7 +51,8 @@ namespace Zero
             Runtime.Ins.Init(runtimeCfg);
             Log.CI(Log.COLOR_BLUE,"游戏运行模式：[{0}]", Runtime.Ins.ResMode.ToString());            
             if (Runtime.Ins.IsInlineRelease)
-            {                
+            {
+                ResMgr.Ins.Init(ResMgr.EResMgrType.RESOURCES, Runtime.Ins.VO.mainPrefab.abName);
                 StartMainPrefab();
             }
             else
