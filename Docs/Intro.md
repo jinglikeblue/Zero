@@ -89,7 +89,7 @@ Zero框架的完整性依赖Asset/Zero/Libs中的代码库
 
 
 - Jing  
-Zero作者Jing的基于.NET CORE的代码库
+Zero作者Jing的基于.NET Standard的代码库
 
 
 - LitJson  
