@@ -43,8 +43,8 @@ namespace ZeroIL.RouShan
             _tipSpriteList = list;
             var stringData = gameObject.GetComponent<StringBindingData>();
             _tipStrList = stringData.Find("tips").Value.list;
-            _btnClose = GetChildComplent<Button>("BtnClose");
-            _textTip = GetChildComplent<Text>("TextTip");
+            _btnClose = GetChildComponent<Button>("BtnClose");
+            _textTip = GetChildComponent<Text>("TextTip");
             
             //gameObject.transform.localScale = Vector3.zero;
             //gameObject.transform.DOScale(1, 0.5f).SetEase(Ease.OutBounce);

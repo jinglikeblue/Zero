@@ -35,8 +35,8 @@ namespace ZeroIL.RouShan
 
         protected override void OnInit()
         {
-            _body = GetComplent<Rigidbody2D>();
-            _collider = GetComplent<EdgeCollider2D>();
+            _body = GetComponent<Rigidbody2D>();
+            _collider = GetComponent<EdgeCollider2D>();
 
             
         }

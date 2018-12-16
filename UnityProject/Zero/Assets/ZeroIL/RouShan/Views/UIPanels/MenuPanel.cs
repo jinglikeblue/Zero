@@ -27,7 +27,7 @@ namespace ZeroIL.RouShan
         protected override void OnInit()
         {
             btnTap = GetChild("BtnTap").gameObject;
-            btnHelp = GetChildComplent<Button>("BtnHelp");
+            btnHelp = GetChildComponent<Button>("BtnHelp");
         }
 
         public void OnClickGo(PointerEventData data)

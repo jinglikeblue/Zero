@@ -156,7 +156,7 @@ namespace ZeroIL.Zero
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T GetComplent<T>()
+        public T GetComponent<T>()
         {
             return gameObject.GetComponent<T>();
         }
@@ -167,7 +167,7 @@ namespace ZeroIL.Zero
         /// <typeparam name="T"></typeparam>
         /// <param name="childName"></param>
         /// <returns></returns>
-        public T GetChildComplent<T>(string childName)
+        public T GetChildComponent<T>(string childName)
         {
             var child = gameObject.transform.Find(childName);
             if (null == child)
@@ -212,7 +212,7 @@ namespace ZeroIL.Zero
         /// <returns></returns>
         public UnityEngine.Object[] GetBindingObject(string key)
         {
-            var com = GetComplent<ObjectBindingData>();
+            var com = GetComponent<ObjectBindingData>();
             if(null == com)
             {
                 return null;
@@ -233,7 +233,7 @@ namespace ZeroIL.Zero
         /// <returns></returns>
         public double[] GetBindingDouble(string key)
         {
-            var com = GetComplent<DoubleBindingData>();
+            var com = GetComponent<DoubleBindingData>();
             if (null == com)
             {
                 return null;
@@ -254,7 +254,7 @@ namespace ZeroIL.Zero
         /// <returns></returns>
         public float[] GetBindingFloat(string key)
         {
-            var com = GetComplent<FloatBindingData>();
+            var com = GetComponent<FloatBindingData>();
             if (null == com)
             {
                 return null;
@@ -275,7 +275,7 @@ namespace ZeroIL.Zero
         /// <returns></returns>
         public int[] GetBindingInt(string key)
         {
-            var com = GetComplent<IntBindingData>();
+            var com = GetComponent<IntBindingData>();
             if (null == com)
             {
                 return null;
@@ -295,7 +295,7 @@ namespace ZeroIL.Zero
         /// <returns></returns>
         public string[] GetBindingString(string key)
         {
-            var com = GetComplent<StringBindingData>();
+            var com = GetComponent<StringBindingData>();
             if (null == com)
             {
                 return null;
