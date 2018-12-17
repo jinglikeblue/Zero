@@ -62,7 +62,7 @@ namespace ZeroIL.RouShan
 
         public void Go()
         {            
-            UIPanelMgr.Ins.SwitchASync<MenuPanel>();
+            UIPanelMgr.Ins.Switch<MenuPanel>();                                   
         }
     }
 }

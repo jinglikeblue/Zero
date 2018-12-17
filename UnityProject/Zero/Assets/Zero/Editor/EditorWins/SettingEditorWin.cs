@@ -86,6 +86,12 @@ namespace Zero.Edit
             {
                 cfg.data.client.version = Application.version;
             }
+
+            GUILayout.Space(20);
+            EditorGUILayout.LabelField("更新方式：", GUILayout.Width(60));
+
+            cfg.data.client.type = EditorGUILayout.Popup(cfg.data.client.type, new string[] { "安装包更新", "网页更新" }, GUILayout.Width(150));
+
             EditorGUILayout.EndHorizontal();
 
             cfg.data.client.url = EditorGUILayout.TextField("客户端URl:", cfg.data.client.url);

@@ -45,13 +45,23 @@ namespace Zero
             
             if(result == -1)
             {
-                OnNeedUpdate();
+                switch(Runtime.Ins.setting.client.type)
+                {
+                    case 0:
+                        OnNeedUpdate();
+                        break;
+                    case 1:
+                        Application.OpenURL(Runtime.Ins.setting.client.url);
+                        break;
+                }                
             }
             else
             {
                 _onOver.Invoke(result == 1 ? true : false);
             }            
         }
+
+
 
         /// <summary>
         /// 检查版本编码，如果本地号大于网络，则返回1，等于返回0，小于返回-1
