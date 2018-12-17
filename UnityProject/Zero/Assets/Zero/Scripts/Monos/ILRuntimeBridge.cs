@@ -123,7 +123,7 @@ namespace Zero
             appdomain.DelegateManager.RegisterMethodDelegate<PointerEventData>();
             appdomain.DelegateManager.RegisterMethodDelegate<AxisEventData>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Object>();
-
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Collider2D>();
             #endregion
 
             appdomain.DelegateManager.RegisterMethodDelegate<System.Object, System.Net.DownloadProgressChangedEventArgs>();

@@ -173,6 +173,12 @@ namespace Zero.Edit
 
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField("Res目录: Assets/Resources/", GUILayout.Width(200));
+
+                if(null == cfg.selectedHotResDir)
+                {
+                    cfg.selectedHotResDir = "";
+                }
+
                 cfg.selectedHotResDir = EditorGUILayout.TextField("", cfg.selectedHotResDir);
 
                

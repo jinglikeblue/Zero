@@ -564,12 +564,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runtimeCfg:
-    resMode: 3
+    resMode: 2
     netRoot: http://wepieces.cn/unity/roushan/Res/
     developResRoot: ../Res/
     logEnable: 1
     ilCfg:
-      isOnlyDll: 0
+      isOnlyDll: 1
       fileDir: dll
       fileName: ZeroIL
       className: ZeroIL.RouShan.RouShanMain
