@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Zero
 {
+    /// <summary>
+    /// 客户端更新基类
+    /// </summary>
     public abstract class AClientUpdate
     {
         public static AClientUpdate CreateNowPlatformUpdate()
