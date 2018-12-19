@@ -21,35 +21,35 @@ namespace Zero
         /// <summary>
         /// 点击事件
         /// </summary>
-        public Action<PointerEventData> onClick;
+        public event Action<PointerEventData> onClick;
         /// <summary>
         /// 目标按下事件
         /// </summary>
-        public Action<PointerEventData> onPointerDown;
+        public event Action<PointerEventData> onPointerDown;
         /// <summary>
         /// 目标抬起事件
         /// </summary>
-        public Action<PointerEventData> onPointerUp;
+        public event Action<PointerEventData> onPointerUp;
         /// <summary>
         /// 目标进入事件
         /// </summary>
-        public Action<PointerEventData> onPointerEnter;
+        public event Action<PointerEventData> onPointerEnter;
         /// <summary>
         /// 目标退出事件
         /// </summary>
-        public Action<PointerEventData> onPointerExit;
+        public event Action<PointerEventData> onPointerExit;
         /// <summary>
         /// 开始拖动事件
         /// </summary>
-        public Action<PointerEventData> onBeginDrag;
+        public event Action<PointerEventData> onBeginDrag;
         /// <summary>
         /// 移动事件
         /// </summary>
-        public Action<AxisEventData> onMove;
+        public event Action<AxisEventData> onMove;
         /// <summary>
         /// 结束拖动事件
         /// </summary>
-        public Action<PointerEventData> onEndDrag;
+        public event Action<PointerEventData> onEndDrag;
 
         /// <summary>
         /// 获取GameObject的UI事件组件，没有则会自动添加

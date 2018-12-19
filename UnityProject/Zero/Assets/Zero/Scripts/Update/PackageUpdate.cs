@@ -39,7 +39,7 @@ namespace Zero
                 {
                     onProgress(www.progress * 0.5f);
                     yield return new WaitForEndOfFrame();
-                }
+                }                
 
                 //Package.zip不存在
                 if (null != www.error)

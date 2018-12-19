@@ -7,11 +7,11 @@ namespace Zero
     /// <summary>
     /// 按钮弹起的事件
     /// </summary>
-    public class PointerUpEvent : MonoBehaviour,IPointerUpHandler
+    public class PointerExitEvent : MonoBehaviour,IPointerExitHandler
     {
-        public Action<PointerEventData> onEvent;
+        public event Action<PointerEventData> onEvent;
 
-        public void OnPointerUp(PointerEventData eventData)
+        public void OnPointerExit(PointerEventData eventData)
         {
             if (null == onEvent)
             {
@@ -20,9 +20,9 @@ namespace Zero
             onEvent.Invoke(eventData);
         }
 
-        public static PointerUpEvent Get(GameObject gameObject)
+        public static PointerExitEvent Get(GameObject gameObject)
         {
-            return ComponentUtil.AutoGet<PointerUpEvent>(gameObject);
+            return ComponentUtil.AutoGet<PointerExitEvent>(gameObject);
         }
     }
 }

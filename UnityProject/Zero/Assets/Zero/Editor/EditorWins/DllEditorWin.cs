@@ -39,9 +39,9 @@ namespace Zero.Edit
         public static void Open()
         {
             var win = EditorWindow.GetWindow<DllEditorWin>();
-            win.titleContent = new GUIContent("Dll Manager(DllEditorWin)");            
-            win.minSize = new Vector2(1000, 300);
-            win.maxSize = new Vector2(1400, 300);
+            win.titleContent = new GUIContent("Dll Manager");            
+            win.minSize = new Vector2(600, 300);
+            win.maxSize = new Vector2(600, 300);
             win.Show();
         }
 
@@ -77,6 +77,22 @@ namespace Zero.Edit
                     Copy2DllProj();
                 }
             }
+
+            //if (GUILayout.Button("开发目录 -> 项目目录"))
+            //{
+            //    if(EditorUtility.DisplayDialog("警告！", "是否确认执行(请确认已SVN备份，移动时会删除目标目录)", "Yes","No"))
+            //    {
+            //        Develop2Publish();
+            //    }
+            //}
+
+            //if (GUILayout.Button("项目目录 -> 开发目录"))
+            //{
+            //    if (EditorUtility.DisplayDialog("警告！", "是否确认执行(请确认已SVN备份，移动时会删除目标目录)", "Yes", "No"))
+            //    {
+            //        Publish2Develop();
+            //    }
+            //}
 
             EditorGUILayout.EndHorizontal();
 

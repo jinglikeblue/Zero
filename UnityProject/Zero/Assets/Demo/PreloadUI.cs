@@ -16,9 +16,9 @@ namespace Demo
                 textProgress.text = string.Format("{0}%", (int)(progress * 100f));
             };
 
-            preload.onStateChange += (string state) =>
+            preload.onStateChange += (state) =>
             {
-                textState.text = state;
+                textState.text = state.ToString();
             };
 
         }

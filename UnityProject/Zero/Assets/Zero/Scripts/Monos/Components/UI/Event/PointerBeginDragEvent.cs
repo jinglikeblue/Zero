@@ -9,7 +9,7 @@ namespace Zero
     /// </summary>
     public class PointerBeginDragEvent : MonoBehaviour,IBeginDragHandler
     {
-        public Action<PointerEventData> onEvent;
+        public event Action<PointerEventData> onEvent;
 
         public void OnBeginDrag(PointerEventData eventData)
         {

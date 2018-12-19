@@ -7,11 +7,11 @@ namespace Zero
     /// <summary>
     /// 按钮弹起的事件
     /// </summary>
-    public class PointerClickEvent : MonoBehaviour,IPointerClickHandler
+    public class PointerMoveEvent : MonoBehaviour,IMoveHandler
     {
-        public Action<PointerEventData> onEvent;
+        public event Action<AxisEventData> onEvent;
 
-        public void OnPointerClick(PointerEventData eventData)
+        public void OnMove(AxisEventData eventData)
         {
             if (null == onEvent)
             {
@@ -20,9 +20,9 @@ namespace Zero
             onEvent.Invoke(eventData);
         }
 
-        public static PointerClickEvent Get(GameObject gameObject)
+        public static PointerMoveEvent Get(GameObject gameObject)
         {
-            return ComponentUtil.AutoGet<PointerClickEvent>(gameObject);
+            return ComponentUtil.AutoGet<PointerMoveEvent>(gameObject);
         }
     }
 }

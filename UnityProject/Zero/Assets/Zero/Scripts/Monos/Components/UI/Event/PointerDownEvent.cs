@@ -9,7 +9,7 @@ namespace Zero
     /// </summary>
     public class PointerDownEvent : MonoBehaviour,IPointerDownHandler
     {
-        public Action<PointerEventData> onEvent;
+        public event Action<PointerEventData> onEvent;
 
         public void OnPointerDown(PointerEventData eventData)
         {

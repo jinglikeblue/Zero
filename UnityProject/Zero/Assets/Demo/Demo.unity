@@ -569,7 +569,7 @@ MonoBehaviour:
     developResRoot: ../Res/
     logEnable: 1
     ilCfg:
-      isOnlyDll: 1
+      isOnlyDll: 0
       fileDir: dll
       fileName: ZeroIL
       className: ZeroIL.RouShan.RouShanMain

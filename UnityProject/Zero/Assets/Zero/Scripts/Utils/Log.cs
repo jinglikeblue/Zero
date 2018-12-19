@@ -10,17 +10,32 @@ namespace Zero
         /// <summary>
         /// 红色
         /// </summary>
-        public const string COLOR_RED = "FF0000";
+        public const string COLOR_RED = "A83131";
+
+        /// <summary>
+        /// 橙色 
+        /// </summary>
+        public const string COLOR_ORANGE = "DE4D08";
+
+        /// <summary>
+        /// 黄色
+        /// </summary>
+        public const string COLOR_YELLOW = "D5CB6C";
 
         /// <summary>
         /// 绿色
         /// </summary>
-        public const string COLOR_GREEN = "00FF00";
+        public const string COLOR_GREEN = "33B1B0";
 
         /// <summary>
         /// 蓝色 
         /// </summary>
-        public const string COLOR_BLUE = "0000FF";
+        public const string COLOR_BLUE = "2762BD";
+
+        /// <summary>
+        /// 紫色
+        /// </summary>
+        public const string COLOR_PURPLE = "865FC5";
 
         /// <summary>
         /// 日志是否激活

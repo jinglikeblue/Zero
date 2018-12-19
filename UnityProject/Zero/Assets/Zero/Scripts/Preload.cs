@@ -10,7 +10,7 @@ namespace Zero
     /// </summary>
     public class Preload : MonoBehaviour
     {
-        private enum EState
+        public enum EState
         {
             /// <summary>
             /// 解压StreamingAssets/Package.zip
@@ -40,11 +40,11 @@ namespace Zero
         /// <summary>
         /// 状态改变的委托
         /// </summary>
-        public Action<string> onStateChange;
+        public Action<EState> onStateChange;
         /// <summary>
         /// 状态对应进度的委托
         /// </summary>
-        public Action<float> onProgress;
+        public Action<float> onProgress;        
 
         void Start()
         {            
@@ -115,7 +115,7 @@ namespace Zero
 
         void OnProgress(float progress)
         {
-            Log.W("Progress: {1}", progress);
+            Log.W("Progress: {0}", progress);
             if (null != onProgress)
             {
                 onProgress.Invoke(progress);
@@ -124,11 +124,11 @@ namespace Zero
 
         void OnStageChange(EState state)
         {
-            Log.W("Stage: {0}", state);
+            Log.W("Stage: {0}", state);   
             if(null != onStateChange)
             {
-                onStateChange.Invoke(state.ToString());
-            }
+                onStateChange.Invoke(state);
+            }                     
         }
     }
 }
