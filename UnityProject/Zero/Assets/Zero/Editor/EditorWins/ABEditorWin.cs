@@ -163,7 +163,10 @@ namespace Zero.Edit
             EditorGUILayout.BeginHorizontal();
             GUILayout.Space(50);
             cfg.isBestResourcesDir = EditorGUILayout.Toggle(cfg.isBestResourcesDir, GUILayout.Width(20));
-            EditorGUILayout.LabelField("(推荐)使用最好的资源目录模式，兼容Resources读取以及AssetBundle读取的目录结构：");            
+            EditorGUILayout.BeginVertical();
+            EditorGUILayout.LabelField("(推荐)使用最好的资源目录模式，兼容Resources读取以及AssetBundle读取的目录结构。");
+            EditorGUILayout.LabelField("注意：该模式下扫描的目录锁定为「Assets/Resources」目录（才能同时兼容INLINE以及NET两种运行模式）");
+            EditorGUILayout.EndVertical();
             EditorGUILayout.EndHorizontal();
 
             if (cfg.isBestResourcesDir)
@@ -172,7 +175,7 @@ namespace Zero.Edit
                 EditorGUILayout.LabelField("Resources目录下作为热更资源的目录（在发布项目时请记得「排除」，发布后请记得「恢复」）");
 
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Res目录: Assets/Resources/", GUILayout.Width(200));
+                EditorGUILayout.LabelField("Build项目时需要排除的Res目录: Assets/Resources/", GUILayout.Width(300));
 
                 if(null == cfg.selectedHotResDir)
                 {
