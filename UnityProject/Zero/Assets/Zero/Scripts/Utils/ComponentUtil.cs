@@ -13,8 +13,13 @@ namespace Zero
         /// <typeparam name="T"></typeparam>
         /// <param name="gameObject"></param>
         /// <returns></returns>
-        public static T AutoGet<T>(GameObject gameObject) where T : MonoBehaviour
+        public static T AutoGet<T>(GameObject gameObject) where T : Component
         {
+            if(null == gameObject)
+            {
+                return null;
+            }
+
             T component = gameObject.GetComponent<T>();
             if (null == component)
             {

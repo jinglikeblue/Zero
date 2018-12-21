@@ -564,7 +564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runtimeCfg:
-    resMode: 2
+    resMode: 0
     netRoot: http://wepieces.cn/unity/roushan/Res/
     developResRoot: ../Res/
     logEnable: 1

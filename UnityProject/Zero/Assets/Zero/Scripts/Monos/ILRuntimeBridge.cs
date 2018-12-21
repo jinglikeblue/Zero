@@ -1,10 +1,14 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Zero
 {
+    /// <summary>
+    /// IL代码执行桥接器。如果可以通过反射获取动态代码，则通过反射执行。否则采用ILRuntime框架执行。
+    /// </summary>
     public class ILRuntimeBridge : MonoBehaviour
     {
         const string BRIDGE_NAME = "ILRuntimeBridge";
@@ -41,17 +45,29 @@ namespace Zero
         /// <summary>
         /// Update事件委托
         /// </summary>
-        public System.Action onUpdate;
+        public event System.Action onUpdate;
 
         /// <summary>
         /// OnGUI事件委托
         /// </summary>
-        public System.Action onGUI;
+        public event System.Action onGUI;
 
         /// <summary>
         /// OnFixedUpdate事件委托
         /// </summary>
-        public System.Action onFixedUpdate;
+        public event System.Action onFixedUpdate;
+
+        /// <summary>
+        /// 客户端焦点事件
+        /// </summary>
+        public event System.Action<bool> onApplicationFocus;
+
+        /// <summary>
+        /// 客户端暂停事件
+        /// </summary>
+        public event System.Action<bool> onApplicationPause;
+
+        Assembly _dllAsembly = null;
 
         /// <summary>
         /// 启动ILRuntime
@@ -61,9 +77,33 @@ namespace Zero
         /// <param name="clsName">ILRuntime的启动类</param>
         /// <param name="methodName">ILRuntime的启动方法</param>
         public void Startup(string libDir, string libName, bool isDebug, bool isNeedPdbFile)
-        {
+        {           
             this.libDir = libDir;
-            this.libName = libName;     
+            this.libName = libName;
+
+            string dllPath = Path.Combine(libDir, libName + ".dll");
+
+            byte[] dllBytes = File.ReadAllBytes(dllPath);
+
+#if !UNITY_EDITOR //开发时，优先保证代码在ILRuntime下能够正常运行
+            try
+            {
+                //反射执行
+                _dllAsembly = Assembly.Load(dllBytes);
+            }
+            catch (Exception e)
+            {
+                _dllAsembly = null;
+            }
+#endif
+
+            if (null != _dllAsembly)
+            {
+                //反射读取dll成功
+                Log.CI(Log.COLOR_ORANGE, "外部程序集执行方式：[Assembly]");
+                return;
+            }
+            Log.CI(Log.COLOR_ORANGE, "外部程序集执行方式：[ILRuntime]");
 
             //首先实例化ILRuntime的AppDomain，AppDomain是一个应用程序域，每个AppDomain都是一个独立的沙盒
             _appdomain = new ILRuntime.Runtime.Enviorment.AppDomain();
@@ -72,10 +112,7 @@ namespace Zero
             {
                 //启动调试监听
                 _appdomain.DebugService.StartDebugService(56000);
-            }
-
-            string dllPath = Path.Combine(libDir, libName + ".dll");
-            byte[] dllBytes = File.ReadAllBytes(dllPath);
+            }                      
 
             if (isNeedPdbFile)
             {
@@ -118,12 +155,13 @@ namespace Zero
 
             //这里做一些ILRuntime的注册
 
-            #region Action泛型转换
+#region Action泛型转换
             appdomain.DelegateManager.RegisterMethodDelegate<float>();
             appdomain.DelegateManager.RegisterMethodDelegate<PointerEventData>();
             appdomain.DelegateManager.RegisterMethodDelegate<AxisEventData>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Object>();
-            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Collider2D>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Collider2D>();            appdomain.DelegateManager.RegisterMethodDelegate<System.Int32>();                        appdomain.DelegateManager.RegisterMethodDelegate<System.String, System.String>();            appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance>();            appdomain.DelegateManager.RegisterMethodDelegate<System.Boolean>();
+
             #endregion
 
             appdomain.DelegateManager.RegisterMethodDelegate<System.Object, System.Net.DownloadProgressChangedEventArgs>();
@@ -163,6 +201,15 @@ namespace Zero
 
         public void Invoke(string clsName, string methodName)
         {
+            if (null != _dllAsembly)
+            {
+                //反射执行                
+                Type type = _dllAsembly.GetType(clsName);
+                MethodInfo method = type.GetMethod(methodName, BindingFlags.Static | BindingFlags.Public);
+                method.Invoke(null, null);
+                return;
+            }
+
             _appdomain.Invoke(clsName, methodName, null, null);            
         }
 
@@ -193,6 +240,22 @@ namespace Zero
             {
                 onFixedUpdate.Invoke();
             }
+        }
+
+        private void OnApplicationFocus(bool focus)
+        {
+            if(null != onApplicationFocus)
+            {
+                onApplicationFocus.Invoke(focus);
+            }            
+        }
+
+        private void OnApplicationPause(bool pause)
+        {
+            if(null != onApplicationPause)
+            {
+                onApplicationPause.Invoke(pause);
+            }            
         }
     }
 }

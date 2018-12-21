@@ -31,6 +31,11 @@ namespace Zero.Edit
             /// 项目csproj路径
             /// </summary>
             public string ilProjPath;
+
+            /// <summary>
+            /// 是否在发布DLL的时候自动拷贝代码
+            /// </summary>
+            public bool isAudoCopy;
         }
 
         /// <summary>
@@ -40,7 +45,7 @@ namespace Zero.Edit
         {
             var win = EditorWindow.GetWindow<DllEditorWin>();
             win.titleContent = new GUIContent("Dll Manager");            
-            win.minSize = new Vector2(600, 300);
+            win.minSize = new Vector2(1000, 300);
             win.maxSize = new Vector2(600, 300);
             win.Show();
         }
@@ -70,6 +75,16 @@ namespace Zero.Edit
 
             EditorGUILayout.BeginHorizontal();
 
+            GUILayout.Label("是否在发布DLL的时候自动拷贝代码", GUILayout.Width(200));
+
+            cfg.isAudoCopy = EditorGUILayout.Toggle(cfg.isAudoCopy);
+
+            EditorGUILayout.EndHorizontal();
+
+            
+
+            EditorGUILayout.BeginHorizontal();
+
             if (GUILayout.Button("开发目录 ->(Copy) 项目目录"))
             {
                 if (EditorUtility.DisplayDialog("警告！", "是否确认执行(目标目录将被覆盖)", "Yes", "No"))
@@ -77,6 +92,8 @@ namespace Zero.Edit
                     Copy2DllProj();
                 }
             }
+
+            
 
             //if (GUILayout.Button("开发目录 -> 项目目录"))
             //{
@@ -107,7 +124,7 @@ namespace Zero.Edit
                 OpenCsproj();
             }
             if (GUILayout.Button("发布DLL"))
-            {
+            {                
                 ReleaseDLL();
             }
             GUILayout.EndHorizontal();
@@ -189,7 +206,12 @@ namespace Zero.Edit
         }
 
         private void ReleaseDLL()
-        {           
+        {
+            if (cfg.isAudoCopy)
+            {
+                Copy2DllProj();
+            }
+
             Process p = new Process();
             p.StartInfo.FileName = cfg.devenvPath;// @"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv";  //确定程序名
             p.StartInfo.Arguments = string.Format("\"{0}\" /Rebuild \"Release|AnyCPU\"", cfg.ilProjPath);// @"""E:\projects\unity\Zero\UnityProject\ZeroIL\ZeroIL\ZeroIL.csproj"" /build";  //指定程式命令行
