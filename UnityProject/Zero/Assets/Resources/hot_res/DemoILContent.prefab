@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4996827088960614}
   - component: {fileID: 114071111304985740}
   m_Layer: 0
-  m_Name: RoushanILContent
+  m_Name: DemoILContent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
