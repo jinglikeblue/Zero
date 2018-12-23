@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ZeroIL.Zero
+namespace IL.Zero
 {
     /// <summary>
     /// 窗口管理器

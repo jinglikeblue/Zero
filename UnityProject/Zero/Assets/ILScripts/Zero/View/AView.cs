@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 using Zero;
 
-namespace ZeroIL.Zero
+namespace IL.Zero
 {
     /// <summary>
     /// 视图对象

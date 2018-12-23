@@ -1,21 +1,21 @@
-﻿using System;
+﻿using IL.Zero;
+using System;
 using UnityEngine;
 using Zero;
-using ZeroIL.Zero;
 
-namespace ZeroIL.RouShan
+namespace IL.Demo
 {
-    class RouShanMain
+    class DemoMain
     {
         /// <summary>
         /// 入口方法
         /// </summary>
         public static void Main()
         {
-            new RouShanMain();
+            new DemoMain();
         }
 
-        public RouShanMain()
+        public DemoMain()
         {
             Init();
             RegistStages();

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ZeroIL.Zero
+namespace IL.Zero
 {
     /// <summary>
     /// UI面板管理器

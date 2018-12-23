@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zero;
 
-namespace ZeroIL.Zero
+namespace IL.Zero
 {
     public abstract class AViewMgr
     {        

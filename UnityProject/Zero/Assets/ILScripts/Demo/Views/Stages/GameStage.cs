@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using Zero;
-using ZeroIL.Zero;
+using IL.Zero;
 
-namespace ZeroIL.RouShan
+namespace IL.Demo
 {
     class GameStage : AView
     {

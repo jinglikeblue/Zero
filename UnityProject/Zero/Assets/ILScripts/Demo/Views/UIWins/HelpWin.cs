@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Zero;
-using ZeroIL.Zero;
+using IL.Zero;
 
-namespace ZeroIL.RouShan
+namespace IL.Demo
 {
     class HelpWin : AView
     {

@@ -1,7 +1,7 @@
 ﻿using Zero;
 using System;
 
-namespace ZeroIL.Zero
+namespace IL.Zero
 {
     /// <summary>
     /// 舞台管理器

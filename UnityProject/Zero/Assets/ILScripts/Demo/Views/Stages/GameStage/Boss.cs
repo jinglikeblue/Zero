@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Zero;
-using ZeroIL.Zero;
+using IL.Zero;
 
-namespace ZeroIL.RouShan
+namespace IL.Demo
 {
     public class Boss : AView
     {
