@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Zero
 {
@@ -55,6 +56,15 @@ namespace Zero
             Debug.Log(message);
         }
 
+        public static void I(string message)
+        {
+            if (!isActive)
+            {
+                return;
+            }
+            Debug.Log(message);
+        }
+
         /// <summary>
         /// 打印信息
         /// </summary>
@@ -72,7 +82,7 @@ namespace Zero
         /// </summary>
         /// <param name="color"></param>
         /// <param name="message"></param>
-        public static void CI(string color, string message)
+        public static void CI(string color, object message)
         {
             if(null == message)
             {
@@ -148,6 +158,23 @@ namespace Zero
             Debug.LogErrorFormat(format, args);
         }
 
+        public static void CMsg(string color, object content)
+        {
+            var message = string.Format("<color=#{0}>{1}</color>", color, content);
+            Msg(message);
+        }
+
+        public static void CMsg(string color, string format, params object[] args)
+        {
+            var message = string.Format("<color=#{0}>{1}</color>", color, string.Format(format, args));
+            Msg(message);
+        }
+
+        public static void Msg(string format, params object[] args)
+        {
+            Msg(string.Format(format, args));
+        }
+
         /// <summary>
         /// 在一个UI面板中显示一条日志消息
         /// </summary>
@@ -159,16 +186,8 @@ namespace Zero
                 return;
             }
 
-            const string NAME = "LogMsg";
-            GameObject logMsg = GameObject.Find(NAME);
-            if (null == logMsg)
-            {
-                GameObject prefab = Resources.Load<GameObject>("zero/LogMsg");
-                logMsg = GameObject.Instantiate(prefab);
-                logMsg.name = NAME;
-            }
-
-            logMsg.GetComponent<LogMsg>().SetContent(content);
+            content = string.Format("[{0}] {1}", DateTime.Now.ToString("HH:mm:ss.fff"), content);
+            GUILog.Show(content);
         }
     }
 }

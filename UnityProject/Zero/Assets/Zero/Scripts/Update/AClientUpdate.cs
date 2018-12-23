@@ -45,8 +45,10 @@ namespace Zero
             _onOver = onOver;
             _onProgress = onProgress;
             int result = CheckVersionCode(Application.version, Runtime.Ins.setting.client.version);
-            
-            if(result == -1)
+
+            Log.CI(Log.COLOR_BLUE, "客户端版本号 本地: {0}   网络: {1}", Application.version, Runtime.Ins.setting.client.version);
+
+            if (result == -1)
             {
                 switch(Runtime.Ins.setting.client.type)
                 {

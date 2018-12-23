@@ -26,7 +26,7 @@ namespace ZeroIL.RouShan
 
         void Init()
         {
-            Application.targetFrameRate = 60;
+            //Application.targetFrameRate = 60;
             var ILContent = GameObject.Find(Runtime.Ins.VO.mainPrefab.assetName);
             var stageRoot = ILContent.transform.Find("Stage");
             var uiPanelRoot = ILContent.transform.Find("UICanvas/UIPanel");
@@ -61,7 +61,9 @@ namespace ZeroIL.RouShan
         }
 
         public void Go()
-        {            
+        {
+            Log.Msg("This demo is code by Jing");
+            GUIDeviceInfo.Show();
             UIPanelMgr.Ins.Switch<MenuPanel>();                                   
         }
     }

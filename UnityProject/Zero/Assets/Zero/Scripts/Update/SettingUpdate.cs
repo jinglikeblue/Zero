@@ -23,7 +23,9 @@ namespace Zero
             
             if (Runtime.Ins.IsLoadFromNet)
             {
-                CoroutineBridge.Ins.Run(Update(Runtime.Ins.netResDir + "setting.json"));
+                var netPath = Runtime.Ins.netResDir + "setting.json";
+                Log.CI(Log.COLOR_BLUE, "配置文件: {0}", netPath);
+                CoroutineBridge.Ins.Run(Update(netPath));
             }
             else
             {                

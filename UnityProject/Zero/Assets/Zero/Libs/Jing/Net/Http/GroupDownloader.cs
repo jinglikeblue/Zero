@@ -113,7 +113,7 @@ namespace Jing
 
                 if (loader.error != null)
                 {
-                    _error = loader.error;
+                    _error = string.Format("[{0}] {1}", info.url, loader.error);
                     break;
                 }
 

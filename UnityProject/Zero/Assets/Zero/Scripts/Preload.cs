@@ -40,11 +40,11 @@ namespace Zero
         /// <summary>
         /// 状态改变的委托
         /// </summary>
-        public Action<EState> onStateChange;
+        public event Action<EState> onStateChange;
         /// <summary>
         /// 状态对应进度的委托
         /// </summary>
-        public Action<float> onProgress;        
+        public event Action<float> onProgress;
 
         void Start()
         {            

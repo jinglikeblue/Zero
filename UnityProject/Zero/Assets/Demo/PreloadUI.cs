@@ -19,8 +19,7 @@ namespace Demo
             preload.onStateChange += (state) =>
             {
                 textState.text = state.ToString();
-            };
-
+            };      
         }
 
 

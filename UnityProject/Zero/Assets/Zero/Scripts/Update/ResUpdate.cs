@@ -7,10 +7,26 @@ using UnityEngine;
 namespace Zero
 {
     /// <summary>
-    /// 资源更新
+    /// 资源更新（只需要指定需要下载的资源，依赖的资源会自动添加到下载队列）
     /// </summary>
     public class ResUpdate
     {
+        /// <summary>
+        /// 是否需要更新资源的版本文件至最新版本（默认为true）
+        /// </summary>
+        public bool needUpdateResVerFile = true;
+
+        /// <summary>
+        /// 是否需要更新资源的Manifest文件至最新版本（默认为true）
+        /// </summary>
+        public bool needUpdateManifestFile = true;
+
+        public ResUpdate(bool needUpdateResVerFile = true, bool needUpdateManifestFile = true)
+        {
+            this.needUpdateResVerFile = needUpdateResVerFile;
+            this.needUpdateManifestFile = needUpdateManifestFile;
+        }
+
         Action _onComplete;
         Action<float> _onProgress;
         string[] _groups;
@@ -26,90 +42,29 @@ namespace Zero
             _onProgress = onProgress;
             _groups = groups;
 
-            StartLoadResVerFile();
+            StartResUpdateCheck();
         }
 
-        void StartLoadResVerFile()
+        void StartResUpdateCheck()
         {
-            new ResVerFileUpdate().Start(StartUpdateManifest);
+            new ResUpdateChecker(needUpdateResVerFile, needUpdateManifestFile).Start(_groups, OnResUpdateChecked);
         }
 
-        void StartUpdateManifest()
+        private void OnResUpdateChecked(string[] needUpdateResList)
         {
-            new ManifestFileUpdate().Start(StartLoadRes);
+            CoroutineBridge.Ins.StartCoroutine(UpdateGroups(needUpdateResList));
         }
 
-        void StartLoadRes()
-        {
-            Log.CI(Log.COLOR_BLUE, "「ResUpdate」资源文件更新...");
-            if (false == Runtime.Ins.IsLoadFromNet)
-            {
-                _onComplete();
-                return;
-            }
-
-            //整理出所有需要资源的清单（包括依赖的）
-            HashSet<string> itemSet = new HashSet<string>();
-            for(int i = 0; i < _groups.Length; i++)
-            {
-                string group = _groups[i];
-                var itemList = GetItemsInGroup(group);
-                foreach(var itemName in itemList)
-                {
-                    itemSet.Add(itemName);
-                }
-            }            
-
-            CoroutineBridge.Ins.StartCoroutine(UpdateGroups(itemSet));
-        }
-
-        List<string> GetItemsInGroup(string group)
-        {
-            List<string> nameList = new List<string>();
-            var itemList = Runtime.Ins.netResVer.FindGroup(group);
-            foreach (var item in itemList)
-            {
-                nameList.Add(item.name);                
-                nameList.AddRange(GetAllDepends(item.name));
-            }
-            return nameList;
-        }
-
-        List<string> GetAllDepends(string itemName)
-        {
-            List<string> nameList = new List<string>();
-            string abDir = ResMgr.Ins.RootDir.Replace(Runtime.Ins.localResDir,"");
-            abDir += "/";
-            if (false == itemName.StartsWith(abDir))
-            {
-                return nameList;
-            }
-
-            
-            string abName = itemName.Replace(abDir, "");
-            var abDependList = ResMgr.Ins.GetDepends(abName);
-            foreach(var ab in abDependList)
-            {
-                nameList.Add(FileSystem.CombinePaths(abDir, ab));
-            }
-
-            return nameList;
-        }
-
-        IEnumerator UpdateGroups(HashSet<string> itemSet)
+        IEnumerator UpdateGroups(string[] needUpdateResList)
         {
             //实例化一个资源组下载器
             GroupDownloader groupLoader = new GroupDownloader();
-            foreach (var itemName in itemSet)
+            foreach (var resName in needUpdateResList)
             {
-                string localVer = Runtime.Ins.localResVer.GetVer(itemName);
-                var netItem = Runtime.Ins.netResVer.Get(itemName);
+                var netItem = Runtime.Ins.netResVer.Get(resName);
 
-                if (localVer != netItem.version)
-                {
-                    //将要下载的文件依次添加入下载器
-                    groupLoader.AddLoad(Runtime.Ins.netResDir + itemName, Runtime.Ins.localResDir + itemName, netItem.version, OnItemLoaded, netItem);
-                }
+                //将要下载的文件依次添加入下载器
+                groupLoader.AddLoad(Runtime.Ins.netResDir + resName, Runtime.Ins.localResDir + resName, netItem.version, OnItemLoaded, netItem);
             }
             //启动下载器开始下载
             groupLoader.StartLoad();
@@ -133,8 +88,9 @@ namespace Zero
         }
 
         private void OnItemLoaded(object obj)
-        {
+        {            
             var item = (ResVerVO.Item)obj;
+            Log.CI(Log.COLOR_BLUE, "下载完成：{0} Ver:{1}", item.name, item.version);
             Runtime.Ins.localResVer.SetVerAndSave(item.name, item.version);
         }
     }

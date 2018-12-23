@@ -35,15 +35,16 @@ namespace Zero
 
 
             //启动APK安装程序(调用Android原生代码）
-            AndroidJavaObject ajo = new AndroidJavaObject("com.jing.zero.ZeroLib");
-            bool success = ajo.Call<bool>("installAPK", savePath);
+            AndroidJavaObject ajo = new AndroidJavaObject("com.jing.gamelibs.GameLib");            
+            bool success = ajo.Call<bool>("install", savePath);
             if (success)
             {
                 //开始安装
             }
             else
             {
-                Log.E("无法安装");
+                Log.E("无法安装，打开网页");
+                Application.OpenURL(Runtime.Ins.setting.client.url);
             }
             yield break;
         }

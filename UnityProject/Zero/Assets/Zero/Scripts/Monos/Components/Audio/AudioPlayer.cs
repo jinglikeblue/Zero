@@ -25,7 +25,16 @@ namespace Zero
                     _ins = go.GetComponent<AudioPlayer>();
                 }
                 return _ins;
-            }            
+            }
+
+            private set
+            {
+                if (null == _ins)
+                {
+                    _ins = value;
+                    DontDestroyOnLoad(_ins.gameObject);
+                }
+            }
         }
 
 
@@ -76,6 +85,7 @@ namespace Zero
 
         private void Awake()
         {
+            Ins = this;
             _bgmTrack = gameObject.AddComponent<AudioSource>();
             _bgmTrack.loop = true;
             _bgmTrack.playOnAwake = false;

@@ -8,6 +8,17 @@ namespace Jing
     public class FileSystem
     {
         /// <summary>
+        /// 标准化路径中的路径分隔符（同一使用“/”符号）
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string StandardizeSeparator(string path)
+        {
+            path = path.Replace("\\", "/");
+            return path;
+        }
+
+        /// <summary>
         /// 删除目录下使用指定扩展名的文件
         /// </summary>
         /// <param name="dirPath">目录地址</param>
