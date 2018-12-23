@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine.EventSystems;
-using Zero;
+﻿using Zero;
 
 namespace Demo
 {

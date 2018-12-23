@@ -21,6 +21,11 @@ namespace Zero
             get { return _ins; }
         }
 
+        private ResMgr()
+        {
+
+        }
+
         AResMgr _mgr;
 
         /// <summary>

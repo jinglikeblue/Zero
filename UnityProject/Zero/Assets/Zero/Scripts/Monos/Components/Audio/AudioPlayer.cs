@@ -2,42 +2,8 @@
 
 namespace Zero
 {
-    public class AudioPlayer : MonoBehaviour
+    public class AudioPlayer : SingletonMonoBehaviour<AudioPlayer>
     {
-        public static AudioPlayer _ins;
-
-        public static AudioPlayer Ins
-        {
-            get
-            {
-                if(_ins == null)
-                {
-                    const string NAME = "AudioPlayer";
-                    GameObject go = GameObject.Find(NAME);
-                    if(null == go)
-                    {
-                        go = new GameObject();
-                        go.name = NAME;
-                        go.AddComponent<AudioPlayer>();
-                    }
-
-                    DontDestroyOnLoad(go);
-                    _ins = go.GetComponent<AudioPlayer>();
-                }
-                return _ins;
-            }
-
-            private set
-            {
-                if (null == _ins)
-                {
-                    _ins = value;
-                    DontDestroyOnLoad(_ins.gameObject);
-                }
-            }
-        }
-
-
         [Header("音效轨道数量")]
         [Range(1,32)]
         public int effectTrackCount = 1;

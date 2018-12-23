@@ -23,6 +23,8 @@ namespace Demo
 
             //从这里启动Ppreload
             GetComponent<Preload>().StartPreload(new DemoILRuntimeGenerics());
+
+            TestIns.Ins.Test();
         }
     }
 }

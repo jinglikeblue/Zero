@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Zero;
 using ZeroIL.Zero;
 
 namespace ZeroIL.RouShan
@@ -20,7 +21,9 @@ namespace ZeroIL.RouShan
         }
 
         public void CreateBlock()
-        {            
+        {
+            var ac = ResMgr.Ins.Load<AudioClip>("hot_res/audios.ab", "click");
+            AudioPlayer.Ins.PlayEffect(ac);
             //以同步方式创建Block
             AView.Create<Block>(_blockPrefab, this, _blocks);
 

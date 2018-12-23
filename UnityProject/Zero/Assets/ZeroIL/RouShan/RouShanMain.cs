@@ -62,7 +62,7 @@ namespace ZeroIL.RouShan
 
         public void Go()
         {
-            Log.Msg("This demo is code by Jing");
+            Log.GUI("This demo is code by Jing");
             GUIDeviceInfo.Show();
             UIPanelMgr.Ins.Switch<MenuPanel>();                                   
         }

@@ -158,28 +158,28 @@ namespace Zero
             Debug.LogErrorFormat(format, args);
         }
 
-        public static void CMsg(string color, object content)
+        public static void CGUI(string color, object content)
         {
             var message = string.Format("<color=#{0}>{1}</color>", color, content);
-            Msg(message);
+            GUI(message);
         }
 
-        public static void CMsg(string color, string format, params object[] args)
+        public static void CGUI(string color, string format, params object[] args)
         {
             var message = string.Format("<color=#{0}>{1}</color>", color, string.Format(format, args));
-            Msg(message);
+            GUI(message);
         }
 
-        public static void Msg(string format, params object[] args)
+        public static void GUI(string format, params object[] args)
         {
-            Msg(string.Format(format, args));
+            GUI(string.Format(format, args));
         }
 
         /// <summary>
         /// 在一个UI面板中显示一条日志消息
         /// </summary>
         /// <param name="content"></param>
-        public static void Msg(string content)
+        public static void GUI(string content)
         {
             if (!isActive)
             {
