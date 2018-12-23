@@ -48,8 +48,18 @@ namespace Zero
 
         void Start()
         {            
+
+        }
+
+        public void StartPreload(BaseILRuntimeGenerics rg = null)
+        {
+            if(null != rg)
+            {
+                ILRuntimeILWorker.RegisterILRuntimeGenerics(rg);
+            }
+
             Runtime.Ins.Init(runtimeCfg);
-            Log.CI(Log.COLOR_BLUE,"游戏运行模式：[{0}]", Runtime.Ins.ResMode.ToString());            
+            Log.CI(Log.COLOR_BLUE, "游戏运行模式：[{0}]", Runtime.Ins.ResMode.ToString());
             if (Runtime.Ins.IsInlineRelease)
             {
                 ResMgr.Ins.Init(ResMgr.EResMgrType.RESOURCES, Runtime.Ins.VO.mainPrefab.abName);
@@ -57,7 +67,7 @@ namespace Zero
             }
             else
             {
-                OnStageChange(EState.UNZIP_PACKAGE);                
+                OnStageChange(EState.UNZIP_PACKAGE);
                 new PackageUpdate().Start(LoadSettingFile, OnPackageUpdate);
             }
         }

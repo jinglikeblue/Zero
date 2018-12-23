@@ -19,12 +19,10 @@ namespace Demo
             preload.onStateChange += (state) =>
             {
                 textState.text = state.ToString();
-            };      
-        }
+            };
 
-
-        void Update() {
-
+            //从这里启动Ppreload
+            GetComponent<Preload>().StartPreload(new DemoILRuntimeGenerics());
         }
     }
 }

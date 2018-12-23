@@ -22,9 +22,9 @@ namespace Zero
 
                 string libDir = rt.localResDir + ilCfg.fileDir;
                 //初始化IL
-                ILRuntimeBridge.Ins.Startup(libDir, ilCfg.fileName, ilCfg.isDebugIL, ilCfg.isLoadPdb);
+                ILBridge.Ins.Startup(libDir, ilCfg.fileName, ilCfg.isDebugIL, ilCfg.isLoadPdb);
                 //调用启动方法
-                ILRuntimeBridge.Ins.Invoke(ilCfg.className, ilCfg.methodName);
+                ILBridge.Ins.Invoke(ilCfg.className, ilCfg.methodName);
             }
             else
             {
@@ -33,9 +33,7 @@ namespace Zero
                 //使用本地类，直接启动本地类
                 MethodInfo method = type.GetMethod(ilCfg.methodName, BindingFlags.Static | BindingFlags.Public);
                 method.Invoke(null, null);                
-            }
-
-            
+            }            
         }
     }
 }

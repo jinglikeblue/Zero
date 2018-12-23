@@ -44,12 +44,12 @@ namespace ZeroIL.RouShan
         protected override void OnEnable()
         {            
             _body.velocity = Vector2.right * SPEED;            
-            ILRuntimeBridge.Ins.onFixedUpdate += OnUpdate;
+            ILBridge.Ins.onFixedUpdate += OnUpdate;
         }
 
         protected override void OnDisable()
         {            
-            ILRuntimeBridge.Ins.onFixedUpdate -= OnUpdate;
+            ILBridge.Ins.onFixedUpdate -= OnUpdate;
         }
     }
 }
