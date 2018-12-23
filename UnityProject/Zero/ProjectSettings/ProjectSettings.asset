@@ -152,7 +152,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.jing.zerodemo
-    Standalone: com.jing.zero
+    Standalone: com.jing.zero.demo
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16
