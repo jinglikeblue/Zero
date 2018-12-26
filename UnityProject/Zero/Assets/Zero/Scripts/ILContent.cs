@@ -14,7 +14,7 @@ namespace Zero
             var rt = Runtime.Ins;
             var ilCfg = rt.ILCfg;
             
-            string qualifiedName = Assembly.CreateQualifiedName(Runtime.Ins.ILCfg.fileName, ilCfg.className);
+            string qualifiedName = Assembly.CreateQualifiedName(Runtime.Ins.ILCfg.fileName, ilCfg.className); 
             Type type = Type.GetType(ilCfg.className);
             if(ilCfg.isOnlyDll || type == null)
             {
