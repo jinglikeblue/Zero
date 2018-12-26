@@ -597,12 +597,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runtimeCfg:
-    resMode: 0
+    resMode: 3
     netRoot: http://wepieces.cn/unity/zero/demo/Res
     developResRoot: ../Res/
     logEnable: 1
     ilCfg:
-      isOnlyDll: 1
+      isOnlyDll: 0
       fileDir: dll
       fileName: ZeroIL
       className: IL.Demo.DemoMain

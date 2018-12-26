@@ -35,6 +35,12 @@ namespace Zero.Edit
             ResEditorWin.Open();                                 
         }
 
+        [MenuItem("Zero/iOS/ProjectInit", false, 300)]
+        public static void IosProjectInit()
+        {
+            IOSProjectInitEditorWin.Open();
+        }
+
         /// <summary>
         /// 当前发布平台
         /// </summary>

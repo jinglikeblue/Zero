@@ -1,5 +1,6 @@
 ﻿using Jing;
 using LitJson;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -39,7 +40,7 @@ namespace Zero.Edit
         /// </summary>
         /// <param name="data">配置的数据</param>
         /// <param name="fileName">文件名</param>
-       protected static void SaveConfig(object data, string fileName)
+       public static void SaveConfig(object data, string fileName)
         {
             string json = JsonMapper.ToJson(data);
             File.WriteAllText(Path.Combine(ConfigDir, fileName), json);
@@ -51,7 +52,7 @@ namespace Zero.Edit
         /// <typeparam name="T"></typeparam>
         /// <param name="fileName">配置文件名称</param>
         /// <returns></returns>
-        protected static T LoadConfig<T>(string fileName)
+        public static T LoadConfig<T>(string fileName)
         {
             string path = Path.Combine(ConfigDir, fileName);
             if (File.Exists(path))
@@ -88,6 +89,28 @@ namespace Zero.Edit
             gs.fontSize = 12;            
             //gs.fontStyle = FontStyle.Bold;
             EditorGUILayout.LabelField(string.Format("<color=#0000FF>>>>>>>{0}</color>" ,title),gs);
+        }
+
+        /// <summary>
+        /// 生成数组编辑界面，编辑完成会返回新的数组
+        /// </summary>
+        /// <param name="array"></param>
+        /// <returns></returns>
+        protected string[] GUILayoutArray(string[] array)
+        {
+            int groupSize = EditorGUILayout.IntField("数量:", array.Length, GUILayout.MaxWidth(200));
+            if (groupSize != array.Length)
+            {
+                string[] newArr = new string[groupSize];
+                Array.Copy(array, 0, newArr, 0, groupSize < array.Length ? groupSize : array.Length);
+                array = newArr;
+            }
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = EditorGUILayout.TextField("资源组名称:", array[i]);
+            }
+            return array;
         }
 
         /// <summary>

@@ -1,17 +1,14 @@
-﻿using System.IO;
-#if UNITY_IPHONE
+﻿#if UNITY_IPHONE
+using System.IO;
 using UnityEditor.iOS.Xcode;
-#endif
 
-namespace Jing.IOS
+namespace Zero.Edit.IOS
 {
     /// <summary>
     /// 修改XCODE项目中的info.plist文件
     /// </summary>
     public class InfoPListEditor
     {
-        #if UNITY_IPHONE
-
         string _path;
 
         PlistDocument _plist;
@@ -31,7 +28,7 @@ namespace Jing.IOS
         /// <param name="path">info.plist文件的路径</param>
         public InfoPListEditor(string path)
         {
-            _path = path;    
+            _path = path;
             _plist = new PlistDocument();
             string plistStr = File.ReadAllText(path);
             _plist.ReadFromString(plistStr);
@@ -65,7 +62,7 @@ namespace Jing.IOS
             const string KEY = "LSApplicationQueriesSchemes";
             PlistElementDict root = _plist.root;
             PlistElementArray urlSchemeList = root[KEY] as PlistElementArray;
-            if(null == urlSchemeList)
+            if (null == urlSchemeList)
             {
                 urlSchemeList = root.CreateArray(KEY);
             }
@@ -101,22 +98,22 @@ namespace Jing.IOS
 
             PlistElementDict root = _plist.root;
             PlistElementArray urlTypeList = root[KEY] as PlistElementArray;
-            if(null == urlTypeList)
+            if (null == urlTypeList)
             {
                 urlTypeList = root.CreateArray(KEY);
             }
 
             PlistElementDict urlType = null;
             foreach (PlistElementDict item in urlTypeList.values)
-            { 
-                if(item[IDENTIFIER_KEY].AsString() == identifier)
+            {
+                if (item[IDENTIFIER_KEY].AsString() == identifier)
                 {
                     urlType = item;
                     break;
                 }
             }
-            
-            if(null == urlType)
+
+            if (null == urlType)
             {
                 urlType = urlTypeList.AddDict();
             }
@@ -124,16 +121,16 @@ namespace Jing.IOS
             urlType.SetString(IDENTIFIER_KEY, identifier);
 
             PlistElementArray urlSchemes = urlType[URLSCHEMES_KEY] as PlistElementArray;
-            if(null == urlSchemes)
+            if (null == urlSchemes)
             {
-                urlSchemes = urlType.CreateArray(URLSCHEMES_KEY);    
+                urlSchemes = urlType.CreateArray(URLSCHEMES_KEY);
             }
 
             bool isInclude = false;
 
-            foreach(PlistElement item in urlSchemes.values)
+            foreach (PlistElement item in urlSchemes.values)
             {
-                if(item.AsString() == urlScheme)
+                if (item.AsString() == urlScheme)
                 {
                     isInclude = true;
                     break;
@@ -145,6 +142,6 @@ namespace Jing.IOS
                 urlSchemes.AddString(urlScheme);
             }
         }
-#endif
     }
 }
+#endif
