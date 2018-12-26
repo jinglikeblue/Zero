@@ -23,7 +23,7 @@ namespace Zero.Edit
         IOSProjectInitConfig _tool;
         private void OnEnable()
         {
-            _tool = new IOSProjectInitConfig();
+            _tool = new IOSProjectInitConfig();            
         }
 
 
