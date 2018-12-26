@@ -156,7 +156,15 @@ namespace Zero
                 case RuntimePlatform.LinuxEditor:
                 case RuntimePlatform.OSXEditor:
                     //Editor开发环境
-                    platform = "pc";
+
+#if UNITY_ANDROID
+                        platform = "android";
+#elif UNITY_IPHONE
+                        platform = "ios";
+#else
+                        platform = "pc";
+#endif
+
                     streamingAssetsPath = string.Format("file://{0}/StreamingAssets/", Application.dataPath);
                     if (_vo.resMode == RuntimeVO.EResMode.NET_LOCAL_DEBUG || _vo.resMode == RuntimeVO.EResMode.NET_LOCAL_AND_RESOURCES_DEBUG)
                     {

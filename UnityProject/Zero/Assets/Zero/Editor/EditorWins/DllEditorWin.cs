@@ -113,7 +113,7 @@ namespace Zero.Edit
 
             EditorGUILayout.EndHorizontal();
 
-#if UNITY_EDITOR && UNITY_STANDALONE_WIN
+
             EditorGUILayout.Space();
             cfg.devenvPath = EditorGUILayout.TextField("Devenv地址:", cfg.devenvPath);
             cfg.ilProjPath = EditorGUILayout.TextField("DLL项目csproj文件路径：", cfg.ilProjPath);
@@ -128,7 +128,7 @@ namespace Zero.Edit
                 ReleaseDLL();
             }
             GUILayout.EndHorizontal();
-#endif
+
 
             EditorGUILayout.EndVertical();
         }

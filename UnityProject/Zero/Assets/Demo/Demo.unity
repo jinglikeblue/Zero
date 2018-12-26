@@ -602,13 +602,13 @@ MonoBehaviour:
     developResRoot: ../Res/
     logEnable: 1
     ilCfg:
-      isOnlyDll: 0
+      isOnlyDll: 1
       fileDir: dll
       fileName: ZeroIL
       className: IL.Demo.DemoMain
       methodName: Main
       isDebugIL: 0
-      isLoadPdb: 1
+      isLoadPdb: 0
     mainPrefab:
       abName: hot_res.ab
       assetName: DemoILContent

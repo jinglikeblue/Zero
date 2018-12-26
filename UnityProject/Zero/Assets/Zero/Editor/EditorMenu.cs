@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Jing;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -39,6 +40,14 @@ namespace Zero.Edit
         public static void IosProjectInit()
         {
             IOSProjectInitEditorWin.Open();
+        }
+
+        [MenuItem("Zero/Debug/Res/Clear [Caches] Dir", false, 400)]
+        public static void ClearCachesDir()
+        {
+            var root = Directory.GetParent(Application.dataPath).FullName;
+            var cacheDirPath = FileSystem.CombineDirs(false, root, "Caches");
+            Directory.Delete(cacheDirPath, true);
         }
 
         /// <summary>
