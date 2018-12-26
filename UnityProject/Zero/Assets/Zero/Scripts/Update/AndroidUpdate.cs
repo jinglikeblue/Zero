@@ -12,8 +12,6 @@ namespace Zero
         public override void OnNeedUpdate()
         {
             CoroutineBridge.Ins.StartCoroutine(UpdateAPK());
-
-
         }
 
         IEnumerator UpdateAPK()
@@ -34,8 +32,11 @@ namespace Zero
             }
 
 
-            //启动APK安装程序(调用Android原生代码）
-            AndroidJavaObject ajo = new AndroidJavaObject("com.jing.gamelibs.GameLib");            
+            /*
+             * 启动APK安装程序(调用Android原生代码,这里使用了zero.aar原生代码库）
+             * 仅支持Target API Level不超过 Android 6.0 (API Level 23)的项目。
+            */
+            AndroidJavaObject ajo = new AndroidJavaObject("pieces.jing.zero.ZeroLib");            
             bool success = ajo.Call<bool>("install", savePath);
             if (success)
             {
