@@ -101,7 +101,7 @@ namespace Zero
             {
                 return _vo.localValueDic[key];
             }
-            return key;
+            return null;
         }
 
         /// <summary>
