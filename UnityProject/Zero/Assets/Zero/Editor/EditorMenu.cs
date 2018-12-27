@@ -50,6 +50,12 @@ namespace Zero.Edit
             Directory.Delete(cacheDirPath, true);
         }
 
+        [MenuItem("Zero/Debug/GC", false, 401)]
+        public static void GC()
+        {
+            ResMgr.Ins.DoGC();
+        }
+
         /// <summary>
         /// 当前发布平台
         /// </summary>

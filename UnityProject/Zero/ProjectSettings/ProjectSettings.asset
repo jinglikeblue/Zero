@@ -680,6 +680,7 @@ PlayerSettings:
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
   apiCompatibilityLevelPerPlatform:
+    Standalone: 6
     iOS: 6
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
