@@ -597,9 +597,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runtimeCfg:
-    resMode: 1
+    resMode: 2
     netRoot: http://wepieces.cn/unity/zero/demo/Res
-    developResRoot: ./Res/
+    developResRoot: ./Res
     logEnable: 1
     ilCfg:
       isOnlyDll: 1
