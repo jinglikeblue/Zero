@@ -145,8 +145,8 @@ namespace IL.Zero
             {
                 if(gameObject.activeInHierarchy)
                 {
-                    gameObject.SetActive(false);
                     WhenDisable();
+                    gameObject.SetActive(false);                    
                 }
             }
         }
