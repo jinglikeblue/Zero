@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Jing;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -23,7 +24,8 @@ namespace Zero
             UnloadAll();
             _loadedABDic = new Dictionary<string, AssetBundle>();
 
-            RootDir = Path.GetDirectoryName(manifestFilePath);
+            RootDir = FileSystem.StandardizeSeparator(Path.GetDirectoryName(manifestFilePath));
+           
 
             AssetBundle ab = AssetBundle.LoadFromFile(manifestFilePath);
             _manifest = ab.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
@@ -32,6 +34,15 @@ namespace Zero
                 throw new Exception(string.Format("错误的 Manifest File: {0}", manifestFilePath));
             }
             ab.Unload(false);
+        }
+
+        /// <summary>
+        /// 让已加载的AB资源字典继承源资源管理器
+        /// </summary>
+        /// <param name="source"></param>
+        internal void Inherit(AssetBundleResMgr source)
+        {
+            _loadedABDic = source._loadedABDic;
         }
 
         public override string[] GetDepends(string abName)
@@ -44,6 +55,10 @@ namespace Zero
         {
             AssetBundle ab = LoadAssetBundle(abName);
             T asset = ab.LoadAsset<T>(assetName);
+            if (null == asset)
+            {
+                Log.E("获取的资源不存在： AssetBundle: {0}  Asset: {1}", abName, assetName);
+            }
             return asset;
         }
 
@@ -67,10 +82,34 @@ namespace Zero
                     string[] dependList = _manifest.GetAllDependencies(abName);
                     foreach (string depend in dependList)
                     {
-                        Unload(depend, isUnloadAllLoaded, isUnloadDepends);
+                        if (false == CheckDependencies(depend))
+                        {
+                            Unload(depend, isUnloadAllLoaded, isUnloadDepends);
+                        }
                     }
                 }
             }
+        }
+        /// <summary>
+        /// 检查ab资源是否被已加载的资源依赖
+        /// </summary>
+        /// <param name="ab"></param>
+        /// <param name="depend"></param>
+        /// <returns></returns>
+        bool CheckDependencies(string ab)
+        {
+            foreach(var loadedEntry in _loadedABDic)
+            {
+                var entryDepends = _manifest.GetAllDependencies(loadedEntry.Key);
+                foreach(var entryDepend in entryDepends)
+                {
+                    if(ab == entryDepend)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         public override void UnloadAll(bool isUnloadAllLoaded = false)
@@ -82,6 +121,8 @@ namespace Zero
                     cached.Unload(isUnloadAllLoaded);
                 }
             }
+
+            ResMgr.Ins.DoGC();
         }
 
         IEnumerator LoadAsync(AssetBundle ab, string assetName, Action<UnityEngine.Object> onGet, Action<float> onProgress)
@@ -109,7 +150,7 @@ namespace Zero
         /// <returns></returns>
         private AssetBundle LoadAssetBundle(string abName)
         {
-            string abPath = Path.Combine(RootDir, abName);
+            string abPath = FileSystem.CombinePaths(RootDir, abName);
             if (false == File.Exists(abPath))
             {
                 //加载的AB资源不存在
