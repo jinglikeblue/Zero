@@ -41,10 +41,8 @@ namespace IL.Zero
         /// <summary>
         /// 创建一个视图对象
         /// </summary>
-        /// <param name="viewName"></param>
-        /// <param name="abName"></param>
-        /// <param name="type"></param>
-        /// <param name="parent"></param>
+        /// <param name="entry">对象数据描述</param>
+        /// <param name="parent">生成对象的父容器</param>
         /// <returns></returns>
         static public AView CreateView(ViewEntry entry, Transform parent)
         {
@@ -55,15 +53,14 @@ namespace IL.Zero
             GameObject prefab = ResMgr.Ins.Load<GameObject>(entry.abName, entry.viewName);
             AView view = CreateViewFromPrefab(prefab, parent, entry);
             return view;
-        }        
+        }
 
         /// <summary>
         /// 通过Prefab创建视图
         /// </summary>
-        /// <param name="prefab"></param>
-        /// <param name="parent"></param>
-        /// <param name="viewName"></param>
-        /// <param name="type"></param>
+        /// <param name="prefab">视图Prefab</param>
+        /// <param name="parent">父容器</param>
+        /// <param name="entry">视图数据对象</param>
         /// <returns></returns>
         static public AView CreateViewFromPrefab(GameObject prefab, Transform parent, ViewEntry entry)
         {
@@ -187,27 +184,5 @@ namespace IL.Zero
             }
             return _type2EntryDic[type];
         }
-
-        //IEnumerator CreateViewAsync(string viewName, string abName, Type type, Action<AView> onCreated, Action<float> onProgress)
-        //{            
-        //    AssetBundle ab = AssetBundleMgr.Ins.LoadAssetBundle(abName);
-        //    AssetBundleRequest abr = ab.LoadAssetAsync<GameObject>(viewName);   
-        //    while(abr.isDone)
-        //    {
-        //        if (onProgress != null)
-        //        {
-        //            onProgress.Invoke(abr.progress);
-        //        }
-        //        yield return new WaitForEndOfFrame();                
-        //    }
-        //    //加载完成
-        //    if (onProgress != null)
-        //    {
-        //        onProgress(1f);
-        //    }
-        //    GameObject prefab = abr.asset as GameObject;
-        //    AView view = CreateViewFromPrefab(prefab, _root, viewName, abName, type);
-        //    onCreated(view);
-        //}
     }
 }

@@ -23,7 +23,8 @@ namespace IL.Zero
         /// <returns></returns>
         public static T Create<T>(GameObject prefab, AView parentView, Transform parentTransform, object data = null) where T : AView
         {
-            AView view = AViewMgr.CreateViewFromPrefab(prefab, parentTransform, prefab.name, typeof(T));
+            var entry = new ViewEntry(null, prefab.name, typeof(T));
+            AView view = AViewMgr.CreateViewFromPrefab(prefab, parentTransform, entry);
             parentView.AddChild(view);
             if (data != null)
             {
@@ -50,7 +51,7 @@ namespace IL.Zero
             {
                 GameObject prefab = asset as GameObject;
                 T view = Create<T>(prefab, parentView, parentTransform, data);
-                onCreated(view);
+                onCreated?.Invoke(view);
             },
             onProgress);
         }
@@ -86,11 +87,11 @@ namespace IL.Zero
             get { return gameObject.name; }
             set { gameObject.name = value; }
         }
-
+        
         /// <summary>
-        /// 对象对应的视图（Prefab）名称
+        /// 对象对应的视图的信息
         /// </summary>
-        public string ViewName { get; internal set; }
+        public ViewEntry ViewEntry { get; internal set; }
 
         /// <summary>
         /// 子视图对象的列表
@@ -145,8 +146,8 @@ namespace IL.Zero
             {
                 if(gameObject.activeInHierarchy)
                 {
-                    gameObject.SetActive(false);
                     WhenDisable();
+                    gameObject.SetActive(false);                    
                 }
             }
         }
@@ -156,9 +157,19 @@ namespace IL.Zero
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T GetComponent<T>()
+        public T GetComponent<T>() where T : Component
         {
             return gameObject.GetComponent<T>();
+        }
+
+        /// <summary>
+        /// 得到组件(如果没有则自动添加)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T AudoGetComponent<T>() where T :Component
+        {
+            return ComponentUtil.AutoGet<T>(gameObject);
         }
 
         /// <summary>
@@ -321,14 +332,19 @@ namespace IL.Zero
         public T CreateViewChlid<T>(string childName, object data = null) where T:AView
         {          
             var childGameObject = GetChildGameObject(childName);
-            if(null == childGameObject)
+            return CreateViewChlid<T>(childGameObject, data);
+        }
+
+        public T CreateViewChlid<T>(GameObject childGameObject, object data = null) where T : AView
+        {
+            if (null == childGameObject)
             {
                 return default(T);
             }
 
             T viewChild = Activator.CreateInstance(typeof(T)) as T;
             viewChild.SetGameObject(childGameObject);
-            if(data != null)
+            if (data != null)
             {
                 viewChild.SetData(data);
             }

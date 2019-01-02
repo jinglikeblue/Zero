@@ -33,12 +33,12 @@ namespace IL.Zero
         /// <param name="isClearPanel">是否清理UIPanel</param>
         /// <param name="isCloseWindows">是否清理UIWin</param>
         /// <returns></returns>
-        public AView Switch(string viewName, object data = null, bool isClearPanel = true, bool isCloseWindows = true)
+        public AView Switch(string abName, string viewName, object data = null, bool isClearPanel = true, bool isCloseWindows = true)
         {
             ClearNowStage(isClearPanel, isCloseWindows);
 
             //生成新的界面
-            var view = CreateView(viewName);
+            var view = CreateView(abName, viewName);
             SetNowView(view, data);            
             return view;
         }
@@ -70,11 +70,11 @@ namespace IL.Zero
         /// <param name="onProgress">创建进度回调方法</param>
         /// <param name="isClearPanel">是否清理UIPanel</param>
         /// <param name="isCloseWindows">是否清理UIWin</param>
-        public void SwitchASync(string viewName, object data = null, Action<AView> onCreated = null, Action<float> onProgress = null, bool isClearPanel = true, bool isCloseWindows = true)
+        public void SwitchASync(string abName, string viewName, object data = null, Action<AView> onCreated = null, Action<float> onProgress = null, bool isClearPanel = true, bool isCloseWindows = true)
         {
             ClearNowStage(isClearPanel, isCloseWindows);
 
-            CreateViewAsync(viewName, (AView view) => {                
+            CreateViewAsync(abName, viewName, (AView view) => {                
                 SetNowView(view, data);
                 if (null != onCreated)
                 {

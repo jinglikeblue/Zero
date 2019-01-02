@@ -6,10 +6,9 @@ using Zero;
 namespace IL.Zero
 {
     public abstract class AViewMgr
-    {        
-        static protected Dictionary<string, string> _view2ABNameDic = new Dictionary<string, string>();
-        static protected Dictionary<string, Type> _view2TypeDic = new Dictionary<string, Type>();
-        static protected Dictionary<Type, string> _type2NameDic = new Dictionary<Type, string>();
+    {
+        static protected Dictionary<string, Dictionary<string, ViewEntry>> _ab2view2EntryDic = new Dictionary<string, Dictionary<string, ViewEntry>>();
+        static protected Dictionary<Type, ViewEntry> _type2EntryDic = new Dictionary<Type, ViewEntry>();
 
         /// <summary>
         /// 注册一个界面
@@ -19,9 +18,14 @@ namespace IL.Zero
         /// <param name="type">Prefab的Type</param>
         static public void Regist(string viewName, string abName, Type type)
         {
-            _view2TypeDic[viewName] = type;
-            _type2NameDic[type] = viewName;
-            _view2ABNameDic[viewName] = abName;
+            ViewEntry entry = new ViewEntry(abName, viewName, type);
+            if(false == _ab2view2EntryDic.ContainsKey(abName))
+            {
+                _ab2view2EntryDic[abName] = new Dictionary<string, ViewEntry>();
+            }
+
+            _ab2view2EntryDic[abName][viewName] = entry;
+            _type2EntryDic[type] = entry;
         }
 
         /// <summary>
@@ -37,34 +41,35 @@ namespace IL.Zero
         /// <summary>
         /// 创建一个视图对象
         /// </summary>
-        /// <param name="viewName"></param>
-        /// <param name="abName"></param>
-        /// <param name="type"></param>
-        /// <param name="parent"></param>
+        /// <param name="entry">对象数据描述</param>
+        /// <param name="parent">生成对象的父容器</param>
         /// <returns></returns>
-        static public AView CreateView(string viewName, string abName, Type type, Transform parent)
+        static public AView CreateView(ViewEntry entry, Transform parent)
         {
-            GameObject prefab = ResMgr.Ins.Load<GameObject>(abName, viewName);
-            AView view = CreateViewFromPrefab(prefab, parent, viewName, type);
+            if (null == entry)
+            {
+                return null;
+            }
+            GameObject prefab = ResMgr.Ins.Load<GameObject>(entry.abName, entry.viewName);
+            AView view = CreateViewFromPrefab(prefab, parent, entry);
             return view;
         }
 
         /// <summary>
         /// 通过Prefab创建视图
         /// </summary>
-        /// <param name="prefab"></param>
-        /// <param name="parent"></param>
-        /// <param name="viewName"></param>
-        /// <param name="type"></param>
+        /// <param name="prefab">视图Prefab</param>
+        /// <param name="parent">父容器</param>
+        /// <param name="entry">视图数据对象</param>
         /// <returns></returns>
-        static public AView CreateViewFromPrefab(GameObject prefab, Transform parent, string viewName, Type type)
+        static public AView CreateViewFromPrefab(GameObject prefab, Transform parent, ViewEntry entry)
         {
             GameObject go = GameObject.Instantiate(prefab, parent);
-            go.name = viewName;
+            go.name = prefab.name;
 
-            AView view = Activator.CreateInstance(type) as AView;
+            AView view = Activator.CreateInstance(entry.type) as AView;
             view.SetGameObject(go);
-            view.ViewName = viewName;
+            view.ViewEntry = entry;
             return view;
         }
 
@@ -75,10 +80,12 @@ namespace IL.Zero
         /// <param name="isGC">是否执行垃圾回收</param>
         static public void DestroyView(AView view)
         {
-            if (_view2ABNameDic.ContainsKey(view.ViewName))
+            if (null != view.ViewEntry && null != view.ViewEntry.abName)
             {
-                string abName = _view2ABNameDic[view.ViewName];
-                ResMgr.Ins.Unload(abName, false, true);
+                if (_ab2view2EntryDic.ContainsKey(view.ViewEntry.abName))
+                {
+                    ResMgr.Ins.Unload(view.ViewEntry.abName, false, true);
+                }
             }
             GameObject.Destroy(view.gameObject);
         }
@@ -101,72 +108,81 @@ namespace IL.Zero
             _root = root;
         }
 
-        protected AView CreateView(string viewName)
+        protected AView CreateView(string abName, string viewName)
         {            
-            string abName = _view2ABNameDic[viewName];
-            Type type = _view2TypeDic[viewName];
-
-            return CreateView(viewName, abName, type, _root);
+            ViewEntry entry = GetEntry(abName,viewName);
+            return CreateView(entry, _root);
         }
 
         protected AView CreateView(Type type)
         {
-            string viewName = _type2NameDic[type];
-            string abName = _view2ABNameDic[viewName];
-
-            return CreateView(viewName, abName, type, _root);
+            ViewEntry entry = GetEntry(type);
+            if (null == entry)
+            {
+                Log.E("没有注册的视图：{0}", type.FullName);
+            }           
+            return CreateView(entry, _root);
         }
 
-        protected void CreateViewAsync(string viewName, Action<AView> onCreated, Action<float> onProgress)
+        protected void CreateViewAsync(string abName, string viewName, Action<AView> onCreated, Action<float> onProgress)
         {
-            string abName = _view2ABNameDic[viewName];
-            Type type = _view2TypeDic[viewName];
-
-            CreateViewAsync(viewName, abName, type, onCreated, onProgress);
-            //CoroutineBridge.Ins.StartCoroutine(CreateViewAsync(viewName, abName, type, onCreated, onProgress));            
+            ViewEntry entry = GetEntry(abName, viewName);
+            CreateViewAsync(entry, onCreated, onProgress);
+            
         }
 
         protected void CreateViewAsync(Type type, Action<AView> onCreated, Action<float> onProgress)
         {
-            string viewName = _type2NameDic[type];
-            string abName = _view2ABNameDic[viewName];
-
-            CreateViewAsync(viewName, abName, type, onCreated, onProgress);
-            //CoroutineBridge.Ins.StartCoroutine(CreateViewAsync(viewName, abName, type, onCreated, onProgress));
+            ViewEntry entry = GetEntry(type);
+            if (null == entry)
+            {
+                Log.E("没有注册的视图：{0}", type.FullName);
+            }
+            CreateViewAsync(entry, onCreated, onProgress);            
         }
 
-        void CreateViewAsync(string viewName, string abName, Type type, Action<AView> onCreated, Action<float> onProgress)
+        void CreateViewAsync(ViewEntry entry, Action<AView> onCreated, Action<float> onProgress)
         {            
-            ResMgr.Ins.LoadAsync(abName, viewName, 
+            if(null == entry)
+            {
+                onCreated?.Invoke(null);
+                return;
+            }
+
+            ResMgr.Ins.LoadAsync(entry.abName, entry.viewName, 
                 (UnityEngine.Object asset)=> 
                 {
                     GameObject prefab = asset as GameObject;
-                    AView view = CreateViewFromPrefab(prefab, _root, viewName, type);
+                    AView view = CreateViewFromPrefab(prefab, _root, entry);
                     onCreated(view);
                 }, 
                 onProgress);
         }
 
-        //IEnumerator CreateViewAsync(string viewName, string abName, Type type, Action<AView> onCreated, Action<float> onProgress)
-        //{            
-        //    AssetBundle ab = AssetBundleMgr.Ins.LoadAssetBundle(abName);
-        //    AssetBundleRequest abr = ab.LoadAssetAsync<GameObject>(viewName);   
-        //    while(abr.isDone)
-        //    {
-        //        if (onProgress != null)
-        //        {
-        //            onProgress.Invoke(abr.progress);
-        //        }
-        //        yield return new WaitForEndOfFrame();                
-        //    }
-        //    //加载完成
-        //    if (onProgress != null)
-        //    {
-        //        onProgress(1f);
-        //    }
-        //    GameObject prefab = abr.asset as GameObject;
-        //    AView view = CreateViewFromPrefab(prefab, _root, viewName, abName, type);
-        //    onCreated(view);
-        //}
+        protected ViewEntry GetEntry(string abName, string viewName)
+        {
+            if (false == _ab2view2EntryDic.ContainsKey(abName))
+            {
+                return null;
+            }
+
+            var dic = _ab2view2EntryDic[abName];
+
+            if (false == dic.ContainsKey(viewName))
+            {
+                return null;
+            }
+
+            return dic[viewName];
+        }
+
+        protected ViewEntry GetEntry(Type type)
+        {
+            if(false == _type2EntryDic.ContainsKey(type))
+            {
+                return null;
+            }
+            return _type2EntryDic[type];
+        }
     }
 }
