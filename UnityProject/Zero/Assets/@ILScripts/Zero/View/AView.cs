@@ -332,14 +332,19 @@ namespace IL.Zero
         public T CreateViewChlid<T>(string childName, object data = null) where T:AView
         {          
             var childGameObject = GetChildGameObject(childName);
-            if(null == childGameObject)
+            return CreateViewChlid<T>(childGameObject, data);
+        }
+
+        public T CreateViewChlid<T>(GameObject childGameObject, object data = null) where T : AView
+        {
+            if (null == childGameObject)
             {
                 return default(T);
             }
 
             T viewChild = Activator.CreateInstance(typeof(T)) as T;
             viewChild.SetGameObject(childGameObject);
-            if(data != null)
+            if (data != null)
             {
                 viewChild.SetData(data);
             }
