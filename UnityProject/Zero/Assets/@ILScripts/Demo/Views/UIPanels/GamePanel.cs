@@ -22,7 +22,7 @@ namespace IL.Demo
 
         private void OnBtnHelpClick()
         {
-            UIWinMgr.Ins.Open<HelpWin>(null,false,false);
+            UIWinMgr.Ins.Open<HelpWin>(null,true,false);
         }
 
         protected override void OnEnable()

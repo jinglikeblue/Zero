@@ -25,11 +25,11 @@ namespace IL.Zero
         /// <param name="viewName">视图名称</param>
         /// <param name="data">传递的数据</param>
         /// <returns></returns>
-        public AView Switch(string viewName, object data = null)
+        public AView Switch(string abName, string viewName, object data = null)
         {
             ClearNowPanel();
             //生成新的界面
-            var view = CreateView(viewName);
+            var view = CreateView(abName, viewName);
             SetNowView(view, data);
             return view;
         }
@@ -56,10 +56,10 @@ namespace IL.Zero
         /// <param name="data">传递的数据</param>
         /// <param name="onCreated">创建完成回调方法</param>
         /// <param name="onProgress">创建进度回调方法</param>
-        public void SwitchASync(string viewName, object data = null, Action<AView> onCreated = null, Action<float> onProgress = null)
+        public void SwitchASync(string abName, string viewName, object data = null, Action<AView> onCreated = null, Action<float> onProgress = null)
         {
             ClearNowPanel();
-            CreateViewAsync(viewName, (AView view) => {                
+            CreateViewAsync(abName, viewName, (AView view) => {                
                 SetNowView(view, data);
                 if (null != onCreated)
                 {

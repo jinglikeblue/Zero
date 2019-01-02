@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zero;
 
 namespace IL.Zero
 {
@@ -19,7 +20,19 @@ namespace IL.Zero
         /// <summary>
         /// 窗口隔离遮罩
         /// </summary>
-        Transform _blur;
+        Blur _blur;
+
+        public Blur Blur
+        {
+            get
+            {
+                if (null != _blur)
+                {
+                    return _blur;
+                }
+                return null;
+            }
+        }
 
         /// <summary>
         /// 需要有遮罩的窗口
@@ -36,14 +49,16 @@ namespace IL.Zero
         public override void Init(Transform root)
         {
             base.Init(root);
-            _blur = root.Find("Blur");
-            if (null != _blur)
+            var blurGO = root.Find("Blur");           
+            if (null != blurGO)
             {
-                _blur.gameObject.SetActive(false);
+                _blur = blurGO.GetComponent<Blur>();
+                if (null != _blur)
+                {
+                    _blur.gameObject.SetActive(false);
+                }
             }
-        }
-
-
+        }        
 
         /// <summary>
         /// 打开窗口
@@ -68,9 +83,9 @@ namespace IL.Zero
         /// <param name="isBlur">是否窗口下方有阻挡遮罩</param>
         /// <param name="isCloseOthers">是否关闭其它窗口</param>
         /// <returns></returns>
-        public AView Open(string viewName, object data = null, bool isBlur = true, bool isCloseOthers = true)
+        public AView Open(string abName, string viewName, object data = null, bool isBlur = true, bool isCloseOthers = true)
         {
-            var view = CreateView(viewName);
+            var view = CreateView(abName, viewName);
             OnCreateView(view, data, isBlur, isCloseOthers);
             return view;
         }
@@ -105,9 +120,9 @@ namespace IL.Zero
         /// <param name="isCloseOthers">是否关闭其它窗口</param>
         /// <param name="onCreated">创建完成回调方法</param>
         /// <param name="onProgress">创建进度回调方法</param>
-        public void OpenAsync(string viewName, object data = null, bool isBlur = true, bool isCloseOthers = true, Action<AView> onCreated = null, Action<float> onProgress = null)
+        public void OpenAsync(string abName, string viewName, object data = null, bool isBlur = true, bool isCloseOthers = true, Action<AView> onCreated = null, Action<float> onProgress = null)
         {
-            CreateViewAsync(viewName, (AView view) =>
+            CreateViewAsync(abName, viewName, (AView view) =>
             {
                 OnCreateView(view, data, isBlur, isCloseOthers);
                 if (null != onCreated)
@@ -151,12 +166,12 @@ namespace IL.Zero
                     if (_needBlurViewSet.Contains(view))
                     {
                         int viewChildIdx = view.gameObject.transform.GetSiblingIndex();
-                        int blurChildIdx = _blur.GetSiblingIndex();
+                        int blurChildIdx = _blur.transform.GetSiblingIndex();
                         if(blurChildIdx < viewChildIdx)
                         {
                             viewChildIdx--;
                         }
-                        _blur.SetSiblingIndex(viewChildIdx);
+                        _blur.transform.SetSiblingIndex(viewChildIdx);
                         return;
                     }
                 }
@@ -165,7 +180,7 @@ namespace IL.Zero
             {
                 _blur.gameObject.SetActive(false);
             }
-            _blur.SetSiblingIndex(_blur.parent.childCount - 2);
+            _blur.transform.SetSiblingIndex(_blur.transform.parent.childCount - 2);
         }
 
         /// <summary>
