@@ -22,7 +22,7 @@ namespace Zero
             _localPath = Runtime.Ins.localResDir + "res.json";
             if (Runtime.Ins.IsLoadFromNet)
             {
-                CoroutineBridge.Ins.Run(Update());
+                ILBridge.Ins.StartCoroutine(Update());
             }
             else
             {

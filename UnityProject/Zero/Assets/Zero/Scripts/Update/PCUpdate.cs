@@ -9,7 +9,7 @@ namespace Zero
     {
         public override void OnNeedUpdate()
         {
-            CoroutineBridge.Ins.StartCoroutine(UpdateEXE());
+            ILBridge.Ins.StartCoroutine(UpdateEXE());
         }
 
         IEnumerator UpdateEXE()

@@ -28,7 +28,7 @@ namespace Zero
 
             if (Runtime.Ins.IsLoadFromNet && false == _rt.netResVer.IsSameVer(_manifestName, _rt.localResVer))
             {
-                CoroutineBridge.Ins.Run(Update(_rt.netResDir + _manifestName, _rt.netResVer.GetVer(_manifestName)));
+                ILBridge.Ins.StartCoroutine(Update(_rt.netResDir + _manifestName, _rt.netResVer.GetVer(_manifestName)));
             }
             else
             {

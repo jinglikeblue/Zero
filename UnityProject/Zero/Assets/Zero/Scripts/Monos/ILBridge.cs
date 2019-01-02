@@ -131,7 +131,7 @@ namespace Zero
         }
 
         private void OnApplicationFocus(bool focus)
-        {
+        {            
             if(null != onApplicationFocus)
             {
                 onApplicationFocus.Invoke(focus);

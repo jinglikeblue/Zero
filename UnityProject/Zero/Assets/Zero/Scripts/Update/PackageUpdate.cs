@@ -17,7 +17,7 @@ namespace Zero
                 onComplete();
                 return;
             }
-            CoroutineBridge.Ins.StartCoroutine(Run(onComplete, onProgress));
+            ILBridge.Ins.StartCoroutine(Run(onComplete, onProgress));
         }
 
         IEnumerator Run(Action onComplete, Action<float> onProgress)

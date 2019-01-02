@@ -5,31 +5,6 @@ using Zero;
 
 namespace IL.Zero
 {
-    public class ViewEntry
-    {
-        /// <summary>
-        /// AB包名字
-        /// </summary>
-        public string abName;
-
-        /// <summary>
-        /// 视图名字
-        /// </summary>
-        public string viewName;
-
-        /// <summary>
-        /// 类型
-        /// </summary>
-        public Type type;
-
-        public ViewEntry(string abName, string viewName, Type type)
-        {
-            this.abName = abName;
-            this.viewName = viewName;
-            this.type = type;
-        }
-    }
-
     public abstract class AViewMgr
     {
         static protected Dictionary<string, Dictionary<string, ViewEntry>> _ab2view2EntryDic = new Dictionary<string, Dictionary<string, ViewEntry>>();

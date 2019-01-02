@@ -11,7 +11,7 @@ namespace Zero
         /// </summary>
         public override void OnNeedUpdate()
         {
-            CoroutineBridge.Ins.StartCoroutine(UpdateAPK());
+            ILBridge.Ins.StartCoroutine(UpdateAPK());
         }
 
         IEnumerator UpdateAPK()

@@ -25,7 +25,7 @@ namespace Zero
             {
                 var netPath = Runtime.Ins.netResDir + "setting.json";
                 Log.CI(Log.COLOR_BLUE, "配置文件: {0}", netPath);
-                CoroutineBridge.Ins.Run(Update(netPath));
+                ILBridge.Ins.StartCoroutine(Update(netPath));
             }
             else
             {                
@@ -62,7 +62,7 @@ namespace Zero
             
             if (Runtime.Ins.setting.settingJump.ContainsKey(Application.version))
             {
-                CoroutineBridge.Ins.Run(Update(Runtime.Ins.setting.settingJump[Application.version]));
+                ILBridge.Ins.StartCoroutine(Update(Runtime.Ins.setting.settingJump[Application.version]));
             }
             else
             {

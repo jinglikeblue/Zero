@@ -65,7 +65,7 @@ namespace Zero
         public override void LoadAsync(string abName, string assetName, Action<UnityEngine.Object> onLoaded, Action<float> onProgress = null)
         {
             AssetBundle ab = LoadAssetBundle(abName);
-            CoroutineBridge.Ins.StartCoroutine(LoadAsync(ab, assetName, onLoaded, onProgress));
+            ILBridge.Ins.StartCoroutine(LoadAsync(ab, assetName, onLoaded, onProgress));
         }
 
         public override void Unload(string abName, bool isUnloadAllLoaded = false, bool isUnloadDepends = true)

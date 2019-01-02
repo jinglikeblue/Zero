@@ -52,7 +52,7 @@ namespace Zero
 
         private void OnResUpdateChecked(string[] needUpdateResList)
         {
-            CoroutineBridge.Ins.StartCoroutine(UpdateGroups(needUpdateResList));
+            ILBridge.Ins.StartCoroutine(UpdateGroups(needUpdateResList));
         }
 
         IEnumerator UpdateGroups(string[] needUpdateResList)
