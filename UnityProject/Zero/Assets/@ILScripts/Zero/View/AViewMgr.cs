@@ -108,9 +108,12 @@ namespace IL.Zero
         /// <param name="isGC">是否执行垃圾回收</param>
         static public void DestroyView(AView view)
         {
-            if (null != view.ViewEntry && _ab2view2EntryDic.ContainsKey(view.ViewEntry.abName))
-            {                
-                ResMgr.Ins.Unload(view.ViewEntry.abName, false, true);
+            if (null != view.ViewEntry && null != view.ViewEntry.abName)
+            {
+                if (_ab2view2EntryDic.ContainsKey(view.ViewEntry.abName))
+                {
+                    ResMgr.Ins.Unload(view.ViewEntry.abName, false, true);
+                }
             }
             GameObject.Destroy(view.gameObject);
         }
