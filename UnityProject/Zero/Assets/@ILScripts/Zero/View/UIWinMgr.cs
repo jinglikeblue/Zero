@@ -169,8 +169,8 @@ namespace IL.Zero
 
         private int ComparerView(AView x, AView y)
         {
-            int xIdx = x.gameObject.transform.GetSiblingIndex();
-            int yIdx = y.gameObject.transform.GetSiblingIndex();
+            int xIdx = x.GameObject.transform.GetSiblingIndex();
+            int yIdx = y.GameObject.transform.GetSiblingIndex();
             return xIdx - yIdx;
         }
 
@@ -189,7 +189,7 @@ namespace IL.Zero
                     AView view = _nowWindows[i];                    
                     if (_needBlurViewSet.Contains(view))
                     {
-                        int viewChildIdx = view.gameObject.transform.GetSiblingIndex();
+                        int viewChildIdx = view.GameObject.transform.GetSiblingIndex();
                         int blurChildIdx = _blur.transform.GetSiblingIndex();
                         if(blurChildIdx < viewChildIdx)
                         {

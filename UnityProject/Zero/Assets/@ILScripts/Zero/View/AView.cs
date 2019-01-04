@@ -30,7 +30,7 @@ namespace IL.Zero
             }
             var entry = new ViewEntry(null, prefab.name, typeof(T));
             AView view = AViewMgr.CreateViewFromPrefab(prefab, parentTransform, entry);
-            parentView.AddChild(view);
+            //parentView.AddChild(view);
             if (data != null)
             {
                 view.SetData(data);
@@ -74,14 +74,14 @@ namespace IL.Zero
         /// <summary>
         /// Unity中的GameObject对象
         /// </summary>
-        public GameObject gameObject { get; private set; }
+        public GameObject GameObject { get; private set; }
 
         /// <summary>
         /// 是否销毁了
         /// </summary>
         public bool IsDestroyed
         {
-            get { return gameObject == null ? true : false; }
+            get { return GameObject == null ? true : false; }
         }        
 
         /// <summary>
@@ -89,8 +89,8 @@ namespace IL.Zero
         /// </summary>
         public string Name
         {
-            get { return gameObject.name; }
-            set { gameObject.name = value; }
+            get { return GameObject.name; }
+            set { GameObject.name = value; }
         }
         
         /// <summary>
@@ -101,20 +101,24 @@ namespace IL.Zero
         /// <summary>
         /// 子视图对象的列表
         /// </summary>
-        List<AView> _childViewList = new List<AView>();                    
+        //List<AView> _childViewList = new List<AView>();                    
 
         /// <summary>
         /// 挂载到GameObject上的脚本
         /// </summary>
         ZeroView _z;
+
         internal void SetGameObject(GameObject gameObject)
         {
-            this.gameObject = gameObject;
+            this.GameObject = gameObject;
 
-            _z = ComponentUtil.AutoGet<ZeroView>(this.gameObject);            
-            
+            _z = ComponentUtil.AutoGet<ZeroView>(this.GameObject);
+            _z.onEnable += OnGameObjectEnable;
+            _z.onDisable += OnGameObjectDisable;
+            _z.onDestroy += OnGameObjectDestroy;
+
             OnInit();
-            if (this.gameObject.activeInHierarchy)
+            if (this.GameObject.activeInHierarchy)
             {
                 OnEnable();
             }
@@ -122,11 +126,28 @@ namespace IL.Zero
 
         internal void SetData(object data)
         {
-            if(null == data)
+            if (null == data)
             {
                 return;
             }
             OnData(data);
+        }
+
+        private void OnGameObjectEnable()
+        {
+            OnEnable();
+        }
+
+        private void OnGameObjectDisable()
+        {
+            OnDisable();
+        }
+
+        private void OnGameObjectDestroy()
+        {
+            AViewMgr.DestroyView(this);
+            _z = null;
+            GameObject = null;
         }
 
         /// <summary>
@@ -137,18 +158,18 @@ namespace IL.Zero
         {
             if(isActive)
             {
-                if(false == gameObject.activeInHierarchy)
+                if(false == GameObject.activeInHierarchy)
                 {
-                    gameObject.SetActive(true);
-                    WhenEnable();
+                    GameObject.SetActive(true);
+                    //WhenEnable();
                 }
             }
             else
             {
-                if(gameObject.activeInHierarchy)
+                if(GameObject.activeInHierarchy)
                 {
-                    WhenDisable();
-                    gameObject.SetActive(false);                    
+                    //WhenDisable();
+                    GameObject.SetActive(false);                    
                 }
             }
         }
@@ -160,7 +181,7 @@ namespace IL.Zero
         /// <returns></returns>
         public T GetComponent<T>() where T : Component
         {
-            return gameObject.GetComponent<T>();
+            return GameObject.GetComponent<T>();
         }
 
         /// <summary>
@@ -170,7 +191,7 @@ namespace IL.Zero
         /// <returns></returns>
         public T AudoGetComponent<T>() where T :Component
         {
-            return ComponentUtil.AutoGet<T>(gameObject);
+            return ComponentUtil.AutoGet<T>(GameObject);
         }
 
         /// <summary>
@@ -181,7 +202,7 @@ namespace IL.Zero
         /// <returns></returns>
         public T GetChildComponent<T>(string childName)
         {
-            var child = gameObject.transform.Find(childName);
+            var child = GameObject.transform.Find(childName);
             if (null == child)
             {
                 return default(T);
@@ -196,7 +217,7 @@ namespace IL.Zero
         /// <returns></returns>
         public Transform GetChild(string childName)
         {
-            return gameObject.transform.Find(childName);
+            return GameObject.transform.Find(childName);
         }    
         
         /// <summary>
@@ -350,7 +371,7 @@ namespace IL.Zero
                 viewChild.SetData(data);
             }
 
-            AddChild(viewChild);
+            //AddChild(viewChild);
 
             return viewChild;
         }
@@ -358,101 +379,102 @@ namespace IL.Zero
         /// <summary>
         /// 从父对象移除
         /// </summary>
-        void RemoveFromParent()
-        {
-            if (null != parent)
-            {
-                parent.RemoveChild(this);                
-            }
-        }
+        //void RemoveFromParent()
+        //{
+        //    if (null != parent)
+        //    {
+        //        parent.RemoveChild(this);                
+        //    }
+        //}
 
         /// <summary>
         /// 添加子视图
         /// </summary>
         /// <param name="child"></param>
-        private void AddChild(AView child)
-        {            
-            if(child.parent != this)
-            {
-                child.RemoveFromParent();
-                child.parent = this;
-                _childViewList.Add(child);
-            }
-        }
+        //private void AddChild(AView child)
+        //{            
+        //    if(child.parent != this)
+        //    {
+        //        child.RemoveFromParent();
+        //        child.parent = this;
+        //        _childViewList.Add(child);
+        //    }
+        //}
 
         /// <summary>
         /// 移除子视图
         /// </summary>
         /// <param name="child"></param>
-        public void RemoveChild(AView child)
-        {
-            if (child.parent == this)
-            {
-                child.parent = null;
-                _childViewList.Remove(child);
-            }
-        }
+        //public void RemoveChild(AView child)
+        //{
+        //    if (child.parent == this)
+        //    {
+        //        child.parent = null;
+        //        _childViewList.Remove(child);
+        //    }
+        //}
 
         /// <summary>
         /// 销毁对象
         /// </summary>
         public void Destroy()
         {
-            if(IsDestroyed)
+            if (IsDestroyed)
             {
                 return;
             }
 
-            WhenDisable();
-            RemoveFromParent();
-            AViewMgr.DestroyView(this);
-            _z = null;
-            gameObject = null;
-            WhenDestroy();
+            GameObject.Destroy(GameObject);
+
+
+            //WhenDisable();
+            //RemoveFromParent();
+
+            //WhenDestroy();
         }
 
-        internal void WhenEnable()
-        {
-            if(false == gameObject.activeSelf)
-            {
-                return;
-            }
+        //internal void WhenEnable()
+        //{
+        //    if(false == gameObject.activeSelf)
+        //    {
+        //        return;
+        //    }
 
 
-            OnEnable();
-            foreach (var childView in _childViewList)
-            {
-                childView.WhenEnable();
-            }            
-        }
+        //    OnEnable();
+        //    foreach (var childView in _childViewList)
+        //    {
+        //        childView.WhenEnable();
+        //    }            
+        //}
 
-        internal void WhenDisable()
-        {
-            if (false == gameObject.activeSelf)
-            {
-                return;
-            }
+        //internal void WhenDisable()
+        //{
+        //    if (false == gameObject.activeSelf)
+        //    {
+        //        return;
+        //    }
 
-            OnDisable();
-            foreach (var childView in _childViewList)
-            {                
-                childView.WhenDisable();                
-            }            
-        }
+        //    OnDisable();
+        //    foreach (var childView in _childViewList)
+        //    {                
+        //        childView.WhenDisable();                
+        //    }            
+        //}
 
-        internal void WhenDestroy()
-        {
-            OnDestroy();
-            if (onDestroyHandler != null)
-            {
-                onDestroyHandler.Invoke(this);
-            }
+        //internal void WhenDestroy()
+        //{
+        //    OnDestroy();
+        //    if (onDestroyHandler != null)
+        //    {
+        //        onDestroyHandler.Invoke(this);
+        //    }
 
-            foreach (var childView in _childViewList)
-            {
-                childView.WhenDestroy();
-            }
-        }
+        //    foreach (var childView in _childViewList)
+        //    {
+        //        childView.WhenDestroy();
+        //    }
+        //}
 
         public Coroutine StartCoroutine(IEnumerator routine)
         {

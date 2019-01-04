@@ -107,7 +107,7 @@ namespace IL.Zero
 
         void SetNowView(AView view, object data = null)
         {
-            _nowViewName = view.gameObject.name;
+            _nowViewName = view.GameObject.name;
             _nowView = view;
             _nowView.onDestroyHandler += OnViewDestroy;
             view.SetData(data);

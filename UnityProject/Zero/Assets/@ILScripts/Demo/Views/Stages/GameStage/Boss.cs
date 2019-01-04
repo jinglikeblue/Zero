@@ -21,11 +21,11 @@ namespace IL.Demo
 
         void OnUpdate()
         {
-            if(gameObject.transform.localPosition.x >= LIMIT_RIGHT)
+            if(GameObject.transform.localPosition.x >= LIMIT_RIGHT)
             {
                 _body.velocity = Vector2.left * SPEED;
             }
-            else if(gameObject.transform.localPosition.x <= LIMIT_LEFT)
+            else if(GameObject.transform.localPosition.x <= LIMIT_LEFT)
             {
                 _body.velocity = Vector2.right * SPEED;
             }

@@ -87,7 +87,7 @@ namespace IL.Zero
                     ResMgr.Ins.Unload(view.ViewEntry.abName, false, true);
                 }
             }
-            GameObject.Destroy(view.gameObject);
+            //GameObject.Destroy(view.gameObject);
         }
 
         protected Transform _root;
