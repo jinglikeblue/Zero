@@ -17,7 +17,6 @@ namespace IL.Zero
         }
 
         AView _nowView;
-        string _nowViewName;
 
         /// <summary>
         /// 切换UIPanel
@@ -100,7 +99,6 @@ namespace IL.Zero
 
         void SetNowView(AView view, object data = null)
         {
-            _nowViewName = view.gameObject.name;
             _nowView = view;
             _nowView.onDestroyHandler += OnViewDestroy;
             view.SetData(data);
@@ -116,7 +114,6 @@ namespace IL.Zero
             if (_nowView == view)
             {                
                 _nowView = null;
-                _nowViewName = null;
             }
         }
     }

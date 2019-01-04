@@ -48,6 +48,7 @@ namespace IL.Zero
 
         public override void Init(Transform root)
         {
+
             base.Init(root);
             var blurGO = root.Find("Blur");           
             if (null != blurGO)
@@ -70,6 +71,11 @@ namespace IL.Zero
         /// <returns></returns>
         public T Open<T>(object data = null, bool isBlur = true, bool isCloseOthers = true) where T : AView
         {
+            if (isCloseOthers)
+            {
+                CloseAll();
+            }
+
             var view = CreateView(typeof(T));
             OnCreateView(view, data, isBlur, isCloseOthers);
             return view as T;
@@ -85,6 +91,11 @@ namespace IL.Zero
         /// <returns></returns>
         public AView Open(string abName, string viewName, object data = null, bool isBlur = true, bool isCloseOthers = true)
         {
+            if (isCloseOthers)
+            {
+                CloseAll();
+            }
+
             var view = CreateView(abName, viewName);
             OnCreateView(view, data, isBlur, isCloseOthers);
             return view;
@@ -101,6 +112,11 @@ namespace IL.Zero
         /// <param name="onProgress">创建进度回调方法</param>
         public void OpenAsync<T>(object data = null, bool isBlur = true, bool isCloseOthers = true, Action<AView> onCreated = null, Action<float> onProgress = null)
         {
+            if (isCloseOthers)
+            {
+                CloseAll();
+            }
+
             CreateViewAsync(typeof(T), (AView view) =>
             {
                 OnCreateView(view, data, isBlur, isCloseOthers);
@@ -122,6 +138,11 @@ namespace IL.Zero
         /// <param name="onProgress">创建进度回调方法</param>
         public void OpenAsync(string abName, string viewName, object data = null, bool isBlur = true, bool isCloseOthers = true, Action<AView> onCreated = null, Action<float> onProgress = null)
         {
+            if (isCloseOthers)
+            {
+                CloseAll();
+            }
+
             CreateViewAsync(abName, viewName, (AView view) =>
             {
                 OnCreateView(view, data, isBlur, isCloseOthers);
@@ -133,13 +154,9 @@ namespace IL.Zero
         }
 
         void OnCreateView(AView view, object data, bool isBlur, bool isCloseOthers)
-        {
-            if (isCloseOthers)
-            {
-                CloseAll();
-            }
-
+        {           
             _nowWindows.Add(view);
+            _nowWindows.Sort(ComparerView);
             view.onDestroyHandler += OnViewDestroy;
             view.SetData(data);
 
@@ -148,6 +165,13 @@ namespace IL.Zero
                 _needBlurViewSet.Add(view);                
                 UpdateBlur();
             }
+        }
+
+        private int ComparerView(AView x, AView y)
+        {
+            int xIdx = x.gameObject.transform.GetSiblingIndex();
+            int yIdx = y.gameObject.transform.GetSiblingIndex();
+            return xIdx - yIdx;
         }
 
         void UpdateBlur()

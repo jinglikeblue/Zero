@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,10 @@ namespace IL.Zero
         /// <returns></returns>
         public static T Create<T>(GameObject prefab, AView parentView, Transform parentTransform, object data = null) where T : AView
         {
+            if(null == prefab)
+            {
+                return null;
+            }
             var entry = new ViewEntry(null, prefab.name, typeof(T));
             AView view = AViewMgr.CreateViewFromPrefab(prefab, parentTransform, entry);
             parentView.AddChild(view);
@@ -64,7 +69,7 @@ namespace IL.Zero
         /// <summary>
         /// 销毁委托事件
         /// </summary>
-        public Action<AView> onDestroyHandler;
+        public event Action<AView> onDestroyHandler;
 
         /// <summary>
         /// Unity中的GameObject对象
@@ -98,20 +103,16 @@ namespace IL.Zero
         /// </summary>
         List<AView> _childViewList = new List<AView>();                    
 
+        /// <summary>
+        /// 挂载到GameObject上的脚本
+        /// </summary>
+        ZeroView _z;
         internal void SetGameObject(GameObject gameObject)
         {
             this.gameObject = gameObject;
 
-            //AViewGameObject com = GetComplent<AViewGameObject>();
-            //if (null == com)
-            //{
-            //    com = this.gameObject.AddComponent<AViewGameObject>();
-            //}
-            //Debug.Log(gameObject.name + ":开始注册事件");
-            //com.onEnable += OnEnable;
-            //com.onDisable += OnDisable;
-            //com.onDestroy += OnDestroy;
-
+            _z = ComponentUtil.AutoGet<ZeroView>(this.gameObject);            
+            
             OnInit();
             if (this.gameObject.activeInHierarchy)
             {
@@ -405,6 +406,7 @@ namespace IL.Zero
             WhenDisable();
             RemoveFromParent();
             AViewMgr.DestroyView(this);
+            _z = null;
             gameObject = null;
             WhenDestroy();
         }
@@ -452,14 +454,25 @@ namespace IL.Zero
             }
         }
 
-        //internal void SetDestroy()
-        //{            
-        //    foreach(var childView in _childViewList)
-        //    {
-        //        childView.SetDestroy();
-        //    }
-        //    OnDestroy();
-        //}
+        public Coroutine StartCoroutine(IEnumerator routine)
+        {
+            return _z?.StartCoroutine(routine);
+        }
+
+        public void StopAllCoroutines()
+        {
+            _z?.StopAllCoroutines();
+        }
+
+        public void StopCoroutine(IEnumerator routine)
+        {
+            _z?.StopCoroutine(routine);
+        }
+
+        public void StopCoroutine(Coroutine routine)
+        {
+            _z?.StopCoroutine(routine);
+        }
 
 
         #region 子类按需求重写实现的方法
