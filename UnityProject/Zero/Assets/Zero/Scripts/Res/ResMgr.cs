@@ -42,7 +42,13 @@ namespace Zero
             {
                 case EResMgrType.ASSET_BUNDLE:
                     Log.CI(Log.COLOR_BLUE, "初始化资源管理器... 资源来源：[AssetBundle]  Manifest路径：{0}", manifestFilePath);
-                    _mgr = new AssetBundleResMgr(manifestFilePath);
+                    var newMgr = new AssetBundleResMgr(manifestFilePath);
+                    if (_mgr != null && _mgr is AssetBundleResMgr)
+                    {
+                        //替换旧的需要继承一下已加载字典
+                        newMgr.Inherit(_mgr as AssetBundleResMgr);
+                    }
+                    _mgr = newMgr;
                     break;
                 case EResMgrType.RESOURCES:
                     Log.CI(Log.COLOR_BLUE, "初始化资源管理器... 资源来源：[Resources]");

@@ -187,6 +187,7 @@ namespace Zero
             }
 
             content = string.Format("[{0}] {1}", DateTime.Now.ToString("HH:mm:ss.fff"), content);
+            I(content);
             GUILog.Show(content);
         }
     }

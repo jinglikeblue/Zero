@@ -45,12 +45,14 @@ namespace Zero
             }
             else
             {
+                GUIStyle style = new GUIStyle();
+                style.fontSize = 20;
                 GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "");
                 GUILayout.BeginArea(new Rect(200, 0, Screen.width - 200, Screen.height));
                 GUILayout.BeginVertical();
                 for (int i = 0; i < logRecords.Count; i++)
                 {
-                    GUILayout.Label(logRecords[i]);
+                    GUILayout.Label(logRecords[i], style);
                 }
                 GUILayout.EndVertical();
                 GUILayout.EndArea();
