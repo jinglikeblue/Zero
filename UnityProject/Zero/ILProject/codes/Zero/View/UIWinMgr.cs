@@ -49,7 +49,7 @@ namespace IL.Zero
         public override void Init(Transform root)
         {
             base.Init(root);
-            var blurGO = root.Find("Blur");           
+            var blurGO = root.Find("Blur");
             if (null != blurGO)
             {
                 _blur = blurGO.GetComponent<Blur>();
@@ -58,7 +58,7 @@ namespace IL.Zero
                     _blur.gameObject.SetActive(false);
                 }
             }
-        }        
+        }
 
         /// <summary>
         /// 打开窗口
@@ -70,8 +70,8 @@ namespace IL.Zero
         /// <returns></returns>
         public T Open<T>(object data = null, bool isBlur = true, bool isCloseOthers = true) where T : AView
         {
-            var view = CreateView(typeof(T));
-            OnCreateView(view, data, isBlur, isCloseOthers);
+            var view = ViewFactory.Create(typeof(T), _root, data);
+            OnCreateView(view, isBlur, isCloseOthers);
             return view as T;
         }
 
@@ -85,10 +85,14 @@ namespace IL.Zero
         /// <returns></returns>
         public AView Open(string abName, string viewName, object data = null, bool isBlur = true, bool isCloseOthers = true)
         {
-            var view = CreateView(abName, viewName);
-            OnCreateView(view, data, isBlur, isCloseOthers);
+            var view = ViewFactory.Create(abName, viewName, _root, data);
+            OnCreateView(view, isBlur, isCloseOthers);
             return view;
         }
+
+        Action<AView> _onAsyncCreated;
+        bool _isBlur;
+        bool _isCloseOthers;
 
         /// <summary>
         /// 异步打开窗口
@@ -101,14 +105,17 @@ namespace IL.Zero
         /// <param name="onProgress">创建进度回调方法</param>
         public void OpenAsync<T>(object data = null, bool isBlur = true, bool isCloseOthers = true, Action<AView> onCreated = null, Action<float> onProgress = null)
         {
-            CreateViewAsync(typeof(T), (AView view) =>
-            {
-                OnCreateView(view, data, isBlur, isCloseOthers);
-                if (null != onCreated)
-                {
-                    onCreated(view);
-                }
-            }, onProgress);
+            _isBlur = isBlur;
+            _isCloseOthers = isCloseOthers;
+            _onAsyncCreated = onCreated;
+
+            ViewFactory.CreateAsync(typeof(T), _root, data, OnAsyncCreated, onProgress);
+        }
+
+        private void OnAsyncCreated(AView view)
+        {
+            OnCreateView(view, _isBlur, _isCloseOthers);
+            _onAsyncCreated?.Invoke(view);
         }
 
         /// <summary>
@@ -122,17 +129,14 @@ namespace IL.Zero
         /// <param name="onProgress">创建进度回调方法</param>
         public void OpenAsync(string abName, string viewName, object data = null, bool isBlur = true, bool isCloseOthers = true, Action<AView> onCreated = null, Action<float> onProgress = null)
         {
-            CreateViewAsync(abName, viewName, (AView view) =>
-            {
-                OnCreateView(view, data, isBlur, isCloseOthers);
-                if (null != onCreated)
-                {
-                    onCreated(view);
-                }
-            }, onProgress);
+            _isBlur = isBlur;
+            _isCloseOthers = isCloseOthers;
+            _onAsyncCreated = onCreated;
+
+            ViewFactory.CreateAsync(abName, viewName, _root, data, OnAsyncCreated, onProgress);
         }
 
-        void OnCreateView(AView view, object data, bool isBlur, bool isCloseOthers)
+        void OnCreateView(AView view, bool isBlur, bool isCloseOthers)
         {
             if (isCloseOthers)
             {
@@ -140,14 +144,21 @@ namespace IL.Zero
             }
 
             _nowWindows.Add(view);
+            _nowWindows.Sort(ComparerView);
             view.onDestroyHandler += OnViewDestroy;
-            view.SetData(data);
 
             if (isBlur)
             {
-                _needBlurViewSet.Add(view);                
+                _needBlurViewSet.Add(view);
                 UpdateBlur();
             }
+        }
+
+        private int ComparerView(AView x, AView y)
+        {
+            int xIdx = x.GO.transform.GetSiblingIndex();
+            int yIdx = y.GO.transform.GetSiblingIndex();
+            return xIdx - yIdx;
         }
 
         void UpdateBlur()
@@ -159,15 +170,15 @@ namespace IL.Zero
 
             if (_needBlurViewSet.Count > 0)
             {
-                _blur.gameObject.SetActive(true);                
+                _blur.gameObject.SetActive(true);
                 for (int i = _nowWindows.Count - 1; i > -1; i--)
                 {
-                    AView view = _nowWindows[i];                    
+                    AView view = _nowWindows[i];
                     if (_needBlurViewSet.Contains(view))
                     {
-                        int viewChildIdx = view.gameObject.transform.GetSiblingIndex();
+                        int viewChildIdx = view.GO.transform.GetSiblingIndex();
                         int blurChildIdx = _blur.transform.GetSiblingIndex();
-                        if(blurChildIdx < viewChildIdx)
+                        if (blurChildIdx < viewChildIdx)
                         {
                             viewChildIdx--;
                         }
@@ -195,15 +206,6 @@ namespace IL.Zero
             _needBlurViewSet.Remove(view);
 
             UpdateBlur();
-        }
-
-        /// <summary>
-        /// 关闭窗口
-        /// </summary>
-        /// <param name="target">关闭对象</param>
-        public void Close(AView target)
-        {            
-            target.Destroy();          
         }
 
         /// <summary>

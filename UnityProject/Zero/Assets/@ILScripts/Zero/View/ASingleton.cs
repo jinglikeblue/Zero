@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace IL.Zero
+﻿namespace IL.Zero
 {
     /// <summary>
     /// 单例模式基类
@@ -16,6 +11,11 @@ namespace IL.Zero
         public static T Ins
         {
             get { return _ins; }
+        }
+
+        protected ASingleton()
+        {
+
         }
     }
 }

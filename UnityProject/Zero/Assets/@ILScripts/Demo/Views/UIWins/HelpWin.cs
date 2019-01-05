@@ -24,24 +24,24 @@ namespace IL.Demo
 
         protected override void OnDisable()
         {
-            UIEventListener.Get(GameObject).onClick -= ShowNextPage;
+            UIEventListener.Get(gameObject).onClick -= ShowNextPage;
             _btnClose.onClick.RemoveListener(Destroy);
             
         }
 
         protected override void OnEnable()
         {
-            UIEventListener.Get(GameObject).onClick += ShowNextPage;
+            UIEventListener.Get(gameObject).onClick += ShowNextPage;
             _btnClose.onClick.AddListener(Destroy);
         }
 
         protected override void OnInit()
         {
-            _tip = GameObject.GetComponent<Image>();
-            var resData = GameObject.GetComponent<ObjectBindingData>();
+            _tip = gameObject.GetComponent<Image>();
+            var resData = gameObject.GetComponent<ObjectBindingData>();
             var list = resData.Find("tips").Value.list;
             _tipSpriteList = list;
-            var stringData = GameObject.GetComponent<StringBindingData>();
+            var stringData = gameObject.GetComponent<StringBindingData>();
             _tipStrList = stringData.Find("tips").Value.list;
             _btnClose = GetChildComponent<Button>("BtnClose");
             _textTip = GetChildComponent<Text>("TextTip");

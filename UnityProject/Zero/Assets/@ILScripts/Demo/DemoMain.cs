@@ -57,14 +57,14 @@ namespace IL.Demo
         void RegistView<T>(string abName)
         {
             Type t = typeof(T);
-            AViewMgr.Regist(t.Name, abName, t);
+            ViewFactory.Regist(abName, t.Name, t);
         }
 
         public void Go()
         {
             Log.GUI("This demo is code by Jing");
             GUIDeviceInfo.Show();
-            UIPanelMgr.Ins.Switch<MenuPanel>();                                   
+            UIPanelMgr.Ins.SwitchASync<MenuPanel>();                                   
         }
     }
 }

@@ -28,8 +28,8 @@ namespace IL.Zero
         {
             ClearNowPanel();
             //生成新的界面
-            var view = CreateView(abName, viewName);
-            SetNowView(view, data);
+            var view =  ViewFactory.Create(abName, viewName, _root, data);
+            SetNowView(view);
             return view;
         }
 
@@ -43,10 +43,12 @@ namespace IL.Zero
         {
             ClearNowPanel();
             //生成新的界面
-            var view = CreateView(typeof(T));
-            SetNowView(view, data);
+            var view = ViewFactory.Create(typeof(T),_root, data);
+            SetNowView(view);
             return view as T;
         }
+
+        Action<AView> _onAsyncCreated;
 
         /// <summary>
         /// 异步切换UIPanel
@@ -56,15 +58,15 @@ namespace IL.Zero
         /// <param name="onCreated">创建完成回调方法</param>
         /// <param name="onProgress">创建进度回调方法</param>
         public void SwitchASync(string abName, string viewName, object data = null, Action<AView> onCreated = null, Action<float> onProgress = null)
+        {            
+            _onAsyncCreated = onCreated;
+            ViewFactory.CreateAsync(abName, viewName,_root, data, OnAsyncCreated, onProgress, ClearNowPanel);
+        }
+
+        private void OnAsyncCreated(AView view)
         {
-            ClearNowPanel();
-            CreateViewAsync(abName, viewName, (AView view) => {                
-                SetNowView(view, data);
-                if (null != onCreated)
-                {
-                    onCreated(view);
-                }
-            }, onProgress);
+            SetNowView(view);
+            _onAsyncCreated?.Invoke(view);
         }
 
         /// <summary>
@@ -76,14 +78,8 @@ namespace IL.Zero
         /// <param name="onProgress">创建进度回调方法</param>
         public void SwitchASync<T>(object data = null, Action<AView> onCreated = null, Action<float> onProgress = null)
         {
-            ClearNowPanel();
-            CreateViewAsync(typeof(T), (AView view) => {                
-                SetNowView(view, data);
-                if (null != onCreated)
-                {
-                    onCreated(view);
-                }
-            }, onProgress);
+            _onAsyncCreated = onCreated;
+            ViewFactory.CreateAsync(typeof(T), _root, data, OnAsyncCreated, onProgress, ClearNowPanel);
         }
 
         /// <summary>
@@ -97,11 +93,10 @@ namespace IL.Zero
             }
         }
 
-        void SetNowView(AView view, object data = null)
+        void SetNowView(AView view)
         {
             _nowView = view;
             _nowView.onDestroyHandler += OnViewDestroy;
-            view.SetData(data);
         }
 
         /// <summary>

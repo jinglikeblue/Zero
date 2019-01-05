@@ -68,6 +68,24 @@ namespace Zero
             ILBridge.Ins.StartCoroutine(LoadAsync(ab, assetName, onLoaded, onProgress));
         }
 
+        IEnumerator LoadAsync(AssetBundle ab, string assetName, Action<UnityEngine.Object> onLoaded, Action<float> onProgress)
+        {
+            AssetBundleRequest abr = ab.LoadAssetAsync<GameObject>(assetName);
+
+            do
+            {
+                if (onProgress != null)
+                {
+                    onProgress.Invoke(abr.progress);
+                }
+                yield return new WaitForEndOfFrame();
+            }
+            while (false == abr.isDone);
+
+            //加载完成
+            onLoaded.Invoke(abr.asset);
+        }
+
         public override void Unload(string abName, bool isUnloadAllLoaded = false, bool isUnloadDepends = true)
         {
             if (_loadedABDic.ContainsKey(abName))
@@ -123,24 +141,6 @@ namespace Zero
             }
 
             ResMgr.Ins.DoGC();
-        }
-
-        IEnumerator LoadAsync(AssetBundle ab, string assetName, Action<UnityEngine.Object> onGet, Action<float> onProgress)
-        {
-            AssetBundleRequest abr = ab.LoadAssetAsync<GameObject>(assetName);
-            do
-            {
-                if (onProgress != null)
-                {
-                    onProgress.Invoke(abr.progress);
-                }
-                yield return new WaitForEndOfFrame();
-            }
-            while (false == abr.isDone);
-
-
-            //加载完成
-            onGet.Invoke(abr.asset);
         }
 
         /// <summary>

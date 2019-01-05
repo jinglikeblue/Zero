@@ -23,7 +23,6 @@ namespace IL.Zero
         }
 
         AView _nowView;
-        string _nowViewName;
 
         /// <summary>
         /// 切换Stage
@@ -33,13 +32,12 @@ namespace IL.Zero
         /// <param name="isClearPanel">是否清理UIPanel</param>
         /// <param name="isCloseWindows">是否清理UIWin</param>
         /// <returns></returns>
-        public AView Switch(string abName, string viewName, object data = null, bool isClearPanel = true, bool isCloseWindows = true)
+        public AView Switch(string abName, string viewName, object data = null)
         {
-            ClearNowStage(isClearPanel, isCloseWindows);
-
+            ClearNowStage();
             //生成新的界面
-            var view = CreateView(abName, viewName);
-            SetNowView(view, data);            
+            var view = ViewFactory.Create(abName, viewName, _root, data);
+            SetNowView(view);
             return view;
         }
 
@@ -53,13 +51,14 @@ namespace IL.Zero
         /// <returns></returns>
         public T Switch<T>(object data = null, bool isClearPanel = true, bool isCloseWindows = true) where T : AView
         {
-            ClearNowStage(isClearPanel, isCloseWindows);
-
+            ClearNowStage();
             //生成新的界面
-            var view = CreateView(typeof(T));
-            SetNowView(view, data);            
+            var view = ViewFactory.Create(typeof(T), _root, data);
+            SetNowView(view);
             return view as T;
         }
+
+        Action<AView> _onAsyncCreated;
 
         /// <summary>
         /// 异步切换场景
@@ -72,15 +71,14 @@ namespace IL.Zero
         /// <param name="isCloseWindows">是否清理UIWin</param>
         public void SwitchASync(string abName, string viewName, object data = null, Action<AView> onCreated = null, Action<float> onProgress = null, bool isClearPanel = true, bool isCloseWindows = true)
         {
-            ClearNowStage(isClearPanel, isCloseWindows);
+            _onAsyncCreated = onCreated;
+            ViewFactory.CreateAsync(abName, viewName, _root, data, OnAsyncCreated, onProgress, ClearNowStage);
+        }
 
-            CreateViewAsync(abName, viewName, (AView view) => {                
-                SetNowView(view, data);
-                if (null != onCreated)
-                {
-                    onCreated(view);
-                }                
-            }, onProgress); 
+        private void OnAsyncCreated(AView view)
+        {
+            SetNowView(view);
+            _onAsyncCreated?.Invoke(view);
         }
 
         /// <summary>
@@ -94,23 +92,14 @@ namespace IL.Zero
         /// <param name="isCloseWindows">是否清理UIWin</param>
         public void SwitchASync<T>(object data = null, Action<AView> onCreated = null, Action<float> onProgress = null, bool isClearPanel = true, bool isCloseWindows = true)
         {
-            ClearNowStage(isClearPanel, isCloseWindows);
-
-            CreateViewAsync(typeof(T), (AView view) => {                
-                SetNowView(view, data);
-                if (null != onCreated)
-                {
-                    onCreated(view);
-                }                
-            }, onProgress);
+            _onAsyncCreated = onCreated;
+            ViewFactory.CreateAsync(typeof(T), _root, data, OnAsyncCreated, onProgress, ClearNowStage);
         }
 
-        void SetNowView(AView view, object data = null)
+        void SetNowView(AView view)
         {
-            _nowViewName = view.gameObject.name;
             _nowView = view;
             _nowView.onDestroyHandler += OnViewDestroy;
-            view.SetData(data);
 
             //执行一次垃圾回收
             ResMgr.Ins.DoGC();
@@ -119,23 +108,11 @@ namespace IL.Zero
         /// <summary>
         /// 清理当前的舞台
         /// </summary>
-        /// <param name="isClearPanel">是否清理UIPanel</param>
-        /// <param name="isCloseWindows">是否清理UIWin</param>
-        public void ClearNowStage(bool isClearPanel = true, bool isCloseWindows = true)
+        public void ClearNowStage()
         {
             if (_nowView != null)
             {
                 _nowView.Destroy();
-            }
-
-            if (isClearPanel)
-            {
-                UIPanelMgr.Ins.ClearNowPanel();
-            }
-
-            if (isCloseWindows)
-            {
-                UIWinMgr.Ins.CloseAll();
             }
         }
 
@@ -149,7 +126,6 @@ namespace IL.Zero
             if (_nowView == view)
             {
                 _nowView = null;
-                _nowViewName = null;
             }
         }
     }

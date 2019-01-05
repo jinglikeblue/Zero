@@ -38,12 +38,12 @@ namespace IL.Demo
         void Go()
         {
             UIPanelMgr.Ins.ClearNowPanel();
-            StageMgr.Ins.Switch<GameStage>();            
+            StageMgr.Ins.SwitchASync("hot_res/prefabs/stages.ab","GameStage");            
         }
 
         void OpenHelpWin()
         {
-            UIWinMgr.Ins.Open<HelpWin>();
+            UIWinMgr.Ins.OpenAsync<HelpWin>();
         }
     }
 }
