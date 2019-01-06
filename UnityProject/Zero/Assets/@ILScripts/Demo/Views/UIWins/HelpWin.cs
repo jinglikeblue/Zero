@@ -44,14 +44,11 @@ namespace IL.Demo
             var stringData = gameObject.GetComponent<StringBindingData>();
             _tipStrList = stringData.Find("tips").Value.list;
             _btnClose = GetChildComponent<Button>("BtnClose");
-            _textTip = GetChildComponent<Text>("TextTip");
-            
-            //gameObject.transform.localScale = Vector3.zero;
-            //gameObject.transform.DOScale(1, 0.5f).SetEase(Ease.OutBounce);
+            _textTip = GetChildComponent<Text>("TextTip");            
         }
-
+        
         void ShowNextPage(PointerEventData e)
-        {
+        {           
             _page++;
             if(_page >= _tipStrList.Length)
             {

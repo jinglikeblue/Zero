@@ -36,9 +36,8 @@ namespace IL.Demo
         }
 
         void Go()
-        {
-            UIPanelMgr.Ins.ClearNowPanel();
-            StageMgr.Ins.SwitchASync("hot_res/prefabs/stages.ab","GameStage");            
+        {            
+            StageMgr.Ins.SwitchASync<GameStage>();            
         }
 
         void OpenHelpWin()

@@ -81,5 +81,15 @@ namespace IL.Zero
                 Current = null;
             }
         }
+
+        public override void Clear()
+        {
+            if(null != Current)
+            {
+                var view = Current;
+                OnViewDestroy(Current);
+                view.Destroy();
+            }
+        }
     }
 }

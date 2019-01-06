@@ -45,12 +45,12 @@ namespace IL.Zero
         /// </summary>
         /// <param name="viewName"></param>
         /// <param name="data">传递的数据</param>
-        /// <param name="onCreated">创建完成回调方法</param>
+        /// <param name="onCreated">创建完成回调方法，会传回显示的视图以及token对象</param>
         /// <param name="onProgress">创建进度回调方法</param>
-        public void ShowASync<AViewType>(object data = null, Action<AViewType> onCreated = null, Action<float> onProgress = null) where AViewType : AView
+        public void ShowASync<AViewType>(object data = null, Action<AViewType, object> onCreated = null, object token = null, Action<float> onProgress = null) where AViewType : AView
         {
             var show = new ASyncShow<AViewType>();
-            show.Begin(this, data, onCreated, onProgress);
+            show.Begin(this, data, onCreated, token, onProgress);
         }
 
         /// <summary>
@@ -59,6 +59,10 @@ namespace IL.Zero
         /// <param name="view"></param>
         public abstract void ShowView(AView view);
 
+        /// <summary>
+        /// 清理视图
+        /// </summary>
+        public abstract void Clear();
 
         /// <summary>
         /// 异步展示处理类
@@ -67,12 +71,14 @@ namespace IL.Zero
         class ASyncShow<AViewType> where AViewType : AView
         {
             AViewLayer _layer;
-            Action<AViewType> _onCreated;
+            Action<AViewType, object> _onCreated;
+            object _token;
 
-            public void Begin(AViewLayer layer, object data, Action<AViewType> onCreated, Action<float> onProgress)
+            public void Begin(AViewLayer layer, object data, Action<AViewType, object> onCreated, object token, Action<float> onProgress)
             {
                 _layer = layer;
                 _onCreated = onCreated;
+                _token = token;
                 ViewFactory.CreateAsync(typeof(AViewType), layer.Root, data, OnAsyncCreated, onProgress);
             }
 
@@ -83,7 +89,7 @@ namespace IL.Zero
             private void OnAsyncCreated(AView view)
             {
                 _layer.ShowView(view);
-                _onCreated?.Invoke(view as AViewType);
+                _onCreated?.Invoke(view as AViewType, _token);
             }
         }
     }

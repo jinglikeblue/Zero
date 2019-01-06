@@ -98,7 +98,6 @@ namespace IL.Zero
 
         private void OnGameObjectDestroy()
         {
-            AViewMgr.DestroyView(this);
             _z = null;
             gameObject = null;
             onDestroyHandler?.Invoke(this);

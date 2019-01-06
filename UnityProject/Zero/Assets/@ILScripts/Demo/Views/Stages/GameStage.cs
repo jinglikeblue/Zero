@@ -17,7 +17,7 @@ namespace IL.Demo
             _blockPrefab = (GameObject)GetBindingObject("blockPrefab")[0];            
             _boss = CreateViewChlid<Boss>("Boss");
 
-            UIPanelMgr.Ins.Switch<GamePanel>(this);
+            UIPanelMgr.Ins.SwitchASync<GamePanel>(this);
         }
 
         public void CreateBlock()

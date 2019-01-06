@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 224317539935036130}
   - component: {fileID: 222523503681300364}
   - component: {fileID: 114429300709056556}
+  - component: {fileID: 225152375284239462}
   m_Layer: 5
   m_Name: MenuPanel
   m_TagString: Untagged
@@ -413,3 +414,14 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -389}
   m_SizeDelta: {x: 86, y: 87}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &225152375284239462
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1702238574994642}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

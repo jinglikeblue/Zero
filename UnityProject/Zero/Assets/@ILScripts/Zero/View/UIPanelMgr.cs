@@ -1,36 +1,49 @@
 ﻿using System;
+using System.Collections;
+using UnityEngine;
+using Zero;
 
 namespace IL.Zero
 {
     /// <summary>
     /// UI面板管理器
     /// </summary>
-    public class UIPanelMgr:AViewMgr
+    public class UIPanelMgr : ASingleton<UIPanelMgr>
     {
-        /// <summary>
-        /// 单例模式
-        /// </summary>
-        public static readonly UIPanelMgr Ins = new UIPanelMgr();
-        private UIPanelMgr()
-        {
+        class Animator : ASingularViewSwitchAnimator
+        {            
+            public override void StartSwitch(AView oldView, AView newView, Action<ASingularViewSwitchAnimator> onSwitchComplete)
+            {
+                ILBridge.Ins.StartCoroutine(Switch(oldView, newView, onSwitchComplete));
+            }
 
+            IEnumerator Switch(AView oldView, AView newView, Action<ASingularViewSwitchAnimator> onSwitchComplete)
+            {
+                var oldCG = oldView.GetComponent<CanvasGroup>();
+                var newCG = newView.GetComponent<CanvasGroup>();
+                newCG.alpha = 0;
+
+                while (newCG.alpha < 1)
+                {
+                    newCG.alpha += 0.01f;
+                    oldCG.alpha -= 0.01f;
+                    yield return new WaitForEndOfFrame();
+                }
+
+                onSwitchComplete.Invoke(this);
+            }
         }
 
-        AView _nowView;
 
-        /// <summary>
-        /// 切换UIPanel
-        /// </summary>
-        /// <param name="viewName">视图名称</param>
-        /// <param name="data">传递的数据</param>
-        /// <returns></returns>
-        public AView Switch(string abName, string viewName, object data = null)
+        SingularViewLayer _layer;
+
+        public void Init(Transform root)
         {
-            ClearNowPanel();
-            //生成新的界面
-            var view =  ViewFactory.Create(abName, viewName, _root, data);
-            SetNowView(view);
-            return view;
+            if (null == _layer)
+            {
+                _layer = new SingularViewLayer(root.gameObject);
+                _layer.RegistSwitchAnimator(new Animator());
+            }
         }
 
         /// <summary>
@@ -41,32 +54,9 @@ namespace IL.Zero
         /// <returns></returns>
         public T Switch<T>(object data = null) where T : AView
         {
-            ClearNowPanel();
             //生成新的界面
-            var view = ViewFactory.Create(typeof(T),_root, data);
-            SetNowView(view);
-            return view as T;
-        }
-
-        Action<AView> _onAsyncCreated;
-
-        /// <summary>
-        /// 异步切换UIPanel
-        /// </summary>
-        /// <param name="viewName"></param>
-        /// <param name="data">传递的数据</param>
-        /// <param name="onCreated">创建完成回调方法</param>
-        /// <param name="onProgress">创建进度回调方法</param>
-        public void SwitchASync(string abName, string viewName, object data = null, Action<AView> onCreated = null, Action<float> onProgress = null)
-        {            
-            _onAsyncCreated = onCreated;
-            ViewFactory.CreateAsync(abName, viewName,_root, data, OnAsyncCreated, onProgress, ClearNowPanel);
-        }
-
-        private void OnAsyncCreated(AView view)
-        {
-            SetNowView(view);
-            _onAsyncCreated?.Invoke(view);
+            var view = _layer.Show<T>(data);
+            return view;
         }
 
         /// <summary>
@@ -76,10 +66,15 @@ namespace IL.Zero
         /// <param name="data">传递的数据</param>
         /// <param name="onCreated">创建完成回调方法</param>
         /// <param name="onProgress">创建进度回调方法</param>
-        public void SwitchASync<T>(object data = null, Action<AView> onCreated = null, Action<float> onProgress = null)
+        public void SwitchASync<T>(object data = null, Action<AView> onCreated = null, Action<float> onProgress = null) where T : AView
         {
-            _onAsyncCreated = onCreated;
-            ViewFactory.CreateAsync(typeof(T), _root, data, OnAsyncCreated, onProgress, ClearNowPanel);
+            _layer.ShowASync<T>(data, OnASyncShow, onCreated, onProgress);                        
+        }
+
+        private void OnASyncShow(AView view, object token)
+        {
+            var onCreated = token as Action<AView>;
+            onCreated?.Invoke(view);
         }
 
         /// <summary>
@@ -87,29 +82,7 @@ namespace IL.Zero
         /// </summary>
         public void ClearNowPanel()
         {
-            if (_nowView != null)
-            {                
-                _nowView.Destroy();
-            }
-        }
-
-        void SetNowView(AView view)
-        {
-            _nowView = view;
-            _nowView.onDestroyHandler += OnViewDestroy;
-        }
-
-        /// <summary>
-        /// View对象销毁的回调
-        /// </summary>
-        /// <param name="view"></param>
-        void OnViewDestroy(AView view)
-        {
-            view.onDestroyHandler -= OnViewDestroy;
-            if (_nowView == view)
-            {                
-                _nowView = null;
-            }
+            _layer.Clear();
         }
     }
 }

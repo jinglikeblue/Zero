@@ -62,7 +62,7 @@ namespace IL.Demo
 
         public void Go()
         {
-            Log.GUI("This demo is code by Jing");
+            //Log.GUI("This demo is code by Jing");
             GUIDeviceInfo.Show();
             UIPanelMgr.Ins.SwitchASync<MenuPanel>();                                   
         }

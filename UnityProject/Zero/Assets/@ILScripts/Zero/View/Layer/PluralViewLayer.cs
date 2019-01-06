@@ -8,25 +8,26 @@ namespace IL.Zero
     /// </summary>
     public sealed class PluralViewLayer : AViewLayer
     {
-        List<AView> _viewList = new List<AView>();
+        public List<AView> ViewList { get; }
 
         public PluralViewLayer(GameObject rootGameObject) : base(rootGameObject)
         {
+            ViewList = new List<AView>();
         }
 
         public override void ShowView(AView view)
         {            
-            if (false == _viewList.Contains(view))
+            if (false == ViewList.Contains(view))
             {
-                view.onDestroyHandler += OnViewDestroy;
-                _viewList.Add(view);
+                view.onDestroyHandler += RemoveView;
+                ViewList.Add(view);
             }
         }
 
-        void OnViewDestroy(AView view)
+        void RemoveView(AView view)
         {
-            view.onDestroyHandler -= OnViewDestroy;
-            _viewList.Remove(view);           
+            view.onDestroyHandler -= RemoveView;
+            ViewList.Remove(view);           
         }
 
         public void ChangeSiblingIndex(AView view, int index)
@@ -37,13 +38,16 @@ namespace IL.Zero
         /// <summary>
         /// 清理所有的视图
         /// </summary>
-        public void Clear()
+        public override void Clear()
         {
-            foreach(var view in _viewList)
+            var idx = ViewList.Count;
+            while(--idx > -1)
             {
-                view.onDestroyHandler -= OnViewDestroy;
+                var view = ViewList[idx];
+                view.onDestroyHandler -= RemoveView;
+                view.Destroy();
             }
-            _viewList.Clear();
+            ViewList.Clear();
         }
     }
 }
