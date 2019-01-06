@@ -147,12 +147,12 @@ namespace IL.Zero
 
         public static void CreateAsync(Type type, string abName, string viewName, Transform parent, object data = null, Action<AView> onCreated = null, Action<float> onProgress = null, Action onLoaded = null)
         {
-            new ViewAsyncCreater<AView>(type, abName, viewName).Create(parent,data,onCreated,onProgress);
+            new ViewAsyncCreater<AView>(type, abName, viewName).Create(parent,data,onCreated,onProgress, onLoaded);
         }
 
         public static void CreateAsync<T>(string abName, string viewName, Transform parent, object data = null, Action<T> onCreated = null, Action<float> onProgress = null, Action onLoaded = null) where T : AView
         {
-            new ViewAsyncCreater<T>(typeof(T), abName, viewName).Create(parent, data, onCreated, onProgress);
+            new ViewAsyncCreater<T>(typeof(T), abName, viewName).Create(parent, data, onCreated, onProgress, onLoaded);
         }
 
         public static void CreateAsync(Type type, Transform parent, object data = null, Action<AView> onCreated = null, Action<float> onProgress = null, Action onLoaded = null)
@@ -160,7 +160,7 @@ namespace IL.Zero
             if (_type2EntryDic.ContainsKey(type))
             {
                 ViewEntry ve = _type2EntryDic[type];
-                new ViewAsyncCreater<AView>(ve.type, ve.abName, ve.viewName).Create(parent, data, onCreated, onProgress);
+                new ViewAsyncCreater<AView>(ve.type, ve.abName, ve.viewName).Create(parent, data, onCreated, onProgress, onLoaded);
             }
         }
 
@@ -170,7 +170,7 @@ namespace IL.Zero
             if (_type2EntryDic.ContainsKey(type))
             {
                 ViewEntry ve = _type2EntryDic[type];
-                new ViewAsyncCreater<T>(ve.type, ve.abName, ve.viewName).Create(parent, data, onCreated, onProgress);
+                new ViewAsyncCreater<T>(ve.type, ve.abName, ve.viewName).Create(parent, data, onCreated, onProgress, onLoaded);
             }
         }
 
@@ -182,7 +182,7 @@ namespace IL.Zero
                 if (v2eDic.ContainsKey(viewName))
                 {
                     ViewEntry ve = v2eDic[viewName];
-                    new ViewAsyncCreater<AView>(ve.type, ve.abName, ve.viewName).Create(parent, data, onCreated, onProgress);
+                    new ViewAsyncCreater<AView>(ve.type, ve.abName, ve.viewName).Create(parent, data, onCreated, onProgress, onLoaded);
                 }
             }
         }

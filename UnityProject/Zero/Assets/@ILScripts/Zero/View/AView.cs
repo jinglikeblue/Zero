@@ -26,7 +26,7 @@ namespace IL.Zero
         /// <summary>
         /// Unity中的GameObject对象
         /// </summary>
-        public GameObject gameObject { get; private set; }
+        public GameObject gameObject { get; private set; }        
 
         /// <summary>
         /// 是否销毁了

@@ -15,7 +15,8 @@ namespace IL.Zero
 
         Transform _parent;
         object _data;
-        Action<T> _onCreated;        
+        Action<T> _onCreated;
+        Action _onLoaded;
 
         public ViewAsyncCreater(Type type, string abName, string viewName)
         {
@@ -24,16 +25,18 @@ namespace IL.Zero
             _viewName = viewName;            
         }
 
-        public void Create(Transform parent, object data = null,Action<T> onCreated = null, Action<float> onProgress = null) 
+        public void Create(Transform parent, object data = null,Action<T> onCreated = null, Action<float> onProgress = null, Action onLoaded = null) 
         {
             _parent = parent;
             _data = data;
-            _onCreated = onCreated;            
-            ResMgr.Ins.LoadAsync(_abName, _viewName, OnLoaded, onProgress);
+            _onCreated = onCreated;
+            _onLoaded = onLoaded;
+            ResMgr.Ins.LoadAsync(_abName, _viewName, OnResLoaded, onProgress);
         }
 
-        private void OnLoaded(UnityEngine.Object obj)
+        private void OnResLoaded(UnityEngine.Object obj)
         {
+            _onLoaded?.Invoke();
             var prefab = obj as GameObject;
             var view = ViewFactory.Create(_type, prefab, _parent, _data) as T;
             _onCreated?.Invoke(view);

@@ -44,11 +44,11 @@ namespace IL.Zero
         /// <summary>
         /// 注册一个界面
         /// </summary>
-        /// <param name="abName">Prefab所在AssetBundle的名称</param>
-        /// <param name="viewName">Prefab的名称</param>
+        /// <param name="abName"></param>
+        /// <param name="viewName"></param>
         /// <param name="type">Prefab的Type</param>
-        static public void Regist(string abName, string viewName, Type type)
-        {
+        static public void Register(string abName, string viewName, Type type)
+        {            
             ViewEntry entry = new ViewEntry(abName, viewName, type);
             if (false == _ab2view2EntryDic.ContainsKey(abName))
             {
@@ -57,6 +57,17 @@ namespace IL.Zero
 
             _ab2view2EntryDic[abName][viewName] = entry;
             _type2EntryDic[type] = entry;
+        }
+
+        /// <summary>
+        /// 注册一个界面
+        /// </summary>
+        /// <typeparam name="AViewType">AView类</typeparam>
+        /// <param name="abName">Prefab所在AssetBundle的名称</param>
+        /// <param name="viewName">Prefab的名称</param>
+        static public void Register<AViewType>(string abName, string viewName) where AViewType:AView
+        {
+            Register(abName, viewName, typeof(AViewType));
         }
 
 

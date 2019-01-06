@@ -17,6 +17,9 @@ namespace IL.Zero
         object _data;
         Action<T> _onCreated;
         Action _onLoaded;
+        
+        //public event Action<ViewAsyncCreater, T> onCreated;
+        //public event 
 
         public ViewAsyncCreater(Type type, string abName, string viewName)
         {

@@ -57,7 +57,7 @@ namespace IL.Demo
         void RegistView<T>(string abName)
         {
             Type t = typeof(T);
-            ViewFactory.Regist(abName, t.Name, t);
+            ViewFactory.Register(abName, t.Name, t);
         }
 
         public void Go()

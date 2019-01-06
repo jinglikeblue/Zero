@@ -78,12 +78,15 @@ namespace Zero.Edit
 
             if(GUILayout.Button("清空项目目录",GUILayout.Width(100)))
             {
-                string projCodeDir = Path.Combine(cfg.ilProjDir, "codes");
-                if (Directory.Exists(projCodeDir))
+                if (EditorUtility.DisplayDialog("警告！", "是否确认清空项目目录", "Yes", "No"))
                 {
-                    Directory.Delete(projCodeDir, true);
-                }  
-                EditorUtility.DisplayDialog("Success","操作完成","Ok",null);
+                    string projCodeDir = Path.Combine(cfg.ilProjDir, "codes");
+                    if (Directory.Exists(projCodeDir))
+                    {
+                        Directory.Delete(projCodeDir, true);
+                    }
+                    EditorUtility.DisplayDialog("Success", "操作完成", "Ok", null);
+                }
             }
 
             GUILayout.EndHorizontal();
