@@ -71,7 +71,22 @@ namespace Zero.Edit
             
             cfg.ilDevelopDir = EditorGUILayout.TextField("DLL开发目录:", cfg.ilDevelopDir);           
            
+
+            GUILayout.BeginHorizontal();
+            
             cfg.ilProjDir = EditorGUILayout.TextField("DLL项目目录:", cfg.ilProjDir);
+
+            if(GUILayout.Button("清空项目目录",GUILayout.Width(100)))
+            {
+                string projCodeDir = Path.Combine(cfg.ilProjDir, "codes");
+                if (Directory.Exists(projCodeDir))
+                {
+                    Directory.Delete(projCodeDir, true);
+                }  
+                EditorUtility.DisplayDialog("Success","操作完成","Ok",null);
+            }
+
+            GUILayout.EndHorizontal();
 
             EditorGUILayout.BeginHorizontal();
 
@@ -112,6 +127,8 @@ namespace Zero.Edit
             //}
 
             EditorGUILayout.EndHorizontal();
+
+
 
 
             EditorGUILayout.Space();

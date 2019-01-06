@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Net.Sockets;
 using System.Threading;
+using Zero;
 
 namespace Jing
 {
@@ -284,7 +285,7 @@ namespace Jing
             }
             catch (Exception e)
             {
-                
+                Log.I("网络连接错误！");
             }
 
             _stream = null;
