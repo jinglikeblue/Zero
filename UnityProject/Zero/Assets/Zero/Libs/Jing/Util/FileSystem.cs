@@ -8,7 +8,7 @@ namespace Jing
     public class FileSystem
     {
         /// <summary>
-        /// 标准化路径中的路径分隔符（同一使用“/”符号）
+        /// 标准化路径中的路径分隔符（统一使用“/”符号）
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>

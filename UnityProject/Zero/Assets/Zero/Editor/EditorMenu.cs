@@ -1,6 +1,4 @@
 ﻿using Jing;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -12,25 +10,25 @@ namespace Zero.Edit
     /// </summary>
     public class EditorMenu : AEditorWin
     {
-        [MenuItem("Zero/Setting", false, 0)]
+        [MenuItem("Zero/Publish/Setting", false, 0)]
         public static void Setting()
         {
             SettingEditorWin.Open();
         }
 
-        [MenuItem("Zero/AssetBundle", false, 100)]
+        [MenuItem("Zero/Publish/AssetBundle", false, 100)]
         public static void AssetBundle()
         {
             ABEditorWin.Open();
         }
 
-        [MenuItem("Zero/DLL", false, 101)]
+        [MenuItem("Zero/Publish/DLL", false, 101)]
         public static void ILRuntimeDLL()
         {
             DllEditorWin.Open();
         }
 
-        [MenuItem("Zero/Res", false, 200)]
+        [MenuItem("Zero/Publish/Res", false, 200)]
         public static void Res()
         {
             ResEditorWin.Open();                                 
@@ -54,6 +52,12 @@ namespace Zero.Edit
         public static void GC()
         {
             ResMgr.Ins.DoGC();
+        }
+
+        [MenuItem("Zero/Assets/Sprite/Packing Tag", false, 501)]
+        public static void PackingTagEdit()
+        {
+            PackingTagEditorWin.Open();
         }
 
         /// <summary>
