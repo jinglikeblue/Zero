@@ -14,11 +14,6 @@ namespace IL.Zero
     public abstract class AView
     {
         /// <summary>
-        /// 关联的父级对象
-        /// </summary>
-        protected AView parent { get; private set; }
-
-        /// <summary>
         /// 销毁委托事件
         /// </summary>
         public event Action<AView> onDestroyHandler;
@@ -100,6 +95,7 @@ namespace IL.Zero
         {
             _z = null;
             gameObject = null;
+            OnDestroy();
             onDestroyHandler?.Invoke(this);
         }
 

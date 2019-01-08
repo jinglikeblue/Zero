@@ -33,23 +33,26 @@ namespace Zero.Edit
                 _ptData = new FindAllPackingTagCommand().Excute();
             }
 
-            _pos = GUILayout.BeginScrollView(_pos, GUILayout.Height(400));
-            foreach(var key in _ptData.Keys)
+            if (null != _ptData)
             {
-                if(GUILayout.Toggle(_selectKey.Contains(key), key))
+                _pos = GUILayout.BeginScrollView(_pos, GUILayout.Height(400));
+                foreach (var key in _ptData.Keys)
                 {
-                    _selectKey.Add(key);
+                    if (GUILayout.Toggle(_selectKey.Contains(key), key))
+                    {
+                        _selectKey.Add(key);
+                    }
+                    else
+                    {
+                        _selectKey.Remove(key);
+                    }
                 }
-                else
-                {
-                    _selectKey.Remove(key);
-                }
-            }
-            GUILayout.EndScrollView();
+                GUILayout.EndScrollView();
 
-            if(GUILayout.Button("删除选中的Packing Tag"))
-            {
-                DeleteSelected();
+                if (GUILayout.Button("删除选中的Packing Tag"))
+                {
+                    DeleteSelected();
+                }
             }
 
             GUILayout.EndVertical();
@@ -61,9 +64,12 @@ namespace Zero.Edit
             {
                 List<TextureImporter> tiList;
                 _ptData.TryGetValue(key, out tiList);
-                foreach(var ti in tiList)
+                if (null != tiList)
                 {
-                    ti.spritePackingTag = string.Empty;
+                    foreach (var ti in tiList)
+                    {
+                        ti.spritePackingTag = string.Empty;
+                    }
                 }
             }
 

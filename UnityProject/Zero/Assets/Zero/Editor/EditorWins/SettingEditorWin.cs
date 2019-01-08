@@ -34,8 +34,8 @@ namespace Zero.Edit
         {
             var win = EditorWindow.GetWindow<SettingEditorWin>();
             win.titleContent = new GUIContent("Setting Config");
-            win.minSize = new Vector2(1000, 600);
-            win.maxSize = new Vector2(1280, 600);
+            win.minSize = new Vector2(1000, 800);
+            win.maxSize = new Vector2(1280, 800);
             win.Show();
         }
 

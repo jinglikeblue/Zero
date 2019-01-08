@@ -47,7 +47,7 @@ namespace Zero.Edit
             }
 
             var ti = ai as TextureImporter;
-            if(null == ti)
+            if(null == ti || ti.textureType != TextureImporterType.Sprite)
             {
                 return;
             }
