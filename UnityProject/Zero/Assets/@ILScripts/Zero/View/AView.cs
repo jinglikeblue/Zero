@@ -38,17 +38,27 @@ namespace IL.Zero
         {
             get { return gameObject.name; }
             set { gameObject.name = value; }
-        }
-       
-        /// <summary>
-        /// 子视图对象的列表
-        /// </summary>
-        //List<AView> _childViewList = new List<AView>();                    
+        }                      
 
         /// <summary>
         /// 挂载到GameObject上的脚本
         /// </summary>
         ZeroView _z;
+
+        /// <summary>
+        /// 更新事件
+        /// </summary>
+        public event Action OnUpdate
+        {
+            add
+            {
+                ILBridge.Ins.onUpdate += value;
+            }
+            remove
+            {
+                ILBridge.Ins.onUpdate -= value;
+            }
+        }
 
         internal void SetGameObject(GameObject gameObject, object data = null)
         {

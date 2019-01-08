@@ -2,7 +2,7 @@
 
 namespace Zero
 {
-    public class AudioPlayer : SingletonMonoBehaviour<AudioPlayer>
+    public class AudioPlayer : ASingletonMonoBehaviour<AudioPlayer>
     {
         [Header("音效轨道数量")]
         [Range(1,32)]

@@ -14,26 +14,24 @@ namespace Zero.Edit
     {
         Dictionary<string, List<TextureImporter>> _ptData;
         public Dictionary<string, List<TextureImporter>> Excute()
-        {
+        {          
             _ptData = new Dictionary<string, List<TextureImporter>>();
-            ScanningDir(Application.dataPath);
+            ScanningDir(Application.dataPath);            
             return _ptData;
         }
 
         void ScanningDir(string dir)
         {
-            var files = Directory.GetFiles(dir);
-            foreach(var file in files)
+            var files = Directory.GetFiles(Application.dataPath, "*", SearchOption.AllDirectories);
+            float total = files.Length;
+            for (int i = 0; i < files.Length; i++)
             {
+                var file = files[i];
+                var title = string.Format("扫描中...({0}/{1})", i + 1, files.Length);
+                EditorUtility.DisplayProgressBar(title, file, i / total);
                 CheckFile(file);
             }
-
-
-            var subDirs = Directory.GetDirectories(dir);
-            foreach(var subDir in subDirs)
-            {
-                ScanningDir(subDir);
-            }
+            EditorUtility.ClearProgressBar();
         }
 
         void CheckFile(string file)

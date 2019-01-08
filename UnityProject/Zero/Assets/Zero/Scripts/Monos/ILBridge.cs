@@ -2,38 +2,15 @@
 using System.IO;
 using System.Reflection;
 using UnityEngine;
+using Zero;
 
 namespace Zero
 {
     /// <summary>
     /// IL代码执行桥接器。如果可以通过反射获取动态代码，则通过反射执行。否则采用ILRuntime框架执行。
     /// </summary>
-    public class ILBridge : MonoBehaviour
+    public class ILBridge : ASingletonMonoBehaviour<ILBridge>
     {
-        const string BRIDGE_NAME = "ILBridge";
-
-        static ILBridge _ins;
-
-        public static ILBridge Ins
-        {
-            get
-            {
-                if (null == _ins)
-                {
-                    GameObject ins = GameObject.Find(BRIDGE_NAME);
-                    if (null == ins)
-                    {
-                        ins = new GameObject();
-                    }
-                    ins.name = BRIDGE_NAME;
-                    _ins = ins.AddComponent<ILBridge>();
-                    GameObject.DontDestroyOnLoad(ins);
-                }
-
-                return _ins;
-            }
-        }
-
         public string libDir;
         public string libName;
 
@@ -62,6 +39,14 @@ namespace Zero
         /// </summary>
         public event Action<bool> onApplicationPause;
 
+        /// <summary>
+        /// 程序退出
+        /// </summary>
+        public event Action onApplicationQuit;
+
+        /// <summary>
+        /// IL代码执行的工作器
+        /// </summary>
         BaseILWorker iLWorker;
 
         /// <summary>
@@ -72,7 +57,7 @@ namespace Zero
         /// <param name="isDebug">是否是调试模式（仅针对ILRuntime，可以用第三方插件在APP运行时进行调试）</param>
         /// <param name="methodName">是否需要加载PDB文件（仅针对ILRuntime，可以在调试时打印出错代码信息）</param>
         public void Startup(string libDir, string libName, bool isDebug, bool isNeedPdbFile)
-        {           
+        {
             this.libDir = libDir;
             this.libName = libName;
 
@@ -100,50 +85,37 @@ namespace Zero
 
         public void Invoke(string clsName, string methodName)
         {
-            if (iLWorker != null)
-            {
-                iLWorker.Invoke(clsName, methodName);
-            }
+            iLWorker?.Invoke(clsName, methodName);
         }
 
         private void OnGUI()
-        {            
-            if (null != onGUI)
-            {
-                onGUI.Invoke();
-            }
+        {
+            onGUI?.Invoke();
         }
 
         void Update()
         {
-            if (null != onUpdate)
-            {
-                onUpdate.Invoke();
-            }
+            onUpdate?.Invoke();
         }
 
         private void FixedUpdate()
         {
-            if (null != onFixedUpdate)
-            {
-                onFixedUpdate.Invoke();
-            }
+            onFixedUpdate?.Invoke();
         }
 
         private void OnApplicationFocus(bool focus)
-        {            
-            if(null != onApplicationFocus)
-            {
-                onApplicationFocus.Invoke(focus);
-            }            
+        {
+            onApplicationFocus?.Invoke(focus);
         }
 
         private void OnApplicationPause(bool pause)
         {
-            if(null != onApplicationPause)
-            {
-                onApplicationPause.Invoke(pause);
-            }            
+            onApplicationPause?.Invoke(pause);
+        }
+
+        private void OnApplicationQuit()
+        {            
+            onApplicationQuit?.Invoke();
         }
     }
 }

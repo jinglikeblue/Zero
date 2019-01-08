@@ -12,30 +12,32 @@ namespace Zero.Edit
         public static void Open()
         {
             var win = EditorWindow.GetWindow<PackingTagEditorWin>();
-            win.titleContent = new GUIContent("Packing Tag Manager");
-            win.minSize = new Vector2(800, 500);
-            //win.maxSize = new Vector2(1000, 500);
+            win.titleContent = new GUIContent("Packing Tag Manager");            
+            win.minSize = new Vector2(800, 700);
+            win.maxSize = new Vector2(1000, 700);
             win.Show();
         }
 
         Dictionary<string, List<TextureImporter>> _ptData;
 
-        HashSet<string> _selectKey = new HashSet<string>();
+        HashSet<string> _selectKey; 
 
         Vector2 _pos = Vector2.zero;
 
         private void OnGUI()
         {
             GUILayout.BeginVertical();
+            GUILayout.Space(10);
 
-            if(GUILayout.Button("开始扫描!"))
+            if(GUILayout.Button("扫描项目中的 Packing Tag 标记", GUILayout.Height(30)))
             {
+                _selectKey = new HashSet<string>();
                 _ptData = new FindAllPackingTagCommand().Excute();
             }
 
             if (null != _ptData)
             {
-                _pos = GUILayout.BeginScrollView(_pos, GUILayout.Height(400));
+                _pos = GUILayout.BeginScrollView(_pos);
                 foreach (var key in _ptData.Keys)
                 {
                     if (GUILayout.Toggle(_selectKey.Contains(key), key))
@@ -49,7 +51,7 @@ namespace Zero.Edit
                 }
                 GUILayout.EndScrollView();
 
-                if (GUILayout.Button("删除选中的Packing Tag"))
+                if (GUILayout.Button("删除选中的Packing Tag", GUILayout.Height(30)))
                 {
                     DeleteSelected();
                 }
