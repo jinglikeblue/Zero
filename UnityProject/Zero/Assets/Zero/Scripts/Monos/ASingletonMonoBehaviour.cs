@@ -6,10 +6,8 @@ namespace Zero
     /// MonoBehaviour的单例基类
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class ASingletonMonoBehaviour<T> : MonoBehaviour where T: Component
+    public abstract class ASingletonMonoBehaviour<T> : MonoBehaviour where T : Component
     {
-        static bool _createInsEnable = true;
-
         private static T _ins;
 
         /// <summary>
@@ -19,8 +17,8 @@ namespace Zero
         {
             get
             {
-                if (_ins == null && _createInsEnable)
-                {                    
+                if (_ins == null)
+                {
                     string name = typeof(T).Name;
                     GameObject go = GameObject.Find(name);
                     if (null == go)
@@ -56,12 +54,6 @@ namespace Zero
                 GameObject.Destroy(_ins.gameObject);
                 _ins = null;
             }
-        }
-
-        private void OnApplicationQuit()
-        {            
-            //程序退出的时候，不再允许创建单例
-            _createInsEnable = false;
         }
     }
 }
