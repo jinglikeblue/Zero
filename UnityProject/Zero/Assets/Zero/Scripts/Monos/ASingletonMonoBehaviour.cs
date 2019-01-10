@@ -17,7 +17,7 @@ namespace Zero
         {
             get
             {
-                if (_ins == null)
+                if (null == _ins)
                 {
                     string name = typeof(T).Name;
                     GameObject go = GameObject.Find(name);
@@ -50,7 +50,7 @@ namespace Zero
         public static void DestroyIns()
         {
             if (null != _ins)
-            {
+            {                
                 GameObject.Destroy(_ins.gameObject);
                 _ins = null;
             }

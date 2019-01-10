@@ -51,7 +51,6 @@ namespace Zero
 
         private void Awake()
         {
-            Ins = this;
             _bgmTrack = gameObject.AddComponent<AudioSource>();
             _bgmTrack.loop = true;
             _bgmTrack.playOnAwake = false;
