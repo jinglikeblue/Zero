@@ -9,6 +9,6 @@ namespace Zero
         private void FixedUpdate()
         {
             onFixedUpdate?.Invoke();
-        }
+        }                 
     }
 }
