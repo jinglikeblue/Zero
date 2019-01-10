@@ -209,13 +209,8 @@ namespace IL.Zero
             {
                 return null;
             }
-
             var item = com.Find(key);
-            if (null == item)
-            {
-                return null;
-            }
-            return item.Value.list;
+            return item;
         }
 
         /// <summary>
@@ -232,11 +227,7 @@ namespace IL.Zero
             }
 
             var item = com.Find(key);
-            if (null == item)
-            {
-                return null;
-            }
-            return item.Value.list;
+            return item;
         }
 
         /// <summary>
@@ -252,12 +243,7 @@ namespace IL.Zero
                 return null;
             }
             var item = com.Find(key);
-
-            if (null == item)
-            {
-                return null;
-            }
-            return item.Value.list;
+            return item;
         }
 
         /// <summary>
@@ -273,11 +259,23 @@ namespace IL.Zero
                 return null;
             }
             var item = com.Find(key);
-            if (null == item)
+            return item;
+        }
+
+        /// <summary>
+        /// 获取绑定的数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public long[] GetBindingLong(string key)
+        {
+            var com = GetComponent<LongBindingData>();
+            if (null == com)
             {
                 return null;
             }
-            return item.Value.list;
+            var item = com.Find(key);
+            return item;
         }
 
         /// <summary>
@@ -293,11 +291,7 @@ namespace IL.Zero
                 return null;
             }
             var item = com.Find(key);
-            if (null == item)
-            {
-                return null;
-            }
-            return item.Value.list;
+            return item;
         }
 
         #endregion

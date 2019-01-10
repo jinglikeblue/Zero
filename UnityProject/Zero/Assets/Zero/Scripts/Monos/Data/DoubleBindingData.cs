@@ -21,13 +21,13 @@ namespace Zero
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public BindingVO? Find(string key)
+        public double[] Find(string key)
         {
             foreach (var vo in list)
             {
                 if (vo.key == key)
                 {                                       
-                    return vo;
+                    return vo.list;
                 }
             }
             return null;

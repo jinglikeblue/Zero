@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Zero
 {
-    public class FloatBindingData : MonoBehaviour
+    public class LongBindingData : MonoBehaviour
     {
         [Serializable]
         public struct BindingVO
         {
             public string key;
-            public float[] list;
+            public long[] list;
         }
 
         [Header("数据引用")]
@@ -22,11 +21,11 @@ namespace Zero
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public float[] Find(string key)
+        public long[] Find(string key)
         {
-            foreach(var vo in list)
+            foreach (var vo in list)
             {
-                if(vo.key == key)
+                if (vo.key == key)
                 {
                     return vo.list;
                 }

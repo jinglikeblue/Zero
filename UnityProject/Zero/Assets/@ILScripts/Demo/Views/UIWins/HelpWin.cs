@@ -39,10 +39,10 @@ namespace IL.Demo
         {
             _tip = gameObject.GetComponent<Image>();
             var resData = gameObject.GetComponent<ObjectBindingData>();
-            var list = resData.Find("tips").Value.list;
+            var list = resData.Find("tips");
             _tipSpriteList = list;
             var stringData = gameObject.GetComponent<StringBindingData>();
-            _tipStrList = stringData.Find("tips").Value.list;
+            _tipStrList = stringData.Find("tips");
             _btnClose = GetChildComponent<Button>("BtnClose");
             _textTip = GetChildComponent<Text>("TextTip");            
         }
