@@ -7,11 +7,11 @@ namespace Zero
     /// <summary>
     /// 按钮弹起的事件
     /// </summary>
-    public class PointerDragEvent : MonoBehaviour,IDragHandler
+    public class PointerUpEventListener : AEventListener<PointerUpEventListener>, IPointerUpHandler
     {
         public event Action<PointerEventData> onEvent;
 
-        public void OnDrag(PointerEventData eventData)
+        public void OnPointerUp(PointerEventData eventData)
         {
             if (null == onEvent)
             {
@@ -20,9 +20,9 @@ namespace Zero
             onEvent.Invoke(eventData);
         }
 
-        public static PointerDragEvent Get(GameObject gameObject)
+        public static PointerUpEventListener Get(GameObject gameObject)
         {
-            return ComponentUtil.AutoGet<PointerDragEvent>(gameObject);
+            return ComponentUtil.AutoGet<PointerUpEventListener>(gameObject);
         }
     }
 }

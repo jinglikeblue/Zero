@@ -6,7 +6,7 @@ namespace Zero
     /// <summary>
     /// 物理碰撞事件的捕获器
     /// </summary>
-    public class PhysicsEventListener : MonoBehaviour
+    public class PhysicsEventListener : AEventListener<PhysicsEventListener>
     {
         public Action<Collision> onCollisionEnter;
         public Action<Collision> onCollisionStay;

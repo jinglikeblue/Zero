@@ -5,13 +5,13 @@ using UnityEngine.EventSystems;
 namespace Zero
 {
     /// <summary>
-    /// 按钮弹起的事件
+    /// 按钮按下的事件
     /// </summary>
-    public class PointerUpEvent : MonoBehaviour,IPointerUpHandler
+    public class PointerDownEventListener : AEventListener<PointerDownEventListener>, IPointerDownHandler
     {
         public event Action<PointerEventData> onEvent;
 
-        public void OnPointerUp(PointerEventData eventData)
+        public void OnPointerDown(PointerEventData eventData)
         {
             if (null == onEvent)
             {
@@ -20,9 +20,9 @@ namespace Zero
             onEvent.Invoke(eventData);
         }
 
-        public static PointerUpEvent Get(GameObject gameObject)
+        public static PointerDownEventListener Get(GameObject gameObject)
         {
-            return ComponentUtil.AutoGet<PointerUpEvent>(gameObject);
+            return ComponentUtil.AutoGet<PointerDownEventListener>(gameObject);
         }
     }
 }

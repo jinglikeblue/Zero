@@ -7,7 +7,7 @@ namespace Zero
     /// <summary>
     /// 按钮弹起的事件
     /// </summary>
-    public class PointerClickEvent : MonoBehaviour,IPointerClickHandler
+    public class PointerClickEventListener : AEventListener<PointerClickEventListener>, IPointerClickHandler
     {
         public event Action<PointerEventData> onEvent;
 
@@ -20,9 +20,9 @@ namespace Zero
             onEvent.Invoke(eventData);
         }
 
-        public static PointerClickEvent Get(GameObject gameObject)
+        public static PointerClickEventListener Get(GameObject gameObject)
         {
-            return ComponentUtil.AutoGet<PointerClickEvent>(gameObject);
+            return ComponentUtil.AutoGet<PointerClickEventListener>(gameObject);
         }
     }
 }

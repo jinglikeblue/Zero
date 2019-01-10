@@ -8,7 +8,7 @@ namespace Zero
     /// 该组件实现了UI常用的事件接口，如果要使用更高效的UI事件组件，请使用针对于具体事件的PointerClickEvent等组件。<para></para>
     /// PS：没有实现onDrag事件，因为该事件会与ScrollView组件冲突，请使用onMove替代。
     /// </summary>
-    public class UIEventListener : MonoBehaviour,
+    public class UIEventListener : AEventListener<UIEventListener>,
         IPointerClickHandler,
         IPointerDownHandler,
         IPointerUpHandler,

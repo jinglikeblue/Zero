@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using UnityEngine;
 
 namespace Jing
@@ -37,11 +39,27 @@ namespace Jing
             get { return _colCount; }
         }
 
+        /// <summary>
+        /// 通过数据生成
+        /// </summary>
+        /// <param name="data"></param>
+        public CSVFile(byte[] data, Encoding encoding)
+        {            
+            var content = encoding.GetString(data);
+            string[] rows = content.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            ParseRows(rows);
+        }
+
         public CSVFile(string path)
         {
             System.Text.Encoding encoding = GetEncoding(path);
-            string[] rows = File.ReadAllLines(path, encoding);            
-            for(int i = 0; i < rows.Length; i++)
+            string[] rows = File.ReadAllLines(path, encoding);
+            ParseRows(rows);
+        }       
+        
+        void ParseRows(string[] rows)
+        {
+            for (int i = 0; i < rows.Length; i++)
             {
                 var cols = GetCols(rows[i]);
                 if (null != cols)
@@ -49,18 +67,18 @@ namespace Jing
                     _data.Add(cols.ToArray());
                 }
 
-                foreach(var str in cols)
-                {
-                    Debug.Log(str);
-                }
+                //foreach (var str in cols)
+                //{
+                    //Debug.Log(str);
+                //}
             }
 
             _rowCount = _data.Count;
-            if(_rowCount > 0)
+            if (_rowCount > 0)
             {
                 _colCount = _data[0].Length;
             }
-        }        
+        }
 
         /// <summary>
         /// 得到表格的值

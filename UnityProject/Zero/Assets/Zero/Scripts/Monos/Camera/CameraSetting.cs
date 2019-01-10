@@ -8,7 +8,7 @@ namespace Zero
     public class CameraSetting : MonoBehaviour
     {
         [Header("是否强制设置摄像机宽高比")]
-        public bool isResetAspect = true;
+        public bool isResetAspect = false;
         public float aspectW;
         public float aspectH;
 

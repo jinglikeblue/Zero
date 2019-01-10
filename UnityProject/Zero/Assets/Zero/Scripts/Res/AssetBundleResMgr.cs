@@ -138,6 +138,7 @@ namespace Zero
                 {
                     cached.Unload(isUnloadAllLoaded);
                 }
+                _loadedABDic.Clear();
             }
 
             ResMgr.Ins.DoGC();

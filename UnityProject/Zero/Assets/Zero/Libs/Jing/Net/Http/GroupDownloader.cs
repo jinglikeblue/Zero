@@ -104,12 +104,13 @@ namespace Jing
             {
                 LoadInfo info = _infoList[_idx];
                 Downloader loader = new Downloader(info.url, info.savePath, info.version);
-                while (false == loader.isDone)
+                do
                 {
                     _progress = ((float)_idx * progressPiece) + (loader.progress * progressPiece);
                     //Debug.LogFormat("下载进度  idx:{0} , progressPiece:{1} , loader.progress:{2} , progress:{3}", _idx, progressPiece, loader.progress, _progress);
                     Thread.Sleep(20);
                 }
+                while (false == loader.isDone);                                               
 
                 if (loader.error != null)
                 {

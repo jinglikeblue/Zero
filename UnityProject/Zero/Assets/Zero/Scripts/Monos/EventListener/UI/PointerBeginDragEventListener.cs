@@ -7,7 +7,7 @@ namespace Zero
     /// <summary>
     /// 按钮弹起的事件
     /// </summary>
-    public class PointerBeginDragEvent : MonoBehaviour,IBeginDragHandler
+    public class PointerBeginDragEventListener : AEventListener<PointerBeginDragEventListener>, IBeginDragHandler
     {
         public event Action<PointerEventData> onEvent;
 
@@ -20,9 +20,9 @@ namespace Zero
             onEvent.Invoke(eventData);
         }
 
-        public static PointerBeginDragEvent Get(GameObject gameObject)
+        public static PointerBeginDragEventListener Get(GameObject gameObject)
         {
-            return ComponentUtil.AutoGet<PointerBeginDragEvent>(gameObject);
+            return ComponentUtil.AutoGet<PointerBeginDragEventListener>(gameObject);
         }
     }
 }
