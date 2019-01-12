@@ -21,7 +21,7 @@ namespace Zero
             _onLoaded = onLoaded;
             _localPath = Runtime.Ins.localResDir + "setting.json";
             
-            if (Runtime.Ins.IsLoadFromNet)
+            if (Runtime.Ins.IsLoadFromNet && Runtime.Ins.localData.IsUpdateSetting)
             {
                 var netPath = Runtime.Ins.netResDir + "setting.json";
                 Log.CI(Log.COLOR_BLUE, "配置文件: {0}", netPath);

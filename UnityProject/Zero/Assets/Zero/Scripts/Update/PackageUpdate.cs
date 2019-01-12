@@ -12,11 +12,11 @@ namespace Zero
         public void Start(Action onComplete, Action<float> onProgress)
         {
             Log.CI(Log.COLOR_BLUE, "「PackageUpdate」内嵌资源解压检查...");
-            if (false == Runtime.Ins.IsLoadFromNet)
-            {
-                onComplete();
-                return;
-            }
+            //if (false == Runtime.Ins.IsLoadFromNet)
+            //{
+            //    onComplete();
+            //    return;
+            //}
             ILBridge.Ins.StartCoroutine(Run(onComplete, onProgress));
         }
 

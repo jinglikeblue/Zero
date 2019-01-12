@@ -52,12 +52,7 @@ namespace Zero.Edit
 
                 if (GUILayout.Button("删除选中的Packing Tag", GUILayout.Height(30)))
                 {
-                    DeleteSelected();
-
-                    //if (EditorUtility.DisplayDialog("成功", "是否重新扫描？", "Yes", "No"))
-                    //{
-                    //    RefreshPackingTags();
-                    //}                    
+                    DeleteSelected();                 
                 }
             }
 

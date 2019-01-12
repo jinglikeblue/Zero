@@ -12,11 +12,19 @@ namespace Zero
         /// <summary>
         /// 本地数据对象
         /// </summary>
-        public struct VO
+        public class VO
         {
-            public bool isInit;
+            /// <summary>
+            /// 是否APP已初始化
+            /// </summary>
+            public bool isInit = false;
+
+            /// <summary>
+            /// 是否更新Setting文件
+            /// </summary>
+            public bool isUpdateSetting = true;
             public ResVerVO localResVO;
-            public Dictionary<string, string> localValueDic;
+            public Dictionary<string, string> localValueDic = new Dictionary<string, string>();
         }
 
         VO _vo;
@@ -33,8 +41,7 @@ namespace Zero
             else
             {
                 //新数据初始化
-                _vo.isInit = false;
-                _vo.localValueDic = new Dictionary<string, string>();
+                _vo = new VO();                
             }
         }
 
@@ -60,6 +67,16 @@ namespace Zero
             {
                 _vo.isInit = value;
                 Save2Local();
+            }
+        }
+        /// <summary>
+        /// 是否更新setting文件
+        /// </summary>
+        public bool IsUpdateSetting
+        {
+            get
+            {
+                return _vo.isUpdateSetting;
             }
         }
 

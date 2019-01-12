@@ -60,6 +60,12 @@ namespace Zero.Edit
             PackingTagEditorWin.Open();
         }
 
+        [MenuItem("Zero/Assets/Find Useless", false, 502)]
+        public static void FindUselessAssets()
+        {
+            FindUselessAssetsEditorWin.Open();
+        }
+
         /// <summary>
         /// 当前发布平台
         /// </summary>
