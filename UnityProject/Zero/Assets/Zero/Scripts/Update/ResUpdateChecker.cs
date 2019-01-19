@@ -24,6 +24,7 @@ namespace Zero
         string[] _groups;
 
         Action<string[]> _onComplete;
+        Action<string> _onError;
 
         public ResUpdateChecker(bool needUpdateResVerFile = true, bool needUpdateManifestFile = true)
         {
@@ -31,13 +32,14 @@ namespace Zero
             this.needUpdateManifestFile = needUpdateManifestFile;
         }
 
-        public void Start(string name, Action<string[]> onComplete)
-        {
-            Start(new string[] { name }, onComplete);
+        public void Start(string name, Action<string[]> onComplete, Action<string> onError)
+        {           
+            Start(new string[] { name }, onComplete, onError);
         }
 
-        public void Start(string[] groups, Action<string[]> onComplete)
+        public void Start(string[] groups, Action<string[]> onComplete, Action<string> onError)
         {
+            _onError = onError;
             _onComplete = onComplete;
             _groups = groups;
             StartLoadResVerFile();
@@ -47,7 +49,7 @@ namespace Zero
         {
             if (needUpdateResVerFile)
             {
-                new ResVerFileUpdate().Start(StartUpdateManifest);
+                new ResVerFileUpdate().Start(StartUpdateManifest, _onError);
             }
             else
             {
@@ -59,7 +61,7 @@ namespace Zero
         {
             if (needUpdateResVerFile)
             {
-                new ManifestFileUpdate().Start(StartCheckRes);
+                new ManifestFileUpdate().Start(StartCheckRes, _onError);
             }
             else
             {

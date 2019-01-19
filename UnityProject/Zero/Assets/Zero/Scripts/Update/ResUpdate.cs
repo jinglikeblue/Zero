@@ -29,17 +29,19 @@ namespace Zero
 
         Action _onComplete;
         Action<float> _onProgress;
+        Action<string> _onError;
         string[] _groups;
 
-        public void Start(string name, Action onComplete, Action<float> onProgress = null)
-        {
+        public void Start(string name, Action onComplete, Action<float> onProgress = null, Action<string> onError = null)
+        {            
             Start(new string[] { name }, onComplete, onProgress);
         }
 
-        public void Start(string[] groups, Action onComplete, Action<float> onProgress = null)
+        public void Start(string[] groups, Action onComplete, Action<float> onProgress = null, Action<string> onError = null)
         {            
             _onComplete = onComplete;
             _onProgress = onProgress;
+            _onError = onError;
             _groups = groups;
 
             StartResUpdateCheck();
@@ -47,7 +49,7 @@ namespace Zero
 
         void StartResUpdateCheck()
         {
-            new ResUpdateChecker(needUpdateResVerFile, needUpdateManifestFile).Start(_groups, OnResUpdateChecked);
+            new ResUpdateChecker(needUpdateResVerFile, needUpdateManifestFile).Start(_groups, OnResUpdateChecked, _onError);
         }
 
         private void OnResUpdateChecked(string[] needUpdateResList)
@@ -81,6 +83,7 @@ namespace Zero
             if (null != groupLoader.error)
             {
                 Log.E("下载出错：{0}", groupLoader.error);
+                _onError?.Invoke(groupLoader.error);
                 yield break;
             }            
 

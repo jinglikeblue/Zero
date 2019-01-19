@@ -11,6 +11,7 @@ namespace Zero
     public class ManifestFileUpdate
     {
         Action _onUpdate;
+        Action<string> _onError;
 
         string _localPath;
 
@@ -18,12 +19,13 @@ namespace Zero
 
         string _manifestName;
 
-        public void Start(Action onUpdate)
+        public void Start(Action onUpdate, Action<string> onError)
         {
             Log.CI(Log.COLOR_BLUE, "「ManifestFileUpdate」Manifest描述文件更新检查...");
             _rt = Runtime.Ins;
             _manifestName = _rt.netResVer.VO.manifestName;
             _onUpdate = onUpdate;
+            _onError = onError;
             _localPath = _rt.localResDir + _manifestName;
 
             if (Runtime.Ins.IsLoadFromNet && false == _rt.netResVer.IsSameVer(_manifestName, _rt.localResVer))
@@ -53,6 +55,7 @@ namespace Zero
             if (null != loader.error)
             {
                 Log.E(loader.error);
+                _onError?.Invoke(loader.error);
                 yield break;
             }
             loader.Dispose();

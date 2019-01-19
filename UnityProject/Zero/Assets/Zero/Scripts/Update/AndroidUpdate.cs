@@ -28,6 +28,7 @@ namespace Zero
             if(loader.error != null)
             {
                 Log.E(loader.error);
+                _onError?.Invoke(loader.error);
                 yield break;
             }
 

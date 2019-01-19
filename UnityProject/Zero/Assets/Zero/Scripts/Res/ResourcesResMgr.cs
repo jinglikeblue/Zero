@@ -28,7 +28,8 @@ namespace Zero
 
         public override T Load<T>(string abName, string assetName)
         {
-            var asset = Resources.Load<T>(AssetBundlePath2ResourcePath(abName, assetName));
+            string path = AssetBundlePath2ResourcePath(abName, assetName);
+            var asset = Resources.Load<T>(path);
             return asset;
         }
 

@@ -12,13 +12,15 @@ namespace Zero
     public class SettingUpdate
     {
         Action _onLoaded;
+        Action<string> _onError;
 
         string _localPath;
 
-        public void Start(Action onLoaded)
+        public void Start(Action onLoaded, Action<string> onError)
         {
             Log.CI(Log.COLOR_BLUE,"「SettingUpdate」配置文件更新检查...");
             _onLoaded = onLoaded;
+            _onError = onError;
             _localPath = Runtime.Ins.localResDir + "setting.json";
             
             if (Runtime.Ins.IsLoadFromNet && Runtime.Ins.localData.IsUpdateSetting)
@@ -52,6 +54,7 @@ namespace Zero
             if (null != loader.error)
             {
                 Log.E(loader.error);
+                _onError?.Invoke(loader.error);
                 yield break;
             }
             loader.Dispose();

@@ -46,6 +46,10 @@ namespace Zero
         /// </summary>
         public event Action<float> onProgress;
 
+        /// <summary>
+        /// Preload加热失败
+        /// </summary>
+        public event Action<string> onError;
         void Start()
         {            
 
@@ -80,7 +84,7 @@ namespace Zero
         void LoadSettingFile()
         {
             OnStageChange(EState.SETTING_UPDATE);
-            new SettingUpdate().Start(ClientUpdate);
+            new SettingUpdate().Start(ClientUpdate, OnError);
         }
 
         /// <summary>
@@ -89,7 +93,7 @@ namespace Zero
         void ClientUpdate()
         {                       
             OnStageChange(EState.CLIENT_UDPATE);
-            AClientUpdate.CreateNowPlatformUpdate().Start(StartupResUpdate, OnClientUpdateProgress);
+            AClientUpdate.CreateNowPlatformUpdate().Start(StartupResUpdate, OnClientUpdateProgress, OnError);
         }
 
         private void OnClientUpdateProgress(float progress)
@@ -105,7 +109,7 @@ namespace Zero
             OnStageChange(EState.RES_UPDATE);           
 
             ResUpdate update = new ResUpdate();
-            update.Start(Runtime.Ins.setting.startupResGroups, StartMainPrefab, OnUpdateStartupResGroups);
+            update.Start(Runtime.Ins.setting.startupResGroups, StartMainPrefab, OnUpdateStartupResGroups, onError);
         }
 
         private void OnUpdateStartupResGroups(float progress)
@@ -134,11 +138,17 @@ namespace Zero
 
         void OnStageChange(EState state)
         {
-            Log.W("Stage: {0}", state);   
-            if(null != onStateChange)
-            {
-                onStateChange.Invoke(state);
-            }                     
+            Log.W("Stage: {0}", state);            
+            onStateChange?.Invoke(state);            
+        }
+
+        /// <summary>
+        /// 发生错误
+        /// </summary>
+        /// <param name="error"></param>
+        private void OnError(string error)
+        {
+            onError?.Invoke(error);
         }
     }
 }
