@@ -67,6 +67,12 @@ namespace Zero.Edit
             }
             var di = new DirectoryInfo(Application.dataPath);
             var targetDir = FileSystem.CombineDirs(false, di.Parent.FullName, "TempZero", cfgVO.selectedHotResDir);
+            if (Directory.Exists(targetDir))
+            {
+                //如果目标目录存在，则删除
+                Directory.Delete(targetDir, true);
+            }
+
             var targetParent = Path.GetDirectoryName(targetDir);
             if(false == Directory.Exists(targetParent))
             {

@@ -129,7 +129,7 @@ namespace Zero
 
         void OnProgress(float progress)
         {
-            Log.W("Progress: {0}", progress);
+            //Log.W("Progress: {0}", progress);
             if (null != onProgress)
             {
                 onProgress.Invoke(progress);

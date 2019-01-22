@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Zero
+﻿namespace Zero
 {
     /// <summary>
     /// 资源版本号数据
@@ -17,7 +13,7 @@ namespace Zero
         /// <summary>
         /// 资源项
         /// </summary>
-        public struct Item
+        public class Item
         {
             /// <summary>
             /// 资源名称
@@ -30,11 +26,11 @@ namespace Zero
             public string version;
 
             /// <summary>
-            /// 依赖的资源
+            /// 文件大小(字节为单位)
             /// </summary>
-            //public string[] depends;
+            public long size;
         }
 
-        public Item[] items;        
+        public Item[] items;
     }
 }

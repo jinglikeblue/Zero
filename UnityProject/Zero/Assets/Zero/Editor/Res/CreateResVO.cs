@@ -13,6 +13,8 @@ namespace Zero.Edit
     /// </summary>
     public class CreateResVO 
     {
+        const string EXT_FILTERS = ".manifest";
+
         string _dir;
 
         ResVerVO res;
@@ -38,44 +40,31 @@ namespace Zero.Edit
 
             ScanningFiles(_dir);
 
-            ResVerVO.Item[] items = new ResVerVO.Item[_files.Count];
-            for(int i = 0; i < items.Length; i++)
+            List<ResVerVO.Item> items = new List<ResVerVO.Item>();            
+            for(int i = 0; i < _files.Count; i++)
             {
-               var file = _files[i];
+                var file = _files[i];                
 
-                EditorUtility.DisplayProgressBar("正在生成 res.json", string.Format("文件:{0}",file), ((float)i / items.Length));
+                EditorUtility.DisplayProgressBar("正在生成 res.json", string.Format("文件:{0}",file), ((float)i / items.Count));
+                FileInfo fi = new FileInfo(file);
+                if(fi.Extension == EXT_FILTERS)
+                {
+                    continue;
+                }
 
                 //是文件
-                ResVerVO.Item item;
+                ResVerVO.Item item = new ResVerVO.Item();
                 item.name = file.Replace(_dir, "").Replace("\\", "/");
                 item.version = GetMD5(file);
-                //item.depends = GetDepends(item.name);
-                items[i] = item;
+                item.size = fi.Length;
+                items.Add(item);
             }
 
-            res.items = items;
+            res.items = items.ToArray();
 
             EditorUtility.ClearProgressBar();
             return res;
         }
-
-        //string[] GetDepends(string file)
-        //{
-        //    var abDir = ABEditorWin.AB_DIR + "/";
-        //    if(!file.StartsWith(abDir))
-        //    {
-        //        return new string[0];
-        //    }
-
-        //    file = file.Replace(abDir, "");
-        //    string[] depends = _manifest.GetAllDependencies(file);
-        //    for(int i = 0; i < depends.Length; i++)
-        //    {
-        //        //给取到的依赖再加上AB资源目录前缀
-        //        depends[i] = abDir + depends[i];
-        //    }
-        //    return depends;
-        //}
 
         void ScanningFiles(string dir)
         {

@@ -155,7 +155,8 @@ namespace Zero
             if (false == File.Exists(abPath))
             {
                 //加载的AB资源不存在
-                throw new Exception(string.Format("[{0}] 不存在", abPath));
+                Log.E(string.Format("[{0}] 不存在", abPath));
+                return null;                
             }
 
             //依赖检查

@@ -123,10 +123,9 @@ namespace Zero
             //如果不存在则添加
             ResVerVO.Item[] items = new ResVerVO.Item[_vo.items.Length + 1];
             Array.Copy(_vo.items, items, _vo.items.Length);
-            ResVerVO.Item newItem;
+            ResVerVO.Item newItem = new ResVerVO.Item();
             newItem.name = name;
             newItem.version = version;
-            //newItem.depends = null;
             items[_vo.items.Length] = newItem;
             _vo.items = items;
         }
