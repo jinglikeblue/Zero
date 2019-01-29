@@ -68,9 +68,12 @@ namespace Zero
             Assembly assembly = null;
 
             //开发时，优先保证代码在ILRuntime下能够正常运行
-#if !UNITY_EDITOR
-            assembly = AssemblyILWorker.LoadAssembly(dllBytes);
-#endif
+
+            if (Runtime.Ins.ILCfg.isReflection)
+            {
+                assembly = AssemblyILWorker.LoadAssembly(dllBytes);
+            }
+
             if (null != assembly)
             {
                 //使用Assembly

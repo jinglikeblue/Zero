@@ -603,11 +603,12 @@ MonoBehaviour:
     logEnable: 1
     ilCfg:
       isOnlyDll: 1
+      isReflection: 1
       fileDir: dll
       fileName: ILProject
       className: IL.Demo.DemoMain
       methodName: Main
-      isDebugIL: 0
+      isDebugIL: 1
       isLoadPdb: 1
     mainPrefab:
       abName: hot_res.ab

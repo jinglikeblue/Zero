@@ -8,8 +8,12 @@ namespace Zero
 {
     public class PCUpdate : AClientUpdate
     {
+        string _savePath;
+
         public PCUpdate()
         {
+            _savePath = GetUpdateFilePath("update.exe");
+            DeleteUpdateFile();
             CheckRoot();
         }
         public override void OnNeedUpdate()
@@ -19,9 +23,8 @@ namespace Zero
 
         IEnumerator UpdateEXE()
         {
-            //下载APK
-            string savePath = GetUpdateFilePath("update.exe");
-            Downloader loader = new Downloader(Runtime.Ins.setting.client.url, savePath, Runtime.Ins.setting.client.version);
+            //下载更新文件exe            
+            Downloader loader = new Downloader(Runtime.Ins.setting.client.url, _savePath, Runtime.Ins.setting.client.version);
             while (false == loader.isDone)
             {
                 _onProgress.Invoke(loader.progress);
@@ -38,7 +41,7 @@ namespace Zero
             try
             {
                 //启动下载的EXE
-                System.Diagnostics.Process.Start(savePath);
+                System.Diagnostics.Process.Start(_savePath);
                 Application.Quit();
             }
             catch (Exception ex)
@@ -46,6 +49,17 @@ namespace Zero
                 Log.E("无法安装:{0}", ex.Message);
             }
             yield break;
+        }
+
+        /// <summary>
+        /// 删除旧的更新文件
+        /// </summary>
+        void DeleteUpdateFile()
+        {
+            if (File.Exists(_savePath))
+            {
+                File.Delete(_savePath);
+            }
         }
         /// <summary>
         /// 给桌面快捷方式图标授予“以管理员身份执行”权限

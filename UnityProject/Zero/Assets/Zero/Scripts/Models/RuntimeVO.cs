@@ -49,6 +49,8 @@ namespace Zero
             [Header("只使用DLL(忽略反射执行代码)")]
             public bool isOnlyDll;
 
+            [Header("是否通过反射执行DLL(限Mono)")]
+            public bool isReflection;
             [Header("文件目录（相对于资源存储位置）")]
             public string fileDir;
 

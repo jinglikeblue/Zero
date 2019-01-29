@@ -14,17 +14,22 @@ namespace Zero
         /// </summary>
         public static readonly Runtime Ins = new Runtime();
 
+        RuntimeVO _vo;
+
         /// <summary>
         /// RuntimeVO数据对象
         /// </summary>
-        public RuntimeVO VO { get; private set; }
+        public RuntimeVO VO
+        {
+            get { return _vo; }
+        }
 
         /// <summary>
         /// 资源模式
         /// </summary>
         public RuntimeVO.EResMode ResMode
         {
-            get { return VO.resMode; }
+            get { return _vo.resMode; }
         }
 
         /// <summary>
@@ -73,8 +78,8 @@ namespace Zero
         public RuntimeVO.ILCfgVO ILCfg
         {
             get
-            {                
-                return VO.ilCfg;
+            {
+                return _vo.ilCfg;
             }
         }
 
@@ -85,8 +90,8 @@ namespace Zero
         {
             get
             {
-                if (VO.resMode == RuntimeVO.EResMode.INLINE_RELEASE || 
-                    VO.resMode == RuntimeVO.EResMode.NET_LOCAL_AND_RESOURCES_DEBUG)
+                if (_vo.resMode == RuntimeVO.EResMode.INLINE_RELEASE || 
+                    _vo.resMode == RuntimeVO.EResMode.NET_LOCAL_AND_RESOURCES_DEBUG)
                 {
                     return true;
                 }
@@ -101,7 +106,7 @@ namespace Zero
         {
             get
             {
-                if (VO.resMode == RuntimeVO.EResMode.NET_RELEASE)
+                if (_vo.resMode == RuntimeVO.EResMode.NET_RELEASE)
                 {
                     return true;
                 }
@@ -116,7 +121,7 @@ namespace Zero
         {
             get
             {
-                return VO.resMode == RuntimeVO.EResMode.INLINE_RELEASE ? true : false;
+                return _vo.resMode == RuntimeVO.EResMode.INLINE_RELEASE ? true : false;
             }
         }
 
@@ -127,7 +132,7 @@ namespace Zero
 
         public void Init(RuntimeVO vo)
         {
-            VO = vo;
+            _vo = vo;
             //日志控制
             Log.isActive = vo.logEnable;            
 
@@ -137,21 +142,20 @@ namespace Zero
                     //Android真机环境
                     platform = "android";
                     streamingAssetsPath = Application.streamingAssetsPath + "/";
-                    netResDir = FileSystem.CombineDirs(true, VO.netRoot, platform);
+                    netResDir = FileSystem.CombineDirs(true, _vo.netRoot, platform);
                     localResDir = FileSystem.CombineDirs(true, Application.persistentDataPath);
                     break;
                 case RuntimePlatform.IPhonePlayer:
                     //IOS真机环境
                     platform = "ios";
                     streamingAssetsPath = string.Format("file://{0}/Raw/", Application.dataPath);
-                    netResDir = FileSystem.CombineDirs(true, VO.netRoot, platform);
+                    netResDir = FileSystem.CombineDirs(true, _vo.netRoot, platform);
                     localResDir = FileSystem.CombineDirs(true, Application.persistentDataPath);
                     break;
                 case RuntimePlatform.WindowsEditor:
                 case RuntimePlatform.LinuxEditor:
                 case RuntimePlatform.OSXEditor:
                     //Editor开发环境
-
 #if UNITY_ANDROID
                         platform = "android";
 #elif UNITY_IPHONE
@@ -159,16 +163,15 @@ namespace Zero
 #else
                         platform = "pc";
 #endif
-
                     streamingAssetsPath = string.Format("file://{0}/StreamingAssets/", Application.dataPath);
-                    if (VO.resMode == RuntimeVO.EResMode.NET_LOCAL_DEBUG || VO.resMode == RuntimeVO.EResMode.NET_LOCAL_AND_RESOURCES_DEBUG)
+                    if (_vo.resMode == RuntimeVO.EResMode.NET_LOCAL_DEBUG || _vo.resMode == RuntimeVO.EResMode.NET_LOCAL_AND_RESOURCES_DEBUG)
                     {
-                        netResDir = FileSystem.CombineDirs(true, VO.developResRoot, platform);
+                        netResDir = FileSystem.CombineDirs(true, _vo.developResRoot, platform);
                         localResDir = netResDir;                        
                     }
                     else
                     {
-                        netResDir = FileSystem.CombineDirs(true, VO.netRoot, platform);
+                        netResDir = FileSystem.CombineDirs(true, _vo.netRoot, platform);
                         localResDir = FileSystem.CombineDirs(true, Directory.GetParent(Application.dataPath).FullName, "Caches");
                     }
                     break;
@@ -176,7 +179,7 @@ namespace Zero
                     //其它真机环境
                     platform = "pc";
                     streamingAssetsPath = string.Format("file://{0}/StreamingAssets/", Application.dataPath);
-                    netResDir = FileSystem.CombineDirs(true, VO.netRoot, platform);
+                    netResDir = FileSystem.CombineDirs(true, _vo.netRoot, platform);
                     localResDir = FileSystem.CombineDirs(true, Application.dataPath, "StreamingAssets");
                     break;
             }
