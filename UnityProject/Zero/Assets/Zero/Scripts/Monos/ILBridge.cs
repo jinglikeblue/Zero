@@ -88,37 +88,58 @@ namespace Zero
 
         public void Invoke(string clsName, string methodName)
         {
-            iLWorker?.Invoke(clsName, methodName);
+            if (null != iLWorker)
+            {
+                iLWorker.Invoke(clsName, methodName);
+            }
         }
 
         private void OnGUI()
         {
-            onGUI?.Invoke();
+            if (null != onGUI)
+            {
+                onGUI.Invoke();
+            }
         }
 
         void Update()
         {
-            onUpdate?.Invoke();
+            if (null != onUpdate)
+            {
+                onUpdate.Invoke();
+            }
         }
 
         private void FixedUpdate()
         {
-            onFixedUpdate?.Invoke();
+            if (null != onFixedUpdate)
+            {
+                onFixedUpdate.Invoke();
+            }
         }
 
         private void OnApplicationFocus(bool focus)
         {
-            onApplicationFocus?.Invoke(focus);
+            if (null != onApplicationFocus)
+            {
+                onApplicationFocus.Invoke(focus);
+            }
         }
 
         private void OnApplicationPause(bool pause)
         {
-            onApplicationPause?.Invoke(pause);
+            if (null != onApplicationPause)
+            {
+                onApplicationPause.Invoke(pause);
+            }
         }
 
         private void OnApplicationQuit()
-        {            
-            onApplicationQuit?.Invoke();
+        {
+            if (null != onApplicationQuit)
+            {
+                onApplicationQuit.Invoke();
+            }
         }
     }
 }

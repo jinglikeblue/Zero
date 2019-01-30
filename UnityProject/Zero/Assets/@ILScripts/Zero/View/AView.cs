@@ -106,7 +106,10 @@ namespace IL.Zero
             _z = null;
             gameObject = null;
             OnDestroy();
-            onDestroyHandler?.Invoke(this);
+            if(null != onDestroyHandler)
+            {
+                onDestroyHandler.Invoke(this);
+            }            
         }
 
         /// <summary>
@@ -337,22 +340,35 @@ namespace IL.Zero
 
         public Coroutine StartCoroutine(IEnumerator routine)
         {
-            return _z?.StartCoroutine(routine);
+            if(null == _z)
+            {
+                return null;
+            }
+            return _z.StartCoroutine(routine);
         }
 
         public void StopAllCoroutines()
         {
-            _z?.StopAllCoroutines();
+            if (null != _z)
+            {
+                _z.StopAllCoroutines();
+            }
         }
 
         public void StopCoroutine(IEnumerator routine)
         {
-            _z?.StopCoroutine(routine);
+            if (null != _z)
+            {
+                _z.StopCoroutine(routine);
+            }
         }
 
         public void StopCoroutine(Coroutine routine)
         {
-            _z?.StopCoroutine(routine);
+            if (null != _z)
+            {
+                _z.StopCoroutine(routine);
+            }
         }
 
 

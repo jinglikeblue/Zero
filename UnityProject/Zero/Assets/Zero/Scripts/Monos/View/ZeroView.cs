@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Zero
@@ -23,17 +21,26 @@ namespace Zero
 
         private void OnEnable()
         {
-            onEnable?.Invoke();
+            if(null != onEnable)
+            {
+                onEnable.Invoke();
+            }            
         }
 
         private void OnDisable()
         {
-            onDisable?.Invoke();
+            if(null != onDisable)
+            {
+                onDisable.Invoke();
+            }            
         }
 
         private void OnDestroy()
         {
-            onDestroy?.Invoke();
+            if(null != onDestroy)
+            {
+                onDestroy.Invoke();
+            }            
 
             //清空没用的事件
             onEnable = null;

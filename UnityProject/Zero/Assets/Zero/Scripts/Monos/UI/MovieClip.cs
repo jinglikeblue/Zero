@@ -70,7 +70,10 @@ namespace Zero
 
         private void Update()        
         {
-            _step?.Invoke();
+            if(null != _step)
+            {
+                _step.Invoke();
+            }            
         }
 
         void DelayStep()

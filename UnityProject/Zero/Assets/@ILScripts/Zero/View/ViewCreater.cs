@@ -39,10 +39,16 @@ namespace IL.Zero
 
         private void OnResLoaded(UnityEngine.Object obj)
         {
-            _onLoaded?.Invoke();
+            if (null != _onLoaded)
+            {
+                _onLoaded.Invoke();
+            }
             var prefab = obj as GameObject;
             var view = ViewFactory.Create(_type, prefab, _parent, _data) as T;
-            _onCreated?.Invoke(view);
+            if (null != _onCreated)
+            {
+                _onCreated.Invoke(view);
+            }
         }
     }
 }

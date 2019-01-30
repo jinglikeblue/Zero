@@ -8,7 +8,10 @@ namespace Zero
 
         private void OnMouseDrag()
         {
-            onEvent?.Invoke();
+            if(null != onEvent)
+            {
+                onEvent.Invoke();
+            }            
         }
     }
 }

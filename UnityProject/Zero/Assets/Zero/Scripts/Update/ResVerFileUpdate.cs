@@ -51,7 +51,10 @@ namespace Zero
             if (null != loader.error)
             {
                 Log.E(loader.error);
-                _onError?.Invoke(loader.error);
+                if (null != _onError)
+                {
+                    _onError.Invoke(loader.error);
+                }
                 yield break;
             }
             

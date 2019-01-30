@@ -107,7 +107,10 @@ namespace IL.Zero
             var setting = (WinSetting)token;
 
             OnShowView(view, setting.isBlur, setting.isCloseOthers);
-            setting.onCreated?.Invoke(view);
+            if (null != setting.onCreated)
+            {
+                setting.onCreated.Invoke(view);
+            }
         }
 
         void OnShowView(AView view, bool isBlur, bool isCloseOthers)

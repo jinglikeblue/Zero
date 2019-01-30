@@ -9,7 +9,10 @@ namespace Zero
 
         private void OnMouseEnter()
         {
-            onEvent?.Invoke();
+            if (null != onEvent)
+            {
+                onEvent.Invoke();
+            }
         }
     }
 }

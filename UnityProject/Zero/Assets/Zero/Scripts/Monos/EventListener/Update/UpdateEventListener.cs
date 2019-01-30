@@ -8,7 +8,10 @@ namespace Zero
 
         private void Update()
         {
-            onUpdate?.Invoke();
+            if (null != onUpdate)
+            {
+                onUpdate.Invoke();
+            }
         }
     }
 }

@@ -8,7 +8,10 @@ namespace Zero
 
         private void FixedUpdate()
         {
-            onFixedUpdate?.Invoke();
+            if (null != onFixedUpdate)
+            {
+                onFixedUpdate.Invoke();
+            }
         }                 
     }
 }

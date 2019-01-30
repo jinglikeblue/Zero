@@ -221,10 +221,16 @@ namespace Jing
                 return false;
             }
 
-            oldSC.onExit?.Invoke(toState);
+            if (null != oldSC.onExit)
+            {
+                oldSC.onExit.Invoke(toState);
+            }
             CurState = toState;
             StateStayTime = 0;
-            newSC.onEnter?.Invoke(oldSC.state);
+            if (null != newSC.onEnter)
+            {
+                newSC.onEnter.Invoke(oldSC.state);
+            }
             return true;
         }
 
@@ -236,7 +242,10 @@ namespace Jing
         {
             StateStayTime += dt;
             var nowSC = _stateDic[CurState];
-            nowSC.onUpdate?.Invoke(CurState);
+            if (null != nowSC.onUpdate)
+            {
+                nowSC.onUpdate.Invoke(CurState);
+            }
         }
     }
 }

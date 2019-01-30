@@ -5,10 +5,13 @@ namespace Zero
     public class ColliderMouseOverEventListener : AEventListener<ColliderMouseOverEventListener>
     {
 
-        public event Action OnEvent;
+        public event Action onEvent;
         private void OnMouseOver()
         {
-            OnEvent?.Invoke();
+            if (null != onEvent)
+            {
+                onEvent.Invoke();
+            }
         }
     }
 }

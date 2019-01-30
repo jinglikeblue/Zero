@@ -139,7 +139,11 @@ namespace Zero
         void OnStageChange(EState state)
         {
             Log.W("Stage: {0}", state);            
-            onStateChange?.Invoke(state);            
+            if(null != onStateChange)
+            {
+                onStateChange.Invoke(state);
+            }
+                
         }
 
         /// <summary>
@@ -148,7 +152,10 @@ namespace Zero
         /// <param name="error"></param>
         private void OnError(string error)
         {
-            onError?.Invoke(error);
+            if (null != onError)
+            {
+                onError.Invoke(error);
+            }
         }
     }
 }

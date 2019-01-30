@@ -8,7 +8,10 @@ namespace Zero
 
         private void OnMouseExit()
         {
-            onEvent?.Invoke();
+            if (null != onEvent)
+            {
+                onEvent.Invoke();
+            }
         }
     }
 }

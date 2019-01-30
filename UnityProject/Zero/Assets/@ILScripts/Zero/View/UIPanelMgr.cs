@@ -74,7 +74,10 @@ namespace IL.Zero
         private void OnASyncShow(AView view, object token)
         {
             var onCreated = token as Action<AView>;
-            onCreated?.Invoke(view);
+            if (null != onCreated)
+            {
+                onCreated.Invoke(view);
+            }
         }
 
         /// <summary>

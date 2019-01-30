@@ -8,7 +8,10 @@ namespace Zero
 
         private void LateUpdate()
         {
-            onLateUpdate?.Invoke();
+            if (null != onLateUpdate)
+            {
+                onLateUpdate.Invoke();
+            }
         }
     }
 }

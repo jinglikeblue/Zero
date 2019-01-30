@@ -89,7 +89,10 @@ namespace IL.Zero
             private void OnAsyncCreated(AView view)
             {
                 _layer.ShowView(view);
-                _onCreated?.Invoke(view as AViewType, _token);
+                if (null != _onCreated)
+                {
+                    _onCreated.Invoke(view as AViewType, _token);
+                }
             }
         }
     }

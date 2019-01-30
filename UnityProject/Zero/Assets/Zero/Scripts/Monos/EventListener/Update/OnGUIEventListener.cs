@@ -8,7 +8,10 @@ namespace Zero
 
         private void OnGUI()
         {
-            onGUI?.Invoke();
+            if (null != onGUI)
+            {
+                onGUI.Invoke();
+            }
         }
     }
 }

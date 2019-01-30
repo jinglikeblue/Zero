@@ -83,7 +83,10 @@ namespace Zero
             if (null != groupLoader.error)
             {
                 Log.E("下载出错：{0}", groupLoader.error);
-                _onError?.Invoke(groupLoader.error);
+                if (null != _onError)
+                {
+                    _onError.Invoke(groupLoader.error);
+                }
                 yield break;
             }            
 

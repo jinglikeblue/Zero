@@ -13,7 +13,10 @@ namespace Zero
 
         public void Callback(string content)
         {
-            onCallbak?.Invoke(content);
+            if (null != onCallbak)
+            {
+                onCallbak.Invoke(content);
+            }
         }
     }
 }

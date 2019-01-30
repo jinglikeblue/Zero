@@ -2,11 +2,14 @@
 
 public class ColliderMouseUpEventListener : AEventListener<ColliderMouseUpEventListener>
 {
-    public event Action OnEvent;
+    public event Action onEvent;
 
     private void OnMouseUp()
     {
-        OnEvent?.Invoke();
+        if (null != onEvent)
+        {
+            onEvent.Invoke();
+        }
     }
 
 }
