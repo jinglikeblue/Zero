@@ -1,0 +1,438 @@
+<linker>
+    <assembly fullname="UnityEngine.AccessibilityModule">
+        <namespace fullname="UnityEngine.Accessibility" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.AIModule">
+        <namespace fullname="UnityEngine.AI" preserve="all" />
+        <namespace fullname="UnityEngine.Experimental.AI" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.AnimationModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+        <namespace fullname="UnityEditorInternal" preserve="all" />
+        <namespace fullname="UnityEngine.Animations" preserve="all" />
+        <namespace fullname="UnityEngine.Playables" preserve="all" />
+        <namespace fullname="UnityEngine.Experimental.Animations" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.ARModule">
+        <namespace fullname="UnityEngine.XR.Tango" preserve="all" />
+        <namespace fullname="UnityEngine.XR" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.AssetBundleModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+        <namespace fullname="UnityEngine.Experimental.AssetBundlePatching" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.AudioModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+        <namespace fullname="UnityEngine.Audio" preserve="all" />
+        <namespace fullname="UnityEngine.Experimental.Audio" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.BaselibModule" />
+    <assembly fullname="UnityEngine.ClothModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.CloudWebServicesModule" />
+    <assembly fullname="UnityEngine.ClusterInputModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.ClusterRendererModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.CoreModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+        <namespace fullname="UnityEngine.Diagnostics" preserve="all" />
+        <namespace fullname="UnityEngine.Rendering" preserve="all" />
+        <namespace fullname="UnityEngine.Experimental.Rendering" preserve="all" />
+        <namespace fullname="UnityEngine.WSA" preserve="all" />
+        <namespace fullname="UnityEngine.Profiling" preserve="all" />
+        <namespace fullname="Unity.Collections.LowLevel.Unsafe" preserve="all" />
+        <namespace fullname="AOT" preserve="all" />
+        <namespace fullname="UnityEngineInternal" preserve="all" />
+        <namespace fullname="UnityEditor.Experimental" preserve="all" />
+        <namespace fullname="UnityEngine.iOS" preserve="all" />
+        <namespace fullname="JetBrains.Annotations" preserve="all" />
+        <namespace fullname="UnityEngine.Experimental.PlayerLoop" preserve="all" />
+        <namespace fullname="UnityEngine.Experimental.LowLevel" preserve="all" />
+        <namespace fullname="UnityEngine.Events" preserve="all" />
+        <namespace fullname="UnityEngine.Assertions" preserve="all" />
+        <namespace fullname="UnityEngine.Assertions.Comparers" preserve="all" />
+        <namespace fullname="UnityEngine.Assertions.Must" preserve="all" />
+        <namespace fullname="Unity.Burst" preserve="all" />
+        <namespace fullname="Unity.Collections" preserve="all" />
+        <namespace fullname="UnityEngine.Experimental.Playables" preserve="all" />
+        <namespace fullname="UnityEngine.Playables" preserve="all" />
+        <namespace fullname="UnityEngine.Experimental.GlobalIllumination" preserve="all" />
+        <namespace fullname="UnityEngine.Internal" preserve="all" />
+        <namespace fullname="UnityEngine.Apple.ReplayKit" preserve="all" />
+        <namespace fullname="UnityEngine.tvOS" preserve="all" />
+        <namespace fullname="UnityEngine.Apple.TV" preserve="all" />
+        <namespace fullname="UnityEngine.Networking.PlayerConnection" preserve="all" />
+        <namespace fullname="UnityEngine.SceneManagement" preserve="all" />
+        <namespace fullname="UnityEngine.Scripting" preserve="all" />
+        <namespace fullname="UnityEngine.Scripting.APIUpdating" preserve="all" />
+        <namespace fullname="UnityEngine.Serialization" preserve="all" />
+        <namespace fullname="UnityEngine.Windows" preserve="all" />
+        <namespace fullname="UnityEngine.Windows.Speech" preserve="all" />
+        <namespace fullname="Unity.Jobs.LowLevel.Unsafe" preserve="all" />
+        <namespace fullname="Unity.Jobs" preserve="all" />
+        <namespace fullname="UnityEngine.Jobs" preserve="all" />
+        <namespace fullname="UnityEngine.Experimental.U2D" preserve="all" />
+        <namespace fullname="UnityEngine.Sprites" preserve="all" />
+        <namespace fullname="UnityEngine.U2D" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.CrashReportingModule">
+        <namespace fullname="UnityEngine.CrashReportHandler" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.DirectorModule">
+        <namespace fullname="UnityEngine.Playables" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine">
+        <namespace fullname="UnityEditorInternal" preserve="all" />
+        <namespace fullname="UnityEngine" preserve="all" />
+        <namespace fullname="UnityEngine.VR" preserve="all" />
+        <namespace fullname="UnityEngine.XR.WSA.Input" preserve="all" />
+        <namespace fullname="UnityEngine.iOS" preserve="all" />
+        <namespace fullname="UnityEngine.Apple.TV" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.FacebookModule" />
+    <assembly fullname="UnityEngine.FileSystemHttpModule" />
+    <assembly fullname="UnityEngine.GameCenterModule">
+        <namespace fullname="UnityEngine.SocialPlatforms.GameCenter" preserve="all" />
+        <namespace fullname="UnityEngine.SocialPlatforms.Impl" preserve="all" />
+        <namespace fullname="UnityEngine.SocialPlatforms" preserve="all" />
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.GridModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.HotReloadModule" />
+    <assembly fullname="UnityEngine.ImageConversionModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.IMGUIModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.InputModule">
+        <namespace fullname="UnityEngineInternal.Input" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.JSONSerializeModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.LocalizationModule">
+        <namespace fullname="UnityEditor" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.ParticlesLegacyModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.ParticleSystemModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+        <namespace fullname="UnityEngine.Rendering" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.PerformanceReportingModule">
+        <namespace fullname="UnityEngine.Analytics" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.Physics2DModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.PhysicsModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.ProfilerModule" />
+    <assembly fullname="UnityEngine.ScreenCaptureModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.SharedInternalsModule">
+        <namespace fullname="UnityEngine.Scripting" preserve="all" />
+        <namespace fullname="UnityEngine" preserve="all" />
+        <namespace fullname="UnityEngine.Bindings" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.SpatialTrackingModule" />
+    <assembly fullname="UnityEngine.SpriteMaskModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.SpriteShapeModule">
+        <namespace fullname="UnityEngine.Experimental.U2D" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.StreamingModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.StyleSheetsModule">
+        <namespace fullname="UnityEngine.StyleSheets" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.SubstanceModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.TerrainModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.TerrainPhysicsModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.TextRenderingModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.TilemapModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+        <namespace fullname="UnityEngine.Tilemaps" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.TimelineModule" />
+    <assembly fullname="UnityEngine.TLSModule" />
+    <assembly fullname="UnityEngine.UI">
+        <namespace fullname="UnityEngine.EventSystems" preserve="all" />
+        <namespace fullname="UnityEngine.UI.CoroutineTween" preserve="all" />
+        <namespace fullname="UnityEngine.UI" preserve="all" />
+        <namespace fullname="UnityEngine.UI.Collections" preserve="all" />
+        <namespace fullname="" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.UIElementsModule">
+        <namespace fullname="UnityEngine.Experimental.UIElements" preserve="all" />
+        <namespace fullname="UnityEngine.Experimental.UIElements.StyleSheets" preserve="all" />
+        <namespace fullname="UnityEngine.Internal.Experimental.UIElements" preserve="all" />
+        <namespace fullname="UnityEngine.Experimental.UIElements.StyleEnums" preserve="all" />
+        <namespace fullname="UnityEngine.Yoga" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.UIModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.UmbraModule" />
+    <assembly fullname="UnityEngine.UNETModule">
+        <namespace fullname="UnityEngine.Networking" preserve="all" />
+        <namespace fullname="UnityEngine.Networking.Match" preserve="all" />
+        <namespace fullname="UnityEngine.Networking.Types" preserve="all" />
+        <namespace fullname="" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.UnityAnalyticsModule">
+        <namespace fullname="UnityEngine.Analytics" preserve="all" />
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.UnityConnectModule">
+        <namespace fullname="UnityEngine.Connect" preserve="all" />
+        <namespace fullname="UnityEngine.Advertisements" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.UnityWebRequestAssetBundleModule">
+        <namespace fullname="UnityEngine.Networking" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.UnityWebRequestAudioModule">
+        <namespace fullname="UnityEngine.Networking" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.UnityWebRequestModule">
+        <namespace fullname="UnityEngine.Networking" preserve="all" />
+        <namespace fullname="UnityEngine" preserve="all" />
+        <namespace fullname="UnityEngineInternal" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.UnityWebRequestTextureModule">
+        <namespace fullname="UnityEngine.Networking" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.UnityWebRequestWWWModule">
+        <namespace fullname="UnityEngine.Networking" preserve="all" />
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.VehiclesModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.VideoModule">
+        <namespace fullname="UnityEngineInternal.Video" preserve="all" />
+        <namespace fullname="UnityEngine.Video" preserve="all" />
+        <namespace fullname="UnityEngine.Experimental.Video" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.VRModule">
+        <namespace fullname="UnityEngine.Internal.VR" preserve="all" />
+        <namespace fullname="UnityEngine.VR" preserve="all" />
+        <namespace fullname="UnityEngine.XR" preserve="all" />
+        <namespace fullname="UnityEngine.Experimental.XR" preserve="all" />
+        <namespace fullname="UnityEngine.XR.WSA.Input" preserve="all" />
+        <namespace fullname="UnityEngine.XR.WSA" preserve="all" />
+        <namespace fullname="UnityEngine.XR.WSA.WebCam" preserve="all" />
+        <namespace fullname="UnityEngine.XR.WSA.Persistence" preserve="all" />
+        <namespace fullname="UnityEngine.XR.WSA.Sharing" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.WindModule">
+        <namespace fullname="UnityEngine" preserve="all" />
+    </assembly>
+    <assembly fullname="UnityEngine.XRModule">
+        <namespace fullname="UnityEngine.XR" preserve="all" />
+        <namespace fullname="UnityEngine.Experimental.XR" preserve="all" />
+        <namespace fullname="UnityEngine.Experimental" preserve="all" />
+    </assembly>
+    <assembly fullname="mscorlib">
+        <namespace fullname="System" preserve="all" />
+        <namespace fullname="System.Runtime.InteropServices" preserve="all" />
+        <namespace fullname="System.Collections" preserve="all" />
+        <namespace fullname="System.Collections.Generic" preserve="all" />
+        <namespace fullname="System.Runtime.Serialization" preserve="all" />
+        <namespace fullname="System.Reflection" preserve="all" />
+        <namespace fullname="System.Runtime.CompilerServices" preserve="all" />
+        <namespace fullname="System.Diagnostics" preserve="all" />
+        <namespace fullname="System.Security.Permissions" preserve="all" />
+        <namespace fullname="" preserve="all" />
+        <namespace fullname="Microsoft.Win32" preserve="all" />
+        <namespace fullname="Microsoft.Win32.SafeHandles" preserve="all" />
+        <namespace fullname="Mono.Globalization.Unicode" preserve="all" />
+        <namespace fullname="System.Globalization" preserve="all" />
+        <namespace fullname="Mono" preserve="all" />
+        <namespace fullname="Mono.Interop" preserve="all" />
+        <namespace fullname="Mono.Math" preserve="all" />
+        <namespace fullname="Mono.Math.Prime" preserve="all" />
+        <namespace fullname="Mono.Math.Prime.Generator" preserve="all" />
+        <namespace fullname="Mono.Security" preserve="all" />
+        <namespace fullname="Mono.Security.Authenticode" preserve="all" />
+        <namespace fullname="Mono.Security.Cryptography" preserve="all" />
+        <namespace fullname="Mono.Security.X509" preserve="all" />
+        <namespace fullname="Mono.Security.X509.Extensions" preserve="all" />
+        <namespace fullname="Mono.Xml" preserve="all" />
+        <namespace fullname="System.IO" preserve="all" />
+        <namespace fullname="System.Configuration.Assemblies" preserve="all" />
+        <namespace fullname="System.Deployment.Internal" preserve="all" />
+        <namespace fullname="System.Diagnostics.CodeAnalysis" preserve="all" />
+        <namespace fullname="System.Diagnostics.SymbolStore" preserve="all" />
+        <namespace fullname="System.IO.IsolatedStorage" preserve="all" />
+        <namespace fullname="System.Reflection.Emit" preserve="all" />
+        <namespace fullname="System.Resources" preserve="all" />
+        <namespace fullname="System.Runtime" preserve="all" />
+        <namespace fullname="System.Runtime.ConstrainedExecution" preserve="all" />
+        <namespace fullname="System.Runtime.Hosting" preserve="all" />
+        <namespace fullname="System.Runtime.InteropServices.ComTypes" preserve="all" />
+        <namespace fullname="System.Runtime.InteropServices.Expando" preserve="all" />
+        <namespace fullname="System.Runtime.Remoting" preserve="all" />
+        <namespace fullname="System.Runtime.Remoting.Activation" preserve="all" />
+        <namespace fullname="System.Runtime.Remoting.Channels" preserve="all" />
+        <namespace fullname="System.Runtime.Remoting.Contexts" preserve="all" />
+        <namespace fullname="System.Runtime.Remoting.Lifetime" preserve="all" />
+        <namespace fullname="System.Runtime.Remoting.Messaging" preserve="all" />
+        <namespace fullname="System.Runtime.Remoting.Metadata" preserve="all" />
+        <namespace fullname="System.Runtime.Remoting.Metadata.W3cXsd2001" preserve="all" />
+        <namespace fullname="System.Runtime.Remoting.Proxies" preserve="all" />
+        <namespace fullname="System.Runtime.Remoting.Services" preserve="all" />
+        <namespace fullname="System.Runtime.Serialization.Formatters" preserve="all" />
+        <namespace fullname="System.Runtime.Serialization.Formatters.Binary" preserve="all" />
+        <namespace fullname="System.Runtime.Versioning" preserve="all" />
+        <namespace fullname="System.Security" preserve="all" />
+        <namespace fullname="System.Security.AccessControl" preserve="all" />
+        <namespace fullname="System.Security.Cryptography" preserve="all" />
+        <namespace fullname="System.Security.Cryptography.X509Certificates" preserve="all" />
+        <namespace fullname="System.Security.Policy" preserve="all" />
+        <namespace fullname="System.Security.Principal" preserve="all" />
+        <namespace fullname="System.Text" preserve="all" />
+        <namespace fullname="System.Threading" preserve="all" />
+        <namespace fullname="System.Collections.ObjectModel" preserve="all" />
+    </assembly>
+    <assembly fullname="netstandard" />
+    <assembly fullname="System.Collections" />
+    <assembly fullname="System.Data">
+        <namespace fullname="System" preserve="all" />
+        <namespace fullname="System.Xml" preserve="all" />
+        <namespace fullname="System.Data" preserve="all" />
+        <namespace fullname="System.Data.SqlTypes" preserve="all" />
+        <namespace fullname="System.Data.SqlClient" preserve="all" />
+        <namespace fullname="System.Data.Sql" preserve="all" />
+        <namespace fullname="System.Data.OleDb" preserve="all" />
+        <namespace fullname="System.Data.Odbc" preserve="all" />
+        <namespace fullname="System.Data.Common" preserve="all" />
+        <namespace fullname="Microsoft.SqlServer.Server" preserve="all" />
+    </assembly>
+    <assembly fullname="System">
+        <namespace fullname="System.Runtime.InteropServices" preserve="all" />
+        <namespace fullname="" preserve="all" />
+        <namespace fullname="System" preserve="all" />
+        <namespace fullname="Mono.CSharp" preserve="all" />
+        <namespace fullname="Microsoft.CSharp" preserve="all" />
+        <namespace fullname="Microsoft.VisualBasic" preserve="all" />
+        <namespace fullname="Microsoft.Win32" preserve="all" />
+        <namespace fullname="Mono.Http" preserve="all" />
+        <namespace fullname="System.CodeDom" preserve="all" />
+        <namespace fullname="System.CodeDom.Compiler" preserve="all" />
+        <namespace fullname="System.Collections.Generic" preserve="all" />
+        <namespace fullname="System.Collections.Specialized" preserve="all" />
+        <namespace fullname="System.ComponentModel" preserve="all" />
+        <namespace fullname="System.ComponentModel.Design" preserve="all" />
+        <namespace fullname="System.ComponentModel.Design.Serialization" preserve="all" />
+        <namespace fullname="System.Configuration" preserve="all" />
+        <namespace fullname="System.Diagnostics" preserve="all" />
+        <namespace fullname="System.IO.Compression" preserve="all" />
+        <namespace fullname="System.IO" preserve="all" />
+        <namespace fullname="System.IO.Ports" preserve="all" />
+        <namespace fullname="Mono.Audio" preserve="all" />
+        <namespace fullname="System.Media" preserve="all" />
+        <namespace fullname="System.Net" preserve="all" />
+        <namespace fullname="System.Net.Cache" preserve="all" />
+        <namespace fullname="System.Net.Configuration" preserve="all" />
+        <namespace fullname="System.Net.Mail" preserve="all" />
+        <namespace fullname="System.Net.Mime" preserve="all" />
+        <namespace fullname="System.Net.NetworkInformation" preserve="all" />
+        <namespace fullname="System.Net.NetworkInformation.MacOsStructs" preserve="all" />
+        <namespace fullname="System.Net.Security" preserve="all" />
+        <namespace fullname="System.Net.Sockets" preserve="all" />
+        <namespace fullname="System.Security.AccessControl" preserve="all" />
+        <namespace fullname="System.Security.Authentication" preserve="all" />
+        <namespace fullname="System.Security.Cryptography" preserve="all" />
+        <namespace fullname="System.Security.Cryptography.X509Certificates" preserve="all" />
+        <namespace fullname="Mono.Security.X509" preserve="all" />
+        <namespace fullname="System.Security.Permissions" preserve="all" />
+        <namespace fullname="System.Text.RegularExpressions" preserve="all" />
+        <namespace fullname="System.Text.RegularExpressions.Syntax" preserve="all" />
+        <namespace fullname="System.Threading" preserve="all" />
+        <namespace fullname="System.Timers" preserve="all" />
+        <namespace fullname="System.Web" preserve="all" />
+        <namespace fullname="System.Runtime.InteropServices.ComTypes" preserve="all" />
+    </assembly>
+    <assembly fullname="System.IO" />
+    <assembly fullname="System.IO.FileSystem" />
+    <assembly fullname="System.IO.FileSystem.DriveInfo" />
+    <assembly fullname="System.Json">
+        <namespace fullname="System.Json" preserve="all" />
+    </assembly>
+    <assembly fullname="System.Net">
+        <namespace fullname="System" preserve="all" />
+        <namespace fullname="System.Net" preserve="all" />
+    </assembly>
+    <assembly fullname="System.Web">
+        <namespace fullname="Mono.Web.Util" preserve="all" />
+        <namespace fullname="System" preserve="all" />
+        <namespace fullname="System.Resources" preserve="all" />
+        <namespace fullname="System.Data.Design" preserve="all" />
+        <namespace fullname="System.Web" preserve="all" />
+        <namespace fullname="System.Web.Util" preserve="all" />
+        <namespace fullname="System.Web.SessionState" preserve="all" />
+        <namespace fullname="System.Web.Security" preserve="all" />
+        <namespace fullname="System.Web.Profile" preserve="all" />
+        <namespace fullname="System.Web.Management" preserve="all" />
+        <namespace fullname="System.Web.Mail" preserve="all" />
+        <namespace fullname="System.Web.Hosting" preserve="all" />
+        <namespace fullname="System.Web.Handlers" preserve="all" />
+        <namespace fullname="System.Web.Configuration" preserve="all" />
+        <namespace fullname="System.Web.Configuration.Internal" preserve="all" />
+        <namespace fullname="System.Web.Compilation" preserve="all" />
+        <namespace fullname="System.Web.Caching" preserve="all" />
+        <namespace fullname="System.Web.UI" preserve="all" />
+        <namespace fullname="System.Web.UI.HtmlControls" preserve="all" />
+        <namespace fullname="System.Web.UI.Adapters" preserve="all" />
+        <namespace fullname="System.Web.UI.WebControls" preserve="all" />
+        <namespace fullname="System.Web.UI.WebControls.WebParts" preserve="all" />
+        <namespace fullname="System.Web.UI.WebControls.Adapters" preserve="all" />
+    </assembly>
+    <assembly fullname="System.Xml">
+        <namespace fullname="Mono.Xml.XPath" preserve="all" />
+        <namespace fullname="Mono.Xml.XPath.yydebug" preserve="all" />
+        <namespace fullname="Mono.Xml.XPath.yyParser" preserve="all" />
+        <namespace fullname="Mono.Xml.Xsl" preserve="all" />
+        <namespace fullname="Mono.Xml.Xsl.yydebug" preserve="all" />
+        <namespace fullname="Mono.Xml.Xsl.yyParser" preserve="all" />
+        <namespace fullname="" preserve="all" />
+        <namespace fullname="System" preserve="all" />
+        <namespace fullname="Mono.Xml.Schema" preserve="all" />
+        <namespace fullname="Mono.Xml.Xsl.Operations" preserve="all" />
+        <namespace fullname="Mono.Xml" preserve="all" />
+        <namespace fullname="System.Xml" preserve="all" />
+        <namespace fullname="Mono.Xml2" preserve="all" />
+        <namespace fullname="System.Xml.XPath" preserve="all" />
+        <namespace fullname="System.Xml.Xsl" preserve="all" />
+        <namespace fullname="System.Xml.Schema" preserve="all" />
+        <namespace fullname="System.Xml.Serialization" preserve="all" />
+        <namespace fullname="System.Xml.Serialization.Advanced" preserve="all" />
+    </assembly>
+    <assembly fullname="System.Xml.ReaderWriter" />
+    <assembly fullname="System.Xml.XDocument" />
+    <assembly fullname="System.Xml.XmlDocument" />
+    <assembly fullname="System.Xml.XmlSerializer" />
+    <assembly fullname="System.Xml.XPath" />
+    <assembly fullname="System.Xml.XPath.XDocument" />
+</linker>

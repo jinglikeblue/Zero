@@ -8,26 +8,33 @@ namespace IL.Zero
     /// </summary>
     public sealed class PluralViewLayer : AViewLayer
     {
-        public List<AView> ViewList { get; }
+        List<AView> _viewList;
+        public List<AView> ViewList
+        {
+            get
+            {
+                return _viewList;
+            }
+        }
 
         public PluralViewLayer(GameObject rootGameObject) : base(rootGameObject)
         {
-            ViewList = new List<AView>();
+            _viewList = new List<AView>();
         }
 
         public override void ShowView(AView view)
-        {            
-            if (false == ViewList.Contains(view))
+        {
+            if (false == _viewList.Contains(view))
             {
                 view.onDestroyHandler += RemoveView;
-                ViewList.Add(view);
+                _viewList.Add(view);
             }
         }
 
         void RemoveView(AView view)
         {
             view.onDestroyHandler -= RemoveView;
-            ViewList.Remove(view);           
+            _viewList.Remove(view);
         }
 
         public void ChangeSiblingIndex(AView view, int index)
@@ -40,14 +47,14 @@ namespace IL.Zero
         /// </summary>
         public override void Clear()
         {
-            var idx = ViewList.Count;
-            while(--idx > -1)
+            var idx = _viewList.Count;
+            while (--idx > -1)
             {
-                var view = ViewList[idx];
+                var view = _viewList[idx];
                 view.onDestroyHandler -= RemoveView;
                 view.Destroy();
             }
-            ViewList.Clear();
+            _viewList.Clear();
         }
     }
 }

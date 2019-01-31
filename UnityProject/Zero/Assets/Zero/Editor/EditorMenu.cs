@@ -32,7 +32,7 @@ namespace Zero.Edit
         public static void Res()
         {
             ResEditorWin.Open();                                 
-        }
+        }        
 
         [MenuItem("Zero/iOS/ProjectInit", false, 300)]
         public static void IosProjectInit()
@@ -54,7 +54,7 @@ namespace Zero.Edit
             ResMgr.Ins.DoGC();
         }
 
-        [MenuItem("Zero/Assets/Sprite/Packing Tag", false, 501)]
+        [MenuItem("Zero/Assets/Sprite/Packing Tag Delete", false, 501)]
         public static void PackingTagEdit()
         {
             PackingTagEditorWin.Open();
@@ -64,6 +64,12 @@ namespace Zero.Edit
         public static void FindUselessAssets()
         {
             FindUselessAssetsEditorWin.Open();
+        }
+
+        [MenuItem("Zero/IL2CPP/Linker.xml Create", false, 6000)]
+        public static void LinkerXMLCreate()
+        {
+            LinkerXMLEditorWin.Open();
         }
 
         /// <summary>
