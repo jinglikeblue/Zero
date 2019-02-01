@@ -6,11 +6,11 @@ using UnityEngine;
 
 namespace Zero.Edit
 {
-    public class LinkerAssemblyTreeView : TreeView
+    public class LinkAssemblyTreeView : TreeView
     {
         TreeViewItem _root;
 
-        public LinkerAssemblyTreeView(TreeViewState state) : base(state)
+        public LinkAssemblyTreeView(TreeViewState state) : base(state)
         {
         }
 
@@ -60,7 +60,7 @@ namespace Zero.Edit
                 for(int j = 0; j < assembly.nsNodeList.Count; j++)
                 {
                     var ns = assembly.nsNodeList[j];
-                    TreeViewItem nsItem = new TreeViewItem(id++, NAMESPACE_DEPTH, ns.name + "[namespace]");
+                    TreeViewItem nsItem = new TreeViewItem(id++, NAMESPACE_DEPTH, ns.name + "[namespace]");                    
                     allItems.Add(nsItem);
                     for(int k = 0; k < ns.typeNameList.Count; k++)
                     {

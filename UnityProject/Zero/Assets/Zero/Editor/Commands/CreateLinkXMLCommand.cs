@@ -99,14 +99,15 @@ namespace Zero.Edit
                 //创建Assembly节点
                 XmlElement assembly = xmlDoc.CreateElement("assembly");
                 assembly.SetAttribute("fullname", assemblyNode.name);
+                assembly.SetAttribute("preserve", "all");
 
-                foreach (var nsNode in assemblyNode.nsNodeList)
-                {
-                    XmlElement ns = xmlDoc.CreateElement("namespace");
-                    ns.SetAttribute("fullname", nsNode.name);
-                    ns.SetAttribute("preserve", "all");
-                    assembly.AppendChild(ns);
-                }
+                //foreach (var nsNode in assemblyNode.nsNodeList)
+                //{
+                //    XmlElement ns = xmlDoc.CreateElement("namespace");
+                //    ns.SetAttribute("fullname", nsNode.name);
+                //    ns.SetAttribute("preserve", "all");
+                //    assembly.AppendChild(ns);
+                //}
 
                 root.AppendChild(assembly);
             }
@@ -136,8 +137,7 @@ namespace Zero.Edit
 
             if (0 == typeList.Length)
             {
-                Debug.LogWarningFormat("Types长度为0，被忽略:{0}", dllFile);
-                return null;
+                Debug.LogWarningFormat("Types长度为0: {0}", dllFile);                
             }
 
             AssemblyNodeVO vo = new AssemblyNodeVO(Path.GetFileNameWithoutExtension(dllFile));
