@@ -181,7 +181,6 @@
         <namespace fullname="UnityEngine.UI.CoroutineTween" preserve="all" />
         <namespace fullname="UnityEngine.UI" preserve="all" />
         <namespace fullname="UnityEngine.UI.Collections" preserve="all" />
-        <namespace fullname="" preserve="all" />
     </assembly>
     <assembly fullname="UnityEngine.UIElementsModule">
         <namespace fullname="UnityEngine.Experimental.UIElements" preserve="all" />
@@ -198,7 +197,6 @@
         <namespace fullname="UnityEngine.Networking" preserve="all" />
         <namespace fullname="UnityEngine.Networking.Match" preserve="all" />
         <namespace fullname="UnityEngine.Networking.Types" preserve="all" />
-        <namespace fullname="" preserve="all" />
     </assembly>
     <assembly fullname="UnityEngine.UnityAnalyticsModule">
         <namespace fullname="UnityEngine.Analytics" preserve="all" />
@@ -263,7 +261,6 @@
         <namespace fullname="System.Runtime.CompilerServices" preserve="all" />
         <namespace fullname="System.Diagnostics" preserve="all" />
         <namespace fullname="System.Security.Permissions" preserve="all" />
-        <namespace fullname="" preserve="all" />
         <namespace fullname="Microsoft.Win32" preserve="all" />
         <namespace fullname="Microsoft.Win32.SafeHandles" preserve="all" />
         <namespace fullname="Mono.Globalization.Unicode" preserve="all" />
@@ -317,6 +314,19 @@
     </assembly>
     <assembly fullname="netstandard" />
     <assembly fullname="System.Collections" />
+    <assembly fullname="System.Core">
+        <namespace fullname="System.Runtime.CompilerServices" preserve="all" />
+        <namespace fullname="System.Linq.Expressions" preserve="all" />
+        <namespace fullname="System" preserve="all" />
+        <namespace fullname="Mono.Security.Cryptography" preserve="all" />
+        <namespace fullname="System.IO" preserve="all" />
+        <namespace fullname="System.Linq" preserve="all" />
+        <namespace fullname="System.Collections.Generic" preserve="all" />
+        <namespace fullname="System.Security.Cryptography" preserve="all" />
+        <namespace fullname="System.Threading" preserve="all" />
+        <namespace fullname="Microsoft.Win32.SafeHandles" preserve="all" />
+        <namespace fullname="System.IO.Pipes" preserve="all" />
+    </assembly>
     <assembly fullname="System.Data">
         <namespace fullname="System" preserve="all" />
         <namespace fullname="System.Xml" preserve="all" />
@@ -331,7 +341,6 @@
     </assembly>
     <assembly fullname="System">
         <namespace fullname="System.Runtime.InteropServices" preserve="all" />
-        <namespace fullname="" preserve="all" />
         <namespace fullname="System" preserve="all" />
         <namespace fullname="Mono.CSharp" preserve="all" />
         <namespace fullname="Microsoft.CSharp" preserve="all" />
@@ -416,7 +425,6 @@
         <namespace fullname="Mono.Xml.Xsl" preserve="all" />
         <namespace fullname="Mono.Xml.Xsl.yydebug" preserve="all" />
         <namespace fullname="Mono.Xml.Xsl.yyParser" preserve="all" />
-        <namespace fullname="" preserve="all" />
         <namespace fullname="System" preserve="all" />
         <namespace fullname="Mono.Xml.Schema" preserve="all" />
         <namespace fullname="Mono.Xml.Xsl.Operations" preserve="all" />

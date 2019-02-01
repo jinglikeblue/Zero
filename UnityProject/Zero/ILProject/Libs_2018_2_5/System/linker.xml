@@ -1,0 +1,15 @@
+<linker>
+    <assembly fullname="System.Core">
+        <namespace fullname="System.Runtime.CompilerServices" preserve="all" />
+        <namespace fullname="System.Linq.Expressions" preserve="all" />
+        <namespace fullname="System" preserve="all" />
+        <namespace fullname="Mono.Security.Cryptography" preserve="all" />
+        <namespace fullname="System.IO" preserve="all" />
+        <namespace fullname="System.Linq" preserve="all" />
+        <namespace fullname="System.Collections.Generic" preserve="all" />
+        <namespace fullname="System.Security.Cryptography" preserve="all" />
+        <namespace fullname="System.Threading" preserve="all" />
+        <namespace fullname="Microsoft.Win32.SafeHandles" preserve="all" />
+        <namespace fullname="System.IO.Pipes" preserve="all" />
+    </assembly>
+</linker>

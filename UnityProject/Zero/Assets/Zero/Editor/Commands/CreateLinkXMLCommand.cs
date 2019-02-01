@@ -1,56 +1,21 @@
-﻿using Jing;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Xml;
-using UnityEditor;
 using UnityEngine;
-using Zero.Edit;
 
 namespace Zero.Edit
 {
-    class LinkerXMLEditorWin : AEditorWin
+    public class CreateLinkXMLCommand
     {
-        /// <summary>
-        /// 打开窗口
-        /// </summary>
-        public static void Open()
-        {
-            var win = EditorWindow.GetWindow<LinkerXMLEditorWin>("Useless Assets Find", true);
-            win.minSize = new Vector2(800, 700);
-            win.maxSize = new Vector2(1000, 700);
-            win.Show();
-        }
+        public event Action<CreateLinkXMLCommand> onCreated;
 
-        string _selectDir;
-
-        private void OnGUI()
-        {
-            if (GUILayout.Button("选择DLL所在目录", GUILayout.Height(30)))
-            {
-                string dir = EditorUtility.OpenFolderPanel("Dll文件目录", Application.dataPath, "");
-                _selectDir = dir;
-                var cmd = new CreateLinkXMLCommand(dir);
-                cmd.onCreated += OnCreated;
-                cmd.Excute();
-            }
-        }
-
-        private void OnCreated(CreateLinkXMLCommand cmd)
-        {
-            cmd.onCreated -= OnCreated;
-            var savePath = FileSystem.CombinePaths(_selectDir, "linker.xml");
-            File.WriteAllText(savePath, cmd.LinkXMLString);
-            //打开目录
-            EditorMenu.OpenDirectory(_selectDir);
-            Debug.Log("创建成功");
-        }
-    }
-
-    class CreateLinkXMLCommand
-    {
         string _dir;
+
+        string _linkXMLString;
+
+        List<AssemblyNodeVO> _nodeList;
 
         /// <summary>
         /// 命名空间节点
@@ -78,16 +43,12 @@ namespace Zero.Edit
             {
                 this.name = name;
             }
-        }
-
-        List<AssemblyNodeVO> _nodeList;
+        }        
 
         public List<AssemblyNodeVO> NodeList
         {
             get { return _nodeList; }
-        }
-
-        string _linkXMLString;
+        }        
 
         public string LinkXMLString
         {
@@ -95,9 +56,7 @@ namespace Zero.Edit
             {
                 return _linkXMLString;
             }
-        }
-
-        public event Action<CreateLinkXMLCommand> onCreated;
+        }       
 
         public CreateLinkXMLCommand(string dir)
         {
@@ -159,19 +118,25 @@ namespace Zero.Edit
         {
             var dllBytes = File.ReadAllBytes(dllFile);
             var assembly = Assembly.Load(dllBytes);
-            
+
             Type[] typeList = null;
             try
             {
                 typeList = assembly.GetTypes();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.LogErrorFormat("无法处理的Assembly:{0}", dllFile);
             }
 
-            if(null == typeList)
+            if (null == typeList)
             {
+                return null;
+            }
+
+            if (0 == typeList.Length)
+            {
+                Debug.LogWarningFormat("Types长度为0，被忽略:{0}", dllFile);
                 return null;
             }
 
@@ -194,7 +159,7 @@ namespace Zero.Edit
                     typeName = null;
                 }
 
-                if(null == nsName || null == typeName)
+                if (null == nsName || null == typeName)
                 {
                     continue;
                 }
