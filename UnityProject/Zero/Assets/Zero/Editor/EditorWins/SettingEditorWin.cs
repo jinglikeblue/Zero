@@ -41,6 +41,8 @@ namespace Zero.Edit
 
         ConfigVO cfg;
         Vector2 _pos = Vector2.zero;
+        GUIDictionary _startParamsDic = new GUIDictionary();
+        GUIDictionary _settingJumpDic = new GUIDictionary();
 
         private void OnEnable()
         {
@@ -60,10 +62,14 @@ namespace Zero.Edit
             {
                 cfg.data.startupParams = new Dictionary<string, string>();
             }
+
+            _startParamsDic.SetData(cfg.data.startupParams, "Key", "Value");
+            _settingJumpDic.SetData(cfg.data.settingJump, "版本号", "跳转地址");            
         }
 
         private void OnGUI()
         {
+            bool isMouseDown = Event.current.type == EventType.MouseDown ? true : false;
 
             EditorGUILayout.BeginVertical();
 
@@ -73,6 +79,8 @@ namespace Zero.Edit
             {
                 SaveConfig(cfg, CONFIG_NAME);
                 ShowNotification(new GUIContent("保存成功"));
+                _startParamsDic.Reload();
+                _settingJumpDic.Reload();
             }
             cfg.saveDir = EditorGUILayout.TextField("Setting文件保存目录:", cfg.saveDir);
             EditorGUILayout.Space();
@@ -101,7 +109,7 @@ namespace Zero.Edit
 
             //-------------------------------            
             EditorGUILayout.LabelField("配置跳转，如果当前客户端版本号有匹配的资源，则使用对应的setting文件");
-            GUILayoutDictionary(cfg.data.settingJump, "版本号", "跳转地址");
+            cfg.data.settingJump = _settingJumpDic.OnGUI(isMouseDown);
 
             //--------------------资源配置
             GUILayoutSplit("联网资源");
@@ -124,8 +132,8 @@ namespace Zero.Edit
             //-------------------------------
             GUILayoutSplit("额外参数");
             EditorGUILayout.LabelField("配置文件附带参数");
-            GUILayoutDictionary(cfg.data.startupParams, "Key", "Value");
-
+            cfg.data.startupParams = _startParamsDic.OnGUI(isMouseDown);
+            //GUILayoutDictionary(cfg.data.startupParams, "Key", "Value");
             GUILayout.EndScrollView();
 
             //----------------------------------------------------
@@ -133,6 +141,8 @@ namespace Zero.Edit
             if (GUILayout.Button("生成[Setting.json]"))
             {
                 CreateSettingJsonFile();
+                _startParamsDic.Reload();
+                _settingJumpDic.Reload();
             }           
 
             EditorGUILayout.EndVertical();

@@ -23,20 +23,35 @@ namespace Zero.Edit
         IOSProjectInitConfig _tool;
         Vector2 _pos = Vector2.zero;
 
+        GUIDictionary _file2BuildDic = new GUIDictionary();
+        GUIDictionary _buildPropertyDic = new GUIDictionary();
+        GUIDictionary _pListDataDic = new GUIDictionary();
+
         private void OnEnable()
         {
-            _tool = new IOSProjectInitConfig();            
+            _tool = new IOSProjectInitConfig();
+
+            _file2BuildDic.SetData(_tool.Cfg.file2BuildList, "path", "projectPath");
+            _buildPropertyDic.SetData(_tool.Cfg.buildPropertyList, "name", "value");
+            _pListDataDic.SetData(_tool.Cfg.pListDataList, "key", "value");
         }
+
+
 
 
         private void OnGUI()
         {
+            bool isMouseDown = Event.current.type == EventType.MouseDown ? true : false;
+
             EditorGUILayout.BeginVertical();
 
             if (GUILayout.Button("保存配置"))
             {
                 _tool.SaveCfg();
                 ShowNotification(new GUIContent("保存成功"));
+                _file2BuildDic.Reload();
+                _buildPropertyDic.Reload();
+                _pListDataDic.Reload();
             }
 
             _pos = GUILayout.BeginScrollView(_pos);
@@ -47,15 +62,15 @@ namespace Zero.Edit
 
             //AddFileToBuild
             GUILayoutSplit("AddFileToBuild");
-            GUILayoutDictionary(_tool.Cfg.file2BuildList, "path", "projectPath");
+            _file2BuildDic.OnGUI(isMouseDown);
 
             //SetBuildProperty
             GUILayoutSplit("SetBuildProperty");
-            GUILayoutDictionary(_tool.Cfg.buildPropertyList, "name", "value");
+            _buildPropertyDic.OnGUI(isMouseDown);            
 
             //AddPList
             GUILayoutSplit("AddPList");
-            GUILayoutDictionary(_tool.Cfg.pListDataList, "key", "value");
+            _pListDataDic.OnGUI(isMouseDown);            
 
             //AddUrlScheme
             GUILayoutSplit("AddUrlScheme");

@@ -119,6 +119,7 @@ namespace Zero.Edit
         /// <param name="dic"></param>
         /// <param name="keyName"></param>
         /// <param name="valueName"></param>
+        /*
         protected void GUILayoutDictionary(Dictionary<string,string> dic, string keyName, string valueName)
         {
             if (GUILayout.Button("添加", GUILayout.Width(150)))
@@ -133,7 +134,7 @@ namespace Zero.Edit
                 {
                     dic.Remove(entry.Key);
                     break;
-                }
+                }                
 
                 EditorGUILayout.LabelField(keyName + ":", GUILayout.MaxWidth(60));
                 string newKey = EditorGUILayout.TextField("", entry.Key, GUILayout.MaxWidth(200));
@@ -141,18 +142,23 @@ namespace Zero.Edit
                 string newValue = EditorGUILayout.TextField("", entry.Value);
                 EditorGUILayout.EndHorizontal();
 
-                if (newKey != entry.Key)
-                {
-                    dic.Remove(entry.Key);
-                    dic[newKey] = newValue;
-                    break;
-                }
-                else if (newValue != entry.Value)
-                {
-                    dic[newKey] = newValue;
-                    break;
+                var e = Event.current;
+                if (e.type == EventType.MouseDown)
+                {                    
+                    if (newKey != entry.Key)
+                    {
+                        dic.Remove(entry.Key);
+                        dic[newKey] = newValue;
+                        break;
+                    }
+                    else if (newValue != entry.Value)
+                    {
+                        dic[newKey] = newValue;
+                        break;
+                    }
                 }
             }
         }
+        */
     }
 }
