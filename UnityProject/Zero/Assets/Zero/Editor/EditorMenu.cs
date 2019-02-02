@@ -66,7 +66,7 @@ namespace Zero.Edit
             FindUselessAssetsEditorWin.Open();
         }
 
-        [MenuItem("Zero/IL2CPP/Create [Link.xml]", false, 6000)]
+        [MenuItem("Zero/IL2CPP/Create [Link.xml]", false, 600)]
         public static void LinkerXMLCreate()
         {
             LinkXMLEditorWin.Open();

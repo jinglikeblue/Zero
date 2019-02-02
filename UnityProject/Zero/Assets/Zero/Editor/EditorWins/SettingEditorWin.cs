@@ -40,6 +40,7 @@ namespace Zero.Edit
         }
 
         ConfigVO cfg;
+        Vector2 _pos = Vector2.zero;
 
         private void OnEnable()
         {
@@ -76,7 +77,9 @@ namespace Zero.Edit
             cfg.saveDir = EditorGUILayout.TextField("Setting文件保存目录:", cfg.saveDir);
             EditorGUILayout.Space();
 
-            
+
+            _pos = GUILayout.BeginScrollView(_pos);
+
             GUILayoutHead("setting.json编辑");
 
             GUILayoutSplit("客户端版本");
@@ -122,13 +125,16 @@ namespace Zero.Edit
             GUILayoutSplit("额外参数");
             EditorGUILayout.LabelField("配置文件附带参数");
             GUILayoutDictionary(cfg.data.startupParams, "Key", "Value");
-            
+
+            GUILayout.EndScrollView();
+
             //----------------------------------------------------
             GUILayout.Space(20);
             if (GUILayout.Button("生成[Setting.json]"))
             {
                 CreateSettingJsonFile();
-            }
+            }           
+
             EditorGUILayout.EndVertical();
         }
 

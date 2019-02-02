@@ -16,11 +16,13 @@ namespace Zero.Edit
             var win = EditorWindow.GetWindow<IOSProjectInitEditorWin>();
             win.titleContent = new GUIContent("ProjectInitEditorWin");
             win.minSize = new Vector2(800, 500);
-            win.maxSize = new Vector2(1000, 500);
+            win.maxSize = new Vector2(1000, 1000);
             win.Show();
         }
 
         IOSProjectInitConfig _tool;
+        Vector2 _pos = Vector2.zero;
+
         private void OnEnable()
         {
             _tool = new IOSProjectInitConfig();            
@@ -36,6 +38,8 @@ namespace Zero.Edit
                 _tool.SaveCfg();
                 ShowNotification(new GUIContent("保存成功"));
             }
+
+            _pos = GUILayout.BeginScrollView(_pos);
 
             //AddFrameworkToProject
             GUILayoutSplit("AddFrameworkToProject");
@@ -62,6 +66,8 @@ namespace Zero.Edit
             _tool.Cfg.appQueriesSchemeList = GUILayoutArray(_tool.Cfg.appQueriesSchemeList);
 
             EditorGUILayout.Space();
+
+            GUILayout.EndScrollView();
 
             EditorGUILayout.EndVertical();
 
