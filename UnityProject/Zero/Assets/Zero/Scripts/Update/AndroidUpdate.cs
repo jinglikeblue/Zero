@@ -21,7 +21,7 @@ namespace Zero
             Downloader loader = new Downloader(Runtime.Ins.setting.client.url, savePath, Runtime.Ins.setting.client.version);
             while(false == loader.isDone)
             {
-                _onProgress.Invoke(loader.progress);
+                _onProgress.Invoke(loader.progress, loader.totalSize);
                 yield return new WaitForEndOfFrame();
             }
 

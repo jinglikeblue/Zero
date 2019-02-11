@@ -28,14 +28,14 @@ namespace Zero
         }
 
         Action<bool> _onOver;
-        protected Action<float> _onProgress;
+        protected Action<float, long> _onProgress;
         protected Action<string> _onError;
 
         /// <summary>
         /// 开始检查更新
         /// </summary>
         /// <param name="onOver">不用更新的回调</param>
-        public void Start(Action<bool> onOver, Action<float> onProgress, Action<string> onError)
+        public void Start(Action<bool> onOver, Action<float, long> onProgress, Action<string> onError)
         {
             Log.CI(Log.COLOR_BLUE, "「{0}」客户端版本号检查...", this.GetType().Name);
             if (false == Runtime.Ins.IsLoadFromNet)
@@ -49,7 +49,7 @@ namespace Zero
             _onError = onError;
             int result = CheckVersionCode(Application.version, Runtime.Ins.setting.client.version);
 
-            Log.CI(Log.COLOR_BLUE, "客户端版本号 本地: {0}   网络: {1}", Application.version, Runtime.Ins.setting.client.version);
+            Log.CI(Log.COLOR_BLUE, "客户端版本号 本地: {0}   网络: {1}  更新地址：{2}", Application.version, Runtime.Ins.setting.client.version, Runtime.Ins.setting.client.url);
 
             if (result == -1)
             {

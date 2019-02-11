@@ -9,18 +9,13 @@ namespace Zero
     /// </summary>
     public class PackageUpdate
     {
-        public void Start(Action onComplete, Action<float> onProgress)
+        public void Start(Action onComplete, Action<float, long> onProgress)
         {
             Log.CI(Log.COLOR_BLUE, "「PackageUpdate」内嵌资源解压检查...");
-            //if (false == Runtime.Ins.IsLoadFromNet)
-            //{
-            //    onComplete();
-            //    return;
-            //}
             ILBridge.Ins.StartCoroutine(Run(onComplete, onProgress));
         }
 
-        IEnumerator Run(Action onComplete, Action<float> onProgress)
+        IEnumerator Run(Action onComplete, Action<float, long> onProgress)
         {
             do
             {
@@ -37,7 +32,7 @@ namespace Zero
                 WWW www = new WWW(path);
                 while (false == www.isDone)
                 {
-                    onProgress(www.progress * 0.5f);
+                    onProgress(0f, 0);
                     yield return new WaitForEndOfFrame();
                 }                
 
@@ -52,7 +47,7 @@ namespace Zero
                 zh.UnZip(www.bytes, Runtime.Ins.localResDir);
                 while (false == zh.isDone)
                 {
-                    onProgress((zh.progress * 0.5f) + 0.5f);
+                    onProgress(zh.progress, www.bytes.Length);
                     yield return new WaitForEndOfFrame();
                 }
                 www.Dispose();

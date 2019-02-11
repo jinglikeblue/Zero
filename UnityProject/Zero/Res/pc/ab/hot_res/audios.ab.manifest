@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2488305767
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 099ab76b8d8f13ae72984b850b3e0a9b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
+HashAppended: 0
+ClassTypes:
+- Class: 83
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/hot_res/audios/click.mp3
+Dependencies: []

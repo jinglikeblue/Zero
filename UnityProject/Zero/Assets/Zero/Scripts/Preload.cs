@@ -36,6 +36,18 @@ namespace Zero
 
         [Header("运行时配置")]
         public RuntimeVO runtimeCfg;
+        
+        EState _currentState;
+        /// <summary>
+        /// 当前状态
+        /// </summary>
+        public EState CurrentState
+        {
+            get
+            {
+                return _currentState;
+            }
+        }
 
         /// <summary>
         /// 状态改变的委托
@@ -44,12 +56,13 @@ namespace Zero
         /// <summary>
         /// 状态对应进度的委托
         /// </summary>
-        public event Action<float> onProgress;
+        public event Action<float, long> onProgress;
 
         /// <summary>
         /// Preload加热失败
         /// </summary>
-        public event Action<string> onError;
+        public event Action<string> onError;               
+
         void Start()
         {            
 
@@ -76,9 +89,9 @@ namespace Zero
             }
         }
 
-        public void OnPackageUpdate(float progress)
+        public void OnPackageUpdate(float progress, long totalSize)
         {
-            OnProgress(progress);
+            OnProgress(progress, totalSize);
         }
 
         void LoadSettingFile()
@@ -96,9 +109,9 @@ namespace Zero
             AClientUpdate.CreateNowPlatformUpdate().Start(StartupResUpdate, OnClientUpdateProgress, OnError);
         }
 
-        private void OnClientUpdateProgress(float progress)
+        private void OnClientUpdateProgress(float progress, long totalSize)
         {
-            OnProgress(progress);
+            OnProgress(progress, totalSize);
         }
 
         /// <summary>
@@ -112,9 +125,9 @@ namespace Zero
             update.Start(Runtime.Ins.setting.startupResGroups, StartMainPrefab, OnUpdateStartupResGroups, onError);
         }
 
-        private void OnUpdateStartupResGroups(float progress)
+        private void OnUpdateStartupResGroups(float progress, long totalSize)
         {
-            OnProgress(progress);
+            OnProgress(progress, totalSize);
         }
 
         void StartMainPrefab()
@@ -127,18 +140,19 @@ namespace Zero
             go.name = Runtime.Ins.VO.mainPrefab.assetName;
         }
 
-        void OnProgress(float progress)
+        void OnProgress(float progress, long totalSize)
         {
             //Log.W("Progress: {0}", progress);
             if (null != onProgress)
             {
-                onProgress.Invoke(progress);
+                onProgress.Invoke(progress, totalSize);
             }
         }
 
         void OnStageChange(EState state)
         {
-            Log.W("Stage: {0}", state);            
+            _currentState = state;
+            Log.W("state: {0}", state);            
             if(null != onStateChange)
             {
                 onStateChange.Invoke(state);

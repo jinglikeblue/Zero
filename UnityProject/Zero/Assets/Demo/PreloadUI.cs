@@ -10,10 +10,16 @@ namespace Demo
         public Text textProgress;
 
         void Start() {
+            Screen.SetResolution(640, 960, false);
             Preload preload = GetComponent<Preload>();
-            preload.onProgress += (float progress) =>
+            preload.onProgress += (float progress, long totalSize) =>
             {
-                textProgress.text = string.Format("{0}%", (int)(progress * 100f));
+                //转换为MB
+                float totalMB = totalSize / 1024 / 1024f;
+                float loadedMB = totalMB * progress;                
+                textProgress.text = string.Format("{0}% [{1}MB/{2}MB]", (int)(progress * 100f), loadedMB.ToString("0.00"), totalMB.ToString("0.00"));
+
+                //Log.I("Preload State:{0} Progress:{1} TotalSize:{2}", preload.CurrentState, progress, totalSize);
             };
 
             preload.onStateChange += (state) =>

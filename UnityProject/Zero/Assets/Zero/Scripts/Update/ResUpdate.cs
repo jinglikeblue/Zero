@@ -28,16 +28,16 @@ namespace Zero
         }
 
         Action _onComplete;
-        Action<float> _onProgress;
+        Action<float, long> _onProgress;
         Action<string> _onError;
         string[] _groups;
 
-        public void Start(string name, Action onComplete, Action<float> onProgress = null, Action<string> onError = null)
+        public void Start(string name, Action onComplete, Action<float, long> onProgress = null, Action<string> onError = null)
         {            
             Start(new string[] { name }, onComplete, onProgress);
         }
 
-        public void Start(string[] groups, Action onComplete, Action<float> onProgress = null, Action<string> onError = null)
+        public void Start(string[] groups, Action onComplete, Action<float, long> onProgress = null, Action<string> onError = null)
         {            
             _onComplete = onComplete;
             _onProgress = onProgress;
@@ -66,7 +66,7 @@ namespace Zero
                 var netItem = Runtime.Ins.netResVer.Get(resName);
 
                 //将要下载的文件依次添加入下载器
-                groupLoader.AddLoad(Runtime.Ins.netResDir + resName, Runtime.Ins.localResDir + resName, netItem.version, OnItemLoaded, netItem);
+                groupLoader.AddLoad(Runtime.Ins.netResDir + resName, Runtime.Ins.localResDir + resName, netItem.version, netItem.size, OnItemLoaded, netItem);
             }
             //启动下载器开始下载
             groupLoader.StartLoad();
@@ -74,18 +74,18 @@ namespace Zero
             //判断是否所有资源下载完成，如果没有，返回一个下载的进度（该进度表示的整体进度）
             do
             {
-                _onProgress.Invoke(groupLoader.progress);
+                _onProgress.Invoke(groupLoader.Progress, groupLoader.TotalSize);
                 yield return new WaitForEndOfFrame();
             }
-            while (false == groupLoader.isDone);
+            while (false == groupLoader.IsDone);
 
             //判断下载是否返回错误
-            if (null != groupLoader.error)
+            if (null != groupLoader.Error)
             {
-                Log.E("下载出错：{0}", groupLoader.error);
+                Log.E("下载出错：{0}", groupLoader.Error);
                 if (null != _onError)
                 {
-                    _onError.Invoke(groupLoader.error);
+                    _onError.Invoke(groupLoader.Error);
                 }
                 yield break;
             }            
