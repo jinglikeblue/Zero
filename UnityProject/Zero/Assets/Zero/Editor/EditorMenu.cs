@@ -72,6 +72,12 @@ namespace Zero.Edit
             LinkXMLEditorWin.Open();
         }
 
+        [MenuItem("Zero/ILRuntime", false, 700)]
+        public static void ILRuntimeEdit()
+        {
+            ILRuntimeEditorWin.Open();
+        }
+
         /// <summary>
         /// 当前发布平台
         /// </summary>

@@ -59,8 +59,18 @@ namespace Zero
             //注册LitJson
             LitJson.JsonMapper.RegisterILRuntimeCLRRedirection(appdomain);
 
-            //注册CLR绑定
-            ILRuntime.Runtime.Generated.CLRBindings.Initialize(appdomain);
+            var classCLRBinding = Type.GetType("ILRuntime.Runtime.Generated.CLRBindings");
+            if(null != classCLRBinding)
+            {
+                //注册CLR绑定            
+                var methodInitialize = classCLRBinding.GetMethod("Initialize");
+                if(null != methodInitialize)
+                {
+                    methodInitialize.Invoke(null, new object[] { appdomain });
+                }
+
+                //ILRuntime.Runtime.Generated.CLRBindings.Initialize(appdomain);
+            }
 
             //使用Couroutine时，C#编译器会自动生成一个实现了IEnumerator，IEnumerator<object>，IDisposable接口的类，因为这是跨域继承，所以需要写CrossBindAdapter
             appdomain.RegisterCrossBindingAdaptor(new CoroutineAdapter());
