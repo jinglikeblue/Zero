@@ -35,24 +35,18 @@ namespace Zero
                 _appdomain.DebugService.StartDebugService(56000);
             }
 
+            MemoryStream fs = new MemoryStream(dllBytes);
+
             if (isNeedPdbFile)
             {
                 string pdbPath = Path.Combine(libDir, libName + ".pdb");
-                byte[] pdbBytes = File.ReadAllBytes(pdbPath);
-                using (MemoryStream fs = new MemoryStream(dllBytes))
-                {
-                    using (MemoryStream p = new MemoryStream(pdbBytes))
-                    {
-                        _appdomain.LoadAssembly(fs, p, new Mono.Cecil.Pdb.PdbReaderProvider());
-                    }
-                }
+                byte[] pdbBytes = File.ReadAllBytes(pdbPath);                
+                MemoryStream p = new MemoryStream(pdbBytes);
+                _appdomain.LoadAssembly(fs, p, new ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider());
             }
             else
-            {
-                using (MemoryStream fs = new MemoryStream(dllBytes))
-                {
-                    _appdomain.LoadAssembly(fs);
-                }
+            {                
+                _appdomain.LoadAssembly(fs);
             }
 
             InitializeILRuntime();
