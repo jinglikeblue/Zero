@@ -18,7 +18,7 @@ namespace IL.Zero
         /// </summary>
         public AView Current { get; private set; }
 
-        Type _switchAnimatorType;        
+        Type _switchAnimatorType = null;        
 
         public SingularViewLayer(GameObject rootGameObject) : base(rootGameObject)
         {

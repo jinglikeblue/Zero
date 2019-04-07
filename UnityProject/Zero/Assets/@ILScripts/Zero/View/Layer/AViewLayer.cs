@@ -47,10 +47,10 @@ namespace IL.Zero
         /// <param name="data">传递的数据</param>
         /// <param name="onCreated">创建完成回调方法，会传回显示的视图以及token对象</param>
         /// <param name="onProgress">创建进度回调方法</param>
-        public void ShowASync<AViewType>(object data = null, Action<AViewType, object> onCreated = null, object token = null, Action<float> onProgress = null) where AViewType : AView
+        public void ShowASync<AViewType>(object data = null, Action<AViewType, object> onCreated = null, object token = null, Action<float> onProgress = null, Action<UnityEngine.Object> onLoaded = null) where AViewType : AView
         {
             var show = new ASyncShow<AViewType>();
-            show.Begin(this, data, onCreated, token, onProgress);
+            show.Begin(this, data, onCreated, token, onProgress, onLoaded);
         }
 
         /// <summary>
@@ -74,12 +74,12 @@ namespace IL.Zero
             Action<AViewType, object> _onCreated;
             object _token;
 
-            public void Begin(AViewLayer layer, object data, Action<AViewType, object> onCreated, object token, Action<float> onProgress)
+            public void Begin(AViewLayer layer, object data, Action<AViewType, object> onCreated, object token, Action<float> onProgress, Action<UnityEngine.Object> onLoaded)
             {
                 _layer = layer;
                 _onCreated = onCreated;
                 _token = token;
-                ViewFactory.CreateAsync(typeof(AViewType), layer.Root, data, OnAsyncCreated, onProgress);
+                ViewFactory.CreateAsync(typeof(AViewType), layer.Root, data, OnAsyncCreated, onProgress, onLoaded);
             }
 
             /// <summary>

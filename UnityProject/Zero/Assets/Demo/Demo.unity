@@ -602,7 +602,7 @@ MonoBehaviour:
     developResRoot: ./Res
     logEnable: 1
     ilCfg:
-      isOnlyDll: 1
+      isOnlyDll: 0
       isReflection: 0
       fileDir: dll
       fileName: ILProject

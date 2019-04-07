@@ -59,7 +59,7 @@ namespace IL.Demo
         /// <summary>
         /// 清理当前的面板
         /// </summary>
-        public void ClearNowPanel()
+        public void Clear()
         {
             _layer.Clear();
         }

@@ -156,17 +156,17 @@ namespace IL.Zero
             return null;            
         }       
 
-        public static void CreateAsync(Type type, string abName, string viewName, Transform parent, object data = null, Action<AView> onCreated = null, Action<float> onProgress = null, Action onLoaded = null)
+        public static void CreateAsync(Type type, string abName, string viewName, Transform parent, object data = null, Action<AView> onCreated = null, Action<float> onProgress = null, Action<UnityEngine.Object> onLoaded = null)
         {
             new ViewAsyncCreater<AView>(type, abName, viewName).Create(parent,data,onCreated,onProgress, onLoaded);
         }
 
-        public static void CreateAsync<T>(string abName, string viewName, Transform parent, object data = null, Action<T> onCreated = null, Action<float> onProgress = null, Action onLoaded = null) where T : AView
+        public static void CreateAsync<T>(string abName, string viewName, Transform parent, object data = null, Action<T> onCreated = null, Action<float> onProgress = null, Action<UnityEngine.Object> onLoaded = null) where T : AView
         {
             new ViewAsyncCreater<T>(typeof(T), abName, viewName).Create(parent, data, onCreated, onProgress, onLoaded);
         }
 
-        public static void CreateAsync(Type type, Transform parent, object data = null, Action<AView> onCreated = null, Action<float> onProgress = null, Action onLoaded = null)
+        public static void CreateAsync(Type type, Transform parent, object data = null, Action<AView> onCreated = null, Action<float> onProgress = null, Action<UnityEngine.Object> onLoaded = null)
         {            
             if (_type2EntryDic.ContainsKey(type))
             {
@@ -175,7 +175,7 @@ namespace IL.Zero
             }
         }
 
-        public static void CreateAsync<T>(Transform parent, object data = null, Action<T> onCreated = null, Action<float> onProgress = null, Action onLoaded = null) where T : AView
+        public static void CreateAsync<T>(Transform parent, object data = null, Action<T> onCreated = null, Action<float> onProgress = null, Action<UnityEngine.Object> onLoaded = null) where T : AView
         {
             Type type = typeof(T);
             if (_type2EntryDic.ContainsKey(type))
@@ -185,7 +185,7 @@ namespace IL.Zero
             }
         }
 
-        public static void CreateAsync(string abName, string viewName, Transform parent, object data = null, Action<AView> onCreated = null, Action<float> onProgress = null, Action onLoaded = null)
+        public static void CreateAsync(string abName, string viewName, Transform parent, object data = null, Action<AView> onCreated = null, Action<float> onProgress = null, Action<UnityEngine.Object> onLoaded = null)
         {
             if (_ab2view2EntryDic.ContainsKey(abName))
             {
