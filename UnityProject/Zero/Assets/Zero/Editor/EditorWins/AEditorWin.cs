@@ -26,7 +26,7 @@ namespace Zero.Edit
             get
             {
                 DirectoryInfo temp = Directory.GetParent(Application.dataPath);
-                string dir = FileSystem.CombineDirs(true, temp.FullName, "EditorConfig", EditorMenu.PlatformDirName);
+                string dir = FileSystem.CombineDirs(true, temp.FullName, "EditorConfig");
                 if (!Directory.Exists(dir))
                 {
                     Directory.CreateDirectory(dir);
