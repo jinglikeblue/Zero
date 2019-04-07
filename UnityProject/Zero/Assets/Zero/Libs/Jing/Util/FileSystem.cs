@@ -6,15 +6,26 @@ namespace Jing
     /// 文件处理工具
     /// </summary>
     public class FileSystem
-    {
+    {       
         /// <summary>
         /// 标准化路径中的路径分隔符（统一使用“/”符号）
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static string StandardizeSeparator(string path)
+        public static string StandardizeBackslashSeparator(string path)
         {
             path = path.Replace("\\", "/");
+            return path;
+        }
+
+        /// <summary>
+        /// 标准化路径中的路径分隔符（统一使用“\”符号）
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string StandardizeSlashSeparator(string path)
+        {
+            path = path.Replace("/", "\\");
             return path;
         }
 

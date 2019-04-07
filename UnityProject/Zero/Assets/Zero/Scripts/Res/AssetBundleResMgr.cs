@@ -24,8 +24,7 @@ namespace Zero
             UnloadAll();
             _loadedABDic = new Dictionary<string, AssetBundle>();
 
-            RootDir = FileSystem.StandardizeSeparator(Path.GetDirectoryName(manifestFilePath));
-           
+            RootDir = FileSystem.StandardizeBackslashSeparator(Path.GetDirectoryName(manifestFilePath));           
 
             AssetBundle ab = AssetBundle.LoadFromFile(manifestFilePath);
             _manifest = ab.LoadAsset<AssetBundleManifest>("AssetBundleManifest");

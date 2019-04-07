@@ -32,7 +32,7 @@ namespace Zero.Edit
 
         void CheckFile(string file)
         {
-            file = FileSystem.StandardizeSeparator(file);
+            file = FileSystem.StandardizeBackslashSeparator(file);
             file = file.Replace(Application.dataPath + "/", "");
             var ai = AssetImporter.GetAtPath(FileSystem.CombinePaths("Assets",file));
             if(null == ai)

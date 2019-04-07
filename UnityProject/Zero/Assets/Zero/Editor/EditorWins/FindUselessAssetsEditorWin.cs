@@ -171,7 +171,7 @@ namespace Zero.Edit
                 var title = string.Format("构建中...({0}/{1})", i + 1, files.Length);
                 EditorUtility.DisplayProgressBar(title, file, i / total);
 
-                file = FileSystem.StandardizeSeparator(file);
+                file = FileSystem.StandardizeBackslashSeparator(file);
                 file = file.Replace(Application.dataPath + "/", "");
 
                 var ai = AssetImporter.GetAtPath(FileSystem.CombinePaths("Assets", file));

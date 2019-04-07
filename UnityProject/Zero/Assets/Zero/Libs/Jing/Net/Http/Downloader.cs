@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Net;
+using UnityEngine;
 
 namespace Jing
 {
@@ -28,7 +29,7 @@ namespace Jing
             }
 
             protected override WebRequest GetWebRequest(Uri address)
-            {
+            {                
                 HttpWebRequest request = base.GetWebRequest(address) as HttpWebRequest;
                 request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
                 request.Timeout = _timeout;
@@ -54,6 +55,10 @@ namespace Jing
         {
             get
             {
+                if (false == _isDone)
+                {
+                    CheckTimeout();
+                }
                 return _isDone;
             }
         }
@@ -140,6 +145,16 @@ namespace Jing
         }
 
         /// <summary>
+        /// 下载超时的设置，当指定毫秒内下载进度没有改变时，视为下载超时。
+        /// </summary>
+        public int timeout = 15000;
+
+        /// <summary>
+        /// 最后进度改变的时间
+        /// </summary>
+        DateTime _lastProgressChangedDT;
+
+        /// <summary>
         /// 初始化下载类
         /// </summary>
         /// <param name="url">下载文件的URL地址</param>
@@ -178,7 +193,9 @@ namespace Jing
                 Uri uri = new Uri(url);
                 var serverPoint = ServicePointManager.FindServicePoint(uri);
                 serverPoint.ConnectionLimit = downloadConnectionLimit;
-                _client.DownloadFileAsync(uri, savePath);
+                _progress = 0;
+                _lastProgressChangedDT = DateTime.Now;
+                _client.DownloadFileAsync(uri, savePath);                                
             }
             catch (Exception ex)
             {
@@ -200,8 +217,8 @@ namespace Jing
                 _client.Dispose();
                 _client = null;
                 if(false ==_isDone)
-                {
-                    _error = "Canceled";
+                {                    
+                    SetError("Canceled");
                     _isDone = true;
                 }                
             }
@@ -216,11 +233,11 @@ namespace Jing
         {            
             if (e.Error != null)
             {
-                _error = e.Error.Message;
+                SetError(e.Error.Message);                
             }
             else if (_loadedSize < _totalSize)
             {
-                _error = "Disconnected";
+                SetError("Disconnected");                
             }
             _isDone = true;                      
         }
@@ -231,17 +248,42 @@ namespace Jing
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void OnDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        {            
-            _loadedSize = e.BytesReceived;
-            _totalSize = e.TotalBytesToReceive;
-            if(0 == _totalSize)
+        {
+            if(e.BytesReceived > _loadedSize)
             {
-                _progress = 0;
+                _lastProgressChangedDT = DateTime.Now;
+                _loadedSize = e.BytesReceived;
+                _totalSize = e.TotalBytesToReceive;
+                if (0 == _totalSize)
+                {
+                    _progress = 0;
+                }
+                else
+                {
+                    _progress = _loadedSize / (float)_totalSize;
+                }
+            }      
+        }
+
+        /// <summary>
+        /// 检查是否超时
+        /// </summary>
+        void CheckTimeout()
+        {
+            TimeSpan ts = DateTime.Now - _lastProgressChangedDT;
+            //Debug.LogFormat("检查时间差：{0} {1}", ts.TotalMilliseconds, url);
+            if(ts.TotalMilliseconds > timeout)
+            {
+                //超时
+                Dispose();
+                SetError("TimeOut");                
             }
-            else
-            {
-                _progress = _loadedSize / (float)_totalSize;
-            }            
+        }
+
+        void SetError(string error)
+        {
+            Debug.LogFormat("下载失败 [{0}] ：{1}", _url, error);
+            _error = error;
         }
     }
 }

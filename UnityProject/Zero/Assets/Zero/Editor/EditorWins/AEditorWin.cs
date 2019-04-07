@@ -13,9 +13,7 @@ namespace Zero.Edit
         /// <summary>
         /// AB资源的保存目录
         /// </summary>
-        public const string AB_DIR = "ab";
-
-        const string CONFIG_NAME = "editor_config.json";
+        public const string AB_DIR = "ab";        
 
         /// <summary>
         /// 编辑器生成的配置文件保存目录

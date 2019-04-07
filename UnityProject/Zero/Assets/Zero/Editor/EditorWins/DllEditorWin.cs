@@ -8,36 +8,6 @@ namespace Zero.Edit
 {
     public class DllEditorWin : AEditorWin
     {
-        const string CONFIG_NAME = "DllCfg.json";
-
-        public struct ConfigVO
-        {
-            /// <summary>
-            /// 编译工具
-            /// </summary>
-            public string devenvPath;
-
-            /// <summary>
-            /// 开发目录
-            /// </summary>
-            public string ilDevelopDir;
-
-            /// <summary>
-            /// 项目目录
-            /// </summary>
-            public string ilProjDir;
-
-            /// <summary>
-            /// 项目csproj路径
-            /// </summary>
-            public string ilProjPath;
-
-            /// <summary>
-            /// 是否在发布DLL的时候自动拷贝代码
-            /// </summary>
-            public bool isAudoCopy;
-        }
-
         /// <summary>
         /// 打开窗口
         /// </summary>
@@ -50,11 +20,11 @@ namespace Zero.Edit
             win.Show();
         }
 
-        ConfigVO cfg;
+        DllPublishConfigModel _cfg;
 
         private void OnEnable()
         {
-            cfg = LoadConfig<ConfigVO>(CONFIG_NAME);
+            _cfg = new DllPublishConfigModel();
         }        
 
         private void OnGUI()
@@ -63,24 +33,24 @@ namespace Zero.Edit
             EditorGUILayout.Space();
             if (GUILayout.Button("保存配置"))
             {
-                SaveConfig(cfg, CONFIG_NAME);
+                _cfg.Save();                
                 ShowNotification(new GUIContent("保存成功"));
             }
+            _cfg.VO.resDir = EditorGUILayout.TextField("Res目录:", _cfg.VO.resDir);
+            GUILayout.Space(10);
 
-            GUILayout.Space(10);          
-            
-            cfg.ilDevelopDir = EditorGUILayout.TextField("DLL开发目录:", cfg.ilDevelopDir);           
+            _cfg.VO.ilDevelopDir = EditorGUILayout.TextField("DLL开发目录:", _cfg.VO.ilDevelopDir);           
            
 
             GUILayout.BeginHorizontal();
-            
-            cfg.ilProjDir = EditorGUILayout.TextField("DLL项目目录:", cfg.ilProjDir);
+
+            _cfg.VO.ilProjDir = EditorGUILayout.TextField("DLL项目目录:", _cfg.VO.ilProjDir);
 
             if(GUILayout.Button("清空项目目录",GUILayout.Width(100)))
             {
                 if (EditorUtility.DisplayDialog("警告！", "是否确认清空项目目录", "Yes", "No"))
                 {
-                    string projCodeDir = Path.Combine(cfg.ilProjDir, "codes");
+                    string projCodeDir = Path.Combine(_cfg.VO.ilProjDir, "codes");
                     if (Directory.Exists(projCodeDir))
                     {
                         Directory.Delete(projCodeDir, true);
@@ -95,7 +65,7 @@ namespace Zero.Edit
 
             GUILayout.Label("是否在发布DLL的时候自动拷贝代码", GUILayout.Width(200));
 
-            cfg.isAudoCopy = EditorGUILayout.Toggle(cfg.isAudoCopy);
+            _cfg.VO.isAudoCopy = EditorGUILayout.Toggle(_cfg.VO.isAudoCopy);
 
             EditorGUILayout.EndHorizontal();
 
@@ -135,8 +105,8 @@ namespace Zero.Edit
 
 
             EditorGUILayout.Space();
-            cfg.devenvPath = EditorGUILayout.TextField("Devenv地址:", cfg.devenvPath);
-            cfg.ilProjPath = EditorGUILayout.TextField("DLL项目csproj文件路径：", cfg.ilProjPath);
+            _cfg.VO.devenvPath = EditorGUILayout.TextField("Devenv地址:", _cfg.VO.devenvPath);
+            _cfg.VO.ilProjPath = EditorGUILayout.TextField("DLL项目csproj文件路径：", _cfg.VO.ilProjPath);
 
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("VS中打开DLL项目", GUILayout.Width(200)))
@@ -158,15 +128,15 @@ namespace Zero.Edit
         /// </summary>
         private void Copy2DllProj()
         {
-            string projCodeDir = Path.Combine(cfg.ilProjDir, "codes");
+            string projCodeDir = Path.Combine(_cfg.VO.ilProjDir, "codes");
 
-            if (Directory.Exists(cfg.ilDevelopDir))
+            if (Directory.Exists(_cfg.VO.ilDevelopDir))
             {
                 if (Directory.Exists(projCodeDir))
                 {
                     Directory.Delete(projCodeDir, true);
                 }                
-                FileUtil.CopyFileOrDirectory(cfg.ilDevelopDir, projCodeDir);
+                FileUtil.CopyFileOrDirectory(_cfg.VO.ilDevelopDir, projCodeDir);
                 Jing.FileSystem.DeleteFilesByExt(projCodeDir, "meta");
 
                 AssetDatabase.Refresh();
@@ -179,15 +149,15 @@ namespace Zero.Edit
 
         private void Develop2Publish()
         {
-            string projCodeDir = Path.Combine(cfg.ilProjDir, "codes");
+            string projCodeDir = Path.Combine(_cfg.VO.ilProjDir, "codes");
 
-            if (Directory.Exists(cfg.ilDevelopDir))
+            if (Directory.Exists(_cfg.VO.ilDevelopDir))
             {
                 if(Directory.Exists(projCodeDir))
                 {
                     Directory.Delete(projCodeDir,true);
                 }
-                FileUtil.MoveFileOrDirectory(cfg.ilDevelopDir, projCodeDir);
+                FileUtil.MoveFileOrDirectory(_cfg.VO.ilDevelopDir, projCodeDir);
                 Jing.FileSystem.DeleteFilesByExt(projCodeDir, "meta");
 
                 AssetDatabase.Refresh();
@@ -200,15 +170,15 @@ namespace Zero.Edit
 
         private void Publish2Develop()
         {
-            string projCodeDir = Path.Combine(cfg.ilProjDir, "codes");
+            string projCodeDir = Path.Combine(_cfg.VO.ilProjDir, "codes");
 
             if (Directory.Exists(projCodeDir))
             {
-                if (Directory.Exists(cfg.ilDevelopDir))
+                if (Directory.Exists(_cfg.VO.ilDevelopDir))
                 {
-                    Directory.Delete(cfg.ilDevelopDir, true);
+                    Directory.Delete(_cfg.VO.ilDevelopDir, true);
                 }
-                FileUtil.MoveFileOrDirectory(projCodeDir, cfg.ilDevelopDir);
+                FileUtil.MoveFileOrDirectory(projCodeDir, _cfg.VO.ilDevelopDir);
                 AssetDatabase.Refresh();
             }
             else
@@ -219,29 +189,28 @@ namespace Zero.Edit
 
         private void OpenCsproj()
         {
-            EditorMenu.OpenDirectory(Path.GetDirectoryName(cfg.ilProjPath));
+            EditorMenu.OpenDirectory(Path.GetDirectoryName(_cfg.VO.ilProjPath));
             //Process p = new Process();
-            //p.StartInfo.FileName = cfg.ilProjPath;
+            //p.StartInfo.FileName = _cfg.VO.ilProjPath;
             //p.Start();
         }
 
         private void ReleaseDLL()
         {
-            if (cfg.isAudoCopy)
+            if (_cfg.VO.isAudoCopy)
             {
                 Copy2DllProj();
             }
+            
+            var cmd = new DllPublishCommand();
+            cmd.onComplete += OnPublishDllComplete;
+            cmd.Execute();                 
+        }
 
-            Process p = new Process();
-            p.StartInfo.FileName = cfg.devenvPath;// @"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv";  //确定程序名
-            p.StartInfo.Arguments = string.Format("\"{0}\" /Rebuild \"Release|AnyCPU\"", cfg.ilProjPath);// @"""E:\projects\unity\Zero\UnityProject\ZeroIL\ZeroIL\ZeroIL.csproj"" /build";  //指定程式命令行
-            //p.StartInfo.UseShellExecute = false;   //是否使用Shell
-            //p.StartInfo.RedirectStandardInput = true;   //重定向输入
-            //p.StartInfo.RedirectStandardOutput = true;   //重定向输出
-            //p.StartInfo.RedirectStandardError = true;
-            //p.StartInfo.RedirectStandardError = true;    //重定向输出错误
-            //p.StartInfo.CreateNoWindow = true;        //设置不显示窗口
-            p.Start();
+        private void OnPublishDllComplete(string releaseDir)
+        {
+            EditorMenu.OpenDirectory(releaseDir);
+            UnityEngine.Debug.Log("dll release success");           
         }
     }
 }
