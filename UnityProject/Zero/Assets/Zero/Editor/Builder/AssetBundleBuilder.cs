@@ -29,9 +29,9 @@ namespace Zero.Edit
         Dictionary<string, HashSet<string>> _dependsDic = new Dictionary<string, HashSet<string>>();
 
         public AssetBundleBuilder(string outPath, string scanStartAssetDir)
-        {            
-            _outPath = outPath;
-            _scanStartAssetDir = scanStartAssetDir.Replace("\\", "/");
+        {
+            _outPath = FileSystem.CombineDirs(false, outPath);
+            _scanStartAssetDir = FileSystem.CombineDirs(true, scanStartAssetDir);
             _assetDirPath = Path.GetDirectoryName(Application.dataPath) + "/";
             _assetDirPath = _assetDirPath.Replace("\\", "/");
         }

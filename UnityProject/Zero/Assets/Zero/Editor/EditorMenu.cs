@@ -20,25 +20,7 @@ namespace Zero.Edit
         public static void PublishHotRes()
         {
             HotResEditorWin.Open();
-        }
-
-        [MenuItem("Zero/Publish/AssetBundle", false, 100)]
-        public static void AssetBundle()
-        {
-            ABEditorWin.Open();
-        }
-
-        [MenuItem("Zero/Publish/DLL", false, 101)]
-        public static void ILRuntimeDLL()
-        {
-            DllEditorWin.Open();
-        }
-
-        [MenuItem("Zero/Publish/Res", false, 200)]
-        public static void Res()
-        {
-            ResEditorWin.Open();                                 
-        }        
+        }     
 
         [MenuItem("Zero/iOS/ProjectInit", false, 300)]
         public static void IosProjectInit()

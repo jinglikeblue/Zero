@@ -1,31 +1,38 @@
-﻿using System;
+﻿using Jing;
+using System;
 using System.Diagnostics;
 using System.IO;
-using System.Xml;
-using System.Linq;
-using System.Xml.Linq;
-using System.Xml.XPath;
-using Jing;
 
 namespace Zero.Edit
 {
-    public class DllPublishCommand
+    class DllBuildCommand
     {
         public event Action<string> onComplete;
+
+        string _resDir;
+        string _devenvPath;
+        string _csprojPath;
+
         string _projContent;
         string _releaseDir;
 
+        public DllBuildCommand(string resDir, string devenvPath, string csprojPath)
+        {
+            _resDir = resDir;
+            _devenvPath = devenvPath;
+            _csprojPath = csprojPath;
+        }
+
+
         public void Execute()
         {
-            var cfg = new DllPublishConfigModel();
+            _projContent = File.ReadAllText(_csprojPath);
 
-            _projContent = File.ReadAllText(cfg.VO.ilProjPath);
-
-            SetDllReleseDir(cfg.VO);
+            SetDllReleseDir();
 
             Process p = new Process();
-            p.StartInfo.FileName = cfg.VO.devenvPath;// @"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv";  //确定程序名
-            p.StartInfo.Arguments = string.Format("\"{0}\" /Rebuild \"Release|AnyCPU\"", cfg.VO.ilProjPath);// @"""E:\projects\unity\Zero\UnityProject\ZeroIL\ZeroIL\ZeroIL.csproj"" /build";  //指定程式命令行
+            p.StartInfo.FileName = _devenvPath;// @"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv";  //确定程序名
+            p.StartInfo.Arguments = string.Format("\"{0}\" /Rebuild \"Release|AnyCPU\"", _csprojPath);// @"""E:\projects\unity\Zero\UnityProject\ZeroIL\ZeroIL\ZeroIL.csproj"" /build";  //指定程式命令行
             //p.StartInfo.UseShellExecute = false;   //是否使用Shell
             //p.StartInfo.RedirectStandardInput = true;   //重定向输入
             //p.StartInfo.RedirectStandardOutput = true;   //重定向输出            
@@ -44,10 +51,16 @@ namespace Zero.Edit
         /// 设置DLL文件发布的目录
         /// </summary>
         /// <param name="vo"></param>
-        private void SetDllReleseDir(DllPublishConfigVO vo)
+        private void SetDllReleseDir()
         {
-            _releaseDir = FileSystem.CombineDirs(true, vo.resDir, ZeroEditorUtil.PlatformDirName, "dll");
-            _releaseDir = new DirectoryInfo(_releaseDir).FullName;                        
+            _releaseDir = FileSystem.CombineDirs(true, _resDir, ZeroEditorUtil.PlatformDirName, ZeroEditorUtil.DLL_DIR);
+
+            if (false == Directory.Exists(_releaseDir))
+            {
+                Directory.CreateDirectory(_releaseDir);
+            }
+
+            _releaseDir = new DirectoryInfo(_releaseDir).FullName;
 
             int searchIdx = 0;
             do
@@ -56,7 +69,7 @@ namespace Zero.Edit
             }
             while (searchIdx > -1);
 
-            File.WriteAllText(vo.ilProjPath, _projContent);
+            File.WriteAllText(_csprojPath, _projContent);
         }
 
         /// <summary>
@@ -71,7 +84,7 @@ namespace Zero.Edit
             const string NODE_START = "<OutputPath>";
             const string NODE_END = "</OutputPath>";
             int startIdx = _projContent.IndexOf(NODE_START, searchIdx);
-            if(startIdx == -1)
+            if (startIdx == -1)
             {
                 return -1;
             }

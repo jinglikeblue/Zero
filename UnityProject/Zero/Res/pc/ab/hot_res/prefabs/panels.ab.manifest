@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 839126807
+CRC: 1302405652
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: ebad9f91f62653d3dcd924c8c8fb972e
+    Hash: b562ad8c0e6461992c274f8b7535be08
   TypeTreeHash:
     serializedVersion: 2
     Hash: 4e4468a085da0dcb1cb3368432aa8c23
@@ -37,4 +37,4 @@ Assets:
 - Assets/Resources/hot_res/prefabs/panels/GamePanel.prefab
 - Assets/Resources/hot_res/prefabs/panels/MenuPanel.prefab
 Dependencies:
-- E:/projects/unity/Zero/UnityProject/Zero/./Res/pc/ab/auto_depends/cross_0.ab
+- F:/projects/Zero/UnityProject/Zero/./Res/pc/ab/auto_depends/cross_0.ab

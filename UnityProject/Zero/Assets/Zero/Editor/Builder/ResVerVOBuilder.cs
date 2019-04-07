@@ -11,7 +11,7 @@ namespace Zero.Edit
     /// <summary>
     /// 创建资源文件
     /// </summary>
-    public class CreateResVO 
+    public class ResVerVOBuilder 
     {
         const string EXT_FILTERS = ".manifest";
 
@@ -26,13 +26,13 @@ namespace Zero.Edit
         /// </summary>
         /// <param name="resDir"></param>
         /// <param name="fileName"></param>
-        public CreateResVO(string resDir)
+        public ResVerVOBuilder(string resDir)
         {
             _dir = resDir;
             _files = new List<string>();
         }
 
-        public ResVerVO Start()
+        public ResVerVO Build()
         {
             EditorUtility.DisplayProgressBar("正在生成 res.json", "即将开始", 0f);
 

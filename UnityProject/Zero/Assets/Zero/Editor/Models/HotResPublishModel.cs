@@ -1,25 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Jing;
+using System.IO;
+using UnityEditor;
 
 namespace Zero.Edit
 {
     public class HotResPublishModel
     {
         const string CONFIG_NAME = "HotResCfg.json";
-        HotResConfigVO _cfgVO;
+        HotResConfigVO _cfg;
 
-        public HotResConfigVO CfgVO
+        public HotResConfigVO Cfg
         {
             get
             {
-                return _cfgVO;
+                return _cfg;
             }
         }
 
         public HotResPublishModel()
         {
-            LoadConfig();
+            LoadConfig();            
         }
 
         /// <summary>
@@ -27,10 +27,10 @@ namespace Zero.Edit
         /// </summary>
         public void LoadConfig()
         {
-            _cfgVO = EditorConfigUtil.LoadConfig<HotResConfigVO>(CONFIG_NAME);
-            if (null == _cfgVO)
+            _cfg = EditorConfigUtil.LoadConfig<HotResConfigVO>(CONFIG_NAME);
+            if (null == _cfg)
             {
-                _cfgVO = new HotResConfigVO();
+                _cfg = new HotResConfigVO();
             }
         }
 
@@ -39,7 +39,7 @@ namespace Zero.Edit
         /// </summary>
         public void SaveConfig()
         {
-            EditorConfigUtil.SaveConfig(_cfgVO, CONFIG_NAME);
+            EditorConfigUtil.SaveConfig(_cfg, CONFIG_NAME);
         }
 
         /// <summary>
@@ -47,7 +47,8 @@ namespace Zero.Edit
         /// </summary>
         public void BuildAssetBundle()
         {
-
+            //标记目标目录
+            new AssetBundleBuildCommand(_cfg.resDir, _cfg.abHotResDir, _cfg.isKeepManifest).Execute();
         }
 
 
@@ -56,7 +57,11 @@ namespace Zero.Edit
         /// </summary>
         public void BuildDll()
         {
-
+            if (Copy2DllProj())
+            {
+                var cmd = new DllBuildCommand(_cfg.resDir, _cfg.devenvPath, _cfg.ilProjCsprojPath);
+                cmd.Execute();
+            }
         }
 
         /// <summary>
@@ -64,7 +69,29 @@ namespace Zero.Edit
         /// </summary>
         public void BuildResJsonFile()
         {
+            new ResJsonBuildCommand(_cfg.resDir, _cfg.manifestName).Execute();
+        }
 
+        /// <summary>
+        /// 拷贝代码到Proj项目
+        /// </summary>
+        public bool Copy2DllProj()
+        {
+            string projCodeDir = Path.Combine(_cfg.ilProjDir, "codes");
+
+            if (Directory.Exists(_cfg.ilScriptDir))
+            {
+                if (Directory.Exists(projCodeDir))
+                {
+                    Directory.Delete(projCodeDir, true);
+                }
+                FileUtil.CopyFileOrDirectory(_cfg.ilScriptDir, projCodeDir);
+                Jing.FileSystem.DeleteFilesByExt(projCodeDir, "meta");
+
+                AssetDatabase.Refresh();
+                return true;
+            }
+            return false;
         }
     }
 }

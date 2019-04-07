@@ -31,7 +31,7 @@ namespace Zero.Edit
         private void OnEnable()
         {
             _model = new HotResPublishModel();
-            _cfg = _model.CfgVO;
+            _cfg = _model.Cfg;
         }
 
         private void OnGUI()
@@ -65,9 +65,19 @@ namespace Zero.Edit
         {
             _cfg.isKeepManifest = GUILayout.Toggle(_cfg.isKeepManifest, "保留「.manifest」文件", GUILayout.Width(150));
 
-            _cfg.abHotResDir = GUIFolderSelect.OnGUI("热更资源目录:",80, _cfg.abHotResDir, ZeroEditorUtil.ResourcesFolder, "hot_res", (path) =>
+            _cfg.abHotResDir = GUIFolderSelect.OnGUI("热更资源目录(该目录为Resources下的子目录，仅该目录下的资源会作为AssetBundle发布):",500, _cfg.abHotResDir, ZeroEditorUtil.ResourcesFolder, "hot_res", (path) =>
             {
-                path = "Assets" + path.Replace(Application.dataPath, "");
+                path = path.Replace(Application.dataPath, "");
+
+                if (false == path.StartsWith("/Resources"))
+                {
+                    ShowNotification(new GUIContent("请选择Assets/Resources下的目录"));
+                    path = "";
+                }
+                else
+                {
+                    path = "Assets" + path;
+                }                
                 return path;
             });
         }
@@ -97,7 +107,7 @@ namespace Zero.Edit
             {
                 if (EditorUtility.DisplayDialog("警告！", "是否确认执行(目标目录将被覆盖)", "Yes", "No"))
                 {
-                    Copy2DllProj();
+                    _model.Copy2DllProj();
                     ShowNotification(new GUIContent("完成"));
                 }
             }
@@ -126,37 +136,44 @@ namespace Zero.Edit
             _isBuildDLL = GUILayout.Toggle(_isBuildDLL, "Dll", GUILayout.Width(50));            
             _isBuildResJson = GUILayout.Toggle(_isBuildResJson, "res.json", GUILayout.Width(100));
 
-            if (GUILayout.Button("发布热更资源", GUILayout.Width(200)))
+            if (GUILayout.Button("发布热更资源"))
             {
+                Build();
                 GUIUtility.ExitGUI();
             }
 
             EditorGUILayout.EndHorizontal();
         }
 
-
-        /// <summary>
-        /// 拷贝代码到Proj项目
-        /// </summary>
-        private void Copy2DllProj()
+        void Build()
         {
-            string projCodeDir = Path.Combine(_cfg.ilProjDir, "codes");
+            
 
-            if (Directory.Exists(_cfg.ilScriptDir))
+            if (_isBuildDLL)
             {
-                if (Directory.Exists(projCodeDir))
-                {
-                    Directory.Delete(projCodeDir, true);
-                }
-                FileUtil.CopyFileOrDirectory(_cfg.ilScriptDir, projCodeDir);
-                Jing.FileSystem.DeleteFilesByExt(projCodeDir, "meta");
+                EditorUtility.DisplayProgressBar("打包热更资源", "开始发布DLL", 0f);
+                Debug.Log("开始发布DLL");
+                _model.BuildDll();
+            }
 
-                AssetDatabase.Refresh();
-            }
-            else
+            if (_isBuildAB)
             {
-                ShowNotification(new GUIContent("文件夹不存在"));
+                EditorUtility.DisplayProgressBar("打包热更资源", "开始发布AssetBundle", 0f);
+                Debug.Log("开始发布AssetBundle");                
+                //发布AB资源
+                _model.BuildAssetBundle();
             }
+
+            if (_isBuildResJson)
+            {
+                EditorUtility.DisplayProgressBar("打包热更资源", "开始发布Res.json", 0f);
+                Debug.Log("开始发布Res.json");
+                _model.BuildResJsonFile();
+            }
+
+            //打开目录
+            ZeroEditorUtil.OpenDirectory(FileSystem.CombineDirs(false, _cfg.resDir, ZeroEditorUtil.PlatformDirName));
+            EditorUtility.ClearProgressBar();
         }
     }
 }
