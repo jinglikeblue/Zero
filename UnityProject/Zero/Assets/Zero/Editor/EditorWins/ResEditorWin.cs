@@ -40,7 +40,7 @@ namespace Zero.Edit
         
         private void OnEnable()
         {
-            cfg = LoadConfig<ConfigVO>(CONFIG_NAME);
+            cfg = EditorConfigUtil.LoadConfig<ConfigVO>(CONFIG_NAME);
             if(null == cfg.resDir)
             {
                 cfg.resDir = "." + Path.DirectorySeparatorChar;
@@ -52,7 +52,7 @@ namespace Zero.Edit
             EditorGUILayout.BeginVertical();
             if (GUILayout.Button("保存配置"))
             {
-                SaveConfig(cfg, CONFIG_NAME);
+                EditorConfigUtil.SaveConfig(cfg, CONFIG_NAME);
                 ShowNotification(new GUIContent("保存成功"));
             }
             
@@ -85,7 +85,7 @@ namespace Zero.Edit
         {
             get
             {
-                return Path.Combine(cfg.resDir, EditorMenu.PlatformDirName);
+                return Path.Combine(cfg.resDir, ZeroEditorUtil.PlatformDirName);
             }
         }
 
@@ -121,20 +121,9 @@ namespace Zero.Edit
             res.manifestName = cfg.manifestName;
             string jsonStr = LitJson.JsonMapper.ToJson(res);
             File.WriteAllText(filePath, jsonStr);
-            
-            //打开目录
-            EditorMenu.OpenDirectory(ResJsonFileDir);
-        }
 
-        //AssetBundleManifest GetManifest()
-        //{
-        //    AssetBundle.UnloadAllAssetBundles(true);
-        //    var file = FileSystem.CombinePaths(cfg.resDir, EditorMenu.PlatformDirName, cfg.manifestName);
-        //    AssetBundle ab = AssetBundle.LoadFromFile(file);
-        //    var name = typeof(AssetBundleManifest).Name;
-        //    var manifest = ab.LoadAsset<AssetBundleManifest>(name);
-        //    ab.Unload(false);
-        //    return manifest;
-        //}
+            //打开目录
+            ZeroEditorUtil.OpenDirectory(ResJsonFileDir);
+        }
     }
 }

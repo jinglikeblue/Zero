@@ -30,7 +30,7 @@ namespace Zero.Edit
         public static void MoveBackHotResDir()
         {
             Debug.Log("MoveHotResDirBack");
-            var cfgVO = LoadConfig<ConfigVO>(CONFIG_NAME);
+            var cfgVO = EditorConfigUtil.LoadConfig<ConfigVO>(CONFIG_NAME);
             if (cfgVO.isBestResourcesDir == false || cfgVO.selectedHotResDir == null)
             {
                 return;
@@ -55,7 +55,7 @@ namespace Zero.Edit
         {
             Debug.Log("MoveHotResDirOut");
 
-            var cfgVO = LoadConfig<ConfigVO>(CONFIG_NAME);
+            var cfgVO = EditorConfigUtil.LoadConfig<ConfigVO>(CONFIG_NAME);
             if(cfgVO.isBestResourcesDir == false || cfgVO.selectedHotResDir == null)
             {
                 return;
@@ -140,7 +140,7 @@ namespace Zero.Edit
 
         private void OnEnable()
         {            
-            cfg = LoadConfig<ConfigVO>(CONFIG_NAME);
+            cfg = EditorConfigUtil.LoadConfig<ConfigVO>(CONFIG_NAME);
             if (null == cfg.resDir)
             {
                 cfg.resDir = "." + Path.DirectorySeparatorChar;
@@ -153,7 +153,7 @@ namespace Zero.Edit
 
             if (GUILayout.Button("保存配置"))
             {
-                SaveConfig(cfg, CONFIG_NAME);
+                EditorConfigUtil.SaveConfig(cfg, CONFIG_NAME);
                 ShowNotification(new GUIContent("保存成功"));
             }
 
@@ -291,7 +291,7 @@ namespace Zero.Edit
         {
             get
             {
-                string dir = FileSystem.CombineDirs(false, cfg.resDir, EditorMenu.PlatformDirName, AB_DIR);
+                string dir = FileSystem.CombineDirs(false, cfg.resDir, ZeroEditorUtil.PlatformDirName, ZeroEditorUtil.AB_DIR);
                 return dir;
             }
         }
@@ -315,7 +315,7 @@ namespace Zero.Edit
 
             if (cfg.isOpenDirOnPublishComplete)
             {
-                EditorMenu.OpenDirectory(AssetBundleDir);
+                ZeroEditorUtil.OpenDirectory(AssetBundleDir);
             }
         }
     }

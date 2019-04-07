@@ -46,7 +46,7 @@ namespace Zero.Edit
         /// <param name="vo"></param>
         private void SetDllReleseDir(DllPublishConfigVO vo)
         {
-            _releaseDir = FileSystem.CombineDirs(true, vo.resDir, PathUtil.PlatformDirName, "dll");
+            _releaseDir = FileSystem.CombineDirs(true, vo.resDir, ZeroEditorUtil.PlatformDirName, "dll");
             _releaseDir = new DirectoryInfo(_releaseDir).FullName;                        
 
             int searchIdx = 0;

@@ -46,7 +46,7 @@ namespace Zero.Edit
 
         private void OnEnable()
         {
-            cfg = LoadConfig<ConfigVO>(CONFIG_NAME);
+            cfg = EditorConfigUtil.LoadConfig<ConfigVO>(CONFIG_NAME);
 
             if (cfg.data.startupResGroups == null)
             {
@@ -77,7 +77,7 @@ namespace Zero.Edit
 
             if (GUILayout.Button("保存配置", GUILayout.Width(200)))
             {
-                SaveConfig(cfg, CONFIG_NAME);
+                EditorConfigUtil.SaveConfig(cfg, CONFIG_NAME);
                 ShowNotification(new GUIContent("保存成功"));
                 _startParamsDic.Reload();
                 _settingJumpDic.Reload();
@@ -152,7 +152,7 @@ namespace Zero.Edit
         {
             get
             {
-                var dir = FileSystem.CombinePaths(cfg.saveDir, EditorMenu.PlatformDirName);
+                var dir = FileSystem.CombinePaths(cfg.saveDir, ZeroEditorUtil.PlatformDirName);
                 if (!Directory.Exists(dir))
                 {
                     Directory.CreateDirectory(dir);
@@ -173,7 +173,7 @@ namespace Zero.Edit
             File.WriteAllText(sp, jsonStr);
 
             //打开目录
-            EditorMenu.OpenDirectory(Path.GetDirectoryName(sp));
+            ZeroEditorUtil.OpenDirectory(Path.GetDirectoryName(sp));
         }
     }
 }

@@ -280,7 +280,7 @@ namespace Zero.Edit
                 i++;
             }
 
-            AssetBundleManifest abm = BuildPipeline.BuildAssetBundles(_outPath, abbList, BuildAssetBundleOptions.ChunkBasedCompression, EditorMenu.CurrentPlatform);
+            AssetBundleManifest abm = BuildPipeline.BuildAssetBundles(_outPath, abbList, BuildAssetBundleOptions.ChunkBasedCompression, ZeroEditorUtil.CurrentPlatform);
         }
 
         List<string> GetAssetList(string abName)

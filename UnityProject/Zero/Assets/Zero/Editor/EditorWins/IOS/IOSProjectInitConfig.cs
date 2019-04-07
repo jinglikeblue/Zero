@@ -27,7 +27,7 @@ namespace Zero.Edit
 
         public IOSProjectInitConfig()
         {
-            Cfg = AEditorWin.LoadConfig<ConfigVO>(CONFIG_NAME);
+            Cfg = EditorConfigUtil.LoadConfig<ConfigVO>(CONFIG_NAME);
             if (null == Cfg)
             {
                 Cfg = new ConfigVO();
@@ -37,7 +37,7 @@ namespace Zero.Edit
 
         public void SaveCfg()
         {
-            AEditorWin.SaveConfig(Cfg, CONFIG_NAME);
+            EditorConfigUtil.SaveConfig(Cfg, CONFIG_NAME);
         }
         
     }

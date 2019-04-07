@@ -28,7 +28,7 @@ namespace Zero.Edit
 
         private void OnEnable()
         {
-            cfg = LoadConfig<ConfigVO>(CONFIG_NAME);
+            cfg = EditorConfigUtil.LoadConfig<ConfigVO>(CONFIG_NAME);
             if (null == cfg)
             {
                 cfg = new ConfigVO();
@@ -42,7 +42,7 @@ namespace Zero.Edit
             EditorGUILayout.Space();
             if (GUILayout.Button("保存配置"))
             {
-                SaveConfig(cfg, CONFIG_NAME);
+                EditorConfigUtil.SaveConfig(cfg, CONFIG_NAME);
                 ShowNotification(new GUIContent("保存成功"));
             }
 

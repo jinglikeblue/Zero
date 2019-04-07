@@ -189,7 +189,7 @@ namespace Zero.Edit
 
         private void OpenCsproj()
         {
-            EditorMenu.OpenDirectory(Path.GetDirectoryName(_cfg.VO.ilProjPath));
+            ZeroEditorUtil.OpenDirectory(Path.GetDirectoryName(_cfg.VO.ilProjPath));
             //Process p = new Process();
             //p.StartInfo.FileName = _cfg.VO.ilProjPath;
             //p.Start();
@@ -209,7 +209,7 @@ namespace Zero.Edit
 
         private void OnPublishDllComplete(string releaseDir)
         {
-            EditorMenu.OpenDirectory(releaseDir);
+            ZeroEditorUtil.OpenDirectory(releaseDir);
             UnityEngine.Debug.Log("dll release success");           
         }
     }

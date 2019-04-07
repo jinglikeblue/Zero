@@ -111,7 +111,7 @@ namespace Zero.Edit
                 var savePath = FileSystem.CombinePaths(saveDir, "link.xml");
                 File.WriteAllText(savePath, _cmd.LinkXMLString);
                 //打开目录
-                EditorMenu.OpenDirectory(saveDir);
+                ZeroEditorUtil.OpenDirectory(saveDir);
                 Debug.Log("创建成功");
             }
         }
