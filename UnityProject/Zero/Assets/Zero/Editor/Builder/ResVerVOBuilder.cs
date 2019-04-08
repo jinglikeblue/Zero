@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Jing;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
@@ -28,7 +29,7 @@ namespace Zero.Edit
         /// <param name="fileName"></param>
         public ResVerVOBuilder(string resDir)
         {
-            _dir = resDir;
+            _dir = FileSystem.CombineDirs(true,resDir);
             _files = new List<string>();
         }
 

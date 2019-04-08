@@ -16,7 +16,7 @@ namespace Zero.Edit
             SettingEditorWin.Open();
         }
 
-        [MenuItem("Zero/Publish/HotRes", false, 0)]
+        [MenuItem("Zero/Publish/HotRes", false, 100)]
         public static void PublishHotRes()
         {
             HotResEditorWin.Open();

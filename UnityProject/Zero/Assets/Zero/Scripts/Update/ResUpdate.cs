@@ -81,8 +81,7 @@ namespace Zero
 
             //判断下载是否返回错误
             if (null != groupLoader.Error)
-            {
-                Log.E("下载出错：{0}", groupLoader.Error);
+            {                
                 if (null != _onError)
                 {
                     _onError.Invoke(groupLoader.Error);
