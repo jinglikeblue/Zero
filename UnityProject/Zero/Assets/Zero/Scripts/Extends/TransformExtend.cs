@@ -7,46 +7,64 @@ namespace Zero
     /// </summary>
     public static class TransformExtend
     {
-        public static void ZSetLocalX(this Transform t, float value)
+        public static void SetLocalX(Transform t, float value)
         {
-            var pos = t.localPosition;
-            pos.x = value;
-            t.localPosition = pos;
+            if (t.localPosition.x != value)
+            {
+                var pos = t.localPosition;
+                pos.x = value;
+                t.localPosition = pos;
+            }
         }
 
-        public static void ZSetLocalY(this Transform t, float value)
+        public static void SetLocalY(Transform t, float value)
         {
-            var pos = t.localPosition;
-            pos.y = value;
-            t.localPosition = pos;
+            if (t.localPosition.y != value)
+            {
+                var pos = t.localPosition;
+                pos.y = value;
+                t.localPosition = pos;
+            }
         }
 
-        public static void ZSetLocalZ(this Transform t, float value)
+        public static void SetLocalZ(Transform t, float value)
         {
-            var pos = t.localPosition;
-            pos.z = value;
-            t.localPosition = pos;
+            if (t.localPosition.z != value)
+            {
+                var pos = t.localPosition;
+                pos.z = value;
+                t.localPosition = pos;
+            }
         }
 
-        public static void ZSetX(this Transform t, float value)
+        public static void SetX(Transform t, float value)
         {
-            var pos = t.position;
-            pos.x = value;
-            t.position = pos;
+            if (t.position.x != value)
+            {
+                var pos = t.position;
+                pos.x = value;
+                t.position = pos;
+            }
         }
 
-        public static void ZSetY(this Transform t, float value)
+        public static void SetY(Transform t, float value)
         {
-            var pos = t.position;
-            pos.y = value;
-            t.position = pos;
+            if (t.position.y != value)
+            {
+                var pos = t.position;
+                pos.y = value;
+                t.position = pos;
+            }
         }
 
-        public static void ZSetZ(this Transform t, float value)
+        public static void SetZ(Transform t, float value)
         {
-            var pos = t.position;
-            pos.z = value;
-            t.position = pos;
+            if (t.position.z != value)
+            {
+                var pos = t.position;
+                pos.z = value;
+                t.position = pos;
+            }
         }
     }
 }

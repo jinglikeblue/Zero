@@ -64,7 +64,7 @@ namespace Jing
             /// 进入状态的委托
             /// </summary>
             /// <param name="fromState"></param>
-            public Action<T> onEnter;
+            public Action<T, object> onEnter;
 
             /// <summary>
             /// 退出状态的委托
@@ -129,7 +129,7 @@ namespace Jing
         /// <summary>
         /// 注册一个状态，不适用的方法可以传递Null
         /// </summary>
-        public void RegistState(T state, Action<T> onEnter = null, Action<T> onExit = null, Action<T> onUpdate = null, Func<T, bool> checkSwitchEnable = null)
+        public void RegistState(T state, Action<T, object> onEnter = null, Action<T> onExit = null, Action<T> onUpdate = null, Func<T, bool> checkSwitchEnable = null)
         {
             StateController<T> sc = new StateController<T>(state);
             sc.onEnter = onEnter;
@@ -200,7 +200,7 @@ namespace Jing
         /// <summary>
         /// 进入一个状态
         /// </summary>
-        public bool SwitchState(T toState)
+        public bool SwitchState(T toState, object data = null)
         {
             if (false == _stateDic.ContainsKey(toState))
             {
@@ -229,7 +229,7 @@ namespace Jing
             StateStayTime = 0;
             if (null != newSC.onEnter)
             {
-                newSC.onEnter.Invoke(oldSC.state);
+                newSC.onEnter.Invoke(oldSC.state, data);
             }
             return true;
         }
