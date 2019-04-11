@@ -8,6 +8,7 @@ namespace Zero
     /// <summary>
     /// 游戏预加载逻辑
     /// </summary>
+    [DisallowMultipleComponent]
     public class Preload : MonoBehaviour
     {
         public enum EState

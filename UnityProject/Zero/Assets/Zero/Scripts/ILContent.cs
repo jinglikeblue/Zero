@@ -16,7 +16,7 @@ namespace Zero
             
             string qualifiedName = Assembly.CreateQualifiedName(Runtime.Ins.ILCfg.fileName, ilCfg.className); 
             Type type = Type.GetType(ilCfg.className);
-            if(ilCfg.isOnlyDll || type == null)
+            if(ilCfg.isUseDll || type == null)
             {
                 Log.CI(Log.COLOR_ORANGE, "IL代码运行环境: [外部程序集]");
 

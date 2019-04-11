@@ -9,7 +9,7 @@ namespace Zero
     /// 运行时数据对象
     /// </summary>
     [Serializable]
-    public struct RuntimeVO 
+    public class RuntimeVO 
     {       
         /// <summary>
         /// 资源使用模式
@@ -41,16 +41,32 @@ namespace Zero
         }
 
         /// <summary>
+        /// 热更DLL的执行方式
+        /// </summary>
+        public enum EILType {
+            /// <summary>
+            /// ILRuntime框架
+            /// </summary>
+            IL_RUNTIME,
+            /// <summary>
+            /// 反射执行(IL2CPP下会自动切换为ILRuntime)
+            /// </summary>
+            REFLECTION
+        }
+
+
+        /// <summary>
         /// IL配置
         /// </summary>
         [Serializable]
-        public struct ILCfgVO
+        public class ILCfgVO
         {
             [Header("只使用DLL(忽略反射执行代码)")]
-            public bool isOnlyDll;
+            public bool isUseDll;
 
             [Header("是否通过反射执行DLL(限Mono)")]
-            public bool isReflection;
+            public EILType ilType = EILType.IL_RUNTIME;
+
             [Header("文件目录（相对于资源存储位置）")]
             public string fileDir;
 
@@ -71,7 +87,7 @@ namespace Zero
         }
 
         [Serializable]
-        public struct MainPrefabCfgVO
+        public class MainPrefabCfgVO
         {
             [Header("资源文件名称")]
             public string abName;

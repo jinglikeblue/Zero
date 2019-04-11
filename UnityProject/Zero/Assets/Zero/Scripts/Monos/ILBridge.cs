@@ -68,8 +68,7 @@ namespace Zero
             Assembly assembly = null;
 
             //开发时，优先保证代码在ILRuntime下能够正常运行
-
-            if (Runtime.Ins.ILCfg.isReflection)
+            if (Runtime.Ins.ILCfg.ilType == RuntimeVO.EILType.REFLECTION)
             {
                 assembly = AssemblyILWorker.LoadAssembly(dllBytes);
             }
