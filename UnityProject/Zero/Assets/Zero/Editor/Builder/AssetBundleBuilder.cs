@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
+using Zero;
 
 namespace Zero.Edit
 {
     public class AssetBundleBuilder
-    {
-        public const string EXT = ".ab";
+    {        
         string _scanStartAssetDir;
         string _outPath;
         string _searchStartPath;
@@ -51,7 +51,7 @@ namespace Zero.Edit
                 return;
             }
 
-            _rootABName = Path.GetFileName(Path.GetDirectoryName(searchStartPath)) + EXT;
+            _rootABName = Path.GetFileName(Path.GetDirectoryName(searchStartPath)) + AResMgr.ASSET_BUNDLE_EXTENSION;
             
             //找出所有打了标记的资源
             FindAB(searchStartPath);
@@ -70,7 +70,7 @@ namespace Zero.Edit
         {
             string file = Path.GetFileName(_outPath);
             string oldFile = Path.Combine(_outPath, file);
-            string newFile = FileSystem.CombinePaths(_outPath, string.Format("manifest{0}", EXT));
+            string newFile = FileSystem.CombinePaths(_outPath, string.Format("manifest{0}", AResMgr.ASSET_BUNDLE_EXTENSION));
             if(File.Exists(newFile))
             {
                 File.Delete(newFile);
@@ -101,8 +101,8 @@ namespace Zero.Edit
 
                 //根据资源的路径分AB包                 
                 string assetPath = ai.assetPath.Replace(_scanStartAssetDir, "");
-                string abName = Path.GetDirectoryName(assetPath) + EXT;
-                if(abName == EXT)
+                string abName = Path.GetDirectoryName(assetPath) + AResMgr.ASSET_BUNDLE_EXTENSION;
+                if(abName == AResMgr.ASSET_BUNDLE_EXTENSION)
                 {
                     //资源直接在根目录下
                     abName = _rootABName;
@@ -229,7 +229,7 @@ namespace Zero.Edit
                 {
                     continue;
                 }
-                string abName = string.Format("auto_depends/cross_{0}{1}", i++, EXT);
+                string abName = string.Format("auto_depends/cross_{0}{1}", i++, AResMgr.ASSET_BUNDLE_EXTENSION);
                 List<string> assetList = new List<string>();
                 assetList.Add(assetPair.Key);
                 //标记为已使用

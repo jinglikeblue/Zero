@@ -27,7 +27,7 @@ namespace IL.Demo
         void Init()
         {
             Application.targetFrameRate = 60;
-            var ILContent = GameObject.Find(Runtime.Ins.VO.mainPrefab.assetName);
+            var ILContent = GameObject.Find("DemoILContent");
             var stageRoot = ILContent.transform.Find("Stage");
             var uiPanelRoot = ILContent.transform.Find("UICanvas/UIPanel");
             var uiWinRoot = ILContent.transform.Find("UICanvas/UIWin");

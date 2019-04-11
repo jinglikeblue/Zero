@@ -57,28 +57,28 @@ namespace Zero.Edit
             _pos = GUILayout.BeginScrollView(_pos);
 
             //AddFrameworkToProject
-            GUILayoutSplit("AddFrameworkToProject");
-            _tool.Cfg.frameworkToProjectList = GUILayoutArray(_tool.Cfg.frameworkToProjectList);
+            GUIText.LayoutSplit("AddFrameworkToProject");
+            _tool.Cfg.frameworkToProjectList = GUIArray.LayoutArray(_tool.Cfg.frameworkToProjectList);
 
             //AddFileToBuild
-            GUILayoutSplit("AddFileToBuild");
+            GUIText.LayoutSplit("AddFileToBuild");
             _file2BuildDic.OnGUI(isMouseDown);
 
             //SetBuildProperty
-            GUILayoutSplit("SetBuildProperty");
-            _buildPropertyDic.OnGUI(isMouseDown);            
+            GUIText.LayoutSplit("SetBuildProperty");
+            _buildPropertyDic.OnGUI(isMouseDown);
 
             //AddPList
-            GUILayoutSplit("AddPList");
-            _pListDataDic.OnGUI(isMouseDown);            
+            GUIText.LayoutSplit("AddPList");
+            _pListDataDic.OnGUI(isMouseDown);
 
             //AddUrlScheme
-            GUILayoutSplit("AddUrlScheme");
-            _tool.Cfg.urlSchemeList = GUILayoutArray(_tool.Cfg.urlSchemeList);
+            GUIText.LayoutSplit("AddUrlScheme");
+            _tool.Cfg.urlSchemeList = GUIArray.LayoutArray(_tool.Cfg.urlSchemeList);
 
             //AddLSApplicationQueriesScheme
-            GUILayoutSplit("AddLSApplicationQueriesScheme");
-            _tool.Cfg.appQueriesSchemeList = GUILayoutArray(_tool.Cfg.appQueriesSchemeList);
+            GUIText.LayoutSplit("AddLSApplicationQueriesScheme");
+            _tool.Cfg.appQueriesSchemeList = GUIArray.LayoutArray(_tool.Cfg.appQueriesSchemeList);
 
             EditorGUILayout.Space();
 

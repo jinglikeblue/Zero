@@ -14,5 +14,5 @@ ClassTypes:
 - Class: 213
   Script: {instanceID: 0}
 Assets:
-- Assets/Demo/Imgs/game/b2.png
+- Assets/Demo/Imgs/Game/b2.png
 Dependencies: []

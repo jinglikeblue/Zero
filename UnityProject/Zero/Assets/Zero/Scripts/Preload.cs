@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -81,9 +82,9 @@ namespace Zero
 
             Log.CI(Log.COLOR_BLUE, "游戏运行模式：[{0}]", Runtime.Ins.ResMode.ToString());
 
-            if (Runtime.Ins.IsInlineRelease)
+            if (false == Runtime.Ins.IsHotResProject)
             {
-                ResMgr.Ins.Init(ResMgr.EResMgrType.RESOURCES, Runtime.Ins.VO.mainPrefab.abName);
+                ResMgr.Ins.Init(ResMgr.EResMgrType.RESOURCES);
                 StartMainPrefab();
             }
             else
@@ -130,7 +131,7 @@ namespace Zero
         }
 
         private void OnUpdateStartupResGroups(float progress, long totalSize)
-        {
+        {            
             OnProgress(progress, totalSize);
         }
 
@@ -139,9 +140,9 @@ namespace Zero
             OnStageChange(EState.STARTUP);
             GameObject.Destroy(this.gameObject);
             //加载ILRuntimePrefab;            
-            GameObject mainPrefab = ResMgr.Ins.Load<GameObject>(Runtime.Ins.VO.mainPrefab.abName, Runtime.Ins.VO.mainPrefab.assetName);
+            GameObject mainPrefab = ResMgr.Ins.Load<GameObject>(Runtime.Ins.VO.mainPrefab);
             GameObject go = GameObject.Instantiate(mainPrefab);
-            go.name = Runtime.Ins.VO.mainPrefab.assetName;
+            go.name = mainPrefab.name;
         }
 
         void OnProgress(float progress, long totalSize)

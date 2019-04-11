@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Zero
 {
-    class AssetBundleResMgr : AResMgr
+    public class AssetBundleResMgr : AResMgr
     {
         /// <summary>
         /// 资源描述
@@ -46,12 +46,14 @@ namespace Zero
 
         public override string[] GetDepends(string abName)
         {
+            abName = ABNameWithExtension(abName);
             string[] dependList = _manifest.GetAllDependencies(abName);
             return dependList;
         }
 
         public override T Load<T>(string abName, string assetName)
         {
+            abName = ABNameWithExtension(abName);
             AssetBundle ab = LoadAssetBundle(abName);
             T asset = ab.LoadAsset<T>(assetName);
             if (null == asset)
@@ -63,6 +65,7 @@ namespace Zero
 
         public override void LoadAsync(string abName, string assetName, Action<UnityEngine.Object> onLoaded, Action<float> onProgress = null)
         {
+            abName = ABNameWithExtension(abName);
             AssetBundle ab = LoadAssetBundle(abName);
             ILBridge.Ins.StartCoroutine(LoadAsync(ab, assetName, onLoaded, onProgress));
         }
@@ -87,6 +90,7 @@ namespace Zero
 
         public override void Unload(string abName, bool isUnloadAllLoaded = false, bool isUnloadDepends = true)
         {
+            abName = ABNameWithExtension(abName);
             if (_loadedABDic.ContainsKey(abName))
             {
                 AssetBundle ab = _loadedABDic[abName];
@@ -150,6 +154,7 @@ namespace Zero
         /// <returns></returns>
         private AssetBundle LoadAssetBundle(string abName)
         {
+            abName = ABNameWithExtension(abName);
             string abPath = FileSystem.CombinePaths(RootDir, abName);
             if (false == File.Exists(abPath))
             {
@@ -175,7 +180,7 @@ namespace Zero
                 ab = _loadedABDic[abName];
             }
             else
-            {
+            {                
                 ab = AssetBundle.LoadFromFile(abPath);
                 _loadedABDic[abName] = ab;
             }

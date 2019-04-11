@@ -11,7 +11,7 @@ namespace IL.Demo
     {
         UnityEngine.Object[] _tipSpriteList;
         String[] _tipStrList;        
-        Image _tip;
+        RawImage _tip;
         Text _textTip;
         Button _btnClose;
 
@@ -37,7 +37,7 @@ namespace IL.Demo
 
         protected override void OnInit()
         {
-            _tip = gameObject.GetComponent<Image>();
+            _tip = GetComponent<RawImage>();
             var resData = gameObject.GetComponent<ObjectBindingData>();
             var list = resData.Find("tips");
             _tipSpriteList = list;
@@ -59,7 +59,7 @@ namespace IL.Demo
                 _page = 0;
             }
 
-            _tip.sprite = Texture2DUtil.ToSprite(_tipSpriteList[_page] as Texture2D);
+            _tip.texture = _tipSpriteList[_page] as Texture2D;
             _textTip.text = _tipStrList[_page];
         }
     }

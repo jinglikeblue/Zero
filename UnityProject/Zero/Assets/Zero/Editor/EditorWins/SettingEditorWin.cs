@@ -73,7 +73,7 @@ namespace Zero.Edit
 
             EditorGUILayout.BeginVertical();
 
-            GUILayoutHead("保存setting.json");            
+            GUIText.LayoutHead("保存setting.json");            
 
             if (GUILayout.Button("保存配置", GUILayout.Width(200)))
             {
@@ -88,9 +88,9 @@ namespace Zero.Edit
 
             _pos = GUILayout.BeginScrollView(_pos);
 
-            GUILayoutHead("setting.json编辑");
+            GUIText.LayoutHead("setting.json编辑");
 
-            GUILayoutSplit("客户端版本");
+            GUIText.LayoutSplit("客户端版本");
             EditorGUILayout.BeginHorizontal();
             cfg.data.client.version = EditorGUILayout.TextField("客户端版本号:", cfg.data.client.version, GUILayout.Width(300));
             if (GUILayout.Button("获取当前版本号", GUILayout.Width(100)))
@@ -112,7 +112,7 @@ namespace Zero.Edit
             cfg.data.settingJump = _settingJumpDic.OnGUI(isMouseDown);
 
             //--------------------资源配置
-            GUILayoutSplit("联网资源");
+            GUIText.LayoutSplit("联网资源");
             cfg.data.netResRoot = EditorGUILayout.TextField("网络资源目录:", cfg.data.netResRoot);
 
             EditorGUILayout.LabelField("启动资源组列表");
@@ -130,7 +130,7 @@ namespace Zero.Edit
             }
 
             //-------------------------------
-            GUILayoutSplit("额外参数");
+            GUIText.LayoutSplit("额外参数");
             EditorGUILayout.LabelField("配置文件附带参数");
             cfg.data.startupParams = _startParamsDic.OnGUI(isMouseDown);
             //GUILayoutDictionary(cfg.data.startupParams, "Key", "Value");

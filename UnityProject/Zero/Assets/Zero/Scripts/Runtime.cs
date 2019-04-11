@@ -27,9 +27,9 @@ namespace Zero
         /// <summary>
         /// 资源模式
         /// </summary>
-        public RuntimeVO.EResMode ResMode
+        public EHotResMode ResMode
         {
-            get { return _vo.resMode; }
+            get { return _vo.hotResMode; }
         }
 
         /// <summary>
@@ -73,25 +73,14 @@ namespace Zero
         public LocalResVerModel localResVer;
 
         /// <summary>
-        /// IL的配置
-        /// </summary>
-        public RuntimeVO.ILCfgVO ILCfg
-        {
-            get
-            {
-                return _vo.ilCfg;
-            }
-        }
-
-        /// <summary>
         /// 是否允许从Resources加载数据
         /// </summary>
         public bool IsLoadABFromResources
         {
             get
             {
-                if (_vo.resMode == RuntimeVO.EResMode.INLINE_RELEASE || 
-                    _vo.resMode == RuntimeVO.EResMode.NET_LOCAL_AND_RESOURCES_DEBUG)
+                if (false == _vo.isHotResProject || 
+                    _vo.hotResMode == EHotResMode.RESOURCES)
                 {
                     return true;
                 }
@@ -106,7 +95,7 @@ namespace Zero
         {
             get
             {
-                if (_vo.resMode == RuntimeVO.EResMode.NET_RELEASE)
+                if (_vo.hotResMode == EHotResMode.NET)
                 {
                     return true;
                 }
@@ -117,24 +106,19 @@ namespace Zero
         /// <summary>
         /// 是否是内嵌资源项目
         /// </summary>
-        public bool IsInlineRelease
+        public bool IsHotResProject
         {
             get
             {
-                return _vo.resMode == RuntimeVO.EResMode.INLINE_RELEASE ? true : false;
+                return _vo.isHotResProject;
             }
-        }
-
-        private Runtime()
-        {
-            
         }
 
         public void Init(RuntimeVO vo)
         {
             _vo = vo;
             //日志控制
-            Log.isActive = vo.logEnable;            
+            Log.isActive = vo.isLogEnable;            
 
             switch (Application.platform)
             {
@@ -164,9 +148,9 @@ namespace Zero
                         platform = "pc";
 #endif
                     streamingAssetsPath = string.Format("file://{0}/StreamingAssets/", Application.dataPath);
-                    if (_vo.resMode == RuntimeVO.EResMode.NET_LOCAL_DEBUG || _vo.resMode == RuntimeVO.EResMode.NET_LOCAL_AND_RESOURCES_DEBUG)
+                    if (_vo.hotResMode == EHotResMode.LOCAL || _vo.hotResMode == EHotResMode.RESOURCES)
                     {
-                        netResDir = FileSystem.CombineDirs(true, _vo.developResRoot, platform);
+                        netResDir = FileSystem.CombineDirs(true, _vo.localResRoot, platform);
                         localResDir = netResDir;                        
                     }
                     else

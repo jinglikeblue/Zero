@@ -72,7 +72,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4996827088960614}
-  - component: {fileID: 114071111304985740}
+  - component: {fileID: 114157761175945408}
   m_Layer: 0
   m_Name: DemoILContent
   m_TagString: Untagged
@@ -211,7 +211,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &114071111304985740
+--- !u!114 &114157761175945408
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}

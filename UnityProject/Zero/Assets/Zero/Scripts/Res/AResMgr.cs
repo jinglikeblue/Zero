@@ -5,8 +5,40 @@ namespace Zero
     /// <summary>
     /// 资源加载抽象基类
     /// </summary>
-    abstract class AResMgr
+    public abstract class AResMgr
     {
+        /// <summary>
+        /// AB文件存储的后缀名
+        /// </summary>
+        public const string ASSET_BUNDLE_EXTENSION = ".ab";
+
+        /// <summary>
+        /// 如果AB名称没有后缀，则加上后缀名
+        /// </summary>
+        /// <param name="abName"></param>
+        protected string ABNameWithExtension(string abName)
+        {
+            if (false == abName.EndsWith(ASSET_BUNDLE_EXTENSION))
+            {
+                abName += ASSET_BUNDLE_EXTENSION;
+            }
+            return abName;
+        }
+
+        /// <summary>
+        /// 如果AB名称有后缀，则去掉
+        /// </summary>
+        /// <param name="abName"></param>
+        /// <returns></returns>
+        protected string ABNameWithoutExtension(string abName)
+        {
+            if (abName.EndsWith(ASSET_BUNDLE_EXTENSION))
+            {
+                abName = abName.Replace(ASSET_BUNDLE_EXTENSION, "");
+            }
+            return abName;
+        }
+
         /// <summary>
         /// AssetBundle文件的根目录
         /// </summary>

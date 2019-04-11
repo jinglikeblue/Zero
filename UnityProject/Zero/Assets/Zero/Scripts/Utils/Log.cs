@@ -48,7 +48,7 @@ namespace Zero
         /// </summary>
         /// <param name="message"></param>
         public static void I(object message)
-        {
+        {            
             if(!isActive)
             {
                 return;

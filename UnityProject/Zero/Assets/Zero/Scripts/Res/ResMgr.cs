@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Jing;
+using System;
+using System.IO;
 using UnityEngine;
 
 namespace Zero
@@ -36,7 +38,7 @@ namespace Zero
             get { return _mgr.RootDir; }
         }
 
-        public void Init(EResMgrType type, string manifestFilePath)
+        public void Init(EResMgrType type, string manifestFilePath = null)
         {
             switch (type)
             {
@@ -52,7 +54,7 @@ namespace Zero
                     break;
                 case EResMgrType.RESOURCES:
                     Log.CI(Log.COLOR_BLUE, "初始化资源管理器... 资源来源：[Resources]");
-                    _mgr = new ResourcesResMgr(manifestFilePath);                    
+                    _mgr = new ResourcesResMgr();                    
                     break;
             }
         }
@@ -105,8 +107,22 @@ namespace Zero
         /// <param name="assetName">资源名称</param>
         /// <returns></returns>
         public T Load<T>(string abName, string assetName) where T : UnityEngine.Object
-        {
+        {            
             return _mgr.Load<T>(abName, assetName);
+        }
+
+        /// <summary>
+        /// 通过资源路径加载资源
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="assetPath"></param>
+        /// <returns></returns>
+        public T Load<T>(string assetPath) where T : UnityEngine.Object
+        {
+            string abName;
+            string assetName;
+            SeparateAssetPath(assetPath, out abName, out assetName);
+            return Load<T>(abName, assetName);
         }
 
         /// <summary>
@@ -121,5 +137,57 @@ namespace Zero
         {
             _mgr.LoadAsync(abName, assetName, onLoaded, onProgress);
         }
+
+        /// <summary>
+        /// 异步加载一个资源
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="assetPath">资源路径</param>        
+        /// <param name="onLoaded"></param>
+        /// <param name="onProgress"></param>
+        public void LoadAsync(string assetPath,  Action<UnityEngine.Object> onLoaded, Action<float> onProgress = null)
+        {
+            string abName;
+            string assetName;
+            SeparateAssetPath(assetPath, out abName, out assetName);
+            _mgr.LoadAsync(abName,assetName, onLoaded, onProgress);
+        }
+
+        /// <summary>
+        /// 将资源所在路径以及资源名合并成一个完整的资源路径
+        /// </summary>
+        /// <param name="abName"></param>
+        /// <param name="assetName"></param>
+        /// <returns></returns>
+        public string LinkAssetPath(string abName, string assetName)
+        {
+            if(abName == null)
+            {
+                abName = "";
+            }
+
+            if(assetName == null)
+            {
+                assetName = null;
+            }
+
+            return FileSystem.CombinePaths(abName, assetName);
+        }
+
+        /// <summary>
+        /// 将一个资源路径拆分为资源父路径以及资源名
+        /// </summary>
+        /// <param name="assetPath"></param>
+        public void SeparateAssetPath(string assetPath, out string abName, out string assetName)
+        {
+            if(assetPath == null)
+            {
+                assetPath = "";
+            }
+
+            abName = Path.GetDirectoryName(assetPath);
+            assetName = Path.GetFileName(assetPath);
+        }
+
     }
 }

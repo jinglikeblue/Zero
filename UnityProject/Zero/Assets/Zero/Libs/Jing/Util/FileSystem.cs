@@ -79,7 +79,7 @@ namespace Jing
             }
 
             //为了好看
-            path = path.Replace("\\", "/");
+            path = StandardizeBackslashSeparator(path);
 
             return path;
         }

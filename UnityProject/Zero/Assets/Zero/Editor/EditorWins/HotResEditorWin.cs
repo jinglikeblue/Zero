@@ -46,16 +46,16 @@ namespace Zero.Edit
             _cfg.resDir = EditorGUILayout.TextField("Res目录:", _cfg.resDir);
             GUILayout.Space(10);
 
-            GUILayoutSplit("AssetBundle配置");
+            GUIText.LayoutSplit("AssetBundle配置");
             AssetBundleGUI();
 
-            GUILayoutSplit("DLL配置");
+            GUIText.LayoutSplit("DLL配置");
             DllGUI();
 
-            GUILayoutSplit("res.json配置");
+            GUIText.LayoutSplit("res.json配置");
             ResJsonGUI();
 
-            GUILayoutSplit("发布");
+            GUIText.LayoutSplit("发布");
             BuildGUI();
 
             EditorGUILayout.EndVertical();
