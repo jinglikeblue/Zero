@@ -1,4 +1,5 @@
 ﻿using Jing;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -15,6 +16,7 @@ namespace Zero.Edit
     public class ResVerVOBuilder 
     {
         const string EXT_FILTERS = ".manifest";
+        readonly string[] FILE_FILTERS = { "local_data.zero.json" };
 
         string _dir;
 
@@ -48,7 +50,7 @@ namespace Zero.Edit
 
                 EditorUtility.DisplayProgressBar("正在生成 res.json", string.Format("文件:{0}",file), ((float)i / items.Count));
                 FileInfo fi = new FileInfo(file);
-                if(fi.Extension == EXT_FILTERS)
+                if(fi.Extension == EXT_FILTERS || Array.IndexOf(FILE_FILTERS, fi.Name) > -1)
                 {
                     continue;
                 }
