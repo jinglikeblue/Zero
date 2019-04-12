@@ -6,12 +6,10 @@ namespace Zero.Edit
     class ResJsonBuildCommand
     {
         string _resDir;
-        string _manifestName;
 
-        public ResJsonBuildCommand(string resDir, string manifestName)
+        public ResJsonBuildCommand(string resDir)
         {
             _resDir = resDir;
-            _manifestName = manifestName;
         }
 
         public void Execute()
@@ -30,8 +28,7 @@ namespace Zero.Edit
                 File.Delete(filePath);
             }
 
-            ResVerVO res = new ResVerVOBuilder(resDir).Build();
-            res.manifestName = _manifestName;
+            ResVerVO res = new ResVerVOBuilder(resDir).Build();            
             string jsonStr = LitJson.JsonMapper.ToJson(res);
             File.WriteAllText(filePath, jsonStr);
         }

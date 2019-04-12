@@ -10,16 +10,6 @@ namespace Zero.Edit
     public class ZeroEditorUtil
     {
         /// <summary>
-        /// AB资源的保存目录
-        /// </summary>
-        public const string AB_DIR = "ab";
-
-        /// <summary>
-        /// 热更DLL的保存目录
-        /// </summary>
-        public const string DLL_DIR = "dll";
-
-        /// <summary>
         /// 平台目录
         /// </summary>
         public static string PlatformDirName

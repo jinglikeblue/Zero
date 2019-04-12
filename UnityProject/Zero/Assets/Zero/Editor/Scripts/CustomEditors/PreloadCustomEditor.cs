@@ -88,7 +88,7 @@ public class PreloadCustomEditor : Editor
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("文件目录(相对于资源根目录)");
-            _vo.fileDir = EditorGUILayout.TextField(_vo.fileDir);
+            EditorGUILayout.LabelField(HotResConst.DLL_DIR_NAME);            
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Dll文件名");

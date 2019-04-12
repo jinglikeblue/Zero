@@ -36,9 +36,6 @@ namespace Zero
         [Header("是否通过反射执行DLL(限Mono)")]
         public EILType ilType = EILType.IL_RUNTIME;
 
-        [Header("文件目录（相对于资源存储位置）")]
-        public string fileDir;
-
         [Header("文件名(不含后缀名)")]
         public string fileName;
 

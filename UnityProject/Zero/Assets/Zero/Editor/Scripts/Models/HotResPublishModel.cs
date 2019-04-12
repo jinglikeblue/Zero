@@ -69,7 +69,7 @@ namespace Zero.Edit
         /// </summary>
         public void BuildResJsonFile()
         {
-            new ResJsonBuildCommand(_cfg.resDir, _cfg.manifestName).Execute();
+            new ResJsonBuildCommand(_cfg.resDir).Execute();
         }
 
         /// <summary>

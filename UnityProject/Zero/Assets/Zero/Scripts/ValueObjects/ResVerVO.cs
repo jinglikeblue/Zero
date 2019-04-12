@@ -6,11 +6,6 @@
     public struct ResVerVO
     {
         /// <summary>
-        /// Manifest的AB文件资源名称
-        /// </summary>
-        public string manifestName;
-
-        /// <summary>
         /// 资源项
         /// </summary>
         public class Item

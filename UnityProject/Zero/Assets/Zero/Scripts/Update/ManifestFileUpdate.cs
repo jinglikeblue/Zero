@@ -23,7 +23,7 @@ namespace Zero
         {
             Log.CI(Log.COLOR_BLUE, "「ManifestFileUpdate」Manifest描述文件更新检查...");
             _rt = Runtime.Ins;
-            _manifestName = _rt.netResVer.VO.manifestName;
+            _manifestName = FileSystem.CombinePaths(HotResConst.AB_DIR_NAME, HotResConst.MANIFEST_FILE_NAME + HotResConst.AB_EXTENSION);
             _onUpdate = onUpdate;
             _onError = onError;
             _localPath = _rt.localResDir + _manifestName;

@@ -599,13 +599,12 @@ MonoBehaviour:
   runtimeCfg:
     isLogEnable: 1
     mainPrefab: hot_res/DemoILContent
-    isHotResProject: 0
-    hotResMode: 2
+    isHotResProject: 1
+    hotResMode: 1
     netRoot: http://wepieces.cn/unity/zero/demo/Res
     localResRoot: ./Res
     isUseDll: 1
     ilType: 0
-    fileDir: dll
     fileName: ILProject
     className: IL.Demo.DemoMain
     methodName: Main

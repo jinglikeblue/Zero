@@ -59,11 +59,6 @@ namespace Zero.Edit
 
         #region 资源版本号配置
 
-        /// <summary>
-        /// 描述AB依赖的Manifest文件的名称
-        /// </summary>
-        public string manifestName;
-
         #endregion
     }
 }

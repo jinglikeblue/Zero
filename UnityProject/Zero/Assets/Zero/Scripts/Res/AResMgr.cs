@@ -8,19 +8,14 @@ namespace Zero
     public abstract class AResMgr
     {
         /// <summary>
-        /// AB文件存储的后缀名
-        /// </summary>
-        public const string ASSET_BUNDLE_EXTENSION = ".ab";
-
-        /// <summary>
         /// 如果AB名称没有后缀，则加上后缀名
         /// </summary>
         /// <param name="abName"></param>
         protected string ABNameWithExtension(string abName)
         {
-            if (false == abName.EndsWith(ASSET_BUNDLE_EXTENSION))
+            if (false == abName.EndsWith(HotResConst.AB_EXTENSION))
             {
-                abName += ASSET_BUNDLE_EXTENSION;
+                abName += HotResConst.AB_EXTENSION;
             }
             return abName;
         }
@@ -32,9 +27,9 @@ namespace Zero
         /// <returns></returns>
         protected string ABNameWithoutExtension(string abName)
         {
-            if (abName.EndsWith(ASSET_BUNDLE_EXTENSION))
+            if (abName.EndsWith(HotResConst.AB_EXTENSION))
             {
-                abName = abName.Replace(ASSET_BUNDLE_EXTENSION, "");
+                abName = abName.Replace(HotResConst.AB_EXTENSION, "");
             }
             return abName;
         }

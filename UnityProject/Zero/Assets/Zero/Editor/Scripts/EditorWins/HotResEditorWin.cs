@@ -58,7 +58,44 @@ namespace Zero.Edit
             GUIText.LayoutSplit("发布");
             BuildGUI();
 
+            GUIText.LayoutSplit("热更资源排除/复原(build项目时建议排除热更资源，可以减少安装包大小)");
+            HotResMoveGUI();
+
             EditorGUILayout.EndVertical();
+        }
+
+        private void HotResMoveGUI()
+        {
+            EditorGUILayout.BeginHorizontal();
+            const string HOT_RES_BACKUP_ROOT = "./HotResBackup";
+
+            string abDirInAssets = _cfg.abHotResDir;
+            string abDirInBackup = FileSystem.CombineDirs(false, HOT_RES_BACKUP_ROOT , _cfg.abHotResDir);
+
+            if (GUILayout.Button("排除AssetBundle热更资源"))
+            {
+
+            }
+
+            if (GUILayout.Button("复原AssetBundle热更资源"))
+            {
+
+            }
+
+            string dllDirInAssets = _cfg.ilScriptDir;
+            string dllDirInBackup = FileSystem.CombineDirs(false, HOT_RES_BACKUP_ROOT, _cfg.ilScriptDir);
+
+            if (GUILayout.Button("排除Dll热更资源"))
+            {
+                
+            }
+
+            if (GUILayout.Button("复原Dll热更资源"))
+            {
+
+            }
+
+            EditorGUILayout.EndHorizontal();
         }
 
         void AssetBundleGUI()
@@ -121,10 +158,11 @@ namespace Zero.Edit
         }
 
         void ResJsonGUI()
-        {
+        {            
             GUILayout.BeginHorizontal();
             GUILayout.Label("Manifest文件资源路径:", GUILayout.Width(200));
-            _cfg.manifestName = EditorGUILayout.TextField(_cfg.manifestName);
+            GUILayout.Label(FileSystem.CombinePaths(HotResConst.AB_DIR_NAME, HotResConst.MANIFEST_FILE_NAME + HotResConst.AB_EXTENSION));
+            //_cfg.manifestName = EditorGUILayout.TextField(_cfg.manifestName);
             GUILayout.EndHorizontal();
         }
 

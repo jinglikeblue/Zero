@@ -53,7 +53,7 @@ namespace Zero.Edit
         /// <param name="vo"></param>
         private void SetDllReleseDir()
         {
-            _releaseDir = FileSystem.CombineDirs(true, _resDir, ZeroEditorUtil.PlatformDirName, ZeroEditorUtil.DLL_DIR);
+            _releaseDir = FileSystem.CombineDirs(true, _resDir, ZeroEditorUtil.PlatformDirName, HotResConst.DLL_DIR_NAME);
 
             if (false == Directory.Exists(_releaseDir))
             {

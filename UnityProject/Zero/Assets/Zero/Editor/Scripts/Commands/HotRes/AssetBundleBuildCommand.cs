@@ -31,7 +31,7 @@ namespace Zero.Edit
 
         void Build()
         {
-            var releaseDir = FileSystem.CombineDirs(false, _resDir, ZeroEditorUtil.PlatformDirName, ZeroEditorUtil.AB_DIR);
+            var releaseDir = FileSystem.CombineDirs(false, _resDir, ZeroEditorUtil.PlatformDirName, HotResConst.AB_DIR_NAME);
             if (Directory.Exists(releaseDir))
             {
                 //删除目标目录

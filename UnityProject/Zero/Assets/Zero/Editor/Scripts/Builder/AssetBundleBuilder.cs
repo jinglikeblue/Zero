@@ -11,7 +11,7 @@ using Zero;
 namespace Zero.Edit
 {
     public class AssetBundleBuilder
-    {        
+    {
         string _scanStartAssetDir;
         string _outPath;
         string _searchStartPath;
@@ -51,15 +51,15 @@ namespace Zero.Edit
                 return;
             }
 
-            _rootABName = Path.GetFileName(Path.GetDirectoryName(searchStartPath)) + AResMgr.ASSET_BUNDLE_EXTENSION;
-            
+            _rootABName = Path.GetFileName(Path.GetDirectoryName(searchStartPath)) + HotResConst.AB_EXTENSION;
+
             //找出所有打了标记的资源
             FindAB(searchStartPath);
             //根据依赖资源分析构建交叉引用AB
-            BestCrossFind();            
+            BestCrossFind();
             //打包AB资源
             Publish();
-            //给Manifest包加上后缀
+            //重命名Manifest包并加上后缀
             AddExt2ManifestFile();
 
             EditorUtility.ClearProgressBar();
@@ -69,9 +69,9 @@ namespace Zero.Edit
         void AddExt2ManifestFile()
         {
             string file = Path.GetFileName(_outPath);
-            string oldFile = Path.Combine(_outPath, file);
-            string newFile = FileSystem.CombinePaths(_outPath, string.Format("manifest{0}", AResMgr.ASSET_BUNDLE_EXTENSION));
-            if(File.Exists(newFile))
+            string oldFile = FileSystem.CombinePaths(_outPath, file);
+            string newFile = FileSystem.CombinePaths(_outPath, string.Format("{0}{1}", HotResConst.MANIFEST_FILE_NAME, HotResConst.AB_EXTENSION));
+            if (File.Exists(newFile))
             {
                 File.Delete(newFile);
             }
@@ -101,8 +101,8 @@ namespace Zero.Edit
 
                 //根据资源的路径分AB包                 
                 string assetPath = ai.assetPath.Replace(_scanStartAssetDir, "");
-                string abName = Path.GetDirectoryName(assetPath) + AResMgr.ASSET_BUNDLE_EXTENSION;
-                if(abName == AResMgr.ASSET_BUNDLE_EXTENSION)
+                string abName = Path.GetDirectoryName(assetPath) + HotResConst.AB_EXTENSION;
+                if (abName == HotResConst.AB_EXTENSION)
                 {
                     //资源直接在根目录下
                     abName = _rootABName;
@@ -229,7 +229,7 @@ namespace Zero.Edit
                 {
                     continue;
                 }
-                string abName = string.Format("auto_depends/cross_{0}{1}", i++, AResMgr.ASSET_BUNDLE_EXTENSION);
+                string abName = string.Format("auto_depends/cross_{0}{1}", i++, HotResConst.AB_EXTENSION);
                 List<string> assetList = new List<string>();
                 assetList.Add(assetPair.Key);
                 //标记为已使用
