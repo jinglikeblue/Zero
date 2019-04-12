@@ -16,7 +16,7 @@ namespace Zero.Edit
         {
             var win = EditorWindow.GetWindow<HotResEditorWin>("HotRes Manager", true);
             win.minSize = new Vector2(800, 400);
-            win.maxSize = new Vector2(1000, 400);
+            win.maxSize = new Vector2(1000, 1000);
             win.Show();
         }
 
@@ -35,7 +35,7 @@ namespace Zero.Edit
         }
 
         private void OnGUI()
-        {            
+        {
             EditorGUILayout.BeginVertical();
             if (GUILayout.Button("保存配置"))
             {
@@ -66,57 +66,74 @@ namespace Zero.Edit
 
         private void HotResMoveGUI()
         {
-            EditorGUILayout.BeginHorizontal();
-            const string HOT_RES_BACKUP_ROOT = "./HotResBackup";
+            //EditorGUILayout.BeginHorizontal();
+            const string HOT_RES_BACKUP_ROOT = "HotResBackup";
 
             string abDirInAssets = _cfg.abHotResDir;
-            string abDirInBackup = FileSystem.CombineDirs(false, HOT_RES_BACKUP_ROOT , _cfg.abHotResDir);
+            string abDirInBackup = FileSystem.CombineDirs(false, HOT_RES_BACKUP_ROOT, _cfg.abHotResDir);            
 
-            if (GUILayout.Button("排除AssetBundle热更资源"))
+            if (Directory.Exists(abDirInAssets))
             {
-
+                EditorGUILayout.LabelField(string.Format("{0} >>> {1}", abDirInAssets, abDirInBackup));
+                if (GUILayout.Button("排除AssetBundle热更资源"))
+                {
+                    FileUtil.MoveFileOrDirectory(abDirInAssets, abDirInBackup);                    
+                }
+            }
+            else
+            {
+                EditorGUILayout.LabelField(string.Format("{0} >>> {1}", abDirInBackup, abDirInAssets));
+                if (GUILayout.Button("复原AssetBundle热更资源"))
+                {
+                    FileUtil.MoveFileOrDirectory(abDirInBackup, abDirInAssets);
+                }
             }
 
-            if (GUILayout.Button("复原AssetBundle热更资源"))
-            {
+            //FileUtil.ReplaceDirectory
 
-            }
 
             string dllDirInAssets = _cfg.ilScriptDir;
             string dllDirInBackup = FileSystem.CombineDirs(false, HOT_RES_BACKUP_ROOT, _cfg.ilScriptDir);
 
-            if (GUILayout.Button("排除Dll热更资源"))
+            EditorGUILayout.LabelField(string.Format("{0} >>> {1}", dllDirInAssets, dllDirInBackup));
+
+            if (Directory.Exists(dllDirInAssets))
             {
-                
+                if (GUILayout.Button("排除Dll热更资源"))
+                {
+                    Directory.CreateDirectory(dllDirInBackup);
+                }
+            }
+            else
+            {
+                if (GUILayout.Button("复原Dll热更资源"))
+                {
+                    Directory.Delete(dllDirInBackup);
+                }
             }
 
-            if (GUILayout.Button("复原Dll热更资源"))
-            {
-
-            }
-
-            EditorGUILayout.EndHorizontal();
+            //EditorGUILayout.EndHorizontal();
         }
 
         void AssetBundleGUI()
         {
             _cfg.isKeepManifest = GUILayout.Toggle(_cfg.isKeepManifest, "保留「.manifest」文件", GUILayout.Width(150));
 
-            _cfg.abHotResDir = GUIFolderSelect.OnGUI("热更资源目录(该目录为Resources下的子目录，仅该目录下的资源会作为AssetBundle发布):",500, _cfg.abHotResDir, ZeroEditorUtil.ResourcesFolder, "hot_res", (path) =>
-            {
-                path = path.Replace(Application.dataPath, "");
+            _cfg.abHotResDir = GUIFolderSelect.OnGUI("热更资源目录(该目录为Resources下的子目录，仅该目录下的资源会作为AssetBundle发布):", 500, _cfg.abHotResDir, ZeroEditorUtil.ResourcesFolder, "hot_res", (path) =>
+             {
+                 path = path.Replace(Application.dataPath, "");
 
-                if (false == path.StartsWith("/Resources"))
-                {
-                    ShowNotification(new GUIContent("请选择Assets/Resources下的目录"));
-                    path = "";
-                }
-                else
-                {
-                    path = "Assets" + path;
-                }                
-                return path;
-            });
+                 if (false == path.StartsWith("/Resources"))
+                 {
+                     ShowNotification(new GUIContent("请选择Assets/Resources下的目录"));
+                     path = "";
+                 }
+                 else
+                 {
+                     path = "Assets" + path;
+                 }
+                 return path;
+             });
         }
 
         void DllGUI()
@@ -158,7 +175,7 @@ namespace Zero.Edit
         }
 
         void ResJsonGUI()
-        {            
+        {
             GUILayout.BeginHorizontal();
             GUILayout.Label("Manifest文件资源路径:", GUILayout.Width(200));
             GUILayout.Label(FileSystem.CombinePaths(HotResConst.AB_DIR_NAME, HotResConst.MANIFEST_FILE_NAME + HotResConst.AB_EXTENSION));
@@ -171,7 +188,7 @@ namespace Zero.Edit
             EditorGUILayout.BeginHorizontal();
 
             _isBuildAB = GUILayout.Toggle(_isBuildAB, "AssetBundle", GUILayout.Width(100));
-            _isBuildDLL = GUILayout.Toggle(_isBuildDLL, "Dll", GUILayout.Width(50));            
+            _isBuildDLL = GUILayout.Toggle(_isBuildDLL, "Dll", GUILayout.Width(50));
             _isBuildResJson = GUILayout.Toggle(_isBuildResJson, "res.json", GUILayout.Width(100));
 
             if (GUILayout.Button("发布热更资源"))
@@ -185,7 +202,7 @@ namespace Zero.Edit
 
         void Build()
         {
-            
+
 
             if (_isBuildDLL)
             {
@@ -197,7 +214,7 @@ namespace Zero.Edit
             if (_isBuildAB)
             {
                 EditorUtility.DisplayProgressBar("打包热更资源", "开始发布AssetBundle", 0f);
-                Debug.Log("开始发布AssetBundle");                
+                Debug.Log("开始发布AssetBundle");
                 //发布AB资源
                 _model.BuildAssetBundle();
             }
