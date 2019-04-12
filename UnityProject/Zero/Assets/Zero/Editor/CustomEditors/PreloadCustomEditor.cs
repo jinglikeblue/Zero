@@ -1,4 +1,5 @@
 ﻿using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using Zero;
 
@@ -16,11 +17,19 @@ public class PreloadCustomEditor : Editor
 
     public override void OnInspectorGUI()
     {
+        EditorGUI.BeginChangeCheck();
+        
         _vo.isLogEnable = EditorGUILayout.Toggle("是否打印日志", _vo.isLogEnable);
         EditorGUILayout.Space();
         _vo.mainPrefab = EditorGUILayout.TextField("启动Prefab", _vo.mainPrefab);
 
         OnHotResInspectorGUI();
+        
+        //当Inspector 面板发生变化时保存数据
+        if (EditorGUI.EndChangeCheck())
+        {               
+            EditorSceneManager.MarkSceneDirty(_target.gameObject.scene);
+        }        
     }
 
     /// <summary>

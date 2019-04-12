@@ -40,18 +40,18 @@ namespace IL.Demo
 
         void RegistStages()
         {
-            RegistView<GameStage>("hot_res/prefabs/stages.ab");            
+            RegistView<GameStage>("hot_res/prefabs/stages");            
         }
 
         void RegistUIPanel()
         {
-            RegistView<MenuPanel>("hot_res/prefabs/panels.ab");
-            RegistView<GamePanel>("hot_res/prefabs/panels.ab");
+            RegistView<MenuPanel>("hot_res/prefabs/panels");
+            RegistView<GamePanel>("hot_res/prefabs/panels");
         }
 
         void RegistUIWin()
         {
-            RegistView<HelpWin>("hot_res/prefabs/wins.ab");
+            RegistView<HelpWin>("hot_res/prefabs/wins");
         }
 
         void RegistView<T>(string abName)
