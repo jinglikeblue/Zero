@@ -118,7 +118,7 @@ namespace Zero
         {
             _vo = vo;
             //日志控制
-            Log.isActive = vo.isLogEnable;            
+            Log.IsActive = vo.isLogEnable;            
 
             switch (Application.platform)
             {

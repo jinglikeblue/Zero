@@ -12,7 +12,7 @@ public class PreloadCustomEditor : Editor
     private void OnEnable()
     {
         _target = target as Preload;
-        _vo = _target.runtimeCfg;        
+        _vo = _target.runtimeCfg;              
     }
 
     public override void OnInspectorGUI()

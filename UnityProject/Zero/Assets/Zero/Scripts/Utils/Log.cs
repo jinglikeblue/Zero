@@ -38,18 +38,33 @@ namespace Zero
         /// </summary>
         public const string COLOR_PURPLE = "865FC5";
 
+
+        static bool _isActive = true;
+
         /// <summary>
         /// 日志是否激活
         /// </summary>
-        public static bool isActive = true;
-        
+        public static bool IsActive
+        {
+            get
+            {
+                return _isActive;
+            }
+
+            set
+            {
+                _isActive = value;
+                Debug.unityLogger.logEnabled = value;
+            }
+        }
+
         /// <summary>
         /// 打印信息
         /// </summary>
         /// <param name="message"></param>
         public static void I(object message)
         {            
-            if(!isActive)
+            if(!IsActive)
             {
                 return;
             }
@@ -58,7 +73,7 @@ namespace Zero
 
         public static void I(string message)
         {
-            if (!isActive)
+            if (!IsActive)
             {
                 return;
             }
@@ -70,7 +85,7 @@ namespace Zero
         /// </summary>
         public static void I(string format, params object[] args)
         {
-            if (!isActive)
+            if (!IsActive)
             {
                 return;
             }
@@ -115,7 +130,7 @@ namespace Zero
         /// </summary>
         public static void W(object message)
         {
-            if (!isActive)
+            if (!IsActive)
             {
                 return;
             }
@@ -127,7 +142,7 @@ namespace Zero
         /// </summary>
         public static void W(string format, params object[] args)
         {
-            if (!isActive)
+            if (!IsActive)
             {
                 return;
             }
@@ -139,7 +154,7 @@ namespace Zero
         /// </summary>
         public static void E(object message)
         {
-            if (!isActive)
+            if (!IsActive)
             {
                 return;
             }
@@ -151,7 +166,7 @@ namespace Zero
         /// </summary>
         public static void E(string format, params object[] args)
         {
-            if (!isActive)
+            if (!IsActive)
             {
                 return;
             }
@@ -181,7 +196,7 @@ namespace Zero
         /// <param name="content"></param>
         public static void GUI(string content)
         {
-            if (!isActive)
+            if (!IsActive)
             {
                 return;
             }
