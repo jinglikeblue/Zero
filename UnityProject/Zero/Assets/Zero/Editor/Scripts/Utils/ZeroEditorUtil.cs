@@ -35,10 +35,6 @@ namespace Zero.Edit
             get
             {
                 string resourcesDir = FileSystem.CombineDirs(true, Application.dataPath, "Resources");
-                if (false == Directory.Exists(resourcesDir))
-                {
-                    Directory.CreateDirectory(resourcesDir);
-                }
                 return resourcesDir;
             }
         }

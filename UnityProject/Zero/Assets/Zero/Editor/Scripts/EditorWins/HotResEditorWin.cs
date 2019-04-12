@@ -15,8 +15,8 @@ namespace Zero.Edit
         public static void Open()
         {
             var win = EditorWindow.GetWindow<HotResEditorWin>("HotRes Manager", true);
-            win.minSize = new Vector2(800, 400);
-            win.maxSize = new Vector2(1000, 1000);
+            win.minSize = new Vector2(800, 420);
+            win.maxSize = new Vector2(1000, 420);
             win.Show();
         }
 
@@ -55,64 +55,91 @@ namespace Zero.Edit
             GUIText.LayoutSplit("res.json配置");
             ResJsonGUI();
 
-            GUIText.LayoutSplit("发布");
-            BuildGUI();
-
             GUIText.LayoutSplit("热更资源排除/复原(build项目时建议排除热更资源，可以减少安装包大小)");
             HotResMoveGUI();
+
+            GUIText.LayoutSplit("发布");
+            BuildGUI();
 
             EditorGUILayout.EndVertical();
         }
 
         private void HotResMoveGUI()
         {
-            //EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.BeginHorizontal();
             const string HOT_RES_BACKUP_ROOT = "HotResBackup";
 
+            EditorGUILayout.BeginVertical();
             string abDirInAssets = _cfg.abHotResDir;
             string abDirInBackup = FileSystem.CombineDirs(false, HOT_RES_BACKUP_ROOT, _cfg.abHotResDir);            
 
             if (Directory.Exists(abDirInAssets))
             {
-                EditorGUILayout.LabelField(string.Format("{0} >>> {1}", abDirInAssets, abDirInBackup));
+                EditorGUILayout.LabelField(string.Format("目录移动：{0} >>> {1}", abDirInAssets, abDirInBackup));
                 if (GUILayout.Button("排除AssetBundle热更资源"))
                 {
-                    FileUtil.MoveFileOrDirectory(abDirInAssets, abDirInBackup);                    
+                    if (false == Directory.Exists(abDirInBackup))
+                    {
+                        Directory.CreateDirectory(abDirInBackup);
+                    }                   
+                    FileUtil.ReplaceDirectory(abDirInAssets, abDirInBackup);
+                    FileUtil.DeleteFileOrDirectory(abDirInAssets);
+                    AssetDatabase.Refresh();
                 }
             }
             else
             {
-                EditorGUILayout.LabelField(string.Format("{0} >>> {1}", abDirInBackup, abDirInAssets));
+                EditorGUILayout.LabelField(string.Format("目录移动：{0} >>> {1}", abDirInBackup, abDirInAssets));
                 if (GUILayout.Button("复原AssetBundle热更资源"))
                 {
-                    FileUtil.MoveFileOrDirectory(abDirInBackup, abDirInAssets);
+                    if (false == Directory.Exists(abDirInAssets))
+                    {
+                        Directory.CreateDirectory(abDirInAssets);
+                    }
+                    FileUtil.ReplaceDirectory(abDirInBackup, abDirInAssets);
+                    FileUtil.DeleteFileOrDirectory(abDirInBackup);
+                    AssetDatabase.Refresh();
                 }
             }
+            EditorGUILayout.EndVertical();
 
-            //FileUtil.ReplaceDirectory
+            GUILayout.Space(20);
 
-
+            EditorGUILayout.BeginVertical();
             string dllDirInAssets = _cfg.ilScriptDir;
-            string dllDirInBackup = FileSystem.CombineDirs(false, HOT_RES_BACKUP_ROOT, _cfg.ilScriptDir);
-
-            EditorGUILayout.LabelField(string.Format("{0} >>> {1}", dllDirInAssets, dllDirInBackup));
+            string dllDirInBackup = FileSystem.CombineDirs(false, HOT_RES_BACKUP_ROOT, _cfg.ilScriptDir);            
 
             if (Directory.Exists(dllDirInAssets))
             {
+                EditorGUILayout.LabelField(string.Format("目录移动：{0} >>> {1}", dllDirInAssets, dllDirInBackup));
                 if (GUILayout.Button("排除Dll热更资源"))
                 {
-                    Directory.CreateDirectory(dllDirInBackup);
+                    if (false == Directory.Exists(dllDirInBackup))
+                    {
+                        Directory.CreateDirectory(dllDirInBackup);
+                    }
+                    FileUtil.ReplaceDirectory(dllDirInAssets, dllDirInBackup);
+                    FileUtil.DeleteFileOrDirectory(dllDirInAssets);
+                    AssetDatabase.Refresh();
                 }
             }
             else
             {
+                EditorGUILayout.LabelField(string.Format("目录移动：{0} >>> {1}", dllDirInBackup, dllDirInAssets));
                 if (GUILayout.Button("复原Dll热更资源"))
                 {
-                    Directory.Delete(dllDirInBackup);
+                    if (false == Directory.Exists(dllDirInAssets))
+                    {
+                        Directory.CreateDirectory(dllDirInAssets);
+                    }
+                    FileUtil.ReplaceDirectory(dllDirInBackup, dllDirInAssets);
+                    FileUtil.DeleteFileOrDirectory(dllDirInBackup);
+                    AssetDatabase.Refresh();
                 }
             }
+            EditorGUILayout.EndVertical();
 
-            //EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndHorizontal();
         }
 
         void AssetBundleGUI()

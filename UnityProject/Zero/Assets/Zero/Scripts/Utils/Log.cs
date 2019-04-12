@@ -130,10 +130,6 @@ namespace Zero
         /// </summary>
         public static void W(object message)
         {
-            if (!IsActive)
-            {
-                return;
-            }
             Debug.LogWarning(message);
         }
 
@@ -142,10 +138,6 @@ namespace Zero
         /// </summary>
         public static void W(string format, params object[] args)
         {
-            if (!IsActive)
-            {
-                return;
-            }
             Debug.LogWarningFormat(format, args);
         }
 
@@ -154,10 +146,6 @@ namespace Zero
         /// </summary>
         public static void E(object message)
         {
-            if (!IsActive)
-            {
-                return;
-            }
             Debug.LogError(message);
         }
 
@@ -166,10 +154,6 @@ namespace Zero
         /// </summary>
         public static void E(string format, params object[] args)
         {
-            if (!IsActive)
-            {
-                return;
-            }
             Debug.LogErrorFormat(format, args);
         }
 
