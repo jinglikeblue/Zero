@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 1857074729
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 165b913802f640fc6cb97b26260b81ac
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a9d989bdb84ed0a491c4a6a18e75bc40
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/Demo/Anims/TapTip.anim
+- Assets/Demo/Anims/TapTip.controller
+Dependencies: []

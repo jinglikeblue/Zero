@@ -1,18 +1,16 @@
 ManifestFileVersion: 0
-CRC: 2599003412
+CRC: 1507784090
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 686aad27b05b92d8e378ddb401afda5c
+    Hash: fbd4b32e88f3cdc62e3d4ff6b8282e08
   TypeTreeHash:
     serializedVersion: 2
-    Hash: ea5a42e0fd8ea905efa7aa926a3b8944
+    Hash: 3f7d0c5e0986ec71841622bcb2f9be1c
 HashAppended: 0
 ClassTypes:
-- Class: 28
-  Script: {instanceID: 0}
-- Class: 213
+- Class: 83
   Script: {instanceID: 0}
 Assets:
-- Assets/Demo/Imgs/game/b2.png
+- Assets/Resources/hot_res/audios/click.mp3
 Dependencies: []

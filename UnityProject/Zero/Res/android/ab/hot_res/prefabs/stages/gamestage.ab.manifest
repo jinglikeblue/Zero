@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 596240196
+CRC: 1311568700
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 9655caff039a111aa7d247d7f64f54e8
+    Hash: a1f7cd3e48f77b25197b83ed6b18f0a7
   TypeTreeHash:
     serializedVersion: 2
     Hash: 6007c007e47fa53d1aa8a48ec4256738
@@ -28,4 +28,4 @@ ClassTypes:
 Assets:
 - Assets/Resources/hot_res/prefabs/stages/gamestage/Block.prefab
 Dependencies:
-- G:/Projects/Zero/UnityProject/Zero/./Res/pc/ab/auto_depends/cross_1.ab
+- G:/Projects/Zero/UnityProject/Zero/./Res/android/ab/auto_depends/cross_1.ab

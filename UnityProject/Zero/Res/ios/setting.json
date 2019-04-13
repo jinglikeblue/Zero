@@ -1,0 +1,16 @@
+{
+    "client": {
+        "version": "0.2",
+        "url": "http://wepieces.cn/unity/zero/demo/update.html",
+        "type": 1
+    },
+    "netResRoot": "http://wepieces.cn/unity/zero/demo/Res",
+    "startupResGroups": ["/"],
+    "startupParams": {
+        "host": "0.0.0.0",
+        "port": "9999"
+    },
+    "settingJump": {
+        "9.1.1": "www.qq.com"
+    }
+}
