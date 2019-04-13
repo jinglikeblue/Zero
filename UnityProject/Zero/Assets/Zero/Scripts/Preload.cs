@@ -37,7 +37,7 @@ namespace Zero
         }
 
         [Header("运行时配置")]
-        public RuntimeVO runtimeCfg;
+        public RuntimeVO runtimeCfg = new RuntimeVO();
         
         EState _currentState;
         /// <summary>
