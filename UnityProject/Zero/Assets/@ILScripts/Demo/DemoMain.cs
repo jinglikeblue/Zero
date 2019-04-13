@@ -25,7 +25,7 @@ namespace IL.Demo
         }
 
         void Init()
-        {
+        {            
             Application.targetFrameRate = 60;
             var ILContent = GameObject.Find("DemoILContent");
             var stageRoot = ILContent.transform.Find("Stage");

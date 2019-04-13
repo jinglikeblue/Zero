@@ -229,33 +229,39 @@ namespace Zero.Edit
 
         void Build()
         {
-
-
-            if (_isBuildDLL)
+            try
             {
-                EditorUtility.DisplayProgressBar("打包热更资源", "开始发布DLL", 0f);
-                Debug.Log("开始发布DLL");
-                _model.BuildDll();
-            }
+                if (_isBuildDLL)
+                {
+                    EditorUtility.DisplayProgressBar("打包热更资源", "开始发布DLL", 0f);
+                    Debug.Log("开始发布DLL");
+                    _model.BuildDll();
+                }
 
-            if (_isBuildAB)
+                if (_isBuildAB)
+                {
+                    EditorUtility.DisplayProgressBar("打包热更资源", "开始发布AssetBundle", 0f);
+                    Debug.Log("开始发布AssetBundle");
+                    //发布AB资源
+                    _model.BuildAssetBundle();
+                }
+
+                if (_isBuildResJson)
+                {
+                    EditorUtility.DisplayProgressBar("打包热更资源", "开始发布Res.json", 0f);
+                    Debug.Log("开始发布Res.json");
+                    _model.BuildResJsonFile();
+                }
+
+                //打开目录
+                ZeroEditorUtil.OpenDirectory(FileSystem.CombineDirs(false, _cfg.resDir, ZeroEditorUtil.PlatformDirName));
+            }
+            catch(Exception e)
             {
-                EditorUtility.DisplayProgressBar("打包热更资源", "开始发布AssetBundle", 0f);
-                Debug.Log("开始发布AssetBundle");
-                //发布AB资源
-                _model.BuildAssetBundle();
+                Log.E("{0}\n{1}", e.Message, e.StackTrace);
+                ShowNotification(new GUIContent(e.Message));
             }
-
-            if (_isBuildResJson)
-            {
-                EditorUtility.DisplayProgressBar("打包热更资源", "开始发布Res.json", 0f);
-                Debug.Log("开始发布Res.json");
-                _model.BuildResJsonFile();
-            }
-
-            //打开目录
-            ZeroEditorUtil.OpenDirectory(FileSystem.CombineDirs(false, _cfg.resDir, ZeroEditorUtil.PlatformDirName));
-            EditorUtility.ClearProgressBar();
+            EditorUtility.ClearProgressBar();            
         }
     }
 }

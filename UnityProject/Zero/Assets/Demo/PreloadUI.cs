@@ -10,7 +10,17 @@ namespace Demo
         public Text textProgress;
 
         void Start() {
-            Screen.SetResolution(640, 960, false);
+
+            switch (Application.platform) {
+                case RuntimePlatform.Android:
+                case RuntimePlatform.IPhonePlayer:
+                    Screen.SetResolution(640, 960, true);
+                    break;
+                default:
+                    Screen.SetResolution(640, 960, false);
+                    break;
+            }
+
             Preload preload = GetComponent<Preload>();
             preload.onProgress += (float progress, long totalSize) =>
             {
