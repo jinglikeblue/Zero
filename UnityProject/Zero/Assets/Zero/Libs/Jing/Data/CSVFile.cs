@@ -120,6 +120,13 @@ namespace Jing
                     else
                     {
                         isSpecial = false;
+                        if(nextIdx == rowContent.Length)
+                        {
+                            //结束符
+                            string colContent = rowContent.Substring(splitMark);
+                            cols.Add(colContent);
+                            break;
+                        }
                     }
                 }
                 else
