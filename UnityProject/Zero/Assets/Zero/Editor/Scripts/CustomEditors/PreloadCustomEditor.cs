@@ -18,10 +18,16 @@ public class PreloadCustomEditor : Editor
     public override void OnInspectorGUI()
     {
         EditorGUI.BeginChangeCheck();
-        
+
+        EditorGUILayout.Space();
         _vo.isLogEnable = EditorGUILayout.Toggle("是否打印日志", _vo.isLogEnable);
+
         EditorGUILayout.Space();
         _vo.mainPrefab = EditorGUILayout.TextField("启动Prefab", _vo.mainPrefab);
+
+        EditorGUILayout.Space();
+        EditorGUILayout.LabelField("启动类(完全限定)");
+        _vo.className = EditorGUILayout.TextField("Startup Class:", _vo.className);
 
         OnHotResInspectorGUI();
         
@@ -93,10 +99,6 @@ public class PreloadCustomEditor : Editor
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Dll文件名");
             _vo.fileName = EditorGUILayout.TextField(_vo.fileName);
-
-            EditorGUILayout.Space();
-            EditorGUILayout.LabelField("启动类(完全限定)");
-            _vo.className = EditorGUILayout.TextField("Startup Class:", _vo.className);
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("启动方法(必须为Static)");
