@@ -100,7 +100,7 @@ namespace IL.Zero
         /// <returns></returns>
         public static T Create<T>(GameObject prefab, Transform parent, object data = null) where T : AView
         {
-            AView view = Create(typeof(T), prefab, parent);
+            AView view = Create(typeof(T), prefab, parent, data);
             return view as T;
         }
 

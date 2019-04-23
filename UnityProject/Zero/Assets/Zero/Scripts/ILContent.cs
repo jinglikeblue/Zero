@@ -13,9 +13,12 @@ namespace Zero
         private void Start()
         {
             var cfg = Runtime.Ins.VO;
+            if(null == cfg)
+            {
+                return;
+            }
             bool isUseDll = cfg.isUseDll && cfg.isHotResProject;
-
-            string qualifiedName = Assembly.CreateQualifiedName(cfg.fileName, cfg.className);
+            
             Type type = Type.GetType(cfg.className);
             if (isUseDll || type == null)
             {
