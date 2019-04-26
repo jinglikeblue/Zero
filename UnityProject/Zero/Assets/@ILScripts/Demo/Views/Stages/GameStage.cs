@@ -15,7 +15,7 @@ namespace IL.Demo
         protected override void OnInit()
         {
             _blocks = GetChild("Blocks");
-            _blockPrefab = (GameObject)GetBindingObject("blockPrefab")[0];            
+            _blockPrefab = GetComponent<ObjectBindingData>().Find("blockPrefab")[0] as GameObject;            
             _boss = CreateViewChlid<Boss>("Boss");
 
             UIPanelMgr.Ins.SwitchASync<GamePanel>(this);

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 using Zero;
 
@@ -44,21 +41,6 @@ namespace IL.Zero
         /// 挂载到GameObject上的脚本
         /// </summary>
         ZeroView _z;
-
-        /// <summary>
-        /// 更新事件
-        /// </summary>
-        public event Action OnUpdate
-        {
-            add
-            {
-                ILBridge.Ins.onUpdate += value;
-            }
-            remove
-            {
-                ILBridge.Ins.onUpdate -= value;
-            }
-        }
 
         internal void SetGameObject(GameObject gameObject, object data = null)
         {
@@ -162,12 +144,28 @@ namespace IL.Zero
         /// <typeparam name="T"></typeparam>
         /// <param name="childName"></param>
         /// <returns></returns>
-        public T GetChildComponent<T>(string childName)
+        public T GetChildComponent<T>(string childName) where T : Component
         {
-            var child = gameObject.transform.Find(childName);
+            var child = GetChild(childName);
             if (null == child)
             {
-                return default(T);
+                return null;
+            }
+            return child.GetComponent<T>();
+        }
+
+        /// <summary>
+        /// 得到子对象上的组件
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="childIndex"></param>
+        /// <returns></returns>
+        public T GetChildComponent<T>(int childIndex) where T : Component
+        {
+            var child = GetChild(childIndex);
+            if (null == child)
+            {
+                return null;
             }
             return child.GetComponent<T>();
         }
@@ -175,12 +173,22 @@ namespace IL.Zero
         /// <summary>
         /// 得到子对象
         /// </summary>
-        /// <param name="childName"></param>
+        /// <param name="childName">子对象名称</param>
         /// <returns></returns>
         public Transform GetChild(string childName)
         {
             return gameObject.transform.Find(childName);
         }    
+
+        /// <summary>
+        /// 得到子对象
+        /// </summary>
+        /// <param name="index">子对象索引位置</param>
+        /// <returns></returns>
+        public Transform GetChild(int index)
+        {
+            return gameObject.transform.GetChild(index);
+        }
         
         /// <summary>
         /// 得到子对象
@@ -197,109 +205,20 @@ namespace IL.Zero
             return null;
         }
 
-
-        #region 获取绑定的数据
-
         /// <summary>
-        /// 获取绑定的数据
+        /// 得到子对象
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <param name="index">子对象索引位置</param>
         /// <returns></returns>
-        public UnityEngine.Object[] GetBindingObject(string key)
+        public GameObject GetChildGameObject(int index)
         {
-            var com = GetComponent<ObjectBindingData>();
-            if(null == com)
+            var child = GetChild(index);
+            if (null != child)
             {
-                return null;
+                return child.gameObject;
             }
-            var item = com.Find(key);
-            return item;
+            return null;
         }
-
-        /// <summary>
-        /// 获取绑定的数据
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public double[] GetBindingDouble(string key)
-        {
-            var com = GetComponent<DoubleBindingData>();
-            if (null == com)
-            {
-                return null;
-            }
-
-            var item = com.Find(key);
-            return item;
-        }
-
-        /// <summary>
-        /// 获取绑定的数据
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public float[] GetBindingFloat(string key)
-        {
-            var com = GetComponent<FloatBindingData>();
-            if (null == com)
-            {
-                return null;
-            }
-            var item = com.Find(key);
-            return item;
-        }
-
-        /// <summary>
-        /// 获取绑定的数据
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public int[] GetBindingInt(string key)
-        {
-            var com = GetComponent<IntBindingData>();
-            if (null == com)
-            {
-                return null;
-            }
-            var item = com.Find(key);
-            return item;
-        }
-
-        /// <summary>
-        /// 获取绑定的数据
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public long[] GetBindingLong(string key)
-        {
-            var com = GetComponent<LongBindingData>();
-            if (null == com)
-            {
-                return null;
-            }
-            var item = com.Find(key);
-            return item;
-        }
-
-        /// <summary>
-        /// 获取绑定的数据
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public string[] GetBindingString(string key)
-        {
-            var com = GetComponent<StringBindingData>();
-            if (null == com)
-            {
-                return null;
-            }
-            var item = com.Find(key);
-            return item;
-        }
-
-        #endregion
-
-
 
         /// <summary>
         /// 得到子视图对象
@@ -310,6 +229,19 @@ namespace IL.Zero
         public T CreateViewChlid<T>(string childName, object data = null) where T:AView
         {          
             var childGameObject = GetChildGameObject(childName);
+            return CreateViewChlid<T>(childGameObject, data);
+        }
+
+        /// <summary>
+        /// 得到子对象视图
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="index"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public T CreateViewChlid<T>(int index, object data = null) where T : AView
+        {
+            var childGameObject = GetChildGameObject(index);
             return CreateViewChlid<T>(childGameObject, data);
         }
 
