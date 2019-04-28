@@ -12,7 +12,7 @@ public class PreloadCustomEditor : Editor
     private void OnEnable()
     {
         _target = target as Preload;
-        _vo = _target.runtimeCfg;              
+        _vo = _target.runtimeCfg;
     }
 
     public override void OnInspectorGUI()
@@ -30,12 +30,12 @@ public class PreloadCustomEditor : Editor
         _vo.className = EditorGUILayout.TextField("Startup Class:", _vo.className);
 
         OnHotResInspectorGUI();
-        
+
         //当Inspector 面板发生变化时保存数据
         if (EditorGUI.EndChangeCheck())
-        {               
+        {
             EditorSceneManager.MarkSceneDirty(_target.gameObject.scene);
-        }        
+        }
     }
 
     /// <summary>
@@ -75,7 +75,7 @@ public class PreloadCustomEditor : Editor
             GUIStyle gs = new GUIStyle();
             //gs.fontStyle |= FontStyle.Bold;
             gs.fontSize = 12;
-            EditorGUILayout.LabelField("<color=#FF0000>使用ResMgr时资源将从Resources中获取</color>",gs);
+            EditorGUILayout.LabelField("<color=#FF0000>使用ResMgr时资源将从Resources中获取</color>", gs);
         }
     }
 
@@ -94,7 +94,7 @@ public class PreloadCustomEditor : Editor
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("文件目录(相对于资源根目录)");
-            EditorGUILayout.LabelField(HotResConst.DLL_DIR_NAME);            
+            EditorGUILayout.LabelField(HotResConst.DLL_DIR_NAME);
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Dll文件名");
@@ -112,6 +112,6 @@ public class PreloadCustomEditor : Editor
                 EditorGUILayout.Space();
                 _vo.isLoadPdb = EditorGUILayout.Toggle("加载Pdb文件", _vo.isLoadPdb);
             }
-        }        
+        }
     }
 }

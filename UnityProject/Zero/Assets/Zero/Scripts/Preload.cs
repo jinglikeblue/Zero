@@ -70,6 +70,10 @@ namespace Zero
 
         }
 
+        /// <summary>
+        /// 开始激活预加载
+        /// </summary>
+        /// <param name="rg"></param>
         public void StartPreload(BaseILRuntimeGenerics rg = null)
         {
             if(null != rg)

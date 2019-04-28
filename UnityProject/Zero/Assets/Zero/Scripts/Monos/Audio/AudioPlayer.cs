@@ -84,11 +84,11 @@ namespace Zero
             _bgmTrack.Stop();
         }
 
-        public void PlayEffect(AudioClip ac)
+        public AudioSource PlayEffect(AudioClip ac)
         {
             if(null == ac)
             {
-                return;
+                return null;
             }            
 
             AudioSource useSource = null;            
@@ -107,6 +107,7 @@ namespace Zero
 
             useSource.clip = ac;
             useSource.Play();
+            return useSource;
         }
 
         public void PlayEffect(AudioClip ac, int track)

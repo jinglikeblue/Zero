@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Jing;
+using System;
 
 namespace Zero
 {
@@ -17,6 +18,7 @@ namespace Zero
             {
                 abName += HotResConst.AB_EXTENSION;
             }
+            abName = FileSystem.StandardizeBackslashSeparator(abName);
             return abName;
         }
 
@@ -31,6 +33,7 @@ namespace Zero
             {
                 abName = abName.Replace(HotResConst.AB_EXTENSION, "");
             }
+            abName = FileSystem.StandardizeBackslashSeparator(abName);
             return abName;
         }
 

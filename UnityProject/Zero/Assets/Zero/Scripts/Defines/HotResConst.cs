@@ -23,5 +23,10 @@ namespace Zero
         /// 存储AssetBundle之间依赖关系的manifest文件
         /// </summary>
         public const string MANIFEST_FILE_NAME = "manifest";
+
+        /// <summary>
+        /// 直接放在Resources目录下的资源，会被打包到resources.ab文件中
+        /// </summary>
+        public const string SPECIAL_AB_NAME = "resources";
     }
 }

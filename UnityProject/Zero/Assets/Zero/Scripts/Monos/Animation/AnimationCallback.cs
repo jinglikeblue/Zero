@@ -9,13 +9,13 @@ namespace Zero
     /// </summary>
     public class AnimationCallback : MonoBehaviour
     {
-        public event Action<string> onCallbak;
+        public event Action<string> onCallback;
 
         public void Callback(string content)
         {
-            if (null != onCallbak)
+            if (null != onCallback)
             {
-                onCallbak.Invoke(content);
+                onCallback.Invoke(content);
             }
         }
     }

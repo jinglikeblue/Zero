@@ -13,6 +13,6 @@
 
         }
 
-        public abstract void Register(ILRuntime.Runtime.Enviorment.AppDomain appDomain);
+        public abstract void Register(ILRuntime.Runtime.Enviorment.AppDomain appdomain);
     }
 }

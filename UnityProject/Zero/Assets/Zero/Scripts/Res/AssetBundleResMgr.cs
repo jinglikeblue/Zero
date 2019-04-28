@@ -44,8 +44,22 @@ namespace Zero
             _loadedABDic = source._loadedABDic;
         }
 
+        /// <summary>
+        /// 如果
+        /// </summary>
+        /// <param name="abName"></param>
+        /// <returns></returns>
+        void MakeABNameNotEmpty(ref string abName)
+        {
+            if (string.IsNullOrEmpty(abName))
+            {
+                abName = HotResConst.SPECIAL_AB_NAME;
+            }            
+        }
+
         public override string[] GetDepends(string abName)
         {
+            MakeABNameNotEmpty(ref abName);
             abName = ABNameWithExtension(abName);
             string[] dependList = _manifest.GetAllDependencies(abName);
             return dependList;
@@ -53,6 +67,7 @@ namespace Zero
 
         public override T Load<T>(string abName, string assetName)
         {
+            MakeABNameNotEmpty(ref abName);
             abName = ABNameWithExtension(abName);
             AssetBundle ab = LoadAssetBundle(abName);
             T asset = ab.LoadAsset<T>(assetName);
@@ -65,6 +80,7 @@ namespace Zero
 
         public override void LoadAsync(string abName, string assetName, Action<UnityEngine.Object> onLoaded, Action<float> onProgress = null)
         {
+            MakeABNameNotEmpty(ref abName);
             abName = ABNameWithExtension(abName);
             AssetBundle ab = LoadAssetBundle(abName);
             ILBridge.Ins.StartCoroutine(LoadAsync(ab, assetName, onLoaded, onProgress));
@@ -90,6 +106,7 @@ namespace Zero
 
         public override void Unload(string abName, bool isUnloadAllLoaded = false, bool isUnloadDepends = true)
         {
+            MakeABNameNotEmpty(ref abName);
             abName = ABNameWithExtension(abName);
             if (_loadedABDic.ContainsKey(abName))
             {
@@ -154,6 +171,7 @@ namespace Zero
         /// <returns></returns>
         private AssetBundle LoadAssetBundle(string abName)
         {
+            MakeABNameNotEmpty(ref abName);
             abName = ABNameWithExtension(abName);
             string abPath = FileSystem.CombinePaths(RootDir, abName);
             if (false == File.Exists(abPath))
