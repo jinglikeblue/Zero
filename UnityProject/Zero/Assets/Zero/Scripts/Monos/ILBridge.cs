@@ -30,6 +30,11 @@ namespace Zero
         public event Action onFixedUpdate;
 
         /// <summary>
+        /// OnLateUpdate事件委托
+        /// </summary>
+        public event Action onLateUpdate;
+
+        /// <summary>
         /// 客户端焦点事件
         /// </summary>
         public event Action<bool> onApplicationFocus;
@@ -114,6 +119,14 @@ namespace Zero
             if (null != onFixedUpdate)
             {
                 onFixedUpdate.Invoke();
+            }
+        }
+
+        private void LateUpdate()
+        {
+            if (null != onLateUpdate)
+            {
+                onLateUpdate.Invoke();
             }
         }
 
