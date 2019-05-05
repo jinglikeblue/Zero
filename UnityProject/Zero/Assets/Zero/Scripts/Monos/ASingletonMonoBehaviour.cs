@@ -18,29 +18,20 @@ namespace Zero
             get
             {
                 if (null == _ins)
-                {
-                    string name = typeof(T).Name;
-                    GameObject go = GameObject.Find(name);
-                    if (null == go)
+                {                    
+                    _ins = GameObject.FindObjectOfType<T>();
+
+                    if (null == _ins)
                     {
-                        go = new GameObject();
-                        go.name = name;
+                        var go = new GameObject();
+                        go.name = typeof(T).Name;
                         go.AddComponent<T>();
+                        _ins = go.GetComponent<T>();
                     }
 
-                    DontDestroyOnLoad(go);
-                    _ins = go.GetComponent<T>();
-                }
-                return _ins;
-            }
-
-            protected set
-            {
-                if (null == _ins)
-                {
-                    _ins = value;
                     DontDestroyOnLoad(_ins.gameObject);
                 }
+                return _ins;
             }
         }
 
