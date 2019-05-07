@@ -53,6 +53,12 @@ namespace IL.Zero
             show.Begin(this, data, onCreated, token, onProgress, onLoaded);
         }
 
+        public void ShowASync(Type type, object data = null, Action<AView, object> onCreated = null, object token = null, Action<float> onProgress = null, Action<UnityEngine.Object> onLoaded = null)
+        {
+            var show = new ASyncShow<AView>(type);
+            show.Begin(this, data, onCreated, token, onProgress, onLoaded);
+        }
+
         /// <summary>
         /// 显示视图
         /// </summary>
@@ -73,13 +79,24 @@ namespace IL.Zero
             AViewLayer _layer;
             Action<AViewType, object> _onCreated;
             object _token;
+            Type _viewType;
+
+            public ASyncShow()
+            {
+                _viewType = typeof(AViewType);
+            }
+
+            public ASyncShow(Type type)
+            {
+                _viewType = type;
+            }
 
             public void Begin(AViewLayer layer, object data, Action<AViewType, object> onCreated, object token, Action<float> onProgress, Action<UnityEngine.Object> onLoaded)
             {
                 _layer = layer;
                 _onCreated = onCreated;
                 _token = token;
-                ViewFactory.CreateAsync(typeof(AViewType), layer.Root, data, OnAsyncCreated, onProgress, onLoaded);
+                ViewFactory.CreateAsync(_viewType, layer.Root, data, OnAsyncCreated, onProgress, onLoaded);
             }
 
             /// <summary>

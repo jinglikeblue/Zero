@@ -13,10 +13,7 @@ namespace Zero
         IPointerDownHandler,
         IPointerUpHandler,
         IPointerEnterHandler,
-        IPointerExitHandler,
-        IBeginDragHandler,        
-        IMoveHandler,
-        IEndDragHandler
+        IPointerExitHandler
     {
         /// <summary>
         /// 点击事件
@@ -38,18 +35,6 @@ namespace Zero
         /// 目标退出事件
         /// </summary>
         public event Action<PointerEventData> onPointerExit;
-        /// <summary>
-        /// 开始拖动事件
-        /// </summary>
-        public event Action<PointerEventData> onBeginDrag;
-        /// <summary>
-        /// 移动事件
-        /// </summary>
-        public event Action<AxisEventData> onMove;
-        /// <summary>
-        /// 结束拖动事件
-        /// </summary>
-        public event Action<PointerEventData> onEndDrag;
 
         /// <summary>
         /// 获取GameObject的UI事件组件，没有则会自动添加
@@ -98,30 +83,6 @@ namespace Zero
             if (null != onPointerExit)
             {
                 onPointerExit.Invoke(eventData);
-            }
-        }
-
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-            if (null != onBeginDrag)
-            {
-                onBeginDrag.Invoke(eventData);
-            }
-        }
-
-        public void OnEndDrag(PointerEventData eventData)
-        {
-            if (null != onEndDrag)
-            {
-                onEndDrag.Invoke(eventData);
-            }
-        }
-
-        public void OnMove(AxisEventData eventData)
-        {
-            if (null != onMove)
-            {
-                onMove.Invoke(eventData);
             }
         }
     }

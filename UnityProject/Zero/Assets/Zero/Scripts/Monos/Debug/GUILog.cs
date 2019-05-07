@@ -33,6 +33,15 @@ namespace Zero
             }
         }
 
+        public static void Clear()
+        {
+            logRecords.Clear();
+            if (null != _ins)
+            {
+                _ins.RefreshText();
+            }
+        }
+
         public static List<string> logRecords = new List<string>();
         const int RECORD_COUNT = 30;
 
@@ -47,6 +56,7 @@ namespace Zero
             {
                 GUIStyle style = new GUIStyle();
                 style.fontSize = 20;
+                style.normal.textColor = Color.green;
                 GUI.Box(new Rect(0, 0, Screen.width, Screen.height), "");
                 GUILayout.BeginArea(new Rect(200, 0, Screen.width - 200, Screen.height));
                 GUILayout.BeginVertical();
