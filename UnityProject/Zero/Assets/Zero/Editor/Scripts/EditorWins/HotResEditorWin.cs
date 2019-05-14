@@ -69,41 +69,41 @@ namespace Zero.Edit
             EditorGUILayout.BeginHorizontal();
             const string HOT_RES_BACKUP_ROOT = "HotResBackup";
 
-            EditorGUILayout.BeginVertical();
-            string abDirInAssets = _cfg.abHotResDir;
-            string abDirInBackup = FileSystem.CombineDirs(false, HOT_RES_BACKUP_ROOT, _cfg.abHotResDir);            
+            //EditorGUILayout.BeginVertical();
+            //string abDirInAssets = _cfg.abHotResDir;
+            //string abDirInBackup = FileSystem.CombineDirs(false, HOT_RES_BACKUP_ROOT, _cfg.abHotResDir);            
 
-            if (Directory.Exists(abDirInAssets))
-            {
-                EditorGUILayout.LabelField(string.Format("目录移动：{0} >>> {1}", abDirInAssets, abDirInBackup));
-                if (GUILayout.Button("排除AssetBundle热更资源"))
-                {
-                    if (false == Directory.Exists(abDirInBackup))
-                    {
-                        Directory.CreateDirectory(abDirInBackup);
-                    }                   
-                    FileUtil.ReplaceDirectory(abDirInAssets, abDirInBackup);
-                    FileUtil.DeleteFileOrDirectory(abDirInAssets);
-                    AssetDatabase.Refresh();
-                }
-            }
-            else
-            {
-                EditorGUILayout.LabelField(string.Format("目录移动：{0} >>> {1}", abDirInBackup, abDirInAssets));
-                if (GUILayout.Button("复原AssetBundle热更资源"))
-                {
-                    if (false == Directory.Exists(abDirInAssets))
-                    {
-                        Directory.CreateDirectory(abDirInAssets);
-                    }
-                    FileUtil.ReplaceDirectory(abDirInBackup, abDirInAssets);
-                    FileUtil.DeleteFileOrDirectory(abDirInBackup);
-                    AssetDatabase.Refresh();
-                }
-            }
-            EditorGUILayout.EndVertical();
+            //if (Directory.Exists(abDirInAssets))
+            //{
+            //    EditorGUILayout.LabelField(string.Format("目录移动：{0} >>> {1}", abDirInAssets, abDirInBackup));
+            //    if (GUILayout.Button("排除AssetBundle热更资源"))
+            //    {
+            //        if (false == Directory.Exists(abDirInBackup))
+            //        {
+            //            Directory.CreateDirectory(abDirInBackup);
+            //        }                   
+            //        FileUtil.ReplaceDirectory(abDirInAssets, abDirInBackup);
+            //        FileUtil.DeleteFileOrDirectory(abDirInAssets);
+            //        AssetDatabase.Refresh();
+            //    }
+            //}
+            //else
+            //{
+            //    EditorGUILayout.LabelField(string.Format("目录移动：{0} >>> {1}", abDirInBackup, abDirInAssets));
+            //    if (GUILayout.Button("复原AssetBundle热更资源"))
+            //    {
+            //        if (false == Directory.Exists(abDirInAssets))
+            //        {
+            //            Directory.CreateDirectory(abDirInAssets);
+            //        }
+            //        FileUtil.ReplaceDirectory(abDirInBackup, abDirInAssets);
+            //        FileUtil.DeleteFileOrDirectory(abDirInBackup);
+            //        AssetDatabase.Refresh();
+            //    }
+            //}
+            //EditorGUILayout.EndVertical();
 
-            GUILayout.Space(20);
+            //GUILayout.Space(20);
 
             EditorGUILayout.BeginVertical();
             string dllDirInAssets = _cfg.ilScriptDir;
@@ -146,13 +146,13 @@ namespace Zero.Edit
         {
             _cfg.isKeepManifest = GUILayout.Toggle(_cfg.isKeepManifest, "保留「.manifest」文件", GUILayout.Width(150));
 
-            _cfg.abHotResDir = GUIFolderSelect.OnGUI("热更资源目录(该目录为Resources下的子目录，仅该目录下的资源会作为AssetBundle发布):", 500, _cfg.abHotResDir, ZeroEditorUtil.ResourcesFolder, "hot_res", (path) =>
+            _cfg.abHotResDir = GUIFolderSelect.OnGUI("热更资源目录(仅该目录下的资源会作为AssetBundle发布):", 500, _cfg.abHotResDir, ZeroEditorUtil.ResourcesFolder, "hot_res", (path) =>
              {
                  path = path.Replace(Application.dataPath, "");
 
-                 if (false == path.StartsWith("/Resources"))
+                 if (false == path.StartsWith("/"))
                  {
-                     ShowNotification(new GUIContent("请选择Assets/Resources下的目录"));
+                     ShowNotification(new GUIContent("请选择Assets下的目录"));
                      path = "";
                  }
                  else

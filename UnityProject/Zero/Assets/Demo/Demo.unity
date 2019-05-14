@@ -635,7 +635,7 @@ MonoBehaviour:
     isUseDll: 0
     ilType: 0
     fileName: ILProject
-    className: IL.Demo.DemoMain
+    className: IL.Demo.ILMain
     methodName: Main
     isDebugIL: 1
     isLoadPdb: 1

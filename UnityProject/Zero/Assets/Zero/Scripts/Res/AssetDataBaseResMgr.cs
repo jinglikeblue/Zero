@@ -38,7 +38,7 @@ namespace Zero
             else
             {
                 dir = FileSystem.CombinePaths(_assetRoot);
-            }
+            }            
 
             //模糊匹配资源名称
             var files = Directory.GetFiles(dir);

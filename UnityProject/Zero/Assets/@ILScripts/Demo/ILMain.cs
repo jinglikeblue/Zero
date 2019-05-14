@@ -5,17 +5,17 @@ using Zero;
 
 namespace IL.Demo
 {
-    class DemoMain
+    class ILMain
     {
         /// <summary>
         /// 入口方法
         /// </summary>
         public static void Main()
         {
-            new DemoMain();
+            new ILMain();
         }
 
-        public DemoMain()
+        public ILMain()
         {
             Init();
             RegistStages();
