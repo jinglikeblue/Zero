@@ -84,7 +84,7 @@ namespace Zero
             //初始化运行环境配置环境
             Runtime.Ins.Init(runtimeCfg);
 
-            Log.CI(Log.COLOR_BLUE, "游戏运行模式：[{0}]", Runtime.Ins.ResMode.ToString());
+            Log.CI(Log.COLOR_BLUE, "游戏运行模式：[{0}]", Runtime.Ins.IsHotResProject?Runtime.Ins.ResMode.ToString():"Local");
 
             if (false == Runtime.Ins.IsHotResProject)
             {
