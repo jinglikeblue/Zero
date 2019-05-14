@@ -7,6 +7,9 @@ using Zero;
 
 namespace Zero
 {
+    /// <summary>
+    /// 该资源管理器仅适用于Editor下的开发调试
+    /// </summary>
     class AssetDataBaseResMgr : AResMgr
     {
         string _assetRoot;
@@ -16,7 +19,7 @@ namespace Zero
 #if !UNITY_EDITOR
         throw new Exception("AssetDataBaseResMgr仅在Editor模式下可用");
 #endif
-            _assetRoot = "Assets/Resources";
+            _assetRoot = assetRoot;
         }
 
         /// <summary>
@@ -37,6 +40,7 @@ namespace Zero
                 dir = FileSystem.CombinePaths(_assetRoot);
             }
 
+            //模糊匹配资源名称
             var files = Directory.GetFiles(dir);
             foreach (var file in files)
             {

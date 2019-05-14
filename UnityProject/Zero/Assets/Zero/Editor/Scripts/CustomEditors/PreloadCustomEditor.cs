@@ -50,15 +50,15 @@ public class PreloadCustomEditor : Editor
             EditorGUI.indentLevel = 1;
 
             EditorGUILayout.Space();
-            _vo.hotResMode = (EHotResMode)EditorGUILayout.Popup("资源来源", (int)_vo.hotResMode, new string[] { "从网络资源目录加载资源", "从本地资源目录加载资源", "从Resources下直接加载资源", "使用AssetDataBase加载资源（推荐开发阶段使用）" });
+            _vo.hotResMode = (EHotResMode)EditorGUILayout.Popup("资源来源", (int)_vo.hotResMode, new string[] { "从网络资源目录加载资源", "从本地资源目录加载资源", "使用AssetDataBase加载资源（推荐开发阶段使用）" });
 
-            if (EHotResMode.NET == _vo.hotResMode)
+            if (EHotResMode.NET_ASSET_BUNDLE == _vo.hotResMode)
             {
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("网络资源的根目录");
                 _vo.netRoot = EditorGUILayout.TextField(_vo.netRoot);
             }
-            else if (EHotResMode.LOCAL == _vo.hotResMode)
+            else if (EHotResMode.LOCAL_ASSET_BUNDLE == _vo.hotResMode)
             {
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("本地资源的根目录（建议和发布配置匹配）");
@@ -79,7 +79,7 @@ public class PreloadCustomEditor : Editor
             GUIStyle gs = new GUIStyle();
             //gs.fontStyle |= FontStyle.Bold;
             gs.fontSize = 12;
-            EditorGUILayout.LabelField("<color=#FF0000>使用ResMgr时资源将从Resources中获取</color>", gs);
+            EditorGUILayout.LabelField("<color=#FF0000>使用ResMgr时资源将从Resources中加载资源</color>", gs);
         }
     }
 

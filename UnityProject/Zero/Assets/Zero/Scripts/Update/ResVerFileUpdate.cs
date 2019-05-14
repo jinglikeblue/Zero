@@ -22,7 +22,7 @@ namespace Zero
             _onLoaded = onLoaded;
             _onError = onError;
             _localPath = Runtime.Ins.localResDir + "res.json";
-            if (Runtime.Ins.IsLoadFromNet)
+            if (Runtime.Ins.IsLoadAssetsFromNet)
             {
                 ILBridge.Ins.StartCoroutine(Update());
             }

@@ -71,7 +71,7 @@ namespace Zero
 
         void StartCheckRes()
         {
-            if (false == Runtime.Ins.IsLoadFromNet)
+            if (false == Runtime.Ins.IsLoadAssetsFromNet)
             {
                 _onComplete(new string[0]);
                 return;

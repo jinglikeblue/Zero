@@ -38,7 +38,7 @@ namespace Zero
         public void Start(Action<bool> onOver, Action<float, long> onProgress, Action<string> onError)
         {
             Log.CI(Log.COLOR_BLUE, "「{0}」客户端版本号检查...", this.GetType().Name);
-            if (false == Runtime.Ins.IsLoadFromNet)
+            if (false == Runtime.Ins.IsLoadAssetsFromNet)
             {
                 onOver(false);
                 return;

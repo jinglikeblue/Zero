@@ -28,7 +28,7 @@ namespace Zero
             _onError = onError;
             _localPath = _rt.localResDir + _manifestName;
 
-            if (Runtime.Ins.IsLoadFromNet && false == _rt.netResVer.IsSameVer(_manifestName, _rt.localResVer))
+            if (Runtime.Ins.IsLoadAssetsFromNet && false == _rt.netResVer.IsSameVer(_manifestName, _rt.localResVer))
             {
                 ILBridge.Ins.StartCoroutine(Update(_rt.netResDir + _manifestName, _rt.netResVer.GetVer(_manifestName)));
             }
@@ -40,14 +40,22 @@ namespace Zero
 
         void InitAssetBundleMgr()
         {
-            if (Runtime.Ins.IsLoadAssetByAssetDataBase)
+            if(Runtime.Ins.IsHotResProject)
             {
-                ResMgr.Ins.Init(ResMgr.EResMgrType.ASSET_DATA_BASE, Runtime.Ins.VO.hotResRoot);
+                if (Runtime.Ins.IsLoadAssetsByAssetDataBase)
+                {
+                    ResMgr.Ins.Init(ResMgr.EResMgrType.ASSET_DATA_BASE, Runtime.Ins.VO.hotResRoot);
+                }
+                else
+                {
+                    ResMgr.Ins.Init(ResMgr.EResMgrType.ASSET_BUNDLE, _localPath);
+                }
             }
             else
             {
-                ResMgr.Ins.Init(Runtime.Ins.IsLoadABFromResources ? ResMgr.EResMgrType.RESOURCES : ResMgr.EResMgrType.ASSET_BUNDLE, _localPath);
+                ResMgr.Ins.Init(ResMgr.EResMgrType.RESOURCES, _localPath);
             }
+
             _onUpdate();
         }
 
