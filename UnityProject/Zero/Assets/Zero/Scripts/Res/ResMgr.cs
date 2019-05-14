@@ -14,6 +14,7 @@ namespace Zero
         {
             ASSET_BUNDLE,
             RESOURCES,
+            ASSET_DATA_BASE,
         }
 
         static ResMgr _ins = new ResMgr();
@@ -55,6 +56,10 @@ namespace Zero
                 case EResMgrType.RESOURCES:
                     Log.CI(Log.COLOR_BLUE, "初始化资源管理器... 资源来源：[Resources]");
                     _mgr = new ResourcesResMgr();                    
+                    break;
+                case EResMgrType.ASSET_DATA_BASE:
+                    Log.CI(Log.COLOR_BLUE, "初始化资源管理器... 资源来源：[AssetDataBase]");
+                    _mgr = new AssetDataBaseResMgr(manifestFilePath);
                     break;
             }
         }

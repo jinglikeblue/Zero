@@ -16,6 +16,10 @@
         /// <summary>
         /// 从Resources下直接获取资源（开发阶段使用）
         /// </summary>
-        RESOURCES
+        RESOURCES,
+        /// <summary>
+        /// 使用AssetDataBase接口加载资源
+        /// </summary>
+        ASSET_DATA_BASE,
     }
 }

@@ -50,7 +50,7 @@ public class PreloadCustomEditor : Editor
             EditorGUI.indentLevel = 1;
 
             EditorGUILayout.Space();
-            _vo.hotResMode = (EHotResMode)EditorGUILayout.Popup("资源来源", (int)_vo.hotResMode, new string[] { "从网络资源目录获取资源", "从本地资源目录获取资源", "从Resources下直接获取资源（推荐开发阶段使用）" });
+            _vo.hotResMode = (EHotResMode)EditorGUILayout.Popup("资源来源", (int)_vo.hotResMode, new string[] { "从网络资源目录加载资源", "从本地资源目录加载资源", "从Resources下直接加载资源", "使用AssetDataBase加载资源（推荐开发阶段使用）" });
 
             if (EHotResMode.NET == _vo.hotResMode)
             {
@@ -58,14 +58,18 @@ public class PreloadCustomEditor : Editor
                 EditorGUILayout.LabelField("网络资源的根目录");
                 _vo.netRoot = EditorGUILayout.TextField(_vo.netRoot);
             }
-
-            if (EHotResMode.LOCAL == _vo.hotResMode)
+            else if (EHotResMode.LOCAL == _vo.hotResMode)
             {
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("本地资源的根目录（建议和发布配置匹配）");
                 _vo.localResRoot = EditorGUILayout.TextField(_vo.localResRoot);
             }
-
+            else if(EHotResMode.ASSET_DATA_BASE == _vo.hotResMode)
+            {
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Asset中热更资源的根目录");
+                _vo.hotResRoot = EditorGUILayout.TextField(_vo.hotResRoot);
+            }
 
             OnDllInspectorGUI();
         }

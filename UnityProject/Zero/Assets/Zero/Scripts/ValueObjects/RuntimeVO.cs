@@ -29,6 +29,9 @@ namespace Zero
         [Header("本地资源的根目录")]
         public string localResRoot;
 
+        [Header("Asset中热更资源的根目录")]
+        public string hotResRoot;
+
         #region 脚本热更部分
         [Header("只使用DLL(忽略反射执行代码)")]
         public bool isUseDll;

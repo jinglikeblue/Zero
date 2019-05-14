@@ -40,7 +40,14 @@ namespace Zero
 
         void InitAssetBundleMgr()
         {
-            ResMgr.Ins.Init(Runtime.Ins.IsLoadABFromResources ? ResMgr.EResMgrType.RESOURCES : ResMgr.EResMgrType.ASSET_BUNDLE, _localPath);
+            if (Runtime.Ins.IsLoadAssetByAssetDataBase)
+            {
+                ResMgr.Ins.Init(ResMgr.EResMgrType.ASSET_DATA_BASE, Runtime.Ins.VO.hotResRoot);
+            }
+            else
+            {
+                ResMgr.Ins.Init(Runtime.Ins.IsLoadABFromResources ? ResMgr.EResMgrType.RESOURCES : ResMgr.EResMgrType.ASSET_BUNDLE, _localPath);
+            }
             _onUpdate();
         }
 

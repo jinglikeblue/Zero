@@ -73,6 +73,21 @@ namespace Zero
         public LocalResVerModel localResVer;
 
         /// <summary>
+        /// 是否使用AssetDataBase加载资源
+        /// </summary>
+        public bool IsLoadAssetByAssetDataBase
+        {
+            get
+            {
+                if(_vo.isHotResProject && _vo.hotResMode == EHotResMode.ASSET_DATA_BASE)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        /// <summary>
         /// 是否允许从Resources加载数据
         /// </summary>
         public bool IsLoadABFromResources

@@ -70,6 +70,9 @@ namespace Zero.Edit
                 {
                     GenerateCLRBindingByAnalysis(dllFile, cfg.bindingCodeDir);
                 }
+
+                EditorUtility.DisplayDialog("提示", "成功！", "OK");
+                AssetDatabase.Refresh();
             }
 
             if (GUILayout.Button("清空绑定代码", GUILayout.Width(100)))
@@ -82,6 +85,8 @@ namespace Zero.Edit
                 {
                     EditorUtility.DisplayDialog("提示", "失败！", "OK");
                 }
+
+                AssetDatabase.Refresh();
             }
 
             GUILayout.EndHorizontal();
