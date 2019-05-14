@@ -29,30 +29,37 @@ namespace Zero
         /// <param name="assetName"></param>
         string AssetBundlePath2ResourcePath(string abName, string assetName)
         {
-            abName = ABNameWithoutExtension(abName);
-            string dir;
-            if (abName.ToLower() != HotResConst.SPECIAL_AB_NAME) //resources表示从根目录获取资源，则不需要添加目录
+            try
             {
-                dir = FileSystem.CombinePaths(_assetRoot, abName);
+                abName = ABNameWithoutExtension(abName);
+                string dir;
+                if (abName.ToLower() != HotResConst.SPECIAL_AB_NAME) //resources表示从根目录获取资源，则不需要添加目录
+                {
+                    dir = FileSystem.CombinePaths(_assetRoot, abName);
+                }
+                else
+                {
+                    dir = FileSystem.CombinePaths(_assetRoot);
+                }
+
+                //模糊匹配资源名称
+                var files = Directory.GetFiles(dir);
+                foreach (var file in files)
+                {
+                    if (Path.GetExtension(file) == ".meta")
+                    {
+                        continue;
+                    }
+
+                    if (Path.GetFileNameWithoutExtension(file) == assetName)
+                    {
+                        return file;
+                    }
+                }
             }
-            else
+            catch
             {
-                dir = FileSystem.CombinePaths(_assetRoot);
-            }            
-
-            //模糊匹配资源名称
-            var files = Directory.GetFiles(dir);
-            foreach (var file in files)
-            {
-                if (Path.GetExtension(file) == ".meta")
-                {
-                    continue;
-                }
-
-                if (Path.GetFileNameWithoutExtension(file) == assetName)
-                {
-                    return file;
-                }
+                throw new Exception(string.Format("在[{0}]下无法找到资源文件[{1}/{2}]", _assetRoot, abName, assetName));
             }
             return null;
         }
@@ -88,7 +95,7 @@ namespace Zero
             {
                 onProgress.Invoke(0);
             }            
-            yield return 0;
+            yield return new WaitForEndOfFrame();
 #if UNITY_EDITOR
             if (null != onProgress)
             {

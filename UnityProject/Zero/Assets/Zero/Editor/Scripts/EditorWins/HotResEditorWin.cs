@@ -146,7 +146,7 @@ namespace Zero.Edit
         {
             _cfg.isKeepManifest = GUILayout.Toggle(_cfg.isKeepManifest, "保留「.manifest」文件", GUILayout.Width(150));
 
-            _cfg.abHotResDir = GUIFolderSelect.OnGUI("热更资源目录(仅该目录下的资源会作为AssetBundle发布):", 500, _cfg.abHotResDir, ZeroEditorUtil.ResourcesFolder, "hot_res", (path) =>
+            _cfg.abHotResDir = GUIFolderSelect.OnGUI("热更资源目录(仅该目录下的资源会作为AssetBundle发布):", 500, _cfg.abHotResDir, Application.dataPath, "hot_res", (path) =>
              {
                  path = path.Replace(Application.dataPath, "");
 

@@ -71,10 +71,16 @@ namespace Zero.Edit
                     EditorGUILayout.LabelField("Asset中热更资源目录(通过菜单Zero > Publish > HotRes中的AssetBundle配置)");
                     var model = new HotResPublishModel();
                     _vo.hotResRoot = model.Cfg.abHotResDir;
-
-                    EditorGUI.BeginDisabledGroup(true);
-                    EditorGUILayout.TextField(_vo.hotResRoot);
-                    EditorGUI.EndDisabledGroup();
+                    if (string.IsNullOrEmpty(_vo.hotResRoot))
+                    {                        
+                        EditorGUILayout.LabelField("<color=#FF0000>*尚未配置</color>", new GUIStyle());
+                    }
+                    else
+                    {
+                        EditorGUI.BeginDisabledGroup(true);
+                        EditorGUILayout.TextField(_vo.hotResRoot);
+                        EditorGUI.EndDisabledGroup();
+                    }
                 }
 
                 OnDllInspectorGUI();

@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 555407608
+CRC: 200833342
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 586da8b90dcaa562398b4e9e098be38b
+    Hash: 426f75759bc1ee333b7a60882b349c67
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 91b116fe3728f31663d23a6b95648d6f
+    Hash: 6bdad6bdfbbdaccf6825187c4b1539c5
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -38,5 +38,5 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 Assets:
-- Assets/Resources/hot_res/DemoILContent.prefab
+- Assets/@Resources/hot_res/DemoILContent.prefab
 Dependencies: []

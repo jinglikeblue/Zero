@@ -27,7 +27,7 @@ namespace Zero.Edit
         public bool isKeepManifest = false;
 
         /// <summary>
-        /// 热更资源目录，该目录为Assets/Resources下的某一个子目录
+        /// 热更资源目录，该目录为Assets下的某一个子目录
         /// </summary>
         public string abHotResDir = "";
 

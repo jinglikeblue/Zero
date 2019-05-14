@@ -628,11 +628,11 @@ MonoBehaviour:
     isLogEnable: 1
     mainPrefab: hot_res/DemoILContent
     isHotResProject: 1
-    hotResMode: 2
+    hotResMode: 0
     netRoot: http://wepieces.cn/unity/zero/demo/Res
     localResRoot: ./Res
-    hotResRoot: Assets/Resources
-    isUseDll: 0
+    hotResRoot: Assets/@Resources
+    isUseDll: 1
     ilType: 0
     fileName: ILProject
     className: IL.Demo.ILMain

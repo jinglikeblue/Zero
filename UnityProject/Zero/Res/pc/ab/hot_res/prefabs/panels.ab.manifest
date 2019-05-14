@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3309635741
+CRC: 127979865
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 1d8c3403440cd737d788a466a46c70d1
+    Hash: 2ca4c1ec3cfd824669254db3f54c0427
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 4e4468a085da0dcb1cb3368432aa8c23
+    Hash: 30f6c51dbf0baa580d7863bc04503369
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -34,7 +34,7 @@ ClassTypes:
 - Class: 225
   Script: {instanceID: 0}
 Assets:
-- Assets/Resources/hot_res/prefabs/panels/GamePanel.prefab
-- Assets/Resources/hot_res/prefabs/panels/MenuPanel.prefab
+- Assets/@Resources/hot_res/prefabs/panels/GamePanel.prefab
+- Assets/@Resources/hot_res/prefabs/panels/MenuPanel.prefab
 Dependencies:
-- G:/Projects/Zero/UnityProject/Zero/./Res/pc/ab/auto_depends/cross_0.ab
+- F:/projects/Zero/UnityProject/Zero/./Res/pc/ab/auto_depends/cross_0.ab

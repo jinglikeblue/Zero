@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 2599003412
+CRC: 3872799556
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 686aad27b05b92d8e378ddb401afda5c
+    Hash: f47e9015a07f9c726d0c5cf80c70299f
   TypeTreeHash:
     serializedVersion: 2
     Hash: ea5a42e0fd8ea905efa7aa926a3b8944
@@ -14,5 +14,5 @@ ClassTypes:
 - Class: 213
   Script: {instanceID: 0}
 Assets:
-- Assets/Demo/Imgs/game/b2.png
+- Assets/Demo/Imgs/Game/b2.png
 Dependencies: []

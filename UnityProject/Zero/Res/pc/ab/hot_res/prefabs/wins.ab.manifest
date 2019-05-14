@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3166662680
+CRC: 4169223774
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 91c444761380f213dae5791df27eeee0
+    Hash: 2d088ffbb59fe88e00705a56f65c0cc2
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 251b0ba0744b429d7523682e7bf9457c
+    Hash: cebba3de0335eb6929273f67bf9d43ff
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -40,5 +40,5 @@ ClassTypes:
 - Class: 224
   Script: {instanceID: 0}
 Assets:
-- Assets/Resources/hot_res/prefabs/wins/HelpWin.prefab
+- Assets/@Resources/hot_res/prefabs/wins/HelpWin.prefab
 Dependencies: []

@@ -39,13 +39,13 @@ namespace Zero
             get { return _mgr.RootDir; }
         }
 
-        public void Init(EResMgrType type, string manifestFilePath = null)
+        public void Init(EResMgrType type, string assetRoot = null)
         {
             switch (type)
             {
                 case EResMgrType.ASSET_BUNDLE:
-                    Log.CI(Log.COLOR_BLUE, "初始化资源管理器... 资源来源：[AssetBundle]  Manifest路径：{0}", manifestFilePath);
-                    var newMgr = new AssetBundleResMgr(manifestFilePath);
+                    Log.CI(Log.COLOR_BLUE, "初始化资源管理器... 资源来源：[AssetBundle]  Manifest路径：{0}", assetRoot);
+                    var newMgr = new AssetBundleResMgr(assetRoot);
                     if (_mgr != null && _mgr is AssetBundleResMgr)
                     {
                         //替换旧的需要继承一下已加载字典
@@ -58,8 +58,8 @@ namespace Zero
                     _mgr = new ResourcesResMgr();                    
                     break;
                 case EResMgrType.ASSET_DATA_BASE:
-                    Log.CI(Log.COLOR_BLUE, "初始化资源管理器... 资源来源：[AssetDataBase]");
-                    _mgr = new AssetDataBaseResMgr(manifestFilePath);
+                    Log.CI(Log.COLOR_BLUE, "初始化资源管理器... 资源来源：[AssetDataBase] 资源根目录：{0}", assetRoot);
+                    _mgr = new AssetDataBaseResMgr(assetRoot);
                     break;
             }
         }

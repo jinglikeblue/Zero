@@ -37,7 +37,7 @@ namespace Zero.Edit
                 //删除目标目录
                 Directory.Delete(releaseDir, true);
             }
-            new AssetBundleBuilder(releaseDir, "Assets/Resources").Start();
+            new AssetBundleBuilder(releaseDir, _abResourcesDir).Start();
 
             if (false == _isKeepManifest)
             {
