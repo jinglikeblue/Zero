@@ -1,50 +1,51 @@
-目标版本：**alpha 0.2**
+![](DOCS/icon.png)
 
-#### 测试环境
-Unity版本： **2018.2.20**  
-Scripting Runtime Version: **.NET 3.5 Equivalent**    
-Api Compatibility Level: **.NET Standard 2.0**    
+# 简介
 
+Zero是在Unity中一套游戏开发框架，为游戏开发核心的问题提供了解决方案。其中包括但不限于：
+- 资源管理
+    - 可快速切换通过Resources接口加载资源的管理工具
+    - 支持开发时通过AssetDataBase接口加载资源调试的管理工具
+    - 支持通过AssetBundle加载资源的管理工具
+- 视图管理
+    - 不用继承MonoBehaviour的视图管理方案，提高视图部分的代码执行效率
+- 项目统一使用C#的代码热更新
+    - 基于ILRuntime热更框架（支持IL2CPP&Mono）
+    - 基于动态Dll（仅支持Mono）
+- 工具集
+    - 热更资源发布工具
+    - XCode项目参数配置工具
+    - 资源优化快捷工具
+    - IL2CPP工具
+    - ILRuntime工具
 
-#### 修改
-- 调整了一些代码和提示的细节
-- 协程的使用从此改为使用ILBridge.Ins，CoroutineBridge已移除
-- 目录调整，Res目录以及ILProject目录放到Asset中(方便一个项目迁出多个平台的项目)
-- Demo直接支持所有4种资源模式的运行
-- 增加了MonoBehaviour的单例模式组件SingletonMonoBehaviour。实现参考AudioPlayer。
-- 状态机类修改为泛型委托
-- 修改了DLL热更代码执行的方式
-    - MONO编译模式时为直接反射执行DLL代码
-    - IL2CPP编译模式时为使用ILRuntime框架执行DLL代码
-    - 因为IL代码并不是一定运行在ILRuntime中，所以ILRuntimeBridge改为ILBridge。并且反射执行DLL和ILRuntime执行DLL两种方式拆分为ILWorker类。
-    - ILRuntime需要的适配器，由玩家继承BaseILRuntimeGenerics并实现。
-- 调试
-    - Log.Msg改为使用GUI实现，移除旧的UGUI实现
-- 新的图层管理机制Layer，可以根据项目需要创建任意多个图层
-- 每个AView绑定的GameObject都添加一个ZeroView脚本，用来获取enable destroy等事件。这样GameObject被销毁的时候，AView也能捕获到并处理。
-- Preload增加了错误捕获接口
-- 升级了ILRuntime框架，可以支持2018.3
-- 热更资源的发布功能整合到「Zero -> Publish -> HotRes」菜单中
-    - 资源模式统一为所有资源放到Resources目录下用以兼容开发和正式环境的资源调用方式切换 
+# Zero的特点
 
-#### 新增
-- 增加AudioPlayer组件，可以自定义音效轨道数量。管理播放声音
-- 客户端更新增加一个选择项，可以指定下载优先为下载安装包还是跳转更新网址
-- 新增一个Zero的Android库项目，提供Android下支持客户端直接下载APK更新。（详见文档介绍）
-- 增加了IOS发布XCode项目时自动添加参数的Editor窗口
-- 资源
-    - res.json中增加文件大小（字节）
-- UI
-    - 可以在UGUI中播放序列帧动画的组件MovieClip
-    - 用于扩展UGUI ScrollView的高效列表组件ZList
-- 调试
-    - 增加GUIDeviceInfo，可以显示游戏的帧数等信息
-- Editor
-    - PackingTag管理器   
-    可以列举出项目中所有的Packing Tag标记。选择删除指定的Packing Tag标记。
-    - Find Useless  
-    可以查找选定目录中的无效资源（没有被其它任何资源引用，也没有AssetBundle标记）
-    - link.xml生成器  
-    扫描指定目录中的DLL，并生成Linker.xml，让IL2CPP排除对这些类的裁剪
-    - ILRuntime管理器  
-    通过管理器可以对热更DLL生成自动绑定代码
+- 通常我们在开发的不同时期，对资源的加载方式有不同的需求。而这些你都不用改动一行代码，只需在Inspector中一个设置即可搞定。
+    - Zero提供统一的资源管理中心，可以在各种不同的资源加载方式中无缝切换。调试时你可以通过直接加载编辑中的资源。发布后你可以通过情况加载本地AssetBundle文件或来自网络的AssetBundle文件进行调试。
+    - 项目代码的热更方案可以快速的切换无热更/反射热更/ILRuntime热更
+- 热更资源的打包通过工具整合，不用复杂的管理方案，一次配置好后，代码以及资源一键发布。
+    - AssetBundle打包自带依赖自动分析，开发者不用再担心依赖资源打包问题，Zero打包出的AssetBundle之间不会有冗余资源。
+    - Zero打包的资源自带版本号文件res.json。配合Zero内部的资源下载工具，可以每次最小化更新资源。
+- Zero提供的视图管理框架可以轻松的对游戏中的视图进行管理。
+
+# 快速入门
+
+版本：**1.0**
+
+#### Unity环境
+Unity版本： **2018.4.0**  
+Scripting Runtime Version: **.NET 4.x Equivalent**    
+Api Compatibility Level: **.NET 4.x**    
+
+[中文文档(https://jinglikeblue.github.io/Zero/Docs/Intro)](https://jinglikeblue.github.io/Zero/Docs/Intro)
+
+[2D游戏Demo(https://github.com/jinglikeblue/Zero2DGameDemo)](https://github.com/jinglikeblue/Zero2DGameDemo)
+
+[3D游戏Demo(https://github.com/jinglikeblue/Zero3DGameDemo)](https://github.com/jinglikeblue/Zero3DGameDemo)
+
+# 交流平台
+
+QQ群：695429639
+
+![](Docs/QQChatGroups.png)
