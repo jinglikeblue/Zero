@@ -1,4 +1,4 @@
-![](icon.png)
+![](Imgs/icon.jpg)
 
 ### 目录
 - [Zero简介](#Zero简介)
