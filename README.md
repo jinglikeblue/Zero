@@ -1,4 +1,4 @@
-![](Docs/icon.jpg)
+![](Docs/Imgs/icon.jpg)
 
 # 简介
 
@@ -48,4 +48,4 @@ Api Compatibility Level: **.NET 4.x**
 
 QQ群：695429639
 
-![](Docs/QQChatGroups.png)
+![](Docs/Imgs/QQChatGroups.png)
