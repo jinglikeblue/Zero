@@ -1,33 +1,24 @@
 ![](Imgs/icon.jpg)
 
 ### 目录
-- [Zero简介](#Zero简介)
 - [从Demo开始](#从Demo开始)
-- [教程](#教程)
+- [内容](#教程)
     - [Preload介绍](Preload.md)
     - [ILContent介绍](ILContent.md)
     - [视图管理](ViewFramework.md)
     - [资源管理](ResManager.md)
     - [其它](Other.md)
     - [扩展](Extend.md)
-- [依赖库](#依赖库)
+- [Editor工具](#Editor工具)
+    - [Publish]
+        - [Setting]
+        - [HotRes]
+    - [iOS]
+        - [ProjectInit]
+    - [Assets]
+    - [IL2CPP]
+    - [ILRuntime]    
 - [Q&A](QuestionAnswer.md)
-
-
-## Zero简介
-
-Zero框架是基于Unity引擎的一套游戏开发解决方案，解决了游戏开发比较核心的三个问题
-- 资源管理
-- 视图管理
-- 代码热更新（依赖于ILRuntime热更框架）  
-
-同时对常用的功能进行了封装使其更易用， 例如：
-- 二进制数据操作
-- Zip文件操作
-- Socket通信
-- 网络资源下载
-- 可控的Log打印
-- 基于Unity Editor的可视化
  
 
 ## 从Demo开始
@@ -77,24 +68,3 @@ Asset/Zero/ILContent组件是Zero框架中视图框架的很好的模板。根�
 - [资源管理](ResManager.md)
 - [其它](Other.md)
 - [扩展](Extend.md)
-
-## 依赖库
-
-Zero框架的完整性依赖Asset/Zero/Libs中的代码库
-
-
-- ILRuntime  
-基于C#的代码热更框架，内容过于复杂这里不做讲解。  
-对于需要在项目中使用代码热更的开发者，请访问ILRuntime作者的网站以了解[http://ourpalm.github.io/ILRuntime/public/v1/guide/index.html](http://ourpalm.github.io/ILRuntime/public/v1/guide/index.html)
-
-
-- Jing  
-Zero作者Jing的基于.NET Standard的代码库
-
-
-- LitJson  
-修改过的支持ILRuntime的Json库
-
-
-- SharpZipLib  
-Zip文件操作
