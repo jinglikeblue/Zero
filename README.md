@@ -1,4 +1,4 @@
-![](DOCS/icon.png)
+![](DOCS/icon.jpeg)
 
 # 简介
 
