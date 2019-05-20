@@ -92,50 +92,43 @@ Preload.cs提供了以下两个委托，用来获取当前Preload的情况：
 ## Preload配置Runtime参数详解
 Inspector中参数解释：
 
-- ResMode  
-资源模式
+- 是否打印日志  
 
-- NetRoot  
-网路资源放置的根目录（不含平台路径）
+- 启动Prefab
 
-- DevelopResRoot  
-本地存放开发资源的目录，网络资源-开发模式时会使用
+- 启动类(完全限定)
 
-- LogEnable  
-是否允许Zero的Log系统打印日志
+- 使用热更  
 
-- ILCfg  
-针对IL（可热更）代码的配置
+    - 资源来源
 
-    - IsOnlyDll 
-    true：则强制加载DLL并执行IL代码  false：有项目本地代码的情况下，优先使用本地IL代码，如果没有，则加载DLL代码
-    
-    - FileDir  
-    在资源目录中DLL文件所在的文件夹的（相对）路径
-    
-    - FileName  
-    DLL文件的文件名，不需要加后缀
-    
-    - ClassName  
-    IL代码启动的类的完全限定名称
-    
-    - MethodName  
-    启动类中的启动方法的名称
-    
-    - IsDebugIL  
-    是否开启IL代码调试，需要配合ILRuntime的VS插件，详见ILRuntime介绍
-    
-    - IsLoadPdb  
-    是否加载DLL匹配的PDB文件，如果需要IL代码出错时打印出错代码位置，则需要开启，且确保PDB文件和DLL文件放在同一目录。正式发布时建议关闭该选项。
+        - 从网络资源目录加载
 
- - MainPrefab    
- 预热完以后启动业务逻辑中间件的配置
+            - 网络资源根目录
 
-    - ABName
-    中间件所在资源包的名称
-    
-    - AssetName
-    中间价Prefab的名称
+        - 从本地资源目录加载
+
+            - 本地的资源根目录
+
+        - 使用AssetDataBase加载(推荐开发阶段使用)
+
+            - Asset中热更资源的目录
+
+    - 使用DLL
+
+        - DLL执行方式
+
+        - 文件目录
+
+        - DLL文件名
+
+        - 启动方法(必须为Static)
+
+        - 调试功能
+        (仅ILRuntime)
+
+        - 加载Pdb文件
+        (仅ILRuntime)
     
     
     
