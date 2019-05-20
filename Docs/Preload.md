@@ -66,18 +66,18 @@ Hierarchy中的Preload是一个简单的游戏启动的加载视图，该视图�
 程序启动的时候，会检测如果是第一次安装程序，且存在Package.zip，便会将其解压出来。解压后的资源使用方式和热更资源的使用方式一致，参考 **「资源管理解决方案」**
 
 ### 2.检查/更新setting.json
->setting.json可以理解为网络资源的入口文件，所有网络资源的加载都从这个配置文件开始。该文件可通过Editor菜单项[Zero/Publish/Setting](PublishEditor.md)进行配置/发布。
+>setting.json可以理解为网络资源的入口文件，所有网络资源的加载都从这个配置文件开始。该文件可通过Editor菜单项[[Zero/Publish/Setting]](PublishEditor.md)进行配置/发布。
 
 ### 3.检查/更新客户端
->当客户端版本和服务器配置不一致时，会在浏览器中访问配置的更新地址URL。
+>当客户端版本低于服务器配置时，会根据配置更新客户端。
 
 ### 4.资源更新检查
->加载配置的资源目录里的res.json文件，并根据配置的启动需要资源组，找出网络上和本地版本不一致的资源并更新。
-
-res.json文件描述了网络资源的存储路径以及MD5码，可以通过Editor中的菜单项「Zero/Res」进行配置/发布。
+>加载热更资源的res.json(通过[[Zero/Publish/HotRes]](PublishEditor.md)发布)文件，并根据配置的启动资源组，比较并更新资源为最新版本。
 
 ### 5.启动ILContents
->当Zero完成了预热以后，则会生成ILContents这个Prefab，并销毁Preload。至此整个游戏进入中间层阶段。
+>当Zero完成了预热以后，则会创建[[ILContent]](ILContent.md)，并销毁Preload。
+
+至此，整个游戏进入中间层(热更区域)阶段。
 
 #### 预热的状态以及进度获取
 
