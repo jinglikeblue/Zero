@@ -26,10 +26,14 @@ namespace Zero.Edit
             EditorGUILayout.Space();
             _vo.mainPrefab = EditorGUILayout.TextField("启动Prefab", _vo.mainPrefab);
 
-            EditorGUILayout.Space();
-            EditorGUILayout.LabelField("启动类(完全限定)");
-            _vo.className = EditorGUILayout.TextField("Startup Class:", _vo.className);
+            
+            EditorGUILayout.Space();                      
+            EditorGUILayout.LabelField("启动类");
+            EditorGUI.indentLevel = 1;
+            _vo.className = EditorGUILayout.TextField("(完全限定)Class:", _vo.className);            
+            _vo.methodName = EditorGUILayout.TextField("(静态)Method:", _vo.methodName);
 
+            EditorGUI.indentLevel = 0;
             OnHotResInspectorGUI();
 
             //当Inspector 面板发生变化时保存数据
@@ -62,14 +66,25 @@ namespace Zero.Edit
                 else if (EHotResMode.LOCAL_ASSET_BUNDLE == _vo.hotResMode)
                 {
                     EditorGUILayout.Space();
-                    EditorGUILayout.LabelField("本地资源的根目录（建议和发布配置匹配）");                    
-                    _vo.localResRoot = EditorGUILayout.TextField(_vo.localResRoot);                    
+                    EditorGUILayout.LabelField("本地资源的根目录(通过菜单Zero > Publish > HotRes中的Res发布目录配置)");
+                    var model = new HotResPublishModel();
+                    _vo.localResRoot = model.Cfg.resDir;
+                    if (string.IsNullOrEmpty(_vo.localResRoot))
+                    {
+                        EditorGUILayout.LabelField("<color=#FF0000>*尚未配置</color>", new GUIStyle());
+                    }
+                    else
+                    {
+                        GUI.enabled = false;
+                        EditorGUILayout.TextField(_vo.localResRoot);
+                        GUI.enabled = true;
+                    }
                 }
                 else if (EHotResMode.ASSET_DATA_BASE == _vo.hotResMode)
                 {
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("Asset中热更资源目录(通过菜单Zero > Publish > HotRes中的AssetBundle配置)");
-                    var model = new HotResPublishModel();
+                    var model = new HotResPublishModel();                    
                     _vo.hotResRoot = model.Cfg.abHotResDir;
                     if (string.IsNullOrEmpty(_vo.hotResRoot))
                     {                        
@@ -77,9 +92,9 @@ namespace Zero.Edit
                     }
                     else
                     {
-                        EditorGUI.BeginDisabledGroup(true);
+                        GUI.enabled = false;
                         EditorGUILayout.TextField(_vo.hotResRoot);
-                        EditorGUI.EndDisabledGroup();
+                        GUI.enabled = true;
                     }
                 }
 
@@ -110,15 +125,13 @@ namespace Zero.Edit
 
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("文件目录(相对于资源根目录)");
-                EditorGUILayout.LabelField(HotResConst.DLL_DIR_NAME);
+                GUI.enabled = false;
+                EditorGUILayout.TextField(HotResConst.DLL_DIR_NAME);
+                GUI.enabled = true;                
 
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("Dll文件名");
                 _vo.fileName = EditorGUILayout.TextField(_vo.fileName);
-
-                EditorGUILayout.Space();
-                EditorGUILayout.LabelField("启动方法(必须为Static)");
-                _vo.methodName = EditorGUILayout.TextField("Startup Method:", _vo.methodName);
 
                 if (_vo.ilType == EILType.IL_RUNTIME)
                 {

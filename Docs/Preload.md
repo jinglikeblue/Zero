@@ -92,43 +92,44 @@ Preload.cs提供了以下两个委托，用来获取当前Preload的情况：
 ## Preload配置Runtime参数详解
 Inspector中参数解释：
 
-- 是否打印日志  
+- 是否打印日志<br>如果关闭该选项，则通过Zero.Log以及UnityEngine.Debug打印的日志会自动屏蔽。<br>注意：警告以及错误仍然会打印。建议正式版本关闭打印，可以提高性能
 
-- 启动Prefab
+- 启动Prefab<br>该Prefab指的是Preload预热完后启动的对象。如果是热更项目，则该Prefab为热更资源。通常Zero中使用[「ILContent」](ILContent.md)即可
 
-- 启动类(完全限定)
+- 启动类(完全限定)<br>该Prefab指的是Preload预热完后会调用的第一个类对象。如果是热更项目，则该类为热更DLL中的类。
 
-- 使用热更  
+- 使用热更<br>如果没有勾选，则项目为本地项目，不依赖网络资源  
 
     - 资源来源
 
-        - 从网络资源目录加载
+        - 从网络资源目录加载<br>将通过配置的网络目录获取setting文件，并下载热更资源
 
-            - 网络资源根目录
+            - 网络资源根目录<br>该位置填写web服务器上放置资源的目录,格式通常为*http://wepieces.cn/unity/zero/demo/Res*这种
 
-        - 从本地资源目录加载
+        - 从本地资源目录加载<br>将从*Zero/Publish/HotRes*中配置的Res发布目录下获取资源
 
             - 本地的资源根目录
 
         - 使用AssetDataBase加载(推荐开发阶段使用)
 
-            - Asset中热更资源的目录
+            - Asset中热更资源的目录<br>将从*Zero/Publish/HotRes*中配置的Res发布目录下获取资源
 
-    - 使用DLL
+    - 使用DLL *如果不勾选，则会通过安装包的代码执行程序。勾选后，将根据选择的方式执行HotRes打包出的DLL*
 
         - DLL执行方式
+            - 选择ILRuntime解释执行DLL可以兼容MONO和IL2CPP
+            - 选择反射执行，则只能兼容MONO，但是因为JIT的原因执行性能高于ILRuntime
 
         - 文件目录
 
-        - DLL文件名
+        - DLL文件名<br>打包出的DLL文件的名称，不需要扩展名
 
-        - 启动方法(必须为Static)
+        - 启动方法(必须为Static)<br>启动类中的该方法将在Preload预热后被调用
 
-        - 调试功能
-        (仅ILRuntime)
+        - 调试功能<br>开启后可以配合ILRuntime的调试工具，在真机环境调试DLL代码      
 
-        - 加载Pdb文件
-        (仅ILRuntime)
+        - 加载Pdb文件<br>开启后可以在DLL中代码执行出错时打印错误堆栈信息
+        
     
     
     

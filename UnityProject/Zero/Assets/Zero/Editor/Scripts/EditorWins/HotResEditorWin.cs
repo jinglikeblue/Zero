@@ -43,7 +43,7 @@ namespace Zero.Edit
                 ShowNotification(new GUIContent("保存成功"));
             }
 
-            _cfg.resDir = EditorGUILayout.TextField("Res目录:", _cfg.resDir);
+            _cfg.resDir = EditorGUILayout.TextField("Res发布目录:", _cfg.resDir);
             GUILayout.Space(10);
 
             GUIText.LayoutSplit("AssetBundle配置");
