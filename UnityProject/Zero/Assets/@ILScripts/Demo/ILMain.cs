@@ -27,7 +27,7 @@ namespace IL.Demo
         void Init()
         {            
             Application.targetFrameRate = 60;
-            var ILContent = GameObject.Find("DemoILContent");
+            var ILContent = GameObject.Find("ILContent");
             var stageRoot = ILContent.transform.Find("Stage");
             var uiPanelRoot = ILContent.transform.Find("UICanvas/UIPanel");
             var uiWinRoot = ILContent.transform.Find("UICanvas/UIWin");

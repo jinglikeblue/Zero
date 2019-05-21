@@ -11,31 +11,6 @@ namespace IL.Demo
     /// </summary>
     public class UIPanelMgr : ASingleton<UIPanelMgr>
     {
-        class Animator : ASingularViewSwitchAnimator
-        {            
-            public override void StartSwitch(AView oldView, AView newView, Action<ASingularViewSwitchAnimator> onSwitchComplete)
-            {
-                ILBridge.Ins.StartCoroutine(Switch(oldView, newView, onSwitchComplete));
-            }
-
-            IEnumerator Switch(AView oldView, AView newView, Action<ASingularViewSwitchAnimator> onSwitchComplete)
-            {
-                var oldCG = oldView.GetComponent<CanvasGroup>();
-                var newCG = newView.GetComponent<CanvasGroup>();
-                newCG.alpha = 0;
-
-                while (newCG.alpha < 1)
-                {
-                    newCG.alpha += 0.01f;
-                    oldCG.alpha -= 0.01f;
-                    yield return new WaitForEndOfFrame();
-                }
-
-                onSwitchComplete.Invoke(this);
-            }
-        }
-
-
         SingularViewLayer _layer;
 
         public void Init(Transform root)
@@ -43,7 +18,6 @@ namespace IL.Demo
             if (null == _layer)
             {
                 _layer = new SingularViewLayer(root.gameObject);
-                _layer.RegistSwitchAnimator(new Animator());
             }
         }
 
@@ -55,6 +29,7 @@ namespace IL.Demo
         /// <returns></returns>
         public T Switch<T>(object data = null) where T : AView
         {
+            _layer.Clear();
             //生成新的界面
             var view = _layer.Show<T>(data);
             return view;
@@ -69,7 +44,12 @@ namespace IL.Demo
         /// <param name="onProgress">创建进度回调方法</param>
         public void SwitchASync<T>(object data = null, Action<AView> onCreated = null, Action<float> onProgress = null) where T : AView
         {
-            _layer.ShowASync<T>(data, OnASyncShow, onCreated, onProgress);                        
+            _layer.ShowASync<T>(data, OnASyncShow, onCreated, onProgress, OnLoaded);                        
+        }
+
+        private void OnLoaded(UnityEngine.Object obj)
+        {
+            _layer.Clear();
         }
 
         private void OnASyncShow(AView view, object token)
