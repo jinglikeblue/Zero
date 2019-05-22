@@ -44,12 +44,7 @@ namespace IL.Demo
         /// <param name="onProgress">创建进度回调方法</param>
         public void SwitchASync<T>(object data = null, Action<AView> onCreated = null, Action<float> onProgress = null) where T : AView
         {
-            _layer.ShowASync<T>(data, OnASyncShow, onCreated, onProgress, OnLoaded);                        
-        }
-
-        private void OnLoaded(UnityEngine.Object obj)
-        {
-            _layer.Clear();
+            _layer.ShowASync<T>(data, OnASyncShow, onCreated, onProgress);                        
         }
 
         private void OnASyncShow(AView view, object token)

@@ -22,7 +22,12 @@ namespace IL.Zero
             _viewList = new List<AView>();
         }
 
-        public override void ShowView(AView view)
+        protected override void BeforeShow()
+        {
+            Clear();
+        }
+
+        protected override void ShowView(AView view)
         {
             if (false == _viewList.Contains(view))
             {
@@ -56,5 +61,7 @@ namespace IL.Zero
             }
             _viewList.Clear();
         }
+
+
     }
 }

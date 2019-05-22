@@ -18,11 +18,16 @@ namespace IL.Zero
 
         }
 
+        protected override void BeforeShow()
+        {
+            Clear();
+        }
+
         /// <summary>
         /// 切换视图
         /// </summary>
         /// <param name="view"></param>
-        public override void ShowView(AView view)
+        protected override void ShowView(AView view)
         {
             if(null != Current)
             {
@@ -56,6 +61,6 @@ namespace IL.Zero
                 Current.Destroy();
                 Current = null;
             }
-        }
+        }    
     }
 }

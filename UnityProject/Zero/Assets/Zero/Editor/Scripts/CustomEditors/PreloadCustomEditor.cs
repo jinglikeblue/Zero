@@ -30,8 +30,8 @@ namespace Zero.Edit
             EditorGUILayout.Space();                      
             EditorGUILayout.LabelField("启动类");
             EditorGUI.indentLevel = 1;
-            _vo.className = EditorGUILayout.TextField("(完全限定)Class:", _vo.className);            
-            _vo.methodName = EditorGUILayout.TextField("(静态)Method:", _vo.methodName);
+            _vo.className = EditorGUILayout.TextField("(完全限定) Class:", _vo.className);            
+            _vo.methodName = EditorGUILayout.TextField("(静态) Method:", _vo.methodName);
 
             EditorGUI.indentLevel = 0;
             OnHotResInspectorGUI();
