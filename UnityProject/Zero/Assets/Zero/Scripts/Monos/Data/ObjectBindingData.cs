@@ -35,5 +35,16 @@ namespace Zero
             
             return null;
         }
+
+        public static UnityEngine.Object[] Find(GameObject go, string key)
+        {
+            var data = go.GetComponent<ObjectBindingData>();
+            if (null == data)
+            {
+                return null;
+            }
+
+            return data.Find(key);
+        }
     }
 }
