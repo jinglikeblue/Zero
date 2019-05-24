@@ -122,8 +122,7 @@ namespace Zero.Edit
                     _model.IncludeDllCodes();
                 }
             }
-
-            _cfg.isAutoExcludeBeforeBuild = GUILayout.Toggle(_cfg.isAutoExcludeBeforeBuild, "Build时自动排除");
+            
             EditorGUILayout.EndVertical();
 
             EditorGUILayout.EndHorizontal();
