@@ -1,6 +1,7 @@
 # ILContent
 
 ### 目录
+- [简介](#简介)
 - [Zero中IL的定义](#IL定义)
 - [ILContent模板Prefab](#ILContent模板)
 - [ILContent.cs](#ILContent.cs)
@@ -8,6 +9,17 @@
 - [使用CoroutineBridge执行协程](#CoroutineBridge)
 - [使用BindingData给GameObject绑定数据](#BindingData)
 - [约定](#约定)
+
+## 简介
+
+> ILContent是游戏业务逻辑内容的起点，根据需求可以放到热更环境中。IL前缀表示这是一个中间件。在Zero中，所有带有IL标识符的内容都表示可以进行热更。
+
+在Preload完成预热后，会自动销毁绑定自己的GameObject，并拉起ILContent。而我们的游戏的整个逻辑则在ILContent中完成。
+
+Asset/Zero/ILContent组件是Zero框架中视图框架的很好的模板。根据Demo代码可以理解到整个Zero的视图管理机制可以通过ILContent组件很好的运作起来。
+
+- ILContent.cs 组件  
+该组件被ILContent绑定，通过Runtime的配置，其决定了IL代码的环境是使用本地程序集（打包时内嵌的代码），还是外部程序集（热更DLL代码库）
 
 ## Zero中IL的定义
 

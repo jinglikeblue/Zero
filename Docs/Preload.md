@@ -1,73 +1,83 @@
 # Preload
 
 ### 目录
+- [简介](#简介)
 - [Zero的四种资源资源模式](#Zero的四种资源资源模式)
 - [预热](#预热)
-    1. [解压Package.zip化](#解压Package.zip)
-    2. [检查/更新Setting.json](#检查/更新setting.json)
-    3. [检查/更新客户端](#检查/更新客户端)
-    4. [检查/更新启动资源](#检查/更新启动资源)
-    5. [启动ILContents](#启动ILContents)
-- [通过Runtime配置运行环境](#通过Runtime配置运行环境)
- 
+    1. [解压Package.zip化](#1.解压Package.zip)
+    2. [检查/更新Setting.json](#2.检查/更新setting.json)
+    3. [检查/更新客户端](#3.检查/更新客户端)
+    4. [检查/更新启动资源](#4.检查/更新启动资源)
+    5. [启动ILContents](#5.启动ILContents)
+- [Preload配置Runtime参数详解](#Preload配置Runtime参数详解)
+
+![](Imgs/preload_inspector.jpg)
+
+---
+
+## 简介
+
+> Zero中的Preload.cs脚本是整个程序预热的核心组件。
+
+Hierarchy中的Preload是一个简单的游戏启动的加载视图，该视图可以由使用者自己安排，用来表示游戏的启动画面和加载进度。重要的是该GameObject上我们绑定了组件「Preload.cs」，该组件上有一个「Runtime」配置详细描述了程序在启动时运行环境的参数。
+
+整个程序的预热过程都在该类中完成，其中依次包括：
+
+1. [解压Package.zip化](#1.解压Package.zip)
+2. [检查/更新Setting.json](#2.检查/更新setting.json)
+3. [检查/更新客户端](#3.检查/更新客户端)
+4. [检查/更新启动资源](#4.检查/更新启动资源)
+5. [启动ILContents](#5.启动ILContents)
+
+>PS:如果项目不使用热更，则Preload会直接进入[步骤5]
+
+---
 
 ## Zero的四种资源资源模式
+
 考虑到不同项目对于资源的需求，Zero提供了以下四种资源的使用方式
 
-- INLINE_RELEASE（内嵌资源项目-发布模式）
+- ***从Resources加载资源***
  
-该模式下所有的资源不依赖网络，用以开发纯单机的游戏
+当Preload的「使用热更」未勾选时，表示项目为单机项目，这样通过资源管理器获取的资源都将来自于Resources目录
 
-- NET_RELEASE（网络资源项目-发布模式）  
+- ***使用AssetDataBase加载资源***
 
-该模式下部分资源依赖于网络进行更新，用以开发不需要重装APP也能更新游戏内容的游戏
+当项目为一个热更资源项目时，开发者可以在开发阶段使用这种资源加载方式来进行调试开发。
 
-- NET_LOCAL_DEBUG（网络资源项目-开发模式）  
+- ***从资源发布目录加载资源***
 
-该模式是网络资源项目的开发阶段的可选模式。  
-在开发阶段加载本地资源来替代网络资源的开发模式，用以提高开发调试的效率
+当项目为一个热更资源项目时，开发者在打包出AssetBundle后，可以先通过本地的资源加载来测试资源是否正确
 
-- NET_LOCAL_AND_RESOURCES_DEBUG（网络资源项目-开发模式）
+- ***从网络资源目录加载资源***
 
-该模式是网络资源项目的开发阶段的可选模式。    
-当需要使用资源的时候，资源管理器会自动从Resources目录下进行读取，这样修改资源可以立刻调试不用重新Build，提高开发效率。  
-<font color=#FF0000>限制条件：需要打包的资源必须放在Resources目录下该模式才可正常使用</font>
+当项目为一个热更资源项目时，开发者在打包出AssetBundle并更新到资源服务器后，通过该加载方式来加载资源。该方式也是热更项目的正式安装包的资源加载方式。
 
->当使用「INLINE_RELEASE」资源模式时预热阶段会跳过前面步骤直接从[启动ILContents](#启动ILContents)开始
-
+---
 
 ## 预热
-所谓预热，就是指在我们真正的逻辑代码开始执行前，Zero框架会把所有启动游戏必须的资源都提前准备好，再启动游戏业务逻辑内容。而我们的Preload.cs脚本就是负责Zero预热的。
-预热的内容包括：
+所谓预热，就是指在我们真正的逻辑代码开始执行前，Zero框架会把所有启动游戏必须的热更资源都提前准备好，再启动游戏业务逻辑内容。而我们的Preload.cs脚本就是负责Zero预热的。
 
-### 解压Package.zip
->在我们打包发布APP的时候，有些资源希望第一次安装的用户不用从网上去下载启动必须的资源，那么我们可以选择将这些资源压缩为「Package.zip」（**注意名字必须一致**），并放到StreamingAssets目录下，这样打包的时候便会和APP一起发布。
+预热的步骤如下：
+
+### 1.解压Package.zip
+>在我们打包发布APP的时候，有些资源希望内嵌在APP中，那么我们可以选择将这些资源压缩为「Package.zip」（**注意名字、大小写必须一致**），并放到StreamingAssets目录下，这样打包的时候便会和APP一起发布。
 
 程序启动的时候，会检测如果是第一次安装程序，且存在Package.zip，便会将其解压出来。解压后的资源使用方式和热更资源的使用方式一致，参考 **「资源管理解决方案」**
 
-### 检查/更新setting.json
->setting.json可以理解为网络资源的入口文件，所有网络资源的加载都从这个配置文件开始。该文件可通过Editor中的菜单项「Zero/Setting」进行配置/发布。
+### 2.检查/更新setting.json
+>setting.json可以理解为网络资源的入口文件，所有网络资源的加载都从这个配置文件开始。该文件可通过Editor菜单项[[Zero/Publish/Setting]](PublishEditor.md)进行配置/发布。
 
-. 客户端版本号
-描述了客户端的版本号(匹配*Application.version*)以及客户端需要更新时的下载地址。在[检查/更新客户端](#检查/更新客户端)中使用。
-客户端版本号跳转功能，可以让指定版本号的客户端，使用指定地址的setting.json文件来初始化项目。
+### 3.检查/更新客户端
+>当客户端版本低于服务器配置时，会根据配置更新客户端。
 
-. 资源配置
-描述了使用的网络资源的根目录（Zero基于APP平台会加上对应的子目录），启动需要的资源组(在[检查/更新启动资源](#检查/更新启动资源)中使用)。
+### 4.资源更新检查
+>加载热更资源的res.json(通过[[Zero/Publish/HotRes]](PublishEditor.md)发布)文件，并根据配置的启动资源组，比较并更新资源为最新版本。
 
-. 附加参数
-用户可以在附加参数里自定义一些程序初始化需要的参数。
+### 5.启动ILContents
+>当Zero完成了预热以后，则会创建[[ILContent]](ILContent.md)，并销毁Preload。
 
-### 检查/更新客户端
->当客户端版本和服务器配置不一致时，会在浏览器中访问配置的更新地址URL。
-
-### 资源更新检查
->加载配置的资源目录里的res.json文件，并根据配置的启动需要资源组，找出网络上和本地版本不一致的资源并更新。
-
-res.json文件描述了网络资源的存储路径以及MD5码，可以通过Editor中的菜单项「Zero/Res」进行配置/发布。
-
-### 启动ILContents
->当Zero完成了预热以后，则会生成ILContents这个Prefab，并销毁Preload。至此整个游戏进入中间层阶段。
+至此，整个游戏进入中间层(热更区域)阶段。
 
 #### 预热的状态以及进度获取
 
@@ -77,57 +87,49 @@ Preload.cs提供了以下两个委托，用来获取当前Preload的情况：
 - onProgress  
 当前预热状态的进度[0 - 1]
 
-## 使用Preload.cs来启动游戏
-我们只需要创建一个启动界面的GameObject，并绑定脚本「Preload.cs」，并配置好Runtime参数即可。
+---
 
-
-## 通过Runtime配置运行环境
+## Preload配置Runtime参数详解
 Inspector中参数解释：
 
-- ResMode  
-资源模式
+- 是否打印日志<br>如果关闭该选项，则通过Zero.Log以及UnityEngine.Debug打印的日志会自动屏蔽。<br>注意：警告以及错误仍然会打印。建议正式版本关闭打印，可以提高性能
 
-- NetRoot  
-网路资源放置的根目录（不含平台路径）
+- 启动Prefab<br>该Prefab指的是Preload预热完后启动的对象。如果是热更项目，则该Prefab为热更资源。通常Zero中使用[「ILContent」](ILContent.md)即可
 
-- DevelopResRoot  
-本地存放开发资源的目录，网络资源-开发模式时会使用
+- 启动类(完全限定)<br>该Prefab指的是Preload预热完后会调用的第一个类对象。如果是热更项目，则该类为热更DLL中的类。
 
-- LogEnable  
-是否允许Zero的Log系统打印日志
+- 使用热更<br>如果没有勾选，则项目为本地项目，不依赖网络资源  
 
-- ILCfg  
-针对IL（可热更）代码的配置
+    - 资源来源
 
-    - IsOnlyDll 
-    true：则强制加载DLL并执行IL代码  false：有项目本地代码的情况下，优先使用本地IL代码，如果没有，则加载DLL代码
-    
-    - FileDir  
-    在资源目录中DLL文件所在的文件夹的（相对）路径
-    
-    - FileName  
-    DLL文件的文件名，不需要加后缀
-    
-    - ClassName  
-    IL代码启动的类的完全限定名称
-    
-    - MethodName  
-    启动类中的启动方法的名称
-    
-    - IsDebugIL  
-    是否开启IL代码调试，需要配合ILRuntime的VS插件，详见ILRuntime介绍
-    
-    - IsLoadPdb  
-    是否加载DLL匹配的PDB文件，如果需要IL代码出错时打印出错代码位置，则需要开启，且确保PDB文件和DLL文件放在同一目录。正式发布时建议关闭该选项。
+        - 从网络资源目录加载<br>将通过配置的网络目录获取setting文件，并下载热更资源
 
- - MainPrefab    
- 预热完以后启动业务逻辑中间件的配置
+            - 网络资源根目录<br>该位置填写web服务器上放置资源的目录,格式通常为*http://wepieces.cn/unity/zero/demo/Res*这种
 
-    - ABName
-    中间件所在资源包的名称
-    
-    - AssetName
-    中间价Prefab的名称
+        - 从本地资源目录加载<br>将从*Zero/Publish/HotRes*中配置的Res发布目录下获取资源
+
+            - 本地的资源根目录
+
+        - 使用AssetDataBase加载(推荐开发阶段使用)
+
+            - Asset中热更资源的目录<br>将从*Zero/Publish/HotRes*中配置的Res发布目录下获取资源
+
+    - 使用DLL *如果不勾选，则会通过安装包的代码执行程序。勾选后，将根据选择的方式执行HotRes打包出的DLL*
+
+        - DLL执行方式
+            - 选择ILRuntime解释执行DLL可以兼容MONO和IL2CPP
+            - 选择反射执行，则只能兼容MONO，但是因为JIT的原因执行性能高于ILRuntime
+
+        - 文件目录
+
+        - DLL文件名<br>打包出的DLL文件的名称，不需要扩展名
+
+        - 启动方法(必须为Static)<br>启动类中的该方法将在Preload预热后被调用
+
+        - 调试功能<br>开启后可以配合ILRuntime的调试工具，在真机环境调试DLL代码      
+
+        - 加载Pdb文件<br>开启后可以在DLL中代码执行出错时打印错误堆栈信息
+        
     
     
     

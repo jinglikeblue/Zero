@@ -32,5 +32,16 @@ namespace Zero
             }
             return null;
         }
+
+        public static double[] Find(GameObject go, string key)
+        {
+            var data = go.GetComponent<DoubleBindingData>();
+            if(null == data)
+            {
+                return null;
+            }
+
+            return data.Find(key);
+        }
     }
 }

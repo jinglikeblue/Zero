@@ -15,7 +15,7 @@ namespace IL.Demo
         protected override void OnInit()
         {
             _blocks = GetChild("Blocks");
-            _blockPrefab = GetComponent<ObjectBindingData>().Find("blockPrefab")[0] as GameObject;            
+            _blockPrefab = ObjectBindingData.Find(gameObject, "blockPrefab")[0] as GameObject;            
             _boss = CreateViewChlid<Boss>("Boss");
 
             UIPanelMgr.Ins.SwitchASync<GamePanel>(this);
@@ -24,7 +24,7 @@ namespace IL.Demo
         public void CreateBlock()
         {
             var ac = ResMgr.Ins.Load<AudioClip>("hot_res/audios.ab", "click");
-            AudioPlayer.Ins.PlayEffect(ac);
+            AudioDevice.Get("effect").Play(gameObject,ac);            
             //以异步方式创建Block
             ViewFactory.CreateAsync<Block>("hot_res/prefabs/stages/gamestage.ab", "Block", _blocks, null, OnCreatedBlock, OnProgressBlock, OnLoadedBlock);
         }

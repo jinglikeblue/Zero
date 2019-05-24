@@ -7,6 +7,9 @@ namespace Zero.Edit
     public class HotResPublishModel
     {
         const string CONFIG_NAME = "HotResCfg.json";
+
+        const string HOT_RES_BACKUP_ROOT = "HotResBackup";
+        
         HotResConfigVO _cfg;
 
         public HotResConfigVO Cfg
@@ -17,9 +20,21 @@ namespace Zero.Edit
             }
         }
 
+        /// <summary>
+        /// DLL代码在Asset中的位置
+        /// </summary>
+        public string DllDirInAssets { get; }
+
+        /// <summary>
+        /// DLL代码在备份目录的位置
+        /// </summary>
+        public string DllDirInBackup { get; }
+
         public HotResPublishModel()
         {
-            LoadConfig();            
+            LoadConfig();
+            DllDirInAssets = _cfg.ilScriptDir;
+            DllDirInBackup = FileSystem.CombineDirs(false, HOT_RES_BACKUP_ROOT, _cfg.ilScriptDir);
         }
 
         /// <summary>
@@ -92,6 +107,41 @@ namespace Zero.Edit
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// 排除DLL代码
+        /// </summary>
+        public void ExcludeDllCodes()
+        {
+            if (Directory.Exists(DllDirInAssets))
+            {
+                if (false == Directory.Exists(DllDirInBackup))
+                {
+                    Directory.CreateDirectory(DllDirInBackup);
+                }
+                FileUtil.ReplaceDirectory(DllDirInAssets, DllDirInBackup);
+                FileUtil.DeleteFileOrDirectory(DllDirInAssets);
+                AssetDatabase.Refresh();
+            }
+        }
+
+        /// <summary>
+        /// 导入DLL代码
+        /// </summary>
+        public void IncludeDllCodes()
+        {
+            //代码有备份，且Asset中没代码才还原
+            if (Directory.Exists(DllDirInBackup) && false == Directory.Exists(DllDirInAssets))
+            {
+                if (false == Directory.Exists(DllDirInAssets))
+                {
+                    Directory.CreateDirectory(DllDirInAssets);
+                }
+                FileUtil.ReplaceDirectory(DllDirInBackup, DllDirInAssets);
+                FileUtil.DeleteFileOrDirectory(DllDirInBackup);
+                AssetDatabase.Refresh();
+            }
         }
     }
 }

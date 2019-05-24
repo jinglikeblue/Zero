@@ -27,7 +27,11 @@ namespace IL.Demo
         void Init()
         {            
             Application.targetFrameRate = 60;
-            var ILContent = GameObject.Find("DemoILContent");
+
+            AudioDevice.Create("bgm");
+            AudioDevice.Create("effect");
+
+            var ILContent = GameObject.Find("ILContent");
             var stageRoot = ILContent.transform.Find("Stage");
             var uiPanelRoot = ILContent.transform.Find("UICanvas/UIPanel");
             var uiWinRoot = ILContent.transform.Find("UICanvas/UIWin");
@@ -64,7 +68,9 @@ namespace IL.Demo
         {
             //Log.GUI("This demo is code by Jing");
             GUIDeviceInfo.Show();
-            UIPanelMgr.Ins.SwitchASync<MenuPanel>();                                   
+            UIPanelMgr.Ins.SwitchASync<MenuPanel>();
+            //播放背景音乐
+            AudioDevice.Get("bgm").Play(ResMgr.Ins.Load<AudioClip>("hot_res/audios/bgm"), true);
         }
     }
 }

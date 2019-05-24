@@ -22,6 +22,7 @@ namespace IL.Demo
 
         private void OnBtnHelpClick()
         {
+            AudioDevice.GC();
             UIWinMgr.Ins.Open<HelpWin>(null,true,false);
         }
 

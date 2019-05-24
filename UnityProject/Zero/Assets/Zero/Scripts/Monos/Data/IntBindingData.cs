@@ -31,5 +31,16 @@ namespace Zero
             }
             return null;
         }
+
+        public static int[] Find(GameObject go, string key)
+        {
+            var data = go.GetComponent<IntBindingData>();
+            if (null == data)
+            {
+                return null;
+            }
+
+            return data.Find(key);
+        }
     }
 }

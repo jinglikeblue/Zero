@@ -29,3 +29,6 @@ UnityProject/Zero/Temp/
 /UnityProject/Zero/ILProject/obj
 /UnityProject/Zero/ILProject/codes
 /UnityProject/Zero/ILProject/.vs
+/UnityProject/Zero/Unity.Analytics.DataPrivacy.csproj
+/UnityProject/Zero/Unity.CollabProxy.Editor.csproj
+/UnityProject/Zero/Unity.PackageManagerUI.Editor.csproj
