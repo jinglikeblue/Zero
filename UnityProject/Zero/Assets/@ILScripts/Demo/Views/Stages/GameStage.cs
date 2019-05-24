@@ -24,7 +24,7 @@ namespace IL.Demo
         public void CreateBlock()
         {
             var ac = ResMgr.Ins.Load<AudioClip>("hot_res/audios.ab", "click");
-            AudioPlayer.Ins.PlayEffect(ac);
+            AudioDevice.Get("effect").Play(gameObject,ac);            
             //以异步方式创建Block
             ViewFactory.CreateAsync<Block>("hot_res/prefabs/stages/gamestage.ab", "Block", _blocks, null, OnCreatedBlock, OnProgressBlock, OnLoadedBlock);
         }
