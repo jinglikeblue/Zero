@@ -2,9 +2,7 @@
 
 >Zero框架自带一个Demo，简单描述了整个框架的运作流程以及部分功能的使用。强烈建议走马观花先看看Demo的运作方式来了解Zero框架。
 
-为了让Demo能够正常的启动，请确保导入项目时选择的Platform为“PC,Mac&Linux Standalone”。
-
-在unity项目文件夹中的Asset/Demo/Demo场景，即可进入Zero框架自带的示例程序。
+在unity项目文件夹中的Asset/Demo/Demo场景，即可进入Zero框架自带的示例程序。建议先不勾选Preload中的「使用热更」，待确认Demo正常执行后再逐步尝试其他的运行方式。
 
 ## 更多的Demo
 
