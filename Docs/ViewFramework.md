@@ -3,15 +3,13 @@
 ### 目录
 - [介绍](#介绍)
     - [AView](#AView)
-    - [StageMgr](#StageMgr)
-    - [UIPanelMgr](#UIPanelMgr)
-    - [UIWinMgr](#UIWinMgr)
-- [初始化管理器](#初始化管理器)
-- [注册视图](#注册视图)
+    - [图层 AViewLayer](#图层)
+        - [单视图图层 SingularViewLayer](#单视图图层)
+        - [多视图图层 PluraViewLayer](#多视图图层)
 - [捕获UI事件](#捕获UI事件)
     - [高效的不可见的响应UI事件的组件： TransparentRaycast]()
 
-## 介绍
+# 介绍
 Zero提供了了一套视图管理解决方案，在该方案下，开发者可以方便的管理界面上的元素。该视图管理方案是Zero的核心之一，建议所有使用Zero框架的项目都使用视图管理模块来进行开发。
 
 ### AView
@@ -46,6 +44,7 @@ AView是一个抽象的视图包装器类，每一个AView都有一个关联的G
 ##### 设置Active
 
 ```
+.
 public void SetActive(bool isActive)
 ```
 
@@ -74,231 +73,26 @@ public T CreateViewChlid<T>(string childName, object data = null) where T:AView
 
 注意：当父AView对象销毁时，其下的所有子AView对象都会被销毁。
 
-##### 获取绑定数据
+# 图层
+所有的AView都应该在图层中被管理起来，Zero提供了两种类型的视图层，用来管理AView的显示。
 
-```
-AView
-{
-    public UnityEngine.Object[] GetBindingObject(string key);
-    public double[] GetBindingDouble(string key);
-    public float[] GetBindingFloat(string key);
-    public int[] GetBindingInt(string key);
-    public string[] GetBindingString(string key);
-}
-```
+## 单视图图层 
 
-### StageMgr接口
+>SingularViewLayer
 
-```
-/// <summary>
-/// 切换Stage
-/// </summary>
-/// <param name="viewName">视图名称</param>
-/// <param name="data">传递的数据</param>
-/// <param name="isClearPanel">是否清理UIPanel</param>
-/// <param name="isCloseWindows">是否清理UIWin</param>
-/// <returns></returns>
-public AView Switch(string viewName, object data = null, bool isClearPanel = true, bool isCloseWindows = true)
-```
+单一的视图层，该层中的视图，只能存在一个，视图之间的关系是切换。
 
-```
-/// <summary>
-/// 切换Stage
-/// </summary>
-/// <typeparam name="T">对应Stage的AView对象</typeparam>
-/// <param name="data">传递的数据</param>
-/// <param name="isClearPanel">是否清理UIPanel</param>
-/// <param name="isCloseWindows">是否清理UIWin</param>
-/// <returns></returns>
-public T Switch<T>(object data = null, bool isClearPanel = true, bool isCloseWindows = true) where T : AView
-```
+Demo项目中基于该ViewLayer封装了UIPanelMgr以及StageMgr
 
-```
-/// <summary>
-/// 异步切换场景
-/// </summary>
-/// <param name="viewName">视图名称</param>
-/// <param name="data">传递的数据</param>
-/// <param name="onCreated">创建完成回调方法</param>
-/// <param name="onProgress">创建进度回调方法</param>
-/// <param name="isClearPanel">是否清理UIPanel</param>
-/// <param name="isCloseWindows">是否清理UIWin</param>
-public void SwitchASync(string viewName, object data = null, Action<AView> onCreated = null, Action<float> onProgress = null, bool isClearPanel = true, bool isCloseWindows = true)
-```
+## 多视图图层
 
-```
-/// <summary>
-/// 异步切换场景
-/// </summary>
-/// <typeparam name="T">对应Stage的AView对象</typeparam>
-/// <param name="data">传递的数据</param>
-/// <param name="onCreated">创建完成回调方法</param>
-/// <param name="onProgress">创建进度回调方法</param>
-/// <param name="isClearPanel">是否清理UIPanel</param>
-/// <param name="isCloseWindows">是否清理UIWin</param>
-public void SwitchASync<T>(object data = null, Action<AView> onCreated = null, Action<float> onProgress = null, bool isClearPanel = true, bool isCloseWindows = true)
- 
-```
+>PluralViewLayer
 
-```
-/// <summary>
-/// 清理当前的舞台
-/// </summary>
-/// <param name="isClearPanel">是否清理UIPanel</param>
-/// <param name="isCloseWindows">是否清理UIWin</param>
-public void ClearNowStage(bool isClearPanel = true, bool isCloseWindows = true)
-```
+复数的视图层，该层中的视图，可以同时存在
 
-### UIPanelMgr接口
+Demo项目中基于该ViewLayer封装了UIWinMgr
 
-```
-/// <summary>
-/// 切换UIPanel
-/// </summary>
-/// <param name="viewName">视图名称</param>
-/// <param name="data">传递的数据</param>
-/// <returns></returns>
-public AView Switch(string viewName, object data = null)
-```
-
-```
-/// <summary>
-/// 切换UIPanel
-/// </summary>
-/// <typeparam name="T"></typeparam>
-/// <param name="data">传递的数据</param>
-/// <returns></returns>
-public T Switch<T>(object data = null) where T : AView
-```
-
-```
-/// <summary>
-/// 异步切换UIPanel
-/// </summary>
-/// <param name="viewName"></param>
-/// <param name="data">传递的数据</param>
-/// <param name="onCreated">创建完成回调方法</param>
-/// <param name="onProgress">创建进度回调方法</param>
-public void SwitchASync(string viewName, object data = null, Action<AView> onCreated = null, Action<float> onProgress = null)
-
-```
-
-```
-/// <summary>
-/// 异步切换UIPanel
-/// </summary>
-/// <typeparam name="T"></typeparam>
-/// <param name="data">传递的数据</param>
-/// <param name="onCreated">创建完成回调方法</param>
-/// <param name="onProgress">创建进度回调方法</param>
-public void SwitchASync<T>(object data = null, Action<AView> onCreated = null, Action<float> onProgress = null)
-```
-
-```
-/// <summary>
-/// 清理当前的面板
-/// </summary>
-public void ClearNowPanel()
-```
-
-### UIWinMgr接口
-
-```
-/// <summary>
-/// 打开窗口
-/// </summary>
-/// <typeparam name="T"></typeparam>
-/// <param name="data">传递的数据</param>
-/// <param name="isBlur">是否窗口下方有阻挡遮罩</param>
-/// <param name="isCloseOthers">是否关闭其它窗口</param>
-/// <returns></returns>
-public T Open<T>(object data = null, bool isBlur = true, bool isCloseOthers = true) where T : AView
-```
-
-```
-/// <summary>
-/// 打开窗口
-/// </summary>
-/// <param name="viewName">视图名称</param>
-/// <param name="data">传递的数据</param>
-/// <param name="isBlur">是否窗口下方有阻挡遮罩</param>
-/// <param name="isCloseOthers">是否关闭其它窗口</param>
-/// <returns></returns>
-public AView Open(string viewName, object data = null, bool isBlur = true, bool isCloseOthers = true)
-```
-
-```
-/// <summary>
-/// 异步打开窗口
-/// </summary>
-/// <typeparam name="T"></typeparam>
-/// <param name="data">传递的数据</param>
-/// <param name="isBlur">是否窗口下方有阻挡遮罩</param>
-/// <param name="isCloseOthers">是否关闭其它窗口</param>
-/// <param name="onCreated">创建完成回调方法</param>
-/// <param name="onProgress">创建进度回调方法</param>
-public void OpenAsync<T>(object data = null, bool isBlur = true, bool isCloseOthers = true, Action<AView> onCreated = null, Action<float> onProgress = null)
-```
-
-```
-/// <summary>
-/// 异步打开窗口
-/// </summary>
-/// <param name="viewName">视图名称</param>
-/// <param name="data">传递的数据</param>
-/// <param name="isBlur">是否窗口下方有阻挡遮罩</param>
-/// <param name="isCloseOthers">是否关闭其它窗口</param>
-/// <param name="onCreated">创建完成回调方法</param>
-/// <param name="onProgress">创建进度回调方法</param>
-public void OpenAsync(string viewName, object data = null, bool isBlur = true, bool isCloseOthers = true, Action<AView> onCreated = null, Action<float> onProgress = null)
-```
-
-```
-/// <summary>
-/// 关闭窗口
-/// </summary>
-/// <param name="target">关闭对象</param>
-public void Close(AView target)
-```
-
-```
-/// <summary>
-/// 关闭(当前打开的)所有窗口
-/// </summary>
-public void CloseAll()
-```
-
-## 初始化管理器
-
-在IL代码的入口，我们要先初始化视图管理工具，指定各类视图的根容器。
-
-```
-//这是标准ILContent模板下初始化的方法
-
-var ILContent = GameObject.Find(Runtime.Ins.VO.mainPrefab.assetName);
-var stageRoot = ILContent.transform.Find("Stage");
-var uiPanelRoot = ILContent.transform.Find("UICanvas/UIPanel");
-var uiWinRoot = ILContent.transform.Find("UICanvas/UIWin");
-
-StageMgr.Ins.Init(stageRoot);
-UIPanelMgr.Ins.Init(uiPanelRoot);
-UIWinMgr.Ins.Init(uiWinRoot);
-```
-
-## 注册视图
-只有注册过的界面，才可以通过视图管理器来管理。
-
-```
-/// <summary>
-/// 注册一个界面
-/// </summary>
-/// <param name="viewName">Prefab的名称</param>
-/// <param name="abName">Prefab所在AssetBundle的名称</param>
-/// <param name="type">Prefab的Type</param>
-static public void Regist(string viewName, string abName, Type type)
-```
-
-## 捕获UI事件
+# 捕获UI事件
 
 #### UIEventListener
 
