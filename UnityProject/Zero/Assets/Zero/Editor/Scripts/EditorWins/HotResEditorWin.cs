@@ -14,7 +14,7 @@ namespace Zero.Edit
         /// </summary>
         public static void Open()
         {
-            var win = EditorWindow.GetWindow<HotResEditorWin>("HotRes Manager", true);
+            var win = EditorWindow.GetWindow<HotResEditorWin>("HotRes", true);
             win.minSize = new Vector2(800, 420);
             win.maxSize = new Vector2(1000, 420);
             win.Show();
@@ -66,8 +66,7 @@ namespace Zero.Edit
 
         private void HotResMoveGUI()
         {
-            EditorGUILayout.BeginHorizontal();
-            const string HOT_RES_BACKUP_ROOT = "HotResBackup";
+            EditorGUILayout.BeginHorizontal();            
 
             //EditorGUILayout.BeginVertical();
             //string abDirInAssets = _cfg.abHotResDir;
@@ -105,38 +104,25 @@ namespace Zero.Edit
 
             //GUILayout.Space(20);
 
-            EditorGUILayout.BeginVertical();
-            string dllDirInAssets = _cfg.ilScriptDir;
-            string dllDirInBackup = FileSystem.CombineDirs(false, HOT_RES_BACKUP_ROOT, _cfg.ilScriptDir);            
-
-            if (Directory.Exists(dllDirInAssets))
+            EditorGUILayout.BeginVertical();           
+            
+            if (Directory.Exists(_model.DllDirInAssets))
             {
-                EditorGUILayout.LabelField(string.Format("目录移动：{0} >>> {1}", dllDirInAssets, dllDirInBackup));
+                EditorGUILayout.LabelField(string.Format("目录移动：{0} >>> {1}", _model.DllDirInAssets, _model.DllDirInBackup));
                 if (GUILayout.Button("排除Dll热更资源"))
                 {
-                    if (false == Directory.Exists(dllDirInBackup))
-                    {
-                        Directory.CreateDirectory(dllDirInBackup);
-                    }
-                    FileUtil.ReplaceDirectory(dllDirInAssets, dllDirInBackup);
-                    FileUtil.DeleteFileOrDirectory(dllDirInAssets);
-                    AssetDatabase.Refresh();
+                    _model.ExcludeDllCodes();
                 }
             }
             else
             {
-                EditorGUILayout.LabelField(string.Format("目录移动：{0} >>> {1}", dllDirInBackup, dllDirInAssets));
+                EditorGUILayout.LabelField(string.Format("目录移动：{0} >>> {1}", _model.DllDirInBackup, _model.DllDirInAssets));
                 if (GUILayout.Button("复原Dll热更资源"))
                 {
-                    if (false == Directory.Exists(dllDirInAssets))
-                    {
-                        Directory.CreateDirectory(dllDirInAssets);
-                    }
-                    FileUtil.ReplaceDirectory(dllDirInBackup, dllDirInAssets);
-                    FileUtil.DeleteFileOrDirectory(dllDirInBackup);
-                    AssetDatabase.Refresh();
+                    _model.IncludeDllCodes();
                 }
             }
+            
             EditorGUILayout.EndVertical();
 
             EditorGUILayout.EndHorizontal();
