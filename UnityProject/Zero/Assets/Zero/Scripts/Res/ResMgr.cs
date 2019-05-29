@@ -120,7 +120,7 @@ namespace Zero
         /// 通过资源路径加载资源
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="assetPath"></param>
+        /// <param name="assetPath">资源的路径</param>
         /// <returns></returns>
         public T Load<T>(string assetPath) where T : UnityEngine.Object
         {
