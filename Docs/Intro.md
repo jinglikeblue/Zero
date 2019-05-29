@@ -10,7 +10,7 @@
     - [其它](Other.md)
     - [扩展](Extend.md)
 - Editor工具
-    - [Publish]
+    - [Publish](PublishEditor.md)
         - [Setting]
         - [HotRes]
     - [iOS]
