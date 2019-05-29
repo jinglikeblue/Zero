@@ -10,11 +10,11 @@
     - [其它](Other.md)
     - [扩展](Extend.md)
 - Editor工具
-    - [Publish](PublishEditor.md)
-        - [Setting]
-        - [HotRes]
+    - Publish
+        - [Setting](PublishSettingEditor.md)
+        - [HotRes](PublishHotResEditor.md)
     - [iOS]
-        - [ProjectInit]
+        - [ProjectInit](IOSProjectInitEditor.md)
     - [Assets]
     - [IL2CPP]
     - [ILRuntime]    
