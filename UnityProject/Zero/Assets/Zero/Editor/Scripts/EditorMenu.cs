@@ -42,7 +42,7 @@ namespace Zero.Edit
             ResMgr.Ins.DoGC();
         }
 
-        [MenuItem("Zero/Assets/Sprite/Packing Tag Delete", false, 501)]
+        [MenuItem("Zero/Assets/Packing Tag Delete", false, 501)]
         public static void PackingTagEdit()
         {
             PackingTagEditorWin.Open();
