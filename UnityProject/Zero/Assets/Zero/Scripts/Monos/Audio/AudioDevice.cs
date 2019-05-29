@@ -255,7 +255,7 @@ namespace Zero
             foreach (var source in _depositedSourceSet)
             {
                 source.UnPause();
-            }
+            }            
         }
 
         AudioSource CreateAudioSource(GameObject go)

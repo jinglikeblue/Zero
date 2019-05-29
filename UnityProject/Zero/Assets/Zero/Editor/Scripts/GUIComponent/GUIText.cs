@@ -15,7 +15,7 @@ namespace Zero.Edit
             GUIStyle gs = new GUIStyle();
             //gs.fontStyle = FontStyle.Bold;
             gs.fontSize = 14;
-            EditorGUILayout.LabelField(string.Format("<color=#FF0000>--------{0}--------</color>", title), gs);
+            EditorGUILayout.LabelField(string.Format("<color=#FF8962>--------{0}--------</color>", title), gs);
             GUILayout.Space(5);
         }
 
@@ -29,7 +29,7 @@ namespace Zero.Edit
             GUIStyle gs = new GUIStyle();
             gs.fontSize = 12;
             //gs.fontStyle = FontStyle.Bold;
-            EditorGUILayout.LabelField(string.Format("<color=#0000FF>>>>>>>{0}</color>", title), gs);
+            EditorGUILayout.LabelField(string.Format("<color=#488AF3>>>>>>>{0}</color>", title), gs);
         }
     }
 }

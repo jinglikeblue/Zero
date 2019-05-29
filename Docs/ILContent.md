@@ -2,17 +2,17 @@
 
 ### 目录
 - [简介](#简介)
-- [Zero中IL的定义](#IL定义)
+- [Zero中IL的定义](#Zero中IL的定义)
 - [ILContent模板Prefab](#ILContent模板)
 - [ILContent.cs](#ILContent.cs)
-- [使用ILRuntimeBridge捕获Unity引擎事件](#ILRuntimeBridge)
-- [使用CoroutineBridge执行协程](#CoroutineBridge)
+- [使用ILBridge捕获Unity引擎事件](#使用ILBridge捕获Unity引擎事件)
+- [使用ILBridge执行协程](#使用ILBridge执行协程)
 - [使用BindingData给GameObject绑定数据](#BindingData)
 - [约定](#约定)
 
 ## 简介
 
-> ILContent是游戏业务逻辑内容的起点，根据需求可以放到热更环境中。IL前缀表示这是一个中间件。在Zero中，所有带有IL标识符的内容都表示可以进行热更。
+> ILContent是游戏业务逻辑内容的起点，根据需求可以放到热更环境中。IL前缀表示这是一个中间件。在Zero中，所有ILContent中的内容都可以做成热更内容。
 
 在Preload完成预热后，会自动销毁绑定自己的GameObject，并拉起ILContent。而我们的游戏的整个逻辑则在ILContent中完成。
 
@@ -55,11 +55,11 @@ Zero框架的UI容器，参数根据项目需求可自行调整。
 ## ILContent.cs
 该组件被ILContent绑定，通过Runtime的配置，其决定了IL代码的环境是使用本地程序集（打包时内嵌的代码），还是外部程序集（热更DLL代码库）。
 
-## 使用ILRuntimeBridge捕获Unity引擎事件
-当我们希望在IL代码中捕获到Unity引擎的OnGUI、Update、FixedUpdate等事件时，可以通过单例ILRuntimeBridge.Ins提供的委托来捕获。
+## 使用ILBridge捕获Unity引擎事件
+当我们希望在IL代码中捕获到Unity引擎的OnGUI、Update、FixedUpdate等事件时，可以通过单例ILBridge.Ins提供的委托来捕获。
 
 ```
-ILRuntimeBridge.Ins.onUpdate += UpdateHandler;
+ILBridge.Ins.onUpdate += UpdateHandler;
 
 void UpdateHandler()
 {
@@ -68,14 +68,14 @@ void UpdateHandler()
 ```
 
 
-## 使用CoroutineBridge执行协程
-当我们希望在IL代码中启动一个协程时，可以通过CoroutineBridge.Ins单例来执行协程方法。
+## 使用ILBridge执行协程
+当我们希望在IL代码中启动一个协程时，可以通过ILBridge.Ins单例来执行协程方法。
 
-- CoroutineBridge.Ins.Run(IEnumerator routine)  
+- ILBridge.Ins.StartCoroutine(IEnumerator routine)  
 **执行协程方法**
-- CoroutineBridge.Ins.Stop(IEnumerator routine)  
+- ILBridge.Ins.StopCoroutine(IEnumerator routine)  
 **中止协程方法**
-- CoroutineBridge.Ins.StopAll()  
+- ILBridge.Ins.StopAllCoroutines()  
 **中止所有协程方法**
 
 ```
