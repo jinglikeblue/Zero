@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using UnityEditor;
 using UnityEngine;
 
@@ -66,7 +67,7 @@ namespace Zero.Edit
 
         private void HotResMoveGUI()
         {
-            EditorGUILayout.BeginHorizontal();            
+            EditorGUILayout.BeginHorizontal();
 
             //EditorGUILayout.BeginVertical();
             //string abDirInAssets = _cfg.abHotResDir;
@@ -104,8 +105,8 @@ namespace Zero.Edit
 
             //GUILayout.Space(20);
 
-            EditorGUILayout.BeginVertical();           
-            
+            EditorGUILayout.BeginVertical();
+
             if (Directory.Exists(_model.DllDirInAssets))
             {
                 EditorGUILayout.LabelField(string.Format("目录移动：{0} >>> {1}", _model.DllDirInAssets, _model.DllDirInBackup));
@@ -122,7 +123,7 @@ namespace Zero.Edit
                     _model.IncludeDllCodes();
                 }
             }
-            
+
             EditorGUILayout.EndVertical();
 
             EditorGUILayout.EndHorizontal();
@@ -157,34 +158,34 @@ namespace Zero.Edit
                 return path;
             });
 
-            _cfg.ilProjDir = GUIFolderSelect.OnGUI("Dll项目目录", 200, _cfg.ilProjDir, Application.dataPath, "");
+            //_cfg.ilProjDir = GUIFolderSelect.OnGUI("Dll项目目录", 200, _cfg.ilProjDir, Application.dataPath, "");
 
-            _cfg.ilProjCsprojPath = GUIFileSelect.OnGUI("Dll项目csproj文件:", 200, _cfg.ilProjCsprojPath, Application.dataPath, "csproj");
+            //_cfg.ilProjCsprojPath = GUIFileSelect.OnGUI("Dll项目csproj文件:", 200, _cfg.ilProjCsprojPath, Application.dataPath, "csproj");
 
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Devenv工具地址:", GUILayout.Width(200));
-            _cfg.devenvPath = EditorGUILayout.TextField(_cfg.devenvPath);
-            GUILayout.EndHorizontal();
+            //GUILayout.BeginHorizontal();
+            //GUILayout.Label("Devenv工具地址:", GUILayout.Width(200));
+            //_cfg.devenvPath = EditorGUILayout.TextField(_cfg.devenvPath);
+            //GUILayout.EndHorizontal();
 
 
 
-            GUILayout.BeginHorizontal();
+            //GUILayout.BeginHorizontal();
 
-            if (GUILayout.Button("代码拷贝到项目目录"))
-            {
-                if (EditorUtility.DisplayDialog("警告！", "是否确认执行(目标目录将被覆盖)", "Yes", "No"))
-                {
-                    _model.Copy2DllProj();
-                    ShowNotification(new GUIContent("完成"));
-                }
-            }
+            //if (GUILayout.Button("代码拷贝到项目目录"))
+            //{
+            //    if (EditorUtility.DisplayDialog("警告！", "是否确认执行(目标目录将被覆盖)", "Yes", "No"))
+            //    {
+            //        _model.Copy2DllProj();
+            //        ShowNotification(new GUIContent("完成"));
+            //    }
+            //}
 
-            if (GUILayout.Button("打开DLL项目目录"))
-            {
-                ZeroEditorUtil.OpenDirectory(Path.GetDirectoryName(_cfg.ilProjCsprojPath));
-            }
+            //if (GUILayout.Button("打开DLL项目目录"))
+            //{
+            //    ZeroEditorUtil.OpenDirectory(Path.GetDirectoryName(_cfg.ilProjCsprojPath));
+            //}
 
-            GUILayout.EndHorizontal();
+            //GUILayout.EndHorizontal();
         }
 
         void ResJsonGUI()
@@ -206,48 +207,57 @@ namespace Zero.Edit
 
             if (GUILayout.Button("发布热更资源"))
             {
-                Build();
+                BuildPart1();
                 GUIUtility.ExitGUI();
             }
 
             EditorGUILayout.EndHorizontal();
         }
 
-        void Build()
+        void BuildPart1()
         {
-            try
+            if (_isBuildAB)
             {
-                if (_isBuildDLL)
-                {
-                    EditorUtility.DisplayProgressBar("打包热更资源", "开始发布DLL", 0f);
-                    Debug.Log("开始发布DLL");
-                    _model.BuildDll();
-                }
-
-                if (_isBuildAB)
-                {
-                    EditorUtility.DisplayProgressBar("打包热更资源", "开始发布AssetBundle", 0f);
-                    Debug.Log("开始发布AssetBundle");
-                    //发布AB资源
-                    _model.BuildAssetBundle();
-                }
-
-                if (_isBuildResJson)
-                {
-                    EditorUtility.DisplayProgressBar("打包热更资源", "开始发布Res.json", 0f);
-                    Debug.Log("开始发布Res.json");
-                    _model.BuildResJsonFile();
-                }
-
-                //打开目录
-                ZeroEditorUtil.OpenDirectory(FileSystem.CombineDirs(false, _cfg.resDir, ZeroEditorUtil.PlatformDirName));
+                EditorUtility.DisplayProgressBar("打包热更资源", "开始发布AssetBundle", 0f);
+                Debug.Log("开始发布AssetBundle");
+                //发布AB资源
+                _model.BuildAssetBundle();
             }
-            catch(Exception e)
+
+            if (_isBuildDLL)
             {
-                Log.E("{0}\n{1}", e.Message, e.StackTrace);
-                ShowNotification(new GUIContent(e.Message));
+                EditorUtility.DisplayProgressBar("打包热更资源", "正在发布DLL", 0f);
+                Debug.Log("开始发布DLL");
+                _model.BuildDll(() =>
+                {
+                    Debug.Log("DLL发布成功");                    
+                    BuildPart2();
+                },
+                () =>
+                {
+                    Debug.Log("DLL发布失败");
+                    EditorUtility.ClearProgressBar();
+                });
             }
-            EditorUtility.ClearProgressBar();            
+            else
+            {
+                BuildPart2();
+            }
+        }
+
+        void BuildPart2()
+        {           
+            if (_isBuildResJson)
+            {
+                EditorUtility.DisplayProgressBar("打包热更资源", "开始发布Res.json", 0f);
+                Debug.Log("开始发布Res.json");
+                _model.BuildResJsonFile();
+            }
+
+            //打开目录
+            ZeroEditorUtil.OpenDirectory(FileSystem.CombineDirs(false, _cfg.resDir, ZeroEditorUtil.PlatformDirName));
+
+            EditorUtility.ClearProgressBar();
         }
     }
 }
