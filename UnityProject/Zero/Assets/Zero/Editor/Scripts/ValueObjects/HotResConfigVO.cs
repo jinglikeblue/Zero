@@ -40,26 +40,6 @@ namespace Zero.Edit
         /// </summary>
         public string ilScriptDir = "";
 
-        /// <summary>
-        /// 热更脚本项目目录
-        /// </summary>
-        public string ilProjDir = "";
-
-        /// <summary>
-        /// Visual Studio编译工具地址
-        /// </summary>
-        public string devenvPath;
-
-        /// <summary>
-        /// 热更脚本项目csproj路径
-        /// </summary>
-        public string ilProjCsprojPath;
-
-        /// <summary>
-        /// 是否在Build时自动排除代码
-        /// </summary>
-        public bool isAutoExcludeBeforeBuild = false;
-
         #endregion
 
         #region 资源版本号配置

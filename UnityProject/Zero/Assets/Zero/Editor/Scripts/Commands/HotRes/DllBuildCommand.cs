@@ -1,102 +1,94 @@
 ﻿using Jing;
 using System;
-using System.Diagnostics;
 using System.IO;
+using UnityEditor;
+using UnityEditor.Compilation;
+using UnityEngine;
 
 namespace Zero.Edit
 {
-    class DllBuildCommand
+    public class DllBuildCommand 
     {
-        public event Action<string> onComplete;
+        /// <summary>
+        /// 打包完成，返回一个bool表示成功还是失败
+        /// </summary>
+        public event Action<DllBuildCommand, bool> onFinished;
+
+        string _sourcesDir;
 
         string _resDir;
-        string _devenvPath;
-        string _csprojPath;
 
-        string _projContent;
-        string _releaseDir;
+        string _outputAssemblyPath;
 
-        public DllBuildCommand(string resDir, string devenvPath, string csprojPath)
+        public DllBuildCommand(string sourcesDir, string resDir)
         {
+            _sourcesDir = sourcesDir;
             _resDir = resDir;
-            _devenvPath = devenvPath;
-            _csprojPath = csprojPath;
+            var outputDir = FileSystem.CombineDirs(false, _resDir, ZeroEditorUtil.PlatformDirName, HotResConst.DLL_DIR_NAME);
+            if(false == Directory.Exists(outputDir))
+            {
+                Directory.CreateDirectory(outputDir);
+            }
+            _outputAssemblyPath = FileSystem.CombinePaths(outputDir, "ILProject.dll");
         }
-
 
         public void Execute()
         {
-            _projContent = File.ReadAllText(_csprojPath);
-
-            SetDllReleseDir();
-
-            Process p = new Process();
-            p.StartInfo.FileName = _devenvPath;// @"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\devenv";  //确定程序名
-            p.StartInfo.Arguments = string.Format("\"{0}\" /Rebuild \"Release|AnyCPU\"", _csprojPath);// @"""E:\projects\unity\Zero\UnityProject\ZeroIL\ZeroIL\ZeroIL.csproj"" /build";  //指定程式命令行
-            //p.StartInfo.UseShellExecute = false;   //是否使用Shell
-            //p.StartInfo.RedirectStandardInput = true;   //重定向输入
-            //p.StartInfo.RedirectStandardOutput = true;   //重定向输出            
-            //p.StartInfo.RedirectStandardError = true;    //重定向输出错误
-            //p.StartInfo.CreateNoWindow = true;        //设置不显示窗口            
-            p.Start();
-            //锁死线程等待命名执行完毕
-            p.WaitForExit();
-            if (null != onComplete)
+            var scriptPaths = Directory.GetFiles(_sourcesDir, "*.cs", SearchOption.AllDirectories);
+            var ab = new AssemblyBuilder(_outputAssemblyPath, scriptPaths);
+            ab.compilerOptions = new ScriptCompilerOptions();            
+            ab.additionalReferences = GetDepends();            
+            ab.buildFinished += OnFinished;
+            if (false == ab.Build())
             {
-                onComplete.Invoke(_releaseDir);
+                onFinished?.Invoke(this, false);
+                onFinished = null;
             }
         }
 
-        /// <summary>
-        /// 设置DLL文件发布的目录
-        /// </summary>
-        /// <param name="vo"></param>
-        private void SetDllReleseDir()
+        string[] GetDepends()
         {
-            _releaseDir = FileSystem.CombineDirs(true, _resDir, ZeroEditorUtil.PlatformDirName, HotResConst.DLL_DIR_NAME);
+            //依赖Assets下的DLL
+            var assetDir = Application.dataPath;
+            var dllList0 = Directory.GetFiles(assetDir, "*.dll", SearchOption.AllDirectories);
 
-            if (false == Directory.Exists(_releaseDir))
-            {
-                Directory.CreateDirectory(_releaseDir);
-            }
+            //依赖Library/ScriptAssemblies下的DLL
+            var projectDir = Directory.GetParent(assetDir).FullName;
+            var dllList1 = Directory.GetFiles(FileSystem.CombineDirs(true, projectDir, "Library", "ScriptAssemblies"), "*.dll", SearchOption.AllDirectories);
 
-            _releaseDir = new DirectoryInfo(_releaseDir).FullName;
+            //依赖Unity安装目录下的DLL
+            var dir = FileSystem.CombineDirs(true, EditorApplication.applicationContentsPath, "Managed");
+            var dllList2 = Directory.GetFiles(dir, "*.dll", SearchOption.AllDirectories);
 
-            int searchIdx = 0;
-            do
-            {
-                searchIdx = RepleaceOutputPath(_releaseDir, searchIdx);
-            }
-            while (searchIdx > -1);
-
-            File.WriteAllText(_csprojPath, _projContent);
+            string[] depends = new string[dllList0.Length + dllList1.Length + dllList2.Length];
+            Array.Copy(dllList0, 0, depends, 0, dllList0.Length);
+            Array.Copy(dllList1, 0, depends, dllList0.Length, dllList1.Length);
+            Array.Copy(dllList2, 0, depends, dllList0.Length + dllList1.Length, dllList2.Length);
+            return depends;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="content"></param>
-        /// <param name="releaseDir"></param>
-        /// <param name="startIdx"></param>
-        /// <returns></returns>
-        int RepleaceOutputPath(string releaseDir, int searchIdx)
-        {
-            const string NODE_START = "<OutputPath>";
-            const string NODE_END = "</OutputPath>";
-            int startIdx = _projContent.IndexOf(NODE_START, searchIdx);
-            if (startIdx == -1)
+        private void OnFinished(string path, CompilerMessage[] msgs)
+        {            
+            bool isFail = false;
+            foreach (var msg in msgs)
             {
-                return -1;
+                if (msg.type == CompilerMessageType.Error)
+                {
+                    Debug.LogError(msg.message); 
+                    isFail = true;
+                }
             }
-            startIdx += NODE_START.Length;
-            int endIdx = _projContent.IndexOf(NODE_END, searchIdx);
 
-            string part1 = _projContent.Substring(0, startIdx);
-            string part2 = _projContent.Substring(endIdx);
+            if (isFail)
+            {                
+                onFinished?.Invoke(this, false);
+            }
+            else
+            {               
+                onFinished?.Invoke(this, true);
+            }
 
-            _projContent = part1 + releaseDir + part2;
-
-            return endIdx + NODE_END.Length;
+            onFinished = null;
         }
     }
 }
