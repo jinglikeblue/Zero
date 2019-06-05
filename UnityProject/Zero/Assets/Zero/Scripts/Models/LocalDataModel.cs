@@ -23,7 +23,7 @@ namespace Zero
             /// 是否更新Setting文件
             /// </summary>
             public bool isUpdateSetting = true;
-            public ResVerVO localResVO;
+
             public Dictionary<string, string> localValueDic = new Dictionary<string, string>();
         }
 
@@ -77,22 +77,6 @@ namespace Zero
             get
             {
                 return _vo.isUpdateSetting;
-            }
-        }
-
-        /// <summary>
-        /// 本地数据版本对象
-        /// </summary>
-        public ResVerVO LocalResVO
-        {
-            get
-            {
-                return _vo.localResVO;
-            }
-            set
-            {
-                _vo.localResVO = value;
-                Save2Local();
             }
         }
 

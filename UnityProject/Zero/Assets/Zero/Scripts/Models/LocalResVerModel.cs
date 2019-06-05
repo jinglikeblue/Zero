@@ -8,11 +8,29 @@ namespace Zero
     /// </summary>
     public class LocalResVerModel : ResVerModel
     {
-        LocalDataModel _localDataModel;
-        public LocalResVerModel(LocalDataModel localDataModel)
+        const string FILE_NAME = "local_res_ver.zero.json";
+        string _path;
+        
+        public LocalResVerModel()
         {
-            _localDataModel = localDataModel;
-            _vo = _localDataModel.LocalResVO;
+            Load();
+        }
+
+        public void Load()
+        {
+            _path = Runtime.Ins.localResDir + FILE_NAME;            
+
+            if (File.Exists(_path))
+            {
+                //读取已有的数据
+                _vo = LitJson.JsonMapper.ToObject<ResVerVO>(File.ReadAllText(_path));
+            }
+            else
+            {
+                //新数据初始化
+                _vo = new ResVerVO();
+            }
+
             if (_vo.items == null)
             {
                 _vo.items = new ResVerVO.Item[0];
@@ -73,7 +91,8 @@ namespace Zero
 
         public void Save()
         {
-            _localDataModel.LocalResVO = _vo;
+            string json = LitJson.JsonMapper.ToJson(_vo);
+            File.WriteAllText(_path, json);
         }
 
     }

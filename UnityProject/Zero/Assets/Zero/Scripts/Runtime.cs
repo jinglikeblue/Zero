@@ -174,7 +174,7 @@ namespace Zero
             }
 
             localData = new LocalDataModel();
-            localResVer = new LocalResVerModel(localData);
+            localResVer = new LocalResVerModel();
         }
 
 

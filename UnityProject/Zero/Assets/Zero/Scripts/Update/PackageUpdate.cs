@@ -51,7 +51,8 @@ namespace Zero
                     yield return new WaitForEndOfFrame();
                 }
                 www.Dispose();
-
+                //重新加载一次版本号文件，因为可能被覆盖了
+                Runtime.Ins.localResVer.Load();
             } while (false);
             onComplete();
             yield break;
