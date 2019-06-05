@@ -35,17 +35,17 @@ namespace Zero
         /// <summary>
         /// 本地数据
         /// </summary>
-        public LocalDataModel localData;
+        public LocalDataModel localData { get; private set; }
 
         /// <summary>
         /// 平台目录
         /// </summary>
-        public string platform;
+        public string platform { get; private set; }
 
         /// <summary>
         /// StreamingAssets目录访问路径
         /// </summary>
-        public string streamingAssetsPath;
+        public string streamingAssetsPath { get; private set; }
 
         /// <summary>
         /// 配置
@@ -63,14 +63,24 @@ namespace Zero
         public ResVerModel netResVer;
 
         /// <summary>
-        /// 基于运行平台的本地资源根路径(存放下载文件的目录)
+        /// 基于运行平台的本地可读写文件根目录
         /// </summary>
-        public string localResDir;
+        public string persistentDir { get; private set; }
+
+        /// <summary>
+        /// 存放下载文件的目录
+        /// </summary>
+        public string localResDir { get; private set; }
 
         /// <summary>
         /// 本地的资源版本
         /// </summary>
-        public LocalResVerModel localResVer;
+        public LocalResVerModel localResVer { get; private set; }
+
+        /// <summary>
+        /// Zero框架生成的文件的目录
+        /// </summary>
+        public string generateFilesDir { get; private set; }
 
         /// <summary>
         /// 是否使用AssetDataBase加载资源
@@ -126,14 +136,14 @@ namespace Zero
                     platform = "android";
                     streamingAssetsPath = Application.streamingAssetsPath + "/";
                     netResDir = FileSystem.CombineDirs(true, _vo.netRoot, platform);
-                    localResDir = FileSystem.CombineDirs(true, Application.persistentDataPath);
+                    persistentDir = FileSystem.CombineDirs(true, Application.persistentDataPath);
                     break;
                 case RuntimePlatform.IPhonePlayer:
                     //IOS真机环境
                     platform = "ios";
                     streamingAssetsPath = string.Format("file://{0}/Raw/", Application.dataPath);
                     netResDir = FileSystem.CombineDirs(true, _vo.netRoot, platform);
-                    localResDir = FileSystem.CombineDirs(true, Application.persistentDataPath);
+                    persistentDir = FileSystem.CombineDirs(true, Application.persistentDataPath);
                     break;
                 case RuntimePlatform.WindowsEditor:
                 case RuntimePlatform.LinuxEditor:
@@ -150,27 +160,36 @@ namespace Zero
                     if (IsLoadAssetsFromNet)
                     {
                         netResDir = FileSystem.CombineDirs(true, _vo.netRoot, platform);
-                        localResDir = FileSystem.CombineDirs(true, Directory.GetParent(Application.dataPath).FullName, "Caches");                        
+                        persistentDir = FileSystem.CombineDirs(true, Directory.GetParent(Application.dataPath).FullName, "Caches");                                             
                     }
                     else
                     {
                         netResDir = FileSystem.CombineDirs(true, _vo.localResRoot, platform);
-                        localResDir = netResDir;
+                        persistentDir = FileSystem.CombineDirs(true, Directory.GetParent(Application.dataPath).FullName, "Caches");
                     }
+                    
                     break;
                 default:
                     //其它真机环境
                     platform = "pc";
                     streamingAssetsPath = string.Format("file://{0}/StreamingAssets/", Application.dataPath);
                     netResDir = FileSystem.CombineDirs(true, _vo.netRoot, platform);
-                    localResDir = FileSystem.CombineDirs(true, Application.dataPath, "StreamingAssets");
+                    persistentDir = FileSystem.CombineDirs(true, Application.dataPath, "StreamingAssets");                    
                     break;
             }
+
+            localResDir = FileSystem.CombineDirs(true, persistentDir, "res");
+            generateFilesDir = FileSystem.CombineDirs(true, persistentDir, "zero_generated");
 
             //确保本地资源目录存在
             if (false == Directory.Exists(localResDir))
             {
                 Directory.CreateDirectory(localResDir);
+            }
+
+            if (false == Directory.Exists(generateFilesDir))
+            {
+                Directory.CreateDirectory(generateFilesDir);
             }
 
             localData = new LocalDataModel();

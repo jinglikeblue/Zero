@@ -10,7 +10,7 @@ namespace Zero
     {
         const string FILE_NAME = "local_res_ver.zero.json";
         string _path;
-        
+
         public LocalResVerModel()
         {
             Load();
@@ -18,7 +18,7 @@ namespace Zero
 
         public void Load()
         {
-            _path = Runtime.Ins.localResDir + FILE_NAME;            
+            _path = FileSystem.CombinePaths(Runtime.Ins.generateFilesDir, FILE_NAME);
 
             if (File.Exists(_path))
             {
@@ -47,10 +47,10 @@ namespace Zero
         /// </summary>
         public void ConformingLocalRes()
         {
-            foreach(var item in _vo.items)
+            foreach (var item in _vo.items)
             {
                 var filePath = FileSystem.CombinePaths(Runtime.Ins.localResDir, item.name);
-                if(!File.Exists(filePath))
+                if (!File.Exists(filePath))
                 {
                     SetVer(item.name, "");
                 }

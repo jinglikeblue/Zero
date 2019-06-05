@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Jing;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Zero
@@ -32,7 +33,8 @@ namespace Zero
 
         public LocalDataModel()
         {
-            _path = Runtime.Ins.localResDir + FILE_NAME;
+            _path = FileSystem.CombinePaths(Runtime.Ins.generateFilesDir, FILE_NAME);
+
             if (File.Exists(_path))
             {
                 //读取已有的数据

@@ -44,7 +44,7 @@ namespace Zero
 
                 //解压Zip
                 ZipHelper zh = new ZipHelper();
-                zh.UnZip(www.bytes, Runtime.Ins.localResDir);
+                zh.UnZip(www.bytes, Runtime.Ins.persistentDir);
                 while (false == zh.isDone)
                 {
                     onProgress(zh.progress, www.bytes.Length);
