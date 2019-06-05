@@ -174,7 +174,7 @@ namespace Zero
                     platform = "pc";
                     streamingAssetsPath = string.Format("file://{0}/StreamingAssets/", Application.dataPath);
                     netResDir = FileSystem.CombineDirs(true, _vo.netRoot, platform);
-                    persistentDir = FileSystem.CombineDirs(true, Application.dataPath, "StreamingAssets");                    
+                    persistentDir = FileSystem.CombineDirs(true, Application.dataPath, "Caches");                    
                     break;
             }
 
