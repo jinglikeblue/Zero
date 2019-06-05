@@ -39,6 +39,7 @@ namespace Zero
                 //Package.zip不存在
                 if (null != www.error)
                 {
+                    Log.I("解压[Package.zip]:{0}", www.error);
                     break;
                 }
 
