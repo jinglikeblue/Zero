@@ -39,19 +39,21 @@ namespace Zero
                 //Package.zip不存在
                 if (null != www.error)
                 {
+                    Log.I("解压[Package.zip]:{0}", www.error);
                     break;
                 }
 
                 //解压Zip
                 ZipHelper zh = new ZipHelper();
-                zh.UnZip(www.bytes, Runtime.Ins.localResDir);
+                zh.UnZip(www.bytes, Runtime.Ins.persistentDir);
                 while (false == zh.isDone)
                 {
                     onProgress(zh.progress, www.bytes.Length);
                     yield return new WaitForEndOfFrame();
                 }
                 www.Dispose();
-
+                //重新加载一次版本号文件，因为可能被覆盖了
+                Runtime.Ins.localResVer.Load();
             } while (false);
             onComplete();
             yield break;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Jing;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Zero
@@ -23,7 +24,7 @@ namespace Zero
             /// 是否更新Setting文件
             /// </summary>
             public bool isUpdateSetting = true;
-            public ResVerVO localResVO;
+
             public Dictionary<string, string> localValueDic = new Dictionary<string, string>();
         }
 
@@ -32,7 +33,8 @@ namespace Zero
 
         public LocalDataModel()
         {
-            _path = Runtime.Ins.localResDir + FILE_NAME;
+            _path = FileSystem.CombinePaths(Runtime.Ins.generateFilesDir, FILE_NAME);
+
             if (File.Exists(_path))
             {
                 //读取已有的数据
@@ -77,22 +79,6 @@ namespace Zero
             get
             {
                 return _vo.isUpdateSetting;
-            }
-        }
-
-        /// <summary>
-        /// 本地数据版本对象
-        /// </summary>
-        public ResVerVO LocalResVO
-        {
-            get
-            {
-                return _vo.localResVO;
-            }
-            set
-            {
-                _vo.localResVO = value;
-                Save2Local();
             }
         }
 

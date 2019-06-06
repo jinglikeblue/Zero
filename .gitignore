@@ -34,3 +34,6 @@ UnityProject/Zero/Temp/
 /UnityProject/Zero/Unity.PackageManagerUI.Editor.csproj
 /UnityProject/Zero/Logs
 /UnityProject/Zero/.vscode
+/UnityProject/Zero/Res/pc/local_data.zero.json
+/UnityProject/Zero/Res/ios/local_data.zero.json
+/UnityProject/Zero/Res/android/local_data.zero.json
