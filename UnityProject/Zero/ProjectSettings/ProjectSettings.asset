@@ -118,7 +118,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.2
+  bundleVersion: 1.0
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -153,13 +153,13 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: pieces.jing.zerodemo
+    Android: pieces.jing.zero
     Standalone: com.jing.zero.demo
-    iOS: com.jing.test
+    iOS: pieces.jing.zero
   buildNumber: {}
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 17
-  AndroidTargetSdkVersion: 23
+  AndroidMinSdkVersion: 16
+  AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 
   stripEngineCode: 0
