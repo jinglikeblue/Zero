@@ -48,10 +48,14 @@ namespace Zero
                 zh.UnZip(www.bytes, Runtime.Ins.persistentDir);
                 while (false == zh.isDone)
                 {
-                    onProgress(zh.progress, www.bytes.Length);
+                    Log.I("[Package.zip]解压进度:{0}%", zh.progress * 100);
+                    onProgress(zh.progress, www.bytes.Length);                    
                     yield return new WaitForEndOfFrame();
                 }
                 www.Dispose();
+
+                Log.I("[Package.zip]解压完成");
+
                 //重新加载一次版本号文件，因为可能被覆盖了
                 Runtime.Ins.localResVer.Load();
             } while (false);
