@@ -57,7 +57,7 @@ namespace Zero.Edit
             var dllList1 = Directory.GetFiles(FileSystem.CombineDirs(true, projectDir, "Library", "ScriptAssemblies"), "*.dll", SearchOption.AllDirectories);
 
             //依赖Unity安装目录下的DLL
-            var dir = FileSystem.CombineDirs(true, EditorApplication.applicationContentsPath, "Managed");
+            var dir = FileSystem.CombineDirs(true, EditorApplication.applicationContentsPath, "Managed", "UnityEngine");
             var dllList2 = Directory.GetFiles(dir, "*.dll", SearchOption.AllDirectories);
 
             string[] depends = new string[dllList0.Length + dllList1.Length + dllList2.Length];
