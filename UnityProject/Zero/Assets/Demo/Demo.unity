@@ -572,13 +572,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runtimeCfg:
     isLogEnable: 1
-    mainPrefab: hot_res/ILContent
+    mainPrefab: ILContent
     isHotResProject: 1
     hotResMode: 1
     netRoot: http://wepieces.cn/unity/zero/demo/Res
     localResRoot: ./Res
-    hotResRoot: Assets/Resources
-    isUseDll: 1
+    hotResRoot: Assets/@Resources
+    isUseDll: 0
     ilType: 0
     fileName: ILProject
     className: IL.Demo.ILMain

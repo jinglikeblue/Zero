@@ -178,8 +178,8 @@ namespace Zero
                     break;
             }
 
-            localResDir = FileSystem.CombineDirs(true, persistentDir, "res");
-            generateFilesDir = FileSystem.CombineDirs(true, persistentDir, "zero_generated");
+            localResDir = FileSystem.CombineDirs(true, persistentDir, "zero", "hotres");
+            generateFilesDir = FileSystem.CombineDirs(true, persistentDir, "zero", "generated");
 
             //确保本地资源目录存在
             if (false == Directory.Exists(localResDir))

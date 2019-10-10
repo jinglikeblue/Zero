@@ -56,8 +56,8 @@ namespace Zero.Edit
                 AssetDatabase.RemoveAssetBundleName(abName, true);
             }                                 
             
-            UnityEngine.Debug.LogFormat("标记资源：{0}", _abResourcesDir);
-            MarkRes2ABUtil.Mark(_abResourcesDir, MARK, "");
+            //UnityEngine.Debug.LogFormat("标记资源：{0}", _abResourcesDir);
+            //MarkRes2ABUtil.Mark(_abResourcesDir, MARK, "");
         }
     }    
 }

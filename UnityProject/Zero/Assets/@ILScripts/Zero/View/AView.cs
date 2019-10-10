@@ -47,30 +47,19 @@ namespace IL.Zero
             this.gameObject = gameObject;
 
             _z = ComponentUtil.AutoGet<ZeroView>(this.gameObject);
+            _z.aViewClass = GetType().FullName;
             _z.onEnable += OnGameObjectEnable;
             _z.onDisable += OnGameObjectDisable;
             _z.onDestroy += OnGameObjectDestroy;
 
-            OnInit();
+            OnInit();            
 
-            if(data != null)
-            {
-                SetData(data);
-            }
+            OnData(data);
 
             if (this.gameObject.activeInHierarchy)
             {
                 OnEnable();
             }
-        }
-
-        void SetData(object data)
-        {
-            if (null == data)
-            {
-                return;
-            }
-            OnData(data);
         }
 
         private void OnGameObjectEnable()

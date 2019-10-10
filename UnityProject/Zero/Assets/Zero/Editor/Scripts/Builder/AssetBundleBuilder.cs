@@ -87,18 +87,18 @@ namespace Zero.Edit
         }
 
         void FindAB(string dir)
-        {
+        {            
             string[] assetFileList = Directory.GetFiles(dir);
             foreach (string assetFile in assetFileList)
             {
                 var temp = assetFile.Replace("\\", "/").Replace(_assetDirPath, "");
                 AssetImporter ai = AssetImporter.GetAtPath(temp);
 
-                if (null == ai || ai.assetBundleName == null || ai.assetBundleName.Length == 0)
+                if (null == ai)
                 {
                     continue;
                 }
-
+                
                 //根据资源的路径分AB包                 
                 string assetPath = ai.assetPath.Replace(_scanStartAssetDir, "");
                 string abName = Path.GetDirectoryName(assetPath) + HotResConst.AB_EXTENSION;
@@ -129,17 +129,10 @@ namespace Zero.Edit
             //获取依赖的资源
             string[] dps = AssetDatabase.GetDependencies(ai.assetPath);
             foreach (string dependPath in dps)
-            {
-                if (dependPath.Contains(ai.assetPath) || dependPath.Contains(".cs"))
+            {               
+                if (dependPath.StartsWith(_scanStartAssetDir) || dependPath.Contains(".cs"))
                 {
-                    //要过滤掉依赖的自己本身和脚本文件，自己本身的名称已设置，而脚本不能打包
-                    continue;
-                }
-
-                AssetImporter dependAI = AssetImporter.GetAtPath(dependPath);
-                if (dependAI.assetBundleName != "")
-                {
-                    //已经指定到AB的不做处理
+                    //要过滤掉依赖的@Resources目录中的文件和脚本文件，@Resources目录中的文件已设置，而脚本不能打包
                     continue;
                 }
 

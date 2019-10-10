@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 
 namespace Jing
-{
+{    
     public class MessageCenter
     {
         struct CacherVO

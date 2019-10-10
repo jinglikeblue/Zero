@@ -44,18 +44,18 @@ namespace IL.Demo
 
         void RegistStages()
         {
-            RegistView<GameStage>("hot_res/prefabs/stages");            
+            RegistView<GameStage>("prefabs/stages");            
         }
 
         void RegistUIPanel()
         {
-            RegistView<MenuPanel>("hot_res/prefabs/panels");
-            RegistView<GamePanel>("hot_res/prefabs/panels");
+            RegistView<MenuPanel>("prefabs/panels");
+            RegistView<GamePanel>("prefabs/panels");
         }
 
         void RegistUIWin()
         {
-            RegistView<HelpWin>("hot_res/prefabs/wins");
+            RegistView<HelpWin>("prefabs/wins");
         }
 
         void RegistView<T>(string abName)
@@ -70,7 +70,7 @@ namespace IL.Demo
             GUIDeviceInfo.Show();
             UIPanelMgr.Ins.SwitchASync<MenuPanel>();
             //播放背景音乐
-            AudioDevice.Get("bgm").Play(ResMgr.Ins.Load<AudioClip>("hot_res/audios/bgm"), true);
+            AudioDevice.Get("bgm").Play(ResMgr.Ins.Load<AudioClip>("audios/bgm"), true);
         }
     }
 }
