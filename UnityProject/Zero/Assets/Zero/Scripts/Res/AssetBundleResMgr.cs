@@ -53,7 +53,7 @@ namespace Zero
         {
             if (string.IsNullOrEmpty(abName))
             {
-                abName = ZeroConst.SPECIAL_AB_NAME;
+                abName = ZeroConst.ROOT_AB_FILE_NAME;
             }            
         }
 

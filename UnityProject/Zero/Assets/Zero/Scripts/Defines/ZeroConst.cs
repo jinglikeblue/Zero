@@ -31,9 +31,9 @@ namespace Zero
         public const string MANIFEST_FILE_NAME = "manifest";
 
         /// <summary>
-        /// 直接放在Resources目录下的资源，会被打包到resources.ab文件中
+        /// 直接放在Assets/@Resources目录下的资源，会被打包到root_assets.ab文件中
         /// </summary>
-        public const string SPECIAL_AB_NAME = "resources";
+        public const string ROOT_AB_FILE_NAME = "root_assets";
 
 
         static string _platformDirName = null;

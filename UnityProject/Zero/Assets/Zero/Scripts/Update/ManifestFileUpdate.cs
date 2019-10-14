@@ -26,7 +26,7 @@ namespace Zero
             _manifestName = FileSystem.CombinePaths(ZeroConst.AB_DIR_NAME, ZeroConst.MANIFEST_FILE_NAME + ZeroConst.AB_EXTENSION);
             _onUpdate = onUpdate;
             _onError = onError;
-            _localPath = _rt.localResDir + _manifestName;
+            _localPath = FileSystem.CombinePaths(_rt.localResDir , _manifestName);
 
             if (Runtime.Ins.IsLoadAssetsFromNet && false == _rt.netResVer.IsSameVer(_manifestName, _rt.localResVer))
             {

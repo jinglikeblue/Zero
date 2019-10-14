@@ -64,7 +64,7 @@ namespace Zero.Edit
         public void BuildAssetBundle()
         {
             //标记目标目录
-            new AssetBundleBuildCommand(_cfg.resDir, _cfg.abHotResDir, _cfg.isKeepManifest).Execute();
+            new AssetBundleBuildCommand(ZeroEditorConst.RES_ROOT_DIR, ZeroEditorConst.ASSET_BUNDLE_PUBLISH_DIR).Execute();
         }
 
         /// <summary>
