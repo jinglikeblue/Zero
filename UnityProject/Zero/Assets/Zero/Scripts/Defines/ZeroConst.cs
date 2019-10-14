@@ -35,6 +35,9 @@ namespace Zero
         /// </summary>
         public const string SPECIAL_AB_NAME = "resources";
 
+
+        static string _platformDirName = null;
+
         /// <summary>
         /// 平台目录
         /// </summary>
@@ -42,17 +45,22 @@ namespace Zero
         {
             get
             {
-                
+                if (null == _platformDirName)
+                {
 #if UNITY_STANDALONE
-                return "pc";
+                    _platformDirName = "pc";
 #elif UNITY_IPHONE
-        return "ios";
+        _platformDirName = "ios";
 #elif UNITY_ANDROID
-                return "android";
+                _platformDirName = "android";
 #endif
-                return null;
+                }
+
+                return _platformDirName;
             }
         }
+
+        static string _streamingAssetsPath = null;
 
         /// <summary>
         /// 可用WWW加载资源的streamingAssets目录地址
@@ -61,14 +69,19 @@ namespace Zero
         {
             get
             {
-                string path = Application.streamingAssetsPath;
+                if (null == _streamingAssetsPath)
+                {
+                    string _streamingAssetsPath = Application.streamingAssetsPath;
 #if UNITY_EDITOR || UNITY_STANDALONE || UNITY_ANDROID
-                //如果在编辑器下，或是PC平台或Android平台，则要加上file://才能读取资源
-                path = "file://" + path;
+                    //如果在编辑器下，或是PC平台或Android平台，则要加上file://才能读取资源
+                    _streamingAssetsPath = "file://" + _streamingAssetsPath;
 #endif
-                return path;
+                }
+                return _streamingAssetsPath;
             }
         }
+
+        static string _persistentDataPath = null;
 
         /// <summary>
         /// 可读写目录地址
@@ -77,13 +90,16 @@ namespace Zero
         {
             get
             {
-                string path = Application.persistentDataPath;
-#if UNITY_EDITOR                
-                path = FileSystem.CombineDirs(false, Directory.GetParent(Application.dataPath).FullName, "Caches");
+                if (null == _persistentDataPath)
+                {
+                    _persistentDataPath = Application.persistentDataPath;
+#if UNITY_EDITOR
+                    _persistentDataPath = FileSystem.CombineDirs(false, Directory.GetParent(Application.dataPath).FullName, "Caches");
 #elif UNITY_STANDALONE
-                path = FileSystem.CombineDirs(false, Application.dataPath, "Caches");
+                _persistentDataPath = FileSystem.CombineDirs(false, Application.dataPath, "Caches");
 #endif
-                return path;
+                }
+                return _persistentDataPath;
             }
         }
     }
