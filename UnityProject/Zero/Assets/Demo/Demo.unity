@@ -574,7 +574,7 @@ MonoBehaviour:
     isLogEnable: 1
     mainPrefab: ILContent
     isHotResProject: 1
-    hotResMode: 1
+    hotResMode: 2
     netRoot: http://wepieces.cn/unity/zero/demo/Res
     localResRoot: ./Res
     hotResRoot: Assets/@Resources

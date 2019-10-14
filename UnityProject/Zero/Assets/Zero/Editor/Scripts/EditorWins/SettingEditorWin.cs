@@ -53,18 +53,12 @@ namespace Zero.Edit
                 cfg.data.startupResGroups = new string[0];
             }
 
-            if (cfg.data.settingJump == null)
-            {
-                cfg.data.settingJump = new Dictionary<string, string>();
-            }
-
             if (cfg.data.startupParams == null)
             {
                 cfg.data.startupParams = new Dictionary<string, string>();
             }
 
-            _startParamsDic.SetData(cfg.data.startupParams, "Key", "Value");
-            _settingJumpDic.SetData(cfg.data.settingJump, "版本号", "跳转地址");            
+            _startParamsDic.SetData(cfg.data.startupParams, "Key", "Value");                     
         }
 
         private void OnGUI()
@@ -106,10 +100,7 @@ namespace Zero.Edit
             EditorGUILayout.EndHorizontal();
 
             cfg.data.client.url = EditorGUILayout.TextField("客户端URl:", cfg.data.client.url);
-
-            //-------------------------------            
-            EditorGUILayout.LabelField("配置跳转，如果当前客户端版本号有匹配的资源，则使用对应的setting文件");
-            cfg.data.settingJump = _settingJumpDic.OnGUI(isMouseDown);
+            
 
             //--------------------资源配置
             GUIText.LayoutSplit("联网资源");
@@ -152,7 +143,7 @@ namespace Zero.Edit
         {
             get
             {
-                var dir = FileSystem.CombinePaths(cfg.saveDir, ZeroEditorUtil.PlatformDirName);
+                var dir = FileSystem.CombinePaths(cfg.saveDir, ZeroConst.PLATFORM_DIR_NAME);
                 if (!Directory.Exists(dir))
                 {
                     Directory.CreateDirectory(dir);

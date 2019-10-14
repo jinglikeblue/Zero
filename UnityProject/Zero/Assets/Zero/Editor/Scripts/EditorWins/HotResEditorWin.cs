@@ -192,7 +192,7 @@ namespace Zero.Edit
         {
             GUILayout.BeginHorizontal();
             GUILayout.Label("Manifest文件资源路径:", GUILayout.Width(200));
-            GUILayout.Label(FileSystem.CombinePaths(HotResConst.AB_DIR_NAME, HotResConst.MANIFEST_FILE_NAME + HotResConst.AB_EXTENSION));
+            GUILayout.Label(FileSystem.CombinePaths(ZeroConst.AB_DIR_NAME, ZeroConst.MANIFEST_FILE_NAME + ZeroConst.AB_EXTENSION));
             //_cfg.manifestName = EditorGUILayout.TextField(_cfg.manifestName);
             GUILayout.EndHorizontal();
         }
@@ -255,7 +255,7 @@ namespace Zero.Edit
             }
 
             //打开目录
-            ZeroEditorUtil.OpenDirectory(FileSystem.CombineDirs(false, _cfg.resDir, ZeroEditorUtil.PlatformDirName));
+            ZeroEditorUtil.OpenDirectory(FileSystem.CombineDirs(false, _cfg.resDir, ZeroConst.PLATFORM_DIR_NAME));
 
             EditorUtility.ClearProgressBar();
         }

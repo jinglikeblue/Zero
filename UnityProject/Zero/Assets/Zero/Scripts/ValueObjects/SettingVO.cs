@@ -41,10 +41,5 @@ namespace Zero
         /// 配置的参数
         /// </summary>
         public Dictionary<string, string> startupParams;
-
-        /// <summary>
-        /// 配置跳转，如果当前客户端版本号有匹配的资源，则使用对应的setting文件
-        /// </summary>
-        public Dictionary<string, string> settingJump;
     }
 }

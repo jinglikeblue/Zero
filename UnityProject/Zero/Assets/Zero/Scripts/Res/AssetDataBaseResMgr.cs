@@ -33,7 +33,7 @@ namespace Zero
             {
                 abName = ABNameWithoutExtension(abName);
                 string dir;
-                if (abName.ToLower() != HotResConst.SPECIAL_AB_NAME) //resources表示从根目录获取资源，则不需要添加目录
+                if (abName.ToLower() != ZeroConst.SPECIAL_AB_NAME) //resources表示从根目录获取资源，则不需要添加目录
                 {
                     dir = FileSystem.CombinePaths(_assetRoot, abName);
                 }

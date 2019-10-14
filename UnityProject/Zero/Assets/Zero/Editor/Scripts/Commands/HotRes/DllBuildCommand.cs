@@ -24,7 +24,7 @@ namespace Zero.Edit
         {
             _sourcesDir = sourcesDir;
             _resDir = resDir;
-            var outputDir = FileSystem.CombineDirs(false, _resDir, ZeroEditorUtil.PlatformDirName, HotResConst.DLL_DIR_NAME);
+            var outputDir = FileSystem.CombineDirs(false, _resDir, ZeroConst.PLATFORM_DIR_NAME, ZeroConst.DLL_DIR_NAME);
             if(false == Directory.Exists(outputDir))
             {
                 Directory.CreateDirectory(outputDir);

@@ -126,7 +126,7 @@ namespace Zero.Edit
                 EditorGUILayout.Space();
                 EditorGUILayout.LabelField("文件目录(相对于资源根目录)");
                 GUI.enabled = false;
-                EditorGUILayout.TextField(HotResConst.DLL_DIR_NAME);
+                EditorGUILayout.TextField(ZeroConst.DLL_DIR_NAME);
                 GUI.enabled = true;                
 
                 EditorGUILayout.Space();

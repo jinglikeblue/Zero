@@ -23,7 +23,7 @@ namespace Zero
         {
             Log.CI(Log.COLOR_BLUE, "「ManifestFileUpdate」Manifest描述文件更新检查...");
             _rt = Runtime.Ins;
-            _manifestName = FileSystem.CombinePaths(HotResConst.AB_DIR_NAME, HotResConst.MANIFEST_FILE_NAME + HotResConst.AB_EXTENSION);
+            _manifestName = FileSystem.CombinePaths(ZeroConst.AB_DIR_NAME, ZeroConst.MANIFEST_FILE_NAME + ZeroConst.AB_EXTENSION);
             _onUpdate = onUpdate;
             _onError = onError;
             _localPath = _rt.localResDir + _manifestName;
@@ -34,11 +34,11 @@ namespace Zero
             }
             else
             {
-                InitAssetBundleMgr();
+                InitResMgr();
             }
         }
 
-        void InitAssetBundleMgr()
+        void InitResMgr()
         {
             if(Runtime.Ins.IsHotResProject)
             {
@@ -80,7 +80,7 @@ namespace Zero
 
             _rt.localResVer.SetVerAndSave(_manifestName, ver);
 
-            InitAssetBundleMgr();
+            InitResMgr();
             yield break;
         }
 

@@ -51,7 +51,7 @@ namespace Zero.Edit
                 return;
             }
 
-            _rootABName = Path.GetFileName(Path.GetDirectoryName(searchStartPath)) + HotResConst.AB_EXTENSION;
+            _rootABName = Path.GetFileName(Path.GetDirectoryName(searchStartPath)) + ZeroConst.AB_EXTENSION;
 
             //找出所有打了标记的资源
             FindAB(searchStartPath);
@@ -70,7 +70,7 @@ namespace Zero.Edit
         {
             string file = Path.GetFileName(_outPath);
             string oldFile = FileSystem.CombinePaths(_outPath, file);
-            string newFile = FileSystem.CombinePaths(_outPath, string.Format("{0}{1}", HotResConst.MANIFEST_FILE_NAME, HotResConst.AB_EXTENSION));
+            string newFile = FileSystem.CombinePaths(_outPath, string.Format("{0}{1}", ZeroConst.MANIFEST_FILE_NAME, ZeroConst.AB_EXTENSION));
             if (File.Exists(newFile))
             {
                 File.Delete(newFile);
@@ -101,8 +101,8 @@ namespace Zero.Edit
                 
                 //根据资源的路径分AB包                 
                 string assetPath = ai.assetPath.Replace(_scanStartAssetDir, "");
-                string abName = Path.GetDirectoryName(assetPath) + HotResConst.AB_EXTENSION;
-                if (abName == HotResConst.AB_EXTENSION)
+                string abName = Path.GetDirectoryName(assetPath) + ZeroConst.AB_EXTENSION;
+                if (abName == ZeroConst.AB_EXTENSION)
                 {
                     //资源直接在根目录下
                     abName = _rootABName;
@@ -222,7 +222,7 @@ namespace Zero.Edit
                 {
                     continue;
                 }
-                string abName = string.Format("auto_depends/cross_{0}{1}", i++, HotResConst.AB_EXTENSION);
+                string abName = string.Format("auto_depends/cross_{0}{1}", i++, ZeroConst.AB_EXTENSION);
                 List<string> assetList = new List<string>();
                 assetList.Add(assetPair.Key);
                 //标记为已使用

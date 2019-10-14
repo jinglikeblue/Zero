@@ -21,7 +21,7 @@ namespace Zero
             Log.CI(Log.COLOR_BLUE, "「ResVerFileUpdate」资源版本号文件更新检查...");
             _onLoaded = onLoaded;
             _onError = onError;
-            _localPath = Runtime.Ins.localResDir + "res.json";
+            _localPath = FileSystem.CombinePaths(Runtime.Ins.localResDir , "res.json");
             if (Runtime.Ins.IsLoadAssetsFromNet)
             {
                 ILBridge.Ins.StartCoroutine(Update());

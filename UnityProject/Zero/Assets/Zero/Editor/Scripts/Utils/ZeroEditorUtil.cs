@@ -10,25 +10,6 @@ namespace Zero.Edit
     public class ZeroEditorUtil
     {
         /// <summary>
-        /// 平台目录
-        /// </summary>
-        public static string PlatformDirName
-        {
-            get
-            {
-                string name;
-#if UNITY_STANDALONE
-                name = "pc/";
-#elif UNITY_IPHONE
-        name = "ios/";
-#elif UNITY_ANDROID
-                name = "android/";
-#endif
-                return name;
-            }
-        }
-
-        /// <summary>
         /// 项目的Resources目录
         /// </summary>
         public static string ResourcesFolder {

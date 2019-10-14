@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Jing;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -28,7 +29,7 @@ namespace Zero
                 Runtime.Ins.localData.IsInit = true;
 
                 //检查是否存在Package.zip
-                string path = Runtime.Ins.streamingAssetsPath + "Package.zip";
+                string path =FileSystem.CombinePaths(ZeroConst.STREAMING_ASSETS_PATH , "Package.zip");
                 WWW www = new WWW(path);
                 while (false == www.isDone)
                 {
@@ -45,7 +46,7 @@ namespace Zero
 
                 //解压Zip
                 ZipHelper zh = new ZipHelper();
-                zh.UnZip(www.bytes, Runtime.Ins.persistentDir);
+                zh.UnZip(www.bytes, Runtime.Ins.localResDir);
                 while (false == zh.isDone)
                 {
                     Log.I("[Package.zip]解压进度:{0}%", zh.progress * 100);

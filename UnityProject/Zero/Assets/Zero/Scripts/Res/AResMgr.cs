@@ -14,9 +14,9 @@ namespace Zero
         /// <param name="abName"></param>
         protected string ABNameWithExtension(string abName)
         {
-            if (false == abName.EndsWith(HotResConst.AB_EXTENSION))
+            if (false == abName.EndsWith(ZeroConst.AB_EXTENSION))
             {
-                abName += HotResConst.AB_EXTENSION;
+                abName += ZeroConst.AB_EXTENSION;
             }
             abName = FileSystem.StandardizeBackslashSeparator(abName);
             return abName;
@@ -29,9 +29,9 @@ namespace Zero
         /// <returns></returns>
         protected string ABNameWithoutExtension(string abName)
         {
-            if (abName.EndsWith(HotResConst.AB_EXTENSION))
+            if (abName.EndsWith(ZeroConst.AB_EXTENSION))
             {
-                abName = abName.Replace(HotResConst.AB_EXTENSION, "");
+                abName = abName.Replace(ZeroConst.AB_EXTENSION, "");
             }
             abName = FileSystem.StandardizeBackslashSeparator(abName);
             return abName;

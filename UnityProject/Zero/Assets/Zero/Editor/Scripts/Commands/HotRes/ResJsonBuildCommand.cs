@@ -14,7 +14,7 @@ namespace Zero.Edit
 
         public void Execute()
         {
-            var resDir = FileSystem.CombineDirs(false, _resDir, ZeroEditorUtil.PlatformDirName);
+            var resDir = FileSystem.CombineDirs(false, _resDir, ZeroConst.PLATFORM_DIR_NAME);
             if (false == Directory.Exists(resDir))
             {
                 Directory.CreateDirectory(resDir);
