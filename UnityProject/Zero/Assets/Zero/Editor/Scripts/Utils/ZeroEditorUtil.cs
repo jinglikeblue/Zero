@@ -10,17 +10,6 @@ namespace Zero.Edit
     public class ZeroEditorUtil
     {
         /// <summary>
-        /// 项目的Resources目录
-        /// </summary>
-        public static string ResourcesFolder {
-            get
-            {
-                string resourcesDir = FileSystem.CombineDirs(true, Application.dataPath, "Resources");
-                return resourcesDir;
-            }
-        }
-
-        /// <summary>
         /// 打开目录
         /// </summary>
         /// <param name="path"></param>
@@ -38,25 +27,6 @@ namespace Zero.Edit
                 }
 
                 System.Diagnostics.Process.Start("explorer.exe", path);
-            }
-        }
-
-        /// <summary>
-        /// 当前发布平台
-        /// </summary>
-        public static BuildTarget CurrentPlatform
-        {
-            get
-            {
-                BuildTarget platform;
-#if UNITY_STANDALONE
-                platform = BuildTarget.StandaloneWindows;
-#elif UNITY_IPHONE
-        platform = BuildTarget.iOS;
-#elif UNITY_ANDROID
-        platform = BuildTarget.Android;
-#endif
-                return platform;
             }
         }
     }

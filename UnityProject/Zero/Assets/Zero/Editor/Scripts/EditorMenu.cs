@@ -68,7 +68,7 @@ namespace Zero.Edit
 
         [MenuItem("Zero/Document", false, 800)]
         public static void Document()
-        {
+        {            
             //访问网站
             Application.OpenURL(@"https://jinglikeblue.github.io/Zero/Docs/Intro");
         }

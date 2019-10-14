@@ -67,7 +67,6 @@ namespace Zero.Edit
             new AssetBundleBuildCommand(_cfg.resDir, _cfg.abHotResDir, _cfg.isKeepManifest).Execute();
         }
 
-
         /// <summary>
         /// 构建热更DLL文件
         /// </summary>
@@ -95,28 +94,6 @@ namespace Zero.Edit
         {
             new ResJsonBuildCommand(_cfg.resDir).Execute();
         }
-
-        /// <summary>
-        /// 拷贝代码到Proj项目
-        /// </summary>
-        //public bool Copy2DllProj()
-        //{
-        //    string projCodeDir = Path.Combine(_cfg.ilProjDir, "codes");
-
-        //    if (Directory.Exists(_cfg.ilScriptDir))
-        //    {
-        //        if (Directory.Exists(projCodeDir))
-        //        {
-        //            Directory.Delete(projCodeDir, true);
-        //        }
-        //        FileUtil.CopyFileOrDirectory(_cfg.ilScriptDir, projCodeDir);
-        //        Jing.FileSystem.DeleteFilesByExt(projCodeDir, "meta");
-
-        //        AssetDatabase.Refresh();
-        //        return true;
-        //    }
-        //    return false;
-        //}
 
         /// <summary>
         /// 排除DLL代码

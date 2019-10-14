@@ -18,7 +18,7 @@ namespace Zero.Edit
             get
             {
                 DirectoryInfo temp = Directory.GetParent(Application.dataPath);
-                string dir = FileSystem.CombineDirs(true, temp.FullName, "EditorConfig");
+                string dir = FileSystem.CombineDirs(false, temp.FullName, "EditorConfigs");
                 if (!Directory.Exists(dir))
                 {
                     Directory.CreateDirectory(dir);
@@ -35,7 +35,7 @@ namespace Zero.Edit
         public static void SaveConfig(object data, string fileName)
         {
             string json = JsonMapper.ToJson(data);
-            File.WriteAllText(Path.Combine(ConfigDir, fileName), json);
+            File.WriteAllText(FileSystem.CombinePaths(ConfigDir, fileName), json);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Zero.Edit
         /// <returns></returns>
         public static T LoadConfig<T>(string fileName)
         {
-            string path = Path.Combine(ConfigDir, fileName);
+            string path = FileSystem.CombinePaths(ConfigDir, fileName);
             if (File.Exists(path))
             {
                 string json = File.ReadAllText(path);
