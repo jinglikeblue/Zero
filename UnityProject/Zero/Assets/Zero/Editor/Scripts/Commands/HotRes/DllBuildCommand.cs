@@ -16,20 +16,19 @@ namespace Zero.Edit
 
         string _sourcesDir;
 
-        string _resDir;
+        string _outputDir;
 
         string _outputAssemblyPath;
 
-        public DllBuildCommand(string sourcesDir, string resDir)
+        public DllBuildCommand(string sourcesDir, string outputDir)
         {
             _sourcesDir = sourcesDir;
-            _resDir = resDir;
-            var outputDir = FileSystem.CombineDirs(false, _resDir, ZeroConst.PLATFORM_DIR_NAME, ZeroConst.DLL_DIR_NAME);
-            if(false == Directory.Exists(outputDir))
+            _outputDir = outputDir;
+            if (false == Directory.Exists(outputDir))
             {
                 Directory.CreateDirectory(outputDir);
             }
-            _outputAssemblyPath = FileSystem.CombinePaths(outputDir, "ILProject.dll");
+            _outputAssemblyPath = FileSystem.CombinePaths(outputDir, ZeroConst.DLL_FILE_NAME + ".dll");
         }
 
         public void Execute()

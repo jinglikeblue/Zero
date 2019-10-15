@@ -21,6 +21,16 @@ namespace Zero
         public const string DLL_DIR_NAME = "dll";
 
         /// <summary>
+        /// 热更DLL的文件名称（不含后缀）
+        /// </summary>
+        public const string DLL_FILE_NAME = "scripts";
+
+        /// <summary>
+        /// 资源版本描述文件的名称
+        /// </summary>
+        public const string RES_JSON_FILE_NAME = "res.json";
+
+        /// <summary>
         /// AssetBundle文件存储的后缀名
         /// </summary>
         public const string AB_EXTENSION = ".ab";

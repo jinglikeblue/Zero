@@ -67,8 +67,8 @@ namespace Zero.Edit
                 {
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("本地资源的根目录(通过菜单Zero > Publish > HotRes中的Res发布目录配置)");
-                    var model = new HotResPublishModel();
-                    _vo.localResRoot = model.Cfg.resDir;
+                    //var model = new HotResPublishModel();
+                    //_vo.localResRoot = model.Cfg.resDir;
                     if (string.IsNullOrEmpty(_vo.localResRoot))
                     {
                         EditorGUILayout.LabelField("<color=#FF0000>*尚未配置</color>", new GUIStyle());
@@ -84,8 +84,8 @@ namespace Zero.Edit
                 {
                     EditorGUILayout.Space();
                     EditorGUILayout.LabelField("Asset中热更资源目录(通过菜单Zero > Publish > HotRes中的AssetBundle配置)");
-                    var model = new HotResPublishModel();                    
-                    _vo.hotResRoot = model.Cfg.abHotResDir;
+                    //var model = new HotResPublishModel();                    
+                    //_vo.hotResRoot = model.Cfg.abHotResDir;
                     if (string.IsNullOrEmpty(_vo.hotResRoot))
                     {                        
                         EditorGUILayout.LabelField("<color=#FF0000>*尚未配置</color>", new GUIStyle());

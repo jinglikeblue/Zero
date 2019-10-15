@@ -11,8 +11,8 @@ namespace Zero
     /// </summary>
     public class ILBridge : ASingletonMonoBehaviour<ILBridge>
     {
-        public string libDir;
-        public string libName;
+        public string dllDir;
+        public string dllName;
 
         /// <summary>
         /// Update事件委托
@@ -55,18 +55,18 @@ namespace Zero
         BaseILWorker iLWorker;
 
         /// <summary>
-        /// 启动ILRuntime
+        /// 启动热更代码执行
         /// </summary>
-        /// <param name="libDir">Dll文件所在目录</param>
-        /// <param name="libName">DLL文件名称（不含扩展名）</param>
+        /// <param name="dllDir">Dll文件所在目录</param>
+        /// <param name="dllName">DLL文件名称（不含扩展名）</param>
         /// <param name="isDebug">是否是调试模式（仅针对ILRuntime，可以用第三方插件在APP运行时进行调试）</param>
         /// <param name="methodName">是否需要加载PDB文件（仅针对ILRuntime，可以在调试时打印出错代码信息）</param>
-        public void Startup(string libDir, string libName, bool isDebug, bool isNeedPdbFile)
+        public void Startup(string dllDir, string dllName, bool isDebug, bool isNeedPdbFile)
         {
-            this.libDir = libDir;
-            this.libName = libName;
+            this.dllDir = dllDir;
+            this.dllName = dllName;
 
-            string dllPath = Path.Combine(libDir, libName + ".dll");
+            string dllPath = Path.Combine(dllDir, dllName + ".dll");
 
             byte[] dllBytes = File.ReadAllBytes(dllPath);
 
@@ -86,7 +86,7 @@ namespace Zero
             else
             {
                 //使用ILRuntime
-                iLWorker = new ILRuntimeILWorker(dllBytes, libDir, libName, isDebug, isNeedPdbFile);
+                iLWorker = new ILRuntimeILWorker(dllBytes, dllDir, dllName, isDebug, isNeedPdbFile);
             }
         }
 

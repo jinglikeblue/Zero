@@ -889,6 +889,27 @@ namespace LitJson
             WriteValue (obj, writer, false, 0);
         }
 
+        static JsonWriter _prettyJsonWriter = new JsonWriter();
+
+        /// <summary>
+        /// 输出符合文本可视化的Json
+        /// </summary>
+        /// <param name="obj"></param>
+        public static string ToPrettyJson(object obj)
+        {
+            lock (_prettyJsonWriter)
+            {
+                _prettyJsonWriter.Reset();
+                if (false == _prettyJsonWriter.PrettyPrint)
+                {
+                    _prettyJsonWriter.IndentValue = 4;
+                    _prettyJsonWriter.PrettyPrint = true;
+                }
+                WriteValue(obj, _prettyJsonWriter, true, 0);
+                return _prettyJsonWriter.ToString();
+            }
+        }
+
         public static JsonData ToObject (JsonReader reader)
         {
             return (JsonData) ToWrapper (

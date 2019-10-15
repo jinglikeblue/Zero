@@ -1,1 +1,75 @@
-{"items":[{"name":"setting.json","version":"bd49124712a187f2d6928989db344063","size":254},{"name":"ab/hot_res.ab","version":"7586cd89ad040885fdcc4e54788ae4ba","size":6247},{"name":"ab/manifest.ab","version":"c23158c39d4c6b97cd665b5906bb215d","size":1800},{"name":"ab/auto_depends/cross_0.ab","version":"b62ec48ba9335dc403ca9f6f906e3fec","size":9566},{"name":"ab/auto_depends/cross_1.ab","version":"26421dfb0ae146488367903461c5ef5b","size":182198},{"name":"ab/hot_res/audios.ab","version":"261d28caf93d1828729661470b5ae85e","size":1465628},{"name":"ab/hot_res/prefabs/panels.ab","version":"39ce7824a2f31d2bbd677d08fe039169","size":244176},{"name":"ab/hot_res/prefabs/stages.ab","version":"02458cc2c6254a8afe25362252c28efc","size":575636},{"name":"ab/hot_res/prefabs/wins.ab","version":"498852ef4880732e89be6ac924c87901","size":774433},{"name":"ab/hot_res/prefabs/stages/gamestage.ab","version":"08e567c846482c6eccceef9e574febb9","size":4598},{"name":"dll/ILProject.dll","version":"f6d8ff426cc4cfdfaaf063fb3a6e87ae","size":21504},{"name":"dll/ILProject.pdb","version":"cf356fa443bf1f2afcc1c8351a871dea","size":8084}]}
+
+{
+    "items" : [
+        {
+            "name" : "setting.json",
+            "version" : "3d81dd3d9ac9c332398774cbb5640a6a",
+            "size"    : 378
+        },
+        {
+            "name" : "ab/audios.ab",
+            "version" : "725b0a0096b411cef660be4980b74cfb",
+            "size"    : 1465600
+        },
+        {
+            "name" : "ab/manifest.ab",
+            "version" : "f14e78df04e39c09d87337798e8f8059",
+            "size"    : 1797
+        },
+        {
+            "name" : "ab/root_assets.ab",
+            "version" : "676344fb9d35ff7c11a142720f51e454",
+            "size"    : 6247
+        },
+        {
+            "name" : "ab/auto_depends/cross_0.ab",
+            "version" : "b62ec48ba9335dc403ca9f6f906e3fec",
+            "size"    : 9566
+        },
+        {
+            "name" : "ab/auto_depends/cross_1.ab",
+            "version" : "9c38d9211bc6c0c27f9c9c74fed92881",
+            "size"    : 3975
+        },
+        {
+            "name" : "ab/prefabs/panels.ab",
+            "version" : "0906e6b19f2c107ce2bdab45cd0db80d",
+            "size"    : 98967
+        },
+        {
+            "name" : "ab/prefabs/stages.ab",
+            "version" : "7b3cf5e3a63df0a42f8528fc239920fd",
+            "size"    : 385745
+        },
+        {
+            "name" : "ab/prefabs/wins.ab",
+            "version" : "618df9e17e4b701cc857fec152e983e7",
+            "size"    : 597459
+        },
+        {
+            "name" : "ab/prefabs/stages/gamestage.ab",
+            "version" : "f0b6b29f6b8209bebaef51dfb4e4385b",
+            "size"    : 4591
+        },
+        {
+            "name" : "dll/ILProject.dll",
+            "version" : "409dd44712446f52121fa8305d2c0a33",
+            "size"    : 21504
+        },
+        {
+            "name" : "dll/ILProject.pdb",
+            "version" : "e3dfbf3d9a347e81c7d9409cdf7cc771",
+            "size"    : 8040
+        },
+        {
+            "name" : "dll/scripts.dll",
+            "version" : "dcde1a570bd8a275f674d1a566cbe95b",
+            "size"    : 21504
+        },
+        {
+            "name" : "dll/scripts.pdb",
+            "version" : "e3dfbf3d9a347e81c7d9409cdf7cc771",
+            "size"    : 8040
+        }
+    ]
+}

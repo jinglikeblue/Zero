@@ -19,7 +19,7 @@ namespace Zero.Edit
         [MenuItem("Zero/发布/HotRes", false, 100)]
         public static void PublishHotRes()
         {
-            HotResEditorWin.Open();
+            HotResBuildEditorWin.Open();
         }     
 
         [MenuItem("Zero/iOS/ProjectInit", false, 300)]

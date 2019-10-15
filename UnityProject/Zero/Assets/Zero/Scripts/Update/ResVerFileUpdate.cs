@@ -21,7 +21,7 @@ namespace Zero
             Log.CI(Log.COLOR_BLUE, "「ResVerFileUpdate」资源版本号文件更新检查...");
             _onLoaded = onLoaded;
             _onError = onError;
-            _localPath = FileSystem.CombinePaths(Runtime.Ins.localResDir , "res.json");
+            _localPath = FileSystem.CombinePaths(Runtime.Ins.localResDir , ZeroConst.RES_JSON_FILE_NAME);
             if (Runtime.Ins.IsLoadAssetsFromNet)
             {
                 ILBridge.Ins.StartCoroutine(Update());
@@ -42,7 +42,7 @@ namespace Zero
 
         IEnumerator Update()
         {
-            Downloader loader = new Downloader(Runtime.Ins.netResDir + "res.json", _localPath, DateTime.UtcNow.ToFileTimeUtc().ToString());
+            Downloader loader = new Downloader(FileSystem.CombinePaths(Runtime.Ins.netResDir , ZeroConst.RES_JSON_FILE_NAME), _localPath, DateTime.UtcNow.ToFileTimeUtc().ToString());
             while (false == loader.isDone)
             {
                 yield return new WaitForEndOfFrame();

@@ -578,7 +578,7 @@ MonoBehaviour:
     netRoot: http://wepieces.cn/unity/zero/demo/Res
     localResRoot: ./Res
     hotResRoot: Assets/@Resources
-    isUseDll: 0
+    isUseDll: 1
     ilType: 0
     fileName: ILProject
     className: IL.Demo.ILMain

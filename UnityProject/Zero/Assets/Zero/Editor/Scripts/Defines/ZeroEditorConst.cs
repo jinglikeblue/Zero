@@ -23,17 +23,27 @@ namespace Zero.Edit
         /// <summary>
         /// AssetBundle打包的发布目录
         /// </summary>
-        static public string ASSET_BUNDLE_PUBLISH_DIR = FileSystem.CombineDirs(false, PUBLISH_RES_ROOT_DIR, "ab");
+        static public string DLL_PUBLISH_DIR = FileSystem.CombineDirs(false, PUBLISH_RES_ROOT_DIR, ZeroConst.DLL_DIR_NAME);
+
+        /// <summary>
+        /// AssetBundle打包的发布目录
+        /// </summary>
+        static public string ASSET_BUNDLE_PUBLISH_DIR = FileSystem.CombineDirs(false, PUBLISH_RES_ROOT_DIR, ZeroConst.AB_DIR_NAME);
 
         /// <summary>
         /// AssetBundle打包缓存目录
         /// </summary>
-        static public string ASSET_BUNDLE_CACHE_DIR = FileSystem.CombineDirs(false, "Library", "ZeroHotResCache", "ab");
+        static public string ASSET_BUNDLE_CACHE_DIR = FileSystem.CombineDirs(false, "Library", "ZeroHotResCache", ZeroConst.AB_DIR_NAME);
 
         /// <summary>
         /// 热更资源根目录
         /// </summary>
-        static public string RES_ROOT_DIR = "Assets/@Resources";
+        static public string HOT_RESOURCES_ROOT_DIR = "Assets/@Resources";
+
+        /// <summary>
+        /// 热更代码的根目录
+        /// </summary>
+        static public string HOT_SCRIPT_ROOT_DIR = "Assets/@Scripts";
 
         /// <summary>
         /// 当前发布平台
