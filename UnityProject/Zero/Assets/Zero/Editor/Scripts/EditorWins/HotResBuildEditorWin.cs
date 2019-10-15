@@ -86,7 +86,7 @@ namespace Zero.Edit
         public void BuildAssetBundle()
         {
             //标记目标目录
-            new AssetBundleBuildCommand(ZeroEditorConst.HOT_RESOURCES_ROOT_DIR, ZeroEditorConst.ASSET_BUNDLE_PUBLISH_DIR).Execute();
+            new AssetBundleBuildCommand(ZeroConst.HOT_RESOURCES_ROOT_DIR, ZeroEditorConst.ASSET_BUNDLE_PUBLISH_DIR).Execute();
         }
 
         /// <summary>

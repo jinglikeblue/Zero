@@ -34,9 +34,8 @@ namespace Zero
             /// 启动主程序
             /// </summary>
             STARTUP
-        }
-
-        [Header("运行时配置")]
+        }        
+        
         public RuntimeVO runtimeCfg = new RuntimeVO();
         
         EState _currentState;
@@ -75,7 +74,7 @@ namespace Zero
         /// </summary>
         /// <param name="rg"></param>
         public void StartPreload(BaseILRuntimeGenerics rg = null)
-        {
+        {            
             if(null != rg)
             {
                 ILRuntimeILWorker.RegisterILRuntimeGenerics(rg);

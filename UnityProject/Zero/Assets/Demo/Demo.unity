@@ -571,18 +571,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runtimeCfg:
+    isHotResProject: 1
     isLogEnable: 1
     mainPrefab: ILContent
-    isHotResProject: 1
-    hotResMode: 1
+    className: IL.ILMain
+    methodName: Main
+    hotResMode: 2
     netRoot: http://wepieces.cn/unity/zero/demo/Res
-    localResRoot: ./Res
+    localResRoot: "\u8BF7\u67E5\u770B\u300CZeroEditorConst.PUBLISH_RES_ROOT_DIR\u300D"
     hotResRoot: Assets/@Resources
     isUseDll: 1
-    ilType: 0
-    fileName: ILProject
-    className: IL.Demo.ILMain
-    methodName: Main
+    ilType: 1
     isDebugIL: 1
     isLoadPdb: 1
 --- !u!114 &1440188156

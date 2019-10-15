@@ -55,6 +55,11 @@ namespace Zero
         /// </summary>
         public const string ROOT_AB_FILE_NAME = "root_assets";
 
+        /// <summary>
+        /// 热更资源在项目中根目录
+        /// </summary>
+        static public string HOT_RESOURCES_ROOT_DIR = "Assets/@Resources";
+
 
         static string _platformDirName = null;
 

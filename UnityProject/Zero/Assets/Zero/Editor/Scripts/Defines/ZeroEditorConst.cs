@@ -36,11 +36,6 @@ namespace Zero.Edit
         static public string ASSET_BUNDLE_CACHE_DIR = FileSystem.CombineDirs(false, "Library", "ZeroHotResCache", ZeroConst.AB_DIR_NAME);
 
         /// <summary>
-        /// 热更资源根目录
-        /// </summary>
-        static public string HOT_RESOURCES_ROOT_DIR = "Assets/@Resources";
-
-        /// <summary>
         /// 热更代码的根目录
         /// </summary>
         static public string HOT_SCRIPT_ROOT_DIR = "Assets/@Scripts";

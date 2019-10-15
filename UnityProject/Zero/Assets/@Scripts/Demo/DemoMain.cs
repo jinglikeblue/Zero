@@ -1,21 +1,14 @@
-﻿using IL.Zero;
+﻿using IL.Demo;
+using IL.Zero;
 using System;
 using UnityEngine;
 using Zero;
 
 namespace IL.Demo
 {
-    class ILMain
+    public class DemoMain
     {
-        /// <summary>
-        /// 入口方法
-        /// </summary>
-        public static void Main()
-        {
-            new ILMain();
-        }
-
-        public ILMain()
+        public DemoMain()
         {
             Init();
             RegistStages();
@@ -25,7 +18,7 @@ namespace IL.Demo
         }
 
         void Init()
-        {            
+        {
             Application.targetFrameRate = 60;
 
             AudioDevice.Create("bgm");
@@ -44,7 +37,7 @@ namespace IL.Demo
 
         void RegistStages()
         {
-            RegistView<GameStage>("prefabs/stages");            
+            RegistView<GameStage>("prefabs/stages");
         }
 
         void RegistUIPanel()

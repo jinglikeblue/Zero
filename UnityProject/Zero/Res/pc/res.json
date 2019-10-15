@@ -3,18 +3,18 @@
     "items" : [
         {
             "name" : "setting.json",
-            "version" : "3d81dd3d9ac9c332398774cbb5640a6a",
-            "size"    : 378
+            "version" : "faafe7d5d7fdd5e1d37480723ff7e2fb",
+            "size"    : 336
         },
         {
             "name" : "ab/audios.ab",
-            "version" : "725b0a0096b411cef660be4980b74cfb",
-            "size"    : 1465600
+            "version" : "411121b82fcfe4b454c070644d786f93",
+            "size"    : 1465619
         },
         {
             "name" : "ab/manifest.ab",
-            "version" : "f14e78df04e39c09d87337798e8f8059",
-            "size"    : 1797
+            "version" : "11f52fe5acc84044aef12f47dfb21ba1",
+            "size"    : 1794
         },
         {
             "name" : "ab/root_assets.ab",
@@ -52,24 +52,14 @@
             "size"    : 4591
         },
         {
-            "name" : "dll/ILProject.dll",
-            "version" : "409dd44712446f52121fa8305d2c0a33",
-            "size"    : 21504
-        },
-        {
-            "name" : "dll/ILProject.pdb",
-            "version" : "e3dfbf3d9a347e81c7d9409cdf7cc771",
-            "size"    : 8040
-        },
-        {
             "name" : "dll/scripts.dll",
-            "version" : "dcde1a570bd8a275f674d1a566cbe95b",
+            "version" : "91746d5509b050fcebe33baca7ac64a9",
             "size"    : 21504
         },
         {
             "name" : "dll/scripts.pdb",
-            "version" : "e3dfbf3d9a347e81c7d9409cdf7cc771",
-            "size"    : 8040
+            "version" : "39cb79f39f1085dba177e2f9ea23c2a4",
+            "size"    : 8104
         }
     ]
 }
