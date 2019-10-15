@@ -1,5 +1,10 @@
 ﻿using Jing;
+using Sirenix.OdinInspector;
+using Sirenix.OdinInspector.Editor;
+using Sirenix.Utilities;
+using Sirenix.Utilities.Editor;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -10,22 +15,14 @@ namespace Zero.Edit
     /// <summary>
     /// 配置文件窗口
     /// </summary>
-    public class SettingEditorWin : AEditorWin
+    public class SettingEditorWin : OdinEditorWindow
     {
-        const string CONFIG_NAME = "SettingCfg.json";
+        const string CONFIG_NAME = "setting_config.json";
 
-        public struct ConfigVO
-        {
-            /// <summary>
-            /// 保存路径
-            /// </summary>
-            public string saveDir;
-
-            /// <summary>
-            /// 设置数据
-            /// </summary>
-            public SettingVO data;
-        }
+        /// <summary>
+        /// 设置数据
+        /// </summary>
+        SettingVO cfg;
 
         /// <summary>
         /// 打开窗口
@@ -33,138 +30,110 @@ namespace Zero.Edit
         public static void Open()
         {
             var win = EditorWindow.GetWindow<SettingEditorWin>();
-            win.titleContent = new GUIContent("Setting Config");
-            win.minSize = new Vector2(1000, 800);
-            win.maxSize = new Vector2(1280, 800);
-            win.Show();
+            win.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 600);
         }
 
-        ConfigVO cfg;
-        Vector2 _pos = Vector2.zero;
-        GUIDictionary _startParamsDic = new GUIDictionary();
-        GUIDictionary _settingJumpDic = new GUIDictionary();
-
-        private void OnEnable()
+        protected override void OnEnable()
         {
-            cfg = EditorConfigUtil.LoadConfig<ConfigVO>(CONFIG_NAME);
+            base.OnEnable();
 
-            if (cfg.data.startupResGroups == null)
-            {
-                cfg.data.startupResGroups = new string[0];
-            }
-
-            if (cfg.data.startupParams == null)
-            {
-                cfg.data.startupParams = new Dictionary<string, string>();
-            }
-
-            _startParamsDic.SetData(cfg.data.startupParams, "Key", "Value");                     
+            SetCfg(EditorConfigUtil.LoadConfig<SettingVO>(CONFIG_NAME));
         }
 
-        private void OnGUI()
+        void SetCfg(SettingVO cfg)
         {
-            bool isMouseDown = Event.current.type == EventType.MouseDown ? true : false;
-
-            EditorGUILayout.BeginVertical();
-
-            GUIText.LayoutHead("保存setting.json");            
-
-            if (GUILayout.Button("保存配置", GUILayout.Width(200)))
-            {
-                EditorConfigUtil.SaveConfig(cfg, CONFIG_NAME);
-                ShowNotification(new GUIContent("保存成功"));
-                _startParamsDic.Reload();
-                _settingJumpDic.Reload();
-            }
-            cfg.saveDir = EditorGUILayout.TextField("Setting文件保存目录:", cfg.saveDir);
-            EditorGUILayout.Space();
-
-
-            _pos = GUILayout.BeginScrollView(_pos);
-
-            GUIText.LayoutHead("setting.json编辑");
-
-            GUIText.LayoutSplit("客户端版本");
-            EditorGUILayout.BeginHorizontal();
-            cfg.data.client.version = EditorGUILayout.TextField("客户端版本号:", cfg.data.client.version, GUILayout.Width(300));
-            if (GUILayout.Button("获取当前版本号", GUILayout.Width(100)))
-            {
-                cfg.data.client.version = Application.version;
-            }
-
-            GUILayout.Space(20);
-            EditorGUILayout.LabelField("更新方式：", GUILayout.Width(60));
-
-            cfg.data.client.type = EditorGUILayout.Popup(cfg.data.client.type, new string[] { "安装包更新", "网页更新" }, GUILayout.Width(150));
-
-            EditorGUILayout.EndHorizontal();
-
-            cfg.data.client.url = EditorGUILayout.TextField("客户端URl:", cfg.data.client.url);
-            
-
-            //--------------------资源配置
-            GUIText.LayoutSplit("联网资源");
-            cfg.data.netResRoot = EditorGUILayout.TextField("网络资源目录:", cfg.data.netResRoot);
-
-            EditorGUILayout.LabelField("启动资源组列表");
-            int groupSize = EditorGUILayout.IntField("数量:", cfg.data.startupResGroups.Length, GUILayout.MaxWidth(200));
-            if (groupSize != cfg.data.startupResGroups.Length)
-            {
-                string[] newArr = new string[groupSize];
-                Array.Copy(cfg.data.startupResGroups, 0, newArr, 0, groupSize < cfg.data.startupResGroups.Length ? groupSize : cfg.data.startupResGroups.Length);
-                cfg.data.startupResGroups = newArr;
-            }
-
-            for (int i = 0; i < cfg.data.startupResGroups.Length; i++)
-            {
-                cfg.data.startupResGroups[i] = EditorGUILayout.TextField("资源组名称:", cfg.data.startupResGroups[i]);
-            }
-
-            //-------------------------------
-            GUIText.LayoutSplit("额外参数");
-            EditorGUILayout.LabelField("配置文件附带参数");
-            cfg.data.startupParams = _startParamsDic.OnGUI(isMouseDown);
-            //GUILayoutDictionary(cfg.data.startupParams, "Key", "Value");
-            GUILayout.EndScrollView();
-
-            //----------------------------------------------------
-            GUILayout.Space(20);
-            if (GUILayout.Button("生成[Setting.json]"))
-            {
-                CreateSettingJsonFile();
-                _startParamsDic.Reload();
-                _settingJumpDic.Reload();
-            }           
-
-            EditorGUILayout.EndVertical();
+            this.cfg = cfg;
+            version = cfg.client.version;
+            url = cfg.client.url;
+            type = cfg.client.type;
+            netResRoot = cfg.netResRoot;
+            startupResGroups = cfg.startupResGroups;
+            startupParams = cfg.startupParams;
         }
 
-        string SavePath
+        void UpdateCfg()
         {
-            get
+            cfg.client.version = version;
+            cfg.client.url = url;
+            cfg.client.type = type;
+            cfg.netResRoot = netResRoot;
+            cfg.startupResGroups = startupResGroups;
+            cfg.startupParams = startupParams;
+        }
+
+        [Button("保存配置", buttonSize: ButtonSizes.Medium),PropertyOrder(-1)]
+        void SaveConfig()
+        {
+            UpdateCfg();
+            EditorConfigUtil.SaveConfig(cfg, CONFIG_NAME);
+        }
+
+        [Button("读取「setting.json」", buttonSize: ButtonSizes.Medium), PropertyOrder(-1)]
+        void LoadExistSettingJson()
+        {
+            var selectedFile = EditorUtility.OpenFilePanel("选择文件", Application.dataPath, "json");
+            if (false == string.IsNullOrEmpty(selectedFile))
             {
-                var dir = FileSystem.CombinePaths(cfg.saveDir, ZeroConst.PLATFORM_DIR_NAME);
-                if (!Directory.Exists(dir))
+                try
                 {
-                    Directory.CreateDirectory(dir);
+                    var jsonStr = File.ReadAllText(selectedFile);
+                    SetCfg(LitJson.JsonMapper.ToObject<SettingVO>(jsonStr));
                 }
-                return FileSystem.CombinePaths(dir, "setting.json");
+                catch(Exception e)
+                {
+                    Debug.LogError("读取选择的setting.json文件失败：" + selectedFile);
+                    Debug.LogError(e);
+                }
             }
         }
 
-        void CreateSettingJsonFile()
+        [Title("客户端版本")]
+        [LabelText("版本号")]
+        public string version;
+
+        [LabelText("更新地址URL")]
+        public string url;
+
+        [LabelText("更新方式"), ValueDropdown("ClientUpdateType")]
+        public int type;
+
+        private static IEnumerable ClientUpdateType = new ValueDropdownList<int>()
         {
-            var sp = SavePath;
-            if (File.Exists(sp) && false == EditorUtility.DisplayDialog("警告！", "已存在文件「setting.json」，是否覆盖？", "Yes", "No"))
+            { "安装包更新", 0 },
+            { "网页更新", 1 }
+        };
+
+        [Title("远端资源")]
+        [LabelText("远端资源根目录URL：")]
+        public string netResRoot;
+
+        [LabelText("启动资源组"),ListDrawerSettings(NumberOfItemsPerPage = 7, Expanded = false)]
+        public string[] startupResGroups;
+
+        [Title("启动参数配置")]        
+        public Dictionary<string, string> startupParams;
+
+
+        [Button("发布「setting.json」", buttonSize:ButtonSizes.Medium), PropertyOrder(999)]
+        void BuildSettingJsonFile()
+        {            
+            if (false == Directory.Exists(ZeroEditorConst.PUBLISH_RES_ROOT_DIR))
+            {
+                Directory.CreateDirectory(ZeroEditorConst.PUBLISH_RES_ROOT_DIR);
+            }
+
+            var filePath = FileSystem.CombinePaths(ZeroEditorConst.PUBLISH_RES_ROOT_DIR, ZeroConst.SETTING_FILE_NAME);
+            if (File.Exists(filePath) && false == EditorUtility.DisplayDialog("警告！", "已存在文件「setting.json」，是否覆盖？", "Yes", "No"))
             {
                 return;
             }
 
-            string jsonStr = LitJson.JsonMapper.ToJson(cfg.data);
-            File.WriteAllText(sp, jsonStr);
+            UpdateCfg();
+            string jsonStr = LitJson.JsonMapper.ToPrettyJson(cfg);
+            File.WriteAllText(filePath, jsonStr);
 
             //打开目录
-            ZeroEditorUtil.OpenDirectory(Path.GetDirectoryName(sp));
+            ZeroEditorUtil.OpenDirectory(ZeroEditorConst.PUBLISH_RES_ROOT_DIR);
         }
     }
 }

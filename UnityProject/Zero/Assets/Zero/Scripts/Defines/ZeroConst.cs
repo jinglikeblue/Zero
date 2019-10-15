@@ -31,6 +31,11 @@ namespace Zero
         public const string RES_JSON_FILE_NAME = "res.json";
 
         /// <summary>
+        /// 启动配置文件名称
+        /// </summary>
+        public const string SETTING_FILE_NAME = "setting.json";
+
+        /// <summary>
         /// AssetBundle文件存储的后缀名
         /// </summary>
         public const string AB_EXTENSION = ".ab";

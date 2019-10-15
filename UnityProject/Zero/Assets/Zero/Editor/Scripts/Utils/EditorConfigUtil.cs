@@ -34,7 +34,7 @@ namespace Zero.Edit
         /// <param name="fileName">文件名</param>
         public static void SaveConfig(object data, string fileName)
         {
-            string json = JsonMapper.ToJson(data);
+            string json = JsonMapper.ToPrettyJson(data);
             File.WriteAllText(FileSystem.CombinePaths(ConfigDir, fileName), json);
         }
 
