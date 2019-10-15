@@ -215,10 +215,10 @@ namespace IL.Zero
         /// <typeparam name="T"></typeparam>
         /// <param name="childName"></param>
         /// <returns></returns>
-        public T CreateViewChlid<T>(string childName, object data = null) where T:AView
+        public T CreateViewChild<T>(string childName, object data = null) where T:AView
         {          
             var childGameObject = GetChildGameObject(childName);
-            return CreateViewChlid<T>(childGameObject, data);
+            return CreateViewChild<T>(childGameObject, data);
         }
 
         /// <summary>
@@ -228,13 +228,13 @@ namespace IL.Zero
         /// <param name="index"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        public T CreateViewChlid<T>(int index, object data = null) where T : AView
+        public T CreateViewChild<T>(int index, object data = null) where T : AView
         {
             var childGameObject = GetChildGameObject(index);
-            return CreateViewChlid<T>(childGameObject, data);
+            return CreateViewChild<T>(childGameObject, data);
         }
 
-        public T CreateViewChlid<T>(GameObject childGameObject, object data = null) where T : AView
+        public T CreateViewChild<T>(GameObject childGameObject, object data = null) where T : AView
         {
             if (null == childGameObject)
             {

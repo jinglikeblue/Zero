@@ -16,7 +16,7 @@ namespace IL.Demo
         {
             _blocks = GetChild("Blocks");
             _blockPrefab = ObjectBindingData.Find(gameObject, "blockPrefab")[0] as GameObject;            
-            _boss = CreateViewChlid<Boss>("Boss");
+            _boss = CreateViewChild<Boss>("Boss");
 
             UIPanelMgr.Ins.SwitchASync<GamePanel>(this);
         }
