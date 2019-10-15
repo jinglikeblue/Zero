@@ -36,6 +36,11 @@ namespace Zero
         public const string SETTING_FILE_NAME = "setting.json";
 
         /// <summary>
+        /// 预置文件压缩包名称
+        /// </summary>
+        public const string PACKAGE_ZIP_FILE_NAME = "package.zip";
+
+        /// <summary>
         /// AssetBundle文件存储的后缀名
         /// </summary>
         public const string AB_EXTENSION = ".ab";
