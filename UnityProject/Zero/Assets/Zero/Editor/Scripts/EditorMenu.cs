@@ -8,7 +8,7 @@ namespace Zero.Edit
     /// <summary>
     /// Zero框架编辑器菜单
     /// </summary>
-    public class EditorMenu : AEditorWin
+    public class EditorMenu
     {
         [MenuItem("Zero/发布/Setting", false, 0)]
         public static void Setting()
@@ -22,7 +22,7 @@ namespace Zero.Edit
             HotResBuildEditorWin.Open();
         }     
 
-        [MenuItem("Zero/iOS/ProjectInit", false, 300)]
+        [MenuItem("Zero/iOSProjectInit", false, 300)]
         public static void IosProjectInit()
         {
             IOSProjectInitEditorWin.Open();

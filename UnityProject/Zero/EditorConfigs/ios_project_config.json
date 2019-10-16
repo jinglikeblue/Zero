@@ -1,0 +1,23 @@
+
+{
+    "frameworkToProjectList" : [
+        "CoreTelephony.framework"
+    ],
+    "file2BuildList"         : {
+        "usr/lib/libz.tbd" : "Frameworks/libz.tbd",
+        "usr/lib/libc++.tbd" : "Frameworks/libc++.tbd"
+    },
+    "buildPropertyList"      : {
+        "ENABLE_BITCODE" : "NO",
+        "OTHER_LDFLAGS"  : "-ObjC"
+    },
+    "pListDataList"          : {
+        "FacebookAppID" : "1642587459185521"
+    },
+    "urlSchemeList"          : [
+        "zero"
+    ],
+    "appQueriesSchemeList"   : [
+        "zero"
+    ]
+}
