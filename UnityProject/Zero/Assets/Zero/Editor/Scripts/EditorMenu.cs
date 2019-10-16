@@ -42,7 +42,7 @@ namespace Zero.Edit
             ResMgr.Ins.DoGC();
         }
 
-        [MenuItem("Zero/资源/Packing Tag Delete", false, 501)]
+        [MenuItem("Zero/资源/Packing Tag 管理", false, 501)]
         public static void PackingTagEdit()
         {
             PackingTagEditorWin.Open();
