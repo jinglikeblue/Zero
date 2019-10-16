@@ -29,7 +29,7 @@ namespace Zero.Edit
         /// </summary>
         public static void Open()
         {
-            var win = EditorWindow.GetWindow<SettingEditorWin>();
+            var win = GetWindow<SettingEditorWin>();
             win.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 600);
         }
 
