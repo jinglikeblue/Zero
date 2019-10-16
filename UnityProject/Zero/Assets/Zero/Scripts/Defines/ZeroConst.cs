@@ -21,9 +21,14 @@ namespace Zero
         public const string DLL_DIR_NAME = "dll";
 
         /// <summary>
+        /// 配置资源的目录名称
+        /// </summary>
+        public const string CONFIG_DIR_NAME = "configs";
+
+        /// <summary>
         /// 热更DLL的文件名称（不含后缀）
         /// </summary>
-        public const string DLL_FILE_NAME = "scripts";
+        public const string DLL_FILE_NAME = "scripts";        
 
         /// <summary>
         /// 资源版本描述文件的名称

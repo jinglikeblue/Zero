@@ -21,7 +21,7 @@ namespace Zero.Edit
         static public string PUBLISH_RES_ROOT_DIR = FileSystem.CombineDirs(false, "Res", ZeroConst.PLATFORM_DIR_NAME);
 
         /// <summary>
-        /// AssetBundle打包的发布目录
+        /// DLL打包的发布目录
         /// </summary>
         static public string DLL_PUBLISH_DIR = FileSystem.CombineDirs(false, PUBLISH_RES_ROOT_DIR, ZeroConst.DLL_DIR_NAME);
 
@@ -29,6 +29,11 @@ namespace Zero.Edit
         /// AssetBundle打包的发布目录
         /// </summary>
         static public string ASSET_BUNDLE_PUBLISH_DIR = FileSystem.CombineDirs(false, PUBLISH_RES_ROOT_DIR, ZeroConst.AB_DIR_NAME);
+
+        /// <summary>
+        /// 配置的发布目录
+        /// </summary>
+        static public string CONFIG_PUBLISH_DIR = FileSystem.CombineDirs(false, PUBLISH_RES_ROOT_DIR, ZeroConst.CONFIG_DIR_NAME);
 
         /// <summary>
         /// AssetBundle打包缓存目录
@@ -39,6 +44,11 @@ namespace Zero.Edit
         /// 热更代码的根目录
         /// </summary>
         static public string HOT_SCRIPT_ROOT_DIR = "Assets/@Scripts";
+
+        /// <summary>
+        /// 热更配置的根目录
+        /// </summary>
+        static public string HOT_CONFIG_ROOT_DIR = "Assets/@Configs";
 
         /// <summary>
         /// 当前发布平台

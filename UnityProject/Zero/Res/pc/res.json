@@ -3,17 +3,17 @@
     "items" : [
         {
             "name" : "setting.json",
-            "version" : "faafe7d5d7fdd5e1d37480723ff7e2fb",
-            "size"    : 336
+            "version" : "4612cab2a7420dbcfc831a5f348246f1",
+            "size"    : 351
         },
         {
             "name" : "ab/audios.ab",
-            "version" : "411121b82fcfe4b454c070644d786f93",
-            "size"    : 1465619
+            "version" : "725b0a0096b411cef660be4980b74cfb",
+            "size"    : 1465600
         },
         {
             "name" : "ab/manifest.ab",
-            "version" : "11f52fe5acc84044aef12f47dfb21ba1",
+            "version" : "86eb89bb7d75d2cdd199551ee0f9505e",
             "size"    : 1794
         },
         {
@@ -53,12 +53,12 @@
         },
         {
             "name" : "dll/scripts.dll",
-            "version" : "91746d5509b050fcebe33baca7ac64a9",
+            "version" : "af9f89201e08621e1a84fa85497bd271",
             "size"    : 21504
         },
         {
             "name" : "dll/scripts.pdb",
-            "version" : "39cb79f39f1085dba177e2f9ea23c2a4",
+            "version" : "927f1eb00c38a4b2d2bd0989bbc18850",
             "size"    : 8104
         }
     ]
