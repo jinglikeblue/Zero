@@ -68,7 +68,7 @@ namespace Zero.Edit
             EditorConfigUtil.SaveConfig(cfg, CONFIG_NAME);
         }
 
-        [Button("读取「setting.json」", buttonSize: ButtonSizes.Medium), PropertyOrder(-1)]
+        [Button("复制本地「setting.json」参数", buttonSize: ButtonSizes.Medium), PropertyOrder(-1)]
         void LoadExistSettingJson()
         {
             var selectedFile = EditorUtility.OpenFilePanel("选择文件", Application.dataPath, "json");
