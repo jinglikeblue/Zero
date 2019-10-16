@@ -580,7 +580,7 @@ MonoBehaviour:
     netRoot: http://wepieces.cn/unity/zero/demo/Res
     localResRoot: "\u8BF7\u67E5\u770B\u300CZeroEditorConst.PUBLISH_RES_ROOT_DIR\u300D"
     hotResRoot: Assets/@Resources
-    isUseDll: 1
+    isUseDll: 0
     ilType: 1
     isDebugIL: 1
     isLoadPdb: 1
