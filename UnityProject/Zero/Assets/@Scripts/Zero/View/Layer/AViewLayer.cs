@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace IL.Zero
+namespace ILZero
 {
     public abstract class AViewLayer
     {

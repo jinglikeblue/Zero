@@ -1,10 +1,9 @@
-﻿using IL.Demo;
-using IL.Zero;
+﻿using ILZero;
 using System;
 using UnityEngine;
 using Zero;
 
-namespace IL.Demo
+namespace ILDemo
 {
     public class DemoMain
     {

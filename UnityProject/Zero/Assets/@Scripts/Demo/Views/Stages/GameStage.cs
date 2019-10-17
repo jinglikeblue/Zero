@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using Zero;
-using IL.Zero;
+using ILZero;
 using System;
 
-namespace IL.Demo
+namespace ILDemo
 {
     class GameStage : AView
     {

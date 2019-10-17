@@ -1,10 +1,10 @@
-﻿using IL.Zero;
+﻿using ILZero;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Zero;
 
-namespace IL.Demo
+namespace ILDemo
 {
     /// <summary>
     /// 窗口管理器

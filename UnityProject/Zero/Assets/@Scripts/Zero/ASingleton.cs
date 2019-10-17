@@ -1,4 +1,4 @@
-﻿namespace IL.Zero
+﻿namespace ILZero
 {
     /// <summary>
     /// 单例模式基类

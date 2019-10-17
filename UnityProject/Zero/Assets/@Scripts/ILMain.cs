@@ -7,7 +7,7 @@
         /// </summary>
         public static void Main()
         {
-            new IL.Demo.DemoMain();
+            new ILDemo.DemoMain();
         }
     }
 }

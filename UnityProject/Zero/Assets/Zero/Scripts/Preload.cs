@@ -143,7 +143,7 @@ namespace Zero
             OnStageChange(EState.STARTUP);
             GameObject.Destroy(this.gameObject);
             //加载ILRuntimePrefab;            
-            GameObject mainPrefab = ResMgr.Ins.Load<GameObject>(Runtime.Ins.VO.mainPrefab);
+            GameObject mainPrefab = ResMgr.Ins.Load<GameObject>(ZeroConst.ROOT_AB_FILE_NAME, Runtime.Ins.VO.mainPrefab);
             GameObject go = GameObject.Instantiate(mainPrefab);
             go.name = mainPrefab.name;
         }

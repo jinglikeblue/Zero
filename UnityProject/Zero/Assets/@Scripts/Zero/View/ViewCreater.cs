@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zero;
 
-namespace IL.Zero
+namespace ILZero
 {
     /// <summary>
     /// 视图创建器

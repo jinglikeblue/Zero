@@ -1,10 +1,10 @@
-﻿using IL.Zero;
+﻿using ILZero;
 using System;
 using System.Collections;
 using UnityEngine;
 using Zero;
 
-namespace IL.Demo
+namespace ILDemo
 {
     /// <summary>
     /// UI面板管理器

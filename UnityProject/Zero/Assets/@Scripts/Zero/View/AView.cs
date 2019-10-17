@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using Zero;
 
-namespace IL.Zero
+namespace ILZero
 {
     /// <summary>
     /// 视图对象

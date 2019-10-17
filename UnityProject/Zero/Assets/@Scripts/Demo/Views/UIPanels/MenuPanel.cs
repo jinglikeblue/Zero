@@ -2,9 +2,9 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Zero;
-using IL.Zero;
+using ILZero;
 
-namespace IL.Demo
+namespace ILDemo
 {
     class MenuPanel : AView
     {

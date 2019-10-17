@@ -1,9 +1,9 @@
 ﻿using Zero;
 using System;
 using UnityEngine;
-using IL.Zero;
+using ILZero;
 
-namespace IL.Demo
+namespace ILDemo
 {
     /// <summary>
     /// 舞台管理器
