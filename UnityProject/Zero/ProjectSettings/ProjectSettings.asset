@@ -159,7 +159,7 @@ PlayerSettings:
   buildNumber: {}
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 21
-  AndroidTargetSdkVersion: 0
+  AndroidTargetSdkVersion: 23
   AndroidPreferredInstallLocation: 1
   aotOptions: 
   stripEngineCode: 0
@@ -633,6 +633,7 @@ PlayerSettings:
   scriptingDefineSymbols:
     1: ODIN_INSPECTOR
     4: ODIN_INSPECTOR
+    7: ODIN_INSPECTOR
   platformArchitecture: {}
   scriptingBackend:
     Android: 0
