@@ -10,9 +10,7 @@ using UnityEngine;
 namespace Zero.Edit
 {
     public class IOSProjectInitEditorWin : OdinEditorWindow
-    {
-        const string CONFIG_NAME = "ios_project_config.json";
-
+    {        
         /// <summary>
         /// 打开窗口
         /// </summary>
@@ -22,26 +20,11 @@ namespace Zero.Edit
             win.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 600);
         }
 
-        ConfigVO _cfg;
-
-        public class ConfigVO
-        {
-            public string[] frameworkToProjectList = new string[0];
-
-            public Dictionary<string, string> file2BuildList = new Dictionary<string, string>();
-
-            public Dictionary<string, string> buildPropertyList = new Dictionary<string, string>();
-
-            public Dictionary<string, string> pListDataList = new Dictionary<string, string>();
-
-            public string[] urlSchemeList = new string[0];
-
-            public string[] appQueriesSchemeList = new string[0];
-        }
+        IOSProjectInitConfigVO _cfg;
 
         override protected void OnEnable()
         {
-            _cfg = EditorConfigUtil.LoadConfig<ConfigVO>(CONFIG_NAME);
+            _cfg = EditorConfigUtil.LoadConfig<IOSProjectInitConfigVO>(IOSProjectInitConfigVO.CONFIG_NAME);
             frameworkToProjectList = _cfg.frameworkToProjectList;
             file2BuildList = _cfg.file2BuildList;
             setBuildProperty = _cfg.buildPropertyList;
@@ -63,32 +46,32 @@ namespace Zero.Edit
             _cfg.appQueriesSchemeList = appQueriesSchemeList;
 
 
-            EditorConfigUtil.SaveConfig(_cfg, CONFIG_NAME);
+            EditorConfigUtil.SaveConfig(_cfg, IOSProjectInitConfigVO.CONFIG_NAME);
             ShowNotification(new GUIContent("保存成功"));
         }
 
         [Space(20)]
         [LabelText("Add Framework"), ListDrawerSettings(DraggableItems = false, NumberOfItemsPerPage = 5, Expanded = true)]
-        public string[] frameworkToProjectList = new string[0];
+        public string[] frameworkToProjectList;
 
         [Space(20)]
         [LabelText("Add Libs"), DictionaryDrawerSettings(KeyLabel = "Path", ValueLabel = "Project Path")]
-        public Dictionary<string, string> file2BuildList = new Dictionary<string, string>();
+        public Dictionary<string, string> file2BuildList;
 
         [Space(20)]
         [DictionaryDrawerSettings(KeyLabel = "Name", ValueLabel = "Value")]
-        public Dictionary<string, string> setBuildProperty = new Dictionary<string, string>();
+        public Dictionary<string, string> setBuildProperty;
 
         [Space(20)]
         [DictionaryDrawerSettings(KeyLabel = "Key", ValueLabel = "Value")]
-        public Dictionary<string, string> addPListInfo = new Dictionary<string, string>();
+        public Dictionary<string, string> addPListInfo;
 
         [Space(20)]
         [LabelText("UrlScheme"), ListDrawerSettings(DraggableItems = false, NumberOfItemsPerPage = 5, Expanded = true)]
-        public string[] urlSchemeList = new string[0];
+        public string[] urlSchemeList;
 
         [Space(20)]
         [LabelText("LSApplicationQueriesScheme"), ListDrawerSettings(DraggableItems = false, NumberOfItemsPerPage = 5, Expanded = true)]
-        public string[] appQueriesSchemeList = new string[0];
+        public string[] appQueriesSchemeList;
     }
 }
