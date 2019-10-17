@@ -114,7 +114,7 @@ namespace Zero
         void ClientUpdate()
         {                       
             OnStageChange(EState.CLIENT_UDPATE);
-            AClientUpdate.CreateNowPlatformUpdate().Start(StartupResUpdate, OnClientUpdateProgress, OnError);
+            new AppUpdate().Start(StartupResUpdate, OnClientUpdateProgress, OnError);
         }
 
         private void OnClientUpdateProgress(float progress, long totalSize)

@@ -6,27 +6,8 @@ namespace Zero
     /// <summary>
     /// 客户端更新基类
     /// </summary>
-    public abstract class AClientUpdate
+    public class AppUpdate
     {
-        public static AClientUpdate CreateNowPlatformUpdate()
-        {            
-            AClientUpdate update;
-
-            switch (Application.platform)
-            {
-                case RuntimePlatform.Android:
-                    update = new AndroidUpdate();
-                    break;
-                case RuntimePlatform.IPhonePlayer:
-                    update = new IOSUpdate();
-                    break;
-                default:
-                    update = new PCUpdate();
-                    break;
-            }
-            return update;
-        }
-
         Action<bool> _onOver;
         protected Action<float, long> _onProgress;
         protected Action<string> _onError;
@@ -53,15 +34,7 @@ namespace Zero
 
             if (result == -1)
             {
-                switch(Runtime.Ins.setting.client.type)
-                {
-                    case 0:
-                        OnNeedUpdate();
-                        break;
-                    case 1:
-                        Application.OpenURL(Runtime.Ins.setting.client.url);
-                        break;
-                }                
+                Application.OpenURL(Runtime.Ins.setting.client.url);
             }
             else
             {
@@ -103,11 +76,5 @@ namespace Zero
 
             return 0;
         }
-
-        /// <summary>
-        /// 开始更新
-        /// </summary>
-        /// <param name="state"></param>
-        public abstract void OnNeedUpdate();
     }
 }

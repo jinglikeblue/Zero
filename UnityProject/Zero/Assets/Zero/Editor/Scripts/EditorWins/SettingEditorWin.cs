@@ -44,8 +44,7 @@ namespace Zero.Edit
         {
             this.cfg = cfg;
             version = cfg.client.version;
-            url = cfg.client.url;
-            type = cfg.client.type;
+            url = cfg.client.url;            
             netResRoot = cfg.netResRoot;
             startupResGroups = cfg.startupResGroups;
             startupParams = cfg.startupParams;
@@ -54,8 +53,7 @@ namespace Zero.Edit
         void UpdateCfg()
         {
             cfg.client.version = version;
-            cfg.client.url = url;
-            cfg.client.type = type;
+            cfg.client.url = url;            
             cfg.netResRoot = netResRoot;
             cfg.startupResGroups = startupResGroups;
             cfg.startupParams = startupParams;
@@ -88,25 +86,19 @@ namespace Zero.Edit
         }
 
         [Title("客户端版本")]
+        [InfoBox("当客户端版本号低于setting文件版本号时，将打开更新页面")]
         [LabelText("版本号")]
         public string version;
 
         [LabelText("更新地址URL")]
         public string url;
 
-        [LabelText("更新方式"), ValueDropdown("ClientUpdateType")]
-        public int type;
-
-        private static IEnumerable ClientUpdateType = new ValueDropdownList<int>()
-        {
-            { "安装包更新", 0 },
-            { "网页更新", 1 }
-        };
-
         [Title("远端资源")]
         [LabelText("远端资源根目录URL：")]
         public string netResRoot;
 
+        [Space(10)]
+        [InfoBox("客户端启动运行所必需下载的网络资源组，通过指定group名称来批量下载。如果要下载所有资源，则指定为[/]即可")]
         [LabelText("启动资源组"),ListDrawerSettings(NumberOfItemsPerPage = 7, Expanded = false)]
         public string[] startupResGroups;
 

@@ -18,11 +18,6 @@ namespace Zero
             /// 客户端地址
             /// </summary>
             public string url;
-
-            /// <summary>
-            /// 更新的方式 0:直接下载安装文件 1:从网页下载
-            /// </summary>
-            public int type;
         }
 
         public Client client;
