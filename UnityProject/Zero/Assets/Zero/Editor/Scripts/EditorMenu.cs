@@ -20,7 +20,13 @@ namespace Zero.Edit
         public static void PublishHotRes()
         {
             HotResBuildEditorWin.Open();
-        }     
+        }
+
+        [MenuItem("Zero/发布/AssetBundleName.cs", false, 200)]
+        public static void GenerateAssetBundleName()
+        {
+            GenerateAssetBundleNameEditorWin.Open();
+        }
 
         [MenuItem("Zero/iOSProjectInit", false, 300)]
         public static void IosProjectInit()

@@ -6,6 +6,7 @@ using Sirenix.Utilities.Editor;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading;
 using UnityEditor;
 using UnityEngine;
@@ -146,6 +147,25 @@ namespace Zero.Edit
         void BuildResJsonFile()
         {
             new ResJsonBuildCommand(ZeroEditorConst.PUBLISH_RES_ROOT_DIR).Execute();
+        }
+
+
+        [Button]
+        void GeneratedAssetBundleNameClass()
+        {
+            var template = File.ReadAllText("Assets/Zero/Editor/Configs/AssetBundleNameClassTemplate.txt");
+            StringBuilder sb = new StringBuilder();
+            string fieldTemplate = "\t\tpublic const string {0} = \"{1}.ab\";";
+            sb.AppendLine(string.Format(fieldTemplate, "A", "a"));
+            sb.AppendLine();
+            sb.AppendLine(string.Format(fieldTemplate, "B", "b"));
+            sb.AppendLine();
+            sb.AppendLine(string.Format(fieldTemplate, "C", "c"));
+            var classContent = template.Replace("{0}", sb.ToString());
+            File.WriteAllText("Assets/@Scripts/Generated/ABName.cs", classContent);
+
+
+            UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal("Assets/@Scripts/Generated/ABName.cs",0);
         }
     }
 }

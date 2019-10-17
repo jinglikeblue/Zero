@@ -1,4 +1,5 @@
-﻿using ILZero;
+﻿using ILGenerated;
+using ILZero;
 using System;
 using UnityEngine;
 using Zero;
@@ -36,18 +37,18 @@ namespace ILDemo
 
         void RegistStages()
         {
-            RegistView<GameStage>("prefabs/stages");
+            RegistView<GameStage>(AssetBundleName.PREFABS_STAGES);
         }
 
         void RegistUIPanel()
         {
-            RegistView<MenuPanel>("prefabs/panels");
-            RegistView<GamePanel>("prefabs/panels");
+            RegistView<MenuPanel>(AssetBundleName.PREFABS_PANELS);
+            RegistView<GamePanel>(AssetBundleName.PREFABS_PANELS);
         }
 
         void RegistUIWin()
         {
-            RegistView<HelpWin>("prefabs/wins");
+            RegistView<HelpWin>(AssetBundleName.PREFABS_WINS);
         }
 
         void RegistView<T>(string abName)
