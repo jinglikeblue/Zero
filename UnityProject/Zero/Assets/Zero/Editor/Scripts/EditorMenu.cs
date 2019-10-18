@@ -10,22 +10,22 @@ namespace Zero.Edit
     /// </summary>
     public class EditorMenu
     {
-        [MenuItem("Zero/发布/Setting", false, 0)]
+        [MenuItem("Zero/发布/setting.json配置", false, 0)]
         public static void Setting()
         {
             SettingEditorWin.Open();
         }
 
-        [MenuItem("Zero/发布/HotRes", false, 100)]
+        [MenuItem("Zero/发布/热更资源", false, 100)]
         public static void PublishHotRes()
         {
             HotResBuildEditorWin.Open();
         }
 
-        [MenuItem("Zero/发布/AssetBundleName.cs", false, 200)]
+        [MenuItem("Zero/发布/自动生成代码", false, 200)]
         public static void GenerateAssetBundleName()
         {
-            GenerateAssetBundleNameEditorWin.Open();
+            GenerateCodeEditorWin.Open();            
         }
 
         [MenuItem("Zero/iOSProjectInit", false, 300)]

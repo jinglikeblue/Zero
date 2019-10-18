@@ -12,8 +12,8 @@ using UnityEditor;
 using UnityEngine;
 
 namespace Zero.Edit
-{
-    public class GenerateAssetBundleNameEditorWin : OdinEditorWindow
+{    
+    public class GenerateAssetBundleNameModule
     {
         const string CONFIG_NAME = "asset_bundle_name_config.json";
 
@@ -27,25 +27,13 @@ namespace Zero.Edit
 
         const string FIELD_FORMAT = "\t\tpublic const string {0} = \"{1}\";";
 
-
-        /// <summary>
-        /// 打开窗口
-        /// </summary>
-        public static void Open()
-        {
-            var win = GetWindow<GenerateAssetBundleNameEditorWin>("自动生成AssetBundleName.cs", true);
-            win.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 600);            
-        }
-
         Dictionary<string, AssetBundleItemVO> _lastFindDic;
 
-        protected override void OnEnable()
+        public GenerateAssetBundleNameModule()
         {
-            base.OnEnable();
-
             _lastFindDic = LoadConfig();
 
-            new Thread(FindAssetBundles).Start();            
+            new Thread(FindAssetBundles).Start();
         }
 
         Dictionary<string, AssetBundleItemVO> LoadConfig()
@@ -72,7 +60,7 @@ namespace Zero.Edit
         void SaveConfig()
         {
             EditorConfigUtil.SaveConfig(abList, CONFIG_NAME);
-            this.ShowTip("保存完毕");
+            //this.ShowTip("保存完毕");
         }
 
         [PropertySpace(10)]
@@ -96,7 +84,7 @@ namespace Zero.Edit
                 {
                     sb.AppendLine(string.Format(FIELD_EXPLAIN_FORMAT, vo.explain));
                 }
-                sb.Append(string.Format(FIELD_FORMAT, vo.GetFieldName(), vo.assetbundle));                
+                sb.Append(string.Format(FIELD_FORMAT, vo.GetFieldName(), vo.assetbundle));
             }
 
             var classContent = template.Replace("{0}", sb.ToString());
@@ -105,13 +93,15 @@ namespace Zero.Edit
 
             UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal(OUTPUT_CLASS_FILE, 0);
 
-            this.ShowTip("生成完毕");
+            //this.ShowTip("生成完毕");
         }
 
         [Space(10)]
-        [LabelText("AssetBundle List"), ListDrawerSettings(IsReadOnly =true, Expanded = true), HideIf("_isFindingAB")]
+        [ShowInInspector]
+        [LabelText("AssetBundle List"), ListDrawerSettings(IsReadOnly = true, Expanded = true), HideIf("_isFindingAB")]
         public List<AssetBundleItemVO> abList;
-        
+
+
         public struct AssetBundleItemVO
         {
             /// <summary>
@@ -129,29 +119,27 @@ namespace Zero.Edit
 
             public string GetFieldName()
             {
-                return assetbundle.Replace("/", "_").Replace(".ab","").ToUpper();
+                return assetbundle.Replace("/", "_").Replace(".ab", "").ToUpper();
             }
         }
-
-
 
         /// <summary>
         /// 找出所有要打包的资源
         /// </summary>
         void FindAssetBundles()
         {
-            _isFindingAB = true;            
+            _isFindingAB = true;
 
             List<AssetBundleItemVO> list = new List<AssetBundleItemVO>();
             string[] dirs = Directory.GetDirectories(ZeroConst.HOT_RESOURCES_ROOT_DIR, "*", SearchOption.AllDirectories);
-            foreach(var dir in dirs)
+            foreach (var dir in dirs)
             {
                 var sDir = FileSystem.StandardizeBackslashSeparator(dir);
                 var di = new DirectoryInfo(sDir);
-                if(di.GetFiles().Length == 0)
+                if (di.GetFiles().Length == 0)
                 {
                     continue;
-                }                               
+                }
 
                 string abName = sDir.Substring(ZeroConst.HOT_RESOURCES_ROOT_DIR.Length + 1) + ZeroConst.AB_EXTENSION;
 
@@ -163,12 +151,9 @@ namespace Zero.Edit
 
 
             abList = list;
-            
+
 
             _isFindingAB = false;
         }
     }
-
-
-
 }
