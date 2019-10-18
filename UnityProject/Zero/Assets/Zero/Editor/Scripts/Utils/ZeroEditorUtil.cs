@@ -1,4 +1,5 @@
 ﻿using Jing;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace Zero.Edit
 {
-    public class ZeroEditorUtil
+    public class ZeroEditorUtil : EditorWindow
     {
         /// <summary>
         /// 打开目录
@@ -28,6 +29,16 @@ namespace Zero.Edit
 
                 System.Diagnostics.Process.Start("explorer.exe", path);
             }
+        }
+
+        /// <summary>
+        /// 显示编辑器Tip信息.
+        /// </summary>
+        /// <param name="content"></param>
+        [Obsolete("建议使用EditorWindowExtensions.ShowTip扩展方法")]
+        public static void ShowTip(EditorWindow editorWin, string content)
+        {
+            editorWin.ShowTip(content);
         }
     }
 }

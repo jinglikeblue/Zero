@@ -3,6 +3,8 @@ using LitJson;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace Zero.Edit
@@ -35,7 +37,8 @@ namespace Zero.Edit
         public static void SaveConfig(object data, string fileName)
         {
             string json = JsonMapper.ToPrettyJson(data);
-            File.WriteAllText(FileSystem.CombinePaths(ConfigDir, fileName), json);
+            json = Regex.Unescape(json);
+            File.WriteAllText(FileSystem.CombinePaths(ConfigDir, fileName), json, Encoding.UTF8);
         }
 
         /// <summary>
@@ -49,7 +52,7 @@ namespace Zero.Edit
             string path = FileSystem.CombinePaths(ConfigDir, fileName);
             if (File.Exists(path))
             {
-                string json = File.ReadAllText(path);
+                string json = File.ReadAllText(path, Encoding.UTF8);
                 return JsonMapper.ToObject<T>(json);
             }
             return default(T);

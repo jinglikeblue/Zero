@@ -1,4 +1,4 @@
-﻿using Zero;
+using Zero;
 
 namespace ILGenerated
 {
@@ -7,18 +7,36 @@ namespace ILGenerated
     /// </summary>
     public class AssetBundleName
     {
+	    /// <summary>
+		/// [Zero/发布/AssetBundleName.cs]自动生成的AssetBundle名称类
+		/// </summary>
         public const string ROOT_ASSETS = ZeroConst.ROOT_AB_FILE_NAME + ZeroConst.AB_EXTENSION;
 
-        public const string AUDIOS = "audios.ab";
+		/// <summary>
+        /// 音效
+        /// </summary>
+		public const string AUDIOS = "audios.ab";
 
-        public const string PREFABS = "prefabs.ab";
+		public const string PREFABS = "prefabs.ab";
 
-        public const string PREFABS_PANELS = "prefabs/panels.ab";
+		/// <summary>
+        /// 面板
+        /// </summary>
+		public const string PREFABS_PANELS = "prefabs/panels.ab";
 
-        public const string PREFABS_STAGES = "prefabs/stages.ab";
+		/// <summary>
+        /// 舞台
+        /// </summary>
+		public const string PREFABS_STAGES = "prefabs/stages.ab";
 
-        public const string PREFABS_WINS = "prefabs/wins.ab";
+		/// <summary>
+        /// 窗口
+        /// </summary>
+		public const string PREFABS_WINS = "prefabs/wins.ab";
 
-        public const string PREFABS_STAGES_GAMESTAGE = "prefabs/stages/gamestage.ab";
+		/// <summary>
+        /// 游戏场景
+        /// </summary>
+		public const string PREFABS_STAGES_GAMESTAGE = "prefabs/stages/gamestage.ab";
     }
 }

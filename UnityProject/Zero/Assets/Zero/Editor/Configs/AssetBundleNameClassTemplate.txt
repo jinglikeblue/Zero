@@ -7,8 +7,9 @@ namespace ILGenerated
     /// </summary>
     public class AssetBundleName
     {
-        public const string ROOT_ASSETS = ZeroConst.ROOT_AB_FILE_NAME + ZeroConst.AB_EXTENSION;
-
-{0}
+	    /// <summary>
+		/// [Zero/发布/AssetBundleName.cs]自动生成的AssetBundle名称类
+		/// </summary>
+        public const string ROOT_ASSETS = ZeroConst.ROOT_AB_FILE_NAME + ZeroConst.AB_EXTENSION;{0}
     }
 }

@@ -14,16 +14,18 @@ using UnityEngine;
 namespace Zero.Edit
 {
     public class GenerateAssetBundleNameEditorWin : OdinEditorWindow
-    {        
-        public const string TEMPLATE_FILE = "Assets/Zero/Editor/Configs/AssetBundleNameClassTemplate.txt";
+    {
+        const string CONFIG_NAME = "asset_bundle_name_config.json";
 
-        public const string OUTPUT_CLASS_FILE = "Assets/@Scripts/Generated/AssetBundleName1.cs";
+        const string TEMPLATE_FILE = "Assets/Zero/Editor/Configs/AssetBundleNameClassTemplate.txt";
 
-        public const string FIELD_EXPLAIN_FORMAT = "\t\t" + @"/// <summary>
+        const string OUTPUT_CLASS_FILE = "Assets/@Scripts/Generated/AssetBundleName.cs";
+
+        const string FIELD_EXPLAIN_FORMAT = "\t\t" + @"/// <summary>
         /// {0}
         /// </summary>";
 
-        public const string FIELD_FORMAT = "\t\tpublic const string {0} = \"{1}.ab\";";
+        const string FIELD_FORMAT = "\t\tpublic const string {0} = \"{1}\";";
 
 
         /// <summary>
@@ -32,18 +34,82 @@ namespace Zero.Edit
         public static void Open()
         {
             var win = GetWindow<GenerateAssetBundleNameEditorWin>("自动生成AssetBundleName.cs", true);
-            win.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 600);
-
-            
+            win.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 600);            
         }
+
+        Dictionary<string, AssetBundleItemVO> _lastFindDic;
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            abList = FindAssetBundles(ZeroConst.HOT_RESOURCES_ROOT_DIR);
+
+            _lastFindDic = LoadConfig();
+
+            new Thread(FindAssetBundles).Start();            
         }
-        
-        [ListDrawerSettings(IsReadOnly =true)]
+
+        Dictionary<string, AssetBundleItemVO> LoadConfig()
+        {
+            var tempList = EditorConfigUtil.LoadConfig<List<AssetBundleItemVO>>(CONFIG_NAME);
+            //转成字典，方便查询
+            Dictionary<string, AssetBundleItemVO> dic = new Dictionary<string, AssetBundleItemVO>();
+            if (null != tempList)
+            {
+                foreach (var vo in tempList)
+                {
+                    dic.Add(vo.assetbundle, vo);
+                }
+            }
+            return dic;
+        }
+
+        [HideLabel, DisplayAsString, ShowIf("_isFindingAB")]
+        public string findTip = "正在同步AssetBundle数据......";
+
+        bool _isFindingAB = false;
+
+        [LabelText("保存配置"), Button(size: ButtonSizes.Large), PropertyOrder(-1)]
+        void SaveConfig()
+        {
+            EditorConfigUtil.SaveConfig(abList, CONFIG_NAME);
+            this.ShowTip("保存完毕");
+        }
+
+        [PropertySpace(10)]
+        [LabelText("开始生成"), Button(size: ButtonSizes.Large), PropertyOrder(-1)]
+        void GeneratedAssetBundleNameClass()
+        {
+            var dir = Directory.GetParent(OUTPUT_CLASS_FILE);
+            if (false == dir.Exists)
+            {
+                dir.Create();
+            }
+
+            var template = File.ReadAllText(TEMPLATE_FILE);
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var vo in abList)
+            {
+                sb.AppendLine();
+                sb.AppendLine();
+                if (false == string.IsNullOrEmpty(vo.explain))
+                {
+                    sb.AppendLine(string.Format(FIELD_EXPLAIN_FORMAT, vo.explain));
+                }
+                sb.Append(string.Format(FIELD_FORMAT, vo.GetFieldName(), vo.assetbundle));                
+            }
+
+            var classContent = template.Replace("{0}", sb.ToString());
+            File.WriteAllText(OUTPUT_CLASS_FILE, classContent);
+
+
+            UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal(OUTPUT_CLASS_FILE, 0);
+
+            this.ShowTip("生成完毕");
+        }
+
+        [Space(10)]
+        [LabelText("AssetBundle List"), ListDrawerSettings(IsReadOnly =true, Expanded = true), HideIf("_isFindingAB")]
         public List<AssetBundleItemVO> abList;
         
         public struct AssetBundleItemVO
@@ -67,59 +133,39 @@ namespace Zero.Edit
             }
         }
 
-        [LabelText("开始生成"), Button(size:ButtonSizes.Large)]
-        void GeneratedAssetBundleNameClass()
-        {
-            var dir = Directory.GetParent(OUTPUT_CLASS_FILE);
-            if (false == dir.Exists)
-            {
-                dir.Create();
-            }
 
-            var template = File.ReadAllText(TEMPLATE_FILE);
-            StringBuilder sb = new StringBuilder();
-
-            foreach(var vo in abList)
-            {
-                if(false == string.IsNullOrEmpty(vo.explain))
-                {
-                    sb.AppendLine(string.Format(FIELD_EXPLAIN_FORMAT, vo.explain));
-                }                
-                sb.AppendLine(string.Format(FIELD_FORMAT, vo.GetFieldName(), vo.assetbundle));
-                sb.AppendLine();
-            }
-
-            var classContent = template.Replace("{0}", sb.ToString());
-            File.WriteAllText(OUTPUT_CLASS_FILE, classContent);
-
-
-            UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal(OUTPUT_CLASS_FILE, 0);
-        }
 
         /// <summary>
         /// 找出所有要打包的资源
         /// </summary>
-        List<AssetBundleItemVO> FindAssetBundles(string resRootDir)
+        void FindAssetBundles()
         {
+            _isFindingAB = true;            
+
             List<AssetBundleItemVO> list = new List<AssetBundleItemVO>();
-            string[] dirs = Directory.GetDirectories(resRootDir, "*", SearchOption.AllDirectories);
+            string[] dirs = Directory.GetDirectories(ZeroConst.HOT_RESOURCES_ROOT_DIR, "*", SearchOption.AllDirectories);
             foreach(var dir in dirs)
-            {                
-                var di = new DirectoryInfo(dir);
+            {
+                var sDir = FileSystem.StandardizeBackslashSeparator(dir);
+                var di = new DirectoryInfo(sDir);
                 if(di.GetFiles().Length == 0)
                 {
                     continue;
-                }
-                
-                AssetImporter ai = AssetImporter.GetAtPath(dir);
-                string abName = ai.assetPath.Substring(resRootDir.Length + 1) + ZeroConst.AB_EXTENSION;
+                }                               
+
+                string abName = sDir.Substring(ZeroConst.HOT_RESOURCES_ROOT_DIR.Length + 1) + ZeroConst.AB_EXTENSION;
 
                 AssetBundleItemVO vo;
-                vo.explain = "";
+                vo.explain = _lastFindDic.ContainsKey(abName) ? _lastFindDic[abName].explain : "";
                 vo.assetbundle = abName;
                 list.Add(vo);
             }
-            return list;
+
+
+            abList = list;
+            
+
+            _isFindingAB = false;
         }
     }
 
