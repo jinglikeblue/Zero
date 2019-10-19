@@ -2,7 +2,7 @@
 
 ---
 
-![](Imgs/icon.jpg)
+![](Imgs/icon.png)
 
 ### 目录
 - [从Demo开始](Demo.md)
