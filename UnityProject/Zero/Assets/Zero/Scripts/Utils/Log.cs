@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor;
 using UnityEngine;
 
 namespace Zero
@@ -8,6 +9,14 @@ namespace Zero
     /// </summary>
     public class Log
     {
+        /// <summary>
+        /// Zero框架专用配色
+        /// </summary>
+        const string COLOR_ZERO_PRO = "50E3C2";
+        const string COLOR_ZERO1_PRO = "D6E884";
+        const string COLOR_ZERO = "622C8E";
+        const string COLOR_ZERO1 = "106DED";
+
         /// <summary>
         /// 红色
         /// </summary>
@@ -38,9 +47,6 @@ namespace Zero
         /// </summary>
         public const string COLOR_PURPLE = "865FC5";
 
-
-        static bool _isActive = true;
-
         /// <summary>
         /// 日志是否激活
         /// </summary>
@@ -48,113 +54,69 @@ namespace Zero
         {
             get
             {
-                return _isActive;
+                return Debug.unityLogger.logEnabled;
             }
 
             set
-            {
-                _isActive = value;
+            {                
                 Debug.unityLogger.logEnabled = value;
             }
         }
 
-        /// <summary>
-        /// 打印信息
-        /// </summary>
-        /// <param name="message"></param>
-        public static void I(object message)
+        public static string Red(string format, params object[] args)
+        {
+            return C(COLOR_RED, format, args);
+        }
+
+        public static string Zero(string format, params object[] args)
         {            
-            if(!IsActive)
-            {
-                return;
-            }
-            Debug.Log(message);
+            return C(EditorGUIUtility.isProSkin ? COLOR_ZERO_PRO : COLOR_ZERO, format, args);
         }
 
-        public static void I(string message)
+        public static string Zero1(string format, params object[] args)
         {
-            if (!IsActive)
-            {
-                return;
-            }
-            Debug.Log(message);
+            return C(EditorGUIUtility.isProSkin ? COLOR_ZERO1_PRO : COLOR_ZERO1, format, args);
+        }
+
+        public static string Orange(string format, params object[] args)
+        {
+            return C(COLOR_ORANGE, format, args);
+        }
+
+        public static string Yellow(string format, params object[] args)
+        {
+            return C(COLOR_YELLOW, format, args);
+        }
+
+        public static string Green(string format, params object[] args)
+        {
+            return C(COLOR_GREEN, format, args);
+        }
+
+        public static string Blue(string format, params object[] args)
+        {
+            return C(COLOR_BLUE, format, args);
+        }
+
+        public static string Purple(string format, params object[] args)
+        {
+            return C(COLOR_PURPLE, format, args);
         }
 
         /// <summary>
-        /// 打印信息
-        /// </summary>
-        public static void I(string format, params object[] args)
-        {
-            if (!IsActive)
-            {
-                return;
-            }
-            Debug.LogFormat(format, args);
-        }
-
-        /// <summary>
-        /// 打印彩色信息
-        /// </summary>
-        /// <param name="color"></param>
-        /// <param name="message"></param>
-        public static void CI(string color, object message)
-        {
-            if(null == message)
-            {
-                return;
-            }
-
-            message = string.Format("<color=#{0}>{1}</color>", color, message);
-            I(message);
-        }
-
-        /// <summary>
-        /// 打印彩色信息
+        /// 彩色信息
         /// </summary>
         /// <param name="color"></param>
         /// <param name="message"></param>
-        public static void CI(string color, string format, params object[] args)
+        public static string C(string color, string format, params object[] args)
         {
             if (null == format)
             {
-                return;
+                return null;
             }
 
             var message = string.Format("<color=#{0}>{1}</color>", color, string.Format(format,args));
-            I(message);
-        }
-
-
-        /// <summary>
-        /// 打印警告
-        /// </summary>
-        public static void W(object message)
-        {
-            Debug.LogWarning(message);
-        }
-
-        /// <summary>
-        /// 打印警告
-        /// </summary>
-        public static void W(string format, params object[] args)
-        {
-            Debug.LogWarningFormat(format, args);
-        }
-
-        /// <summary>
-        /// 打印错误
-        /// </summary>
-        public static void E(object message)
-        {
-            Debug.LogError(message);
-        }
-
-        /// <summary>
-        /// 打印错误
-        /// </summary>
-        public static void E(string format, params object[] args)
-        {
-            Debug.LogErrorFormat(format, args);
+            return message;
         }
 
         public static void CGUI(string color, object content)
@@ -186,7 +148,7 @@ namespace Zero
             }
 
             content = string.Format("[{0}] {1}", DateTime.Now.ToString("HH:mm:ss.fff"), content);
-            I(content);
+            Debug.Log(content);
             GUILog.Show(content);
         }
     }

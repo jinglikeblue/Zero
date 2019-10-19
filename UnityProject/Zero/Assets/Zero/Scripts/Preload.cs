@@ -83,7 +83,7 @@ namespace Zero
             //初始化运行环境配置环境
             Runtime.Ins.Init(runtimeCfg);
 
-            Log.CI(Log.COLOR_BLUE, "游戏运行模式：[{0}]", Runtime.Ins.IsHotResProject?Runtime.Ins.ResMode.ToString():"Local");
+            Debug.Log(Log.Zero("游戏运行模式：[{0}]", Runtime.Ins.IsHotResProject?Runtime.Ins.ResMode.ToString():"Local"));
 
             if (false == Runtime.Ins.IsHotResProject)
             {
@@ -160,7 +160,7 @@ namespace Zero
         void OnStageChange(EState state)
         {
             _currentState = state;
-            Log.W("state: {0}", state);            
+            Debug.LogWarningFormat("state: {0}", state);            
             if(null != onStateChange)
             {
                 onStateChange.Invoke(state);

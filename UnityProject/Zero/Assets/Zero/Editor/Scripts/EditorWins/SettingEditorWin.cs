@@ -48,6 +48,10 @@ namespace Zero.Edit
             netResRoot = cfg.netResRoot;
             startupResGroups = cfg.startupResGroups;
             startupParams = cfg.startupParams;
+            if(null == startupParams)
+            {
+                startupParams = new Dictionary<string, string>();
+            }
         }
 
         void UpdateCfg()
@@ -56,7 +60,7 @@ namespace Zero.Edit
             cfg.client.url = url;            
             cfg.netResRoot = netResRoot;
             cfg.startupResGroups = startupResGroups;
-            cfg.startupParams = startupParams;
+            cfg.startupParams = startupParams;            
         }
 
         [Button("保存配置", buttonSize: ButtonSizes.Medium),PropertyOrder(-1)]

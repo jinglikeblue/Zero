@@ -153,11 +153,11 @@ namespace Zero
             localData = new LocalDataModel();
             localResVer = new LocalResVerModel();
 
-            Log.CI(Log.COLOR_ORANGE, "Streaming Assets Dir: {0}", ZeroConst.STREAMING_ASSETS_PATH);
-            Log.CI(Log.COLOR_ORANGE, "Net Res Dir         : {0}", netResDir);
-            Log.CI(Log.COLOR_ORANGE, "Persistent Data Dir : {0}", ZeroConst.PERSISTENT_DATA_PATH);
-            Log.CI(Log.COLOR_ORANGE, "Local Res Dir       : {0}", localResDir);
-            Log.CI(Log.COLOR_ORANGE, "Generate Files Dir  : {0}", generateFilesDir);
+            Debug.Log(Log.Zero("Streaming Assets Dir: {0}", ZeroConst.STREAMING_ASSETS_PATH));
+            Debug.Log(Log.Zero("Net Res Dir         : {0}", netResDir));
+            Debug.Log(Log.Zero("Persistent Data Dir : {0}", ZeroConst.PERSISTENT_DATA_PATH));
+            Debug.Log(Log.Zero("Local Res Dir       : {0}", localResDir));
+            Debug.Log(Log.Zero("Generate Files Dir  : {0}", generateFilesDir));
         }        
     }
 }

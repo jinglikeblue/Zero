@@ -1,7 +1,6 @@
 ﻿using Jing;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -286,7 +285,7 @@ namespace Zero.Edit
                 {
                     //不需要的AB
                     File.Delete(tempFile);
-                    Log.I("删除文件：" + tempFile);
+                    Debug.LogFormat("删除文件：" + tempFile);
                 }
             }
 
@@ -303,7 +302,7 @@ namespace Zero.Edit
                 if (subFiles.Length == 0)
                 {
                     subdir.Delete(true);
-                    Log.I("删除文件夹：" + FileSystem.StandardizeBackslashSeparator(subdir.FullName));
+                    Debug.LogFormat("删除文件夹：" + FileSystem.StandardizeBackslashSeparator(subdir.FullName));
                 }
             }
 

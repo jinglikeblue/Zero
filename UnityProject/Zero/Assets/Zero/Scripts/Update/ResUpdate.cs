@@ -95,7 +95,7 @@ namespace Zero
         private void OnItemLoaded(object obj)
         {
             var item = (ResVerVO.Item)obj;
-            Log.CI(Log.COLOR_BLUE, "下载完成：{0} Ver:{1}", item.name, item.version);
+            Debug.Log(Log.Zero("下载完成：{0} Ver:{1}", item.name, item.version));
             Runtime.Ins.localResVer.SetVerAndSave(item.name, item.version);
         }
     }

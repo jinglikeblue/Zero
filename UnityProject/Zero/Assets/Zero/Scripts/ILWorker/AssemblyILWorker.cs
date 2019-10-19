@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using UnityEngine;
 
 namespace Zero
 {
@@ -29,7 +30,7 @@ namespace Zero
 
         public AssemblyILWorker(Assembly assembly)
         {
-            Log.CI(Log.COLOR_ORANGE, "外部程序集执行方式：[Assembly]");
+            Debug.Log(Log.Zero("外部程序集执行方式：[Assembly]"));
             _assembly = assembly;
         }
 
