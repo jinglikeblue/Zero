@@ -8,27 +8,33 @@ namespace Zero.Edit
     /// <summary>
     /// Zero框架编辑器菜单
     /// </summary>
-    public class EditorMenu : AEditorWin
+    public class EditorMenu
     {
-        [MenuItem("Zero/Publish/Setting", false, 0)]
+        [MenuItem("Zero/发布/setting.json配置", false, 0)]
         public static void Setting()
         {
             SettingEditorWin.Open();
         }
 
-        [MenuItem("Zero/Publish/HotRes", false, 100)]
+        [MenuItem("Zero/发布/热更资源", false, 100)]
         public static void PublishHotRes()
         {
-            HotResEditorWin.Open();
-        }     
+            HotResBuildEditorWin.Open();
+        }
 
-        [MenuItem("Zero/iOS/ProjectInit", false, 300)]
+        [MenuItem("Zero/发布/自动生成代码", false, 200)]
+        public static void GenerateAssetBundleName()
+        {
+            GenerateCodeEditorWin.Open();            
+        }
+
+        [MenuItem("Zero/iOSProjectInit", false, 300)]
         public static void IosProjectInit()
         {
             IOSProjectInitEditorWin.Open();
         }
 
-        [MenuItem("Zero/Debug/Res/Clear [Caches] Dir", false, 400)]
+        [MenuItem("Zero/调试/清理[Caches]目录", false, 400)]
         public static void ClearCachesDir()
         {
             var root = Directory.GetParent(Application.dataPath).FullName;
@@ -36,19 +42,19 @@ namespace Zero.Edit
             Directory.Delete(cacheDirPath, true);
         }
 
-        [MenuItem("Zero/Debug/GC", false, 401)]
+        [MenuItem("Zero/调试/GC", false, 401)]
         public static void GC()
         {
             ResMgr.Ins.DoGC();
         }
 
-        [MenuItem("Zero/Assets/Packing Tag Delete", false, 501)]
+        [MenuItem("Zero/资源/Packing Tag 管理", false, 501)]
         public static void PackingTagEdit()
         {
             PackingTagEditorWin.Open();
         }
 
-        [MenuItem("Zero/Assets/Find Useless", false, 502)]
+        [MenuItem("Zero/资源/查找无用的资源", false, 502)]
         public static void FindUselessAssets()
         {
             FindUselessAssetsEditorWin.Open();
@@ -64,6 +70,13 @@ namespace Zero.Edit
         public static void ILRuntimeEdit()
         {
             ILRuntimeEditorWin.Open();
+        }
+
+        [MenuItem("Zero/Document", false, 800)]
+        public static void Document()
+        {            
+            //访问网站
+            Application.OpenURL(@"https://jinglikeblue.github.io/Zero/Docs/Intro");
         }
     }
 }

@@ -38,16 +38,6 @@ namespace Zero
         public LocalDataModel localData { get; private set; }
 
         /// <summary>
-        /// 平台目录
-        /// </summary>
-        public string platform { get; private set; }
-
-        /// <summary>
-        /// StreamingAssets目录访问路径
-        /// </summary>
-        public string streamingAssetsPath { get; private set; }
-
-        /// <summary>
         /// 配置
         /// </summary>
         public SettingVO setting;
@@ -61,11 +51,6 @@ namespace Zero
         /// 资源对象版本数据
         /// </summary>
         public ResVerModel netResVer;
-
-        /// <summary>
-        /// 基于运行平台的本地可读写文件根目录
-        /// </summary>
-        public string persistentDir { get; private set; }
 
         /// <summary>
         /// 存放下载文件的目录
@@ -127,59 +112,32 @@ namespace Zero
         {
             _vo = vo;
             //日志控制
-            Log.IsActive = vo.isLogEnable;            
+            Log.IsActive = vo.isLogEnable;
 
             switch (Application.platform)
             {
-                case RuntimePlatform.Android:
-                    //Android真机环境
-                    platform = "android";
-                    streamingAssetsPath = Application.streamingAssetsPath + "/";
-                    netResDir = FileSystem.CombineDirs(true, _vo.netRoot, platform);
-                    persistentDir = FileSystem.CombineDirs(true, Application.persistentDataPath);
-                    break;
-                case RuntimePlatform.IPhonePlayer:
-                    //IOS真机环境
-                    platform = "ios";
-                    streamingAssetsPath = string.Format("file://{0}/Raw/", Application.dataPath);
-                    netResDir = FileSystem.CombineDirs(true, _vo.netRoot, platform);
-                    persistentDir = FileSystem.CombineDirs(true, Application.persistentDataPath);
-                    break;
+                case RuntimePlatform.Android:                                        
+                case RuntimePlatform.IPhonePlayer:                                       
+                case RuntimePlatform.WindowsPlayer:
                 case RuntimePlatform.WindowsEditor:
                 case RuntimePlatform.LinuxEditor:
                 case RuntimePlatform.OSXEditor:
-                    //Editor开发环境
-#if UNITY_ANDROID
-                        platform = "android";
-#elif UNITY_IPHONE
-                        platform = "ios";
-#else
-                        platform = "pc";
-#endif
-                    streamingAssetsPath = string.Format("file://{0}/StreamingAssets/", Application.dataPath);
+                    netResDir = FileSystem.CombineDirs(false, _vo.netRoot, ZeroConst.PLATFORM_DIR_NAME);                                                      
+                    //开发环境
                     if (IsLoadAssetsFromNet)
                     {
-                        netResDir = FileSystem.CombineDirs(true, _vo.netRoot, platform);
-                        persistentDir = FileSystem.CombineDirs(true, Directory.GetParent(Application.dataPath).FullName, "Caches");                                             
+                        localResDir = FileSystem.CombineDirs(false, ZeroConst.PERSISTENT_DATA_PATH, "zero", "res");
                     }
                     else
                     {
-                        netResDir = FileSystem.CombineDirs(true, _vo.localResRoot, platform);
-                        persistentDir = FileSystem.CombineDirs(true, Directory.GetParent(Application.dataPath).FullName, "Caches");
-                    }
-                    
+                        localResDir = FileSystem.CombineDirs(false, Directory.GetParent(Application.dataPath).FullName, "Res", ZeroConst.PLATFORM_DIR_NAME);                        
+                    }                  
                     break;
-                default:
-                    //其它真机环境
-                    platform = "pc";
-                    streamingAssetsPath = string.Format("file://{0}/StreamingAssets/", Application.dataPath);
-                    netResDir = FileSystem.CombineDirs(true, _vo.netRoot, platform);
-                    persistentDir = FileSystem.CombineDirs(true, Application.dataPath, "Caches");                    
-                    break;
+                default:                    
+                    throw new System.Exception(string.Format("抱歉！Zero暂时不支持平台：{0}", Application.platform));                    
             }
-
-            localResDir = FileSystem.CombineDirs(true, persistentDir, "res");
-            generateFilesDir = FileSystem.CombineDirs(true, persistentDir, "zero_generated");
+            
+            generateFilesDir = FileSystem.CombineDirs(false, ZeroConst.PERSISTENT_DATA_PATH, "zero", "generated");
 
             //确保本地资源目录存在
             if (false == Directory.Exists(localResDir))
@@ -194,12 +152,12 @@ namespace Zero
 
             localData = new LocalDataModel();
             localResVer = new LocalResVerModel();
-        }
 
-
-
-
+            Log.CI(Log.COLOR_ORANGE, "Streaming Assets Dir: {0}", ZeroConst.STREAMING_ASSETS_PATH);
+            Log.CI(Log.COLOR_ORANGE, "Net Res Dir         : {0}", netResDir);
+            Log.CI(Log.COLOR_ORANGE, "Persistent Data Dir : {0}", ZeroConst.PERSISTENT_DATA_PATH);
+            Log.CI(Log.COLOR_ORANGE, "Local Res Dir       : {0}", localResDir);
+            Log.CI(Log.COLOR_ORANGE, "Generate Files Dir  : {0}", generateFilesDir);
+        }        
     }
-
-
 }

@@ -34,9 +34,8 @@ namespace Zero
             /// 启动主程序
             /// </summary>
             STARTUP
-        }
-
-        [Header("运行时配置")]
+        }        
+        
         public RuntimeVO runtimeCfg = new RuntimeVO();
         
         EState _currentState;
@@ -75,7 +74,7 @@ namespace Zero
         /// </summary>
         /// <param name="rg"></param>
         public void StartPreload(BaseILRuntimeGenerics rg = null)
-        {
+        {            
             if(null != rg)
             {
                 ILRuntimeILWorker.RegisterILRuntimeGenerics(rg);
@@ -115,7 +114,7 @@ namespace Zero
         void ClientUpdate()
         {                       
             OnStageChange(EState.CLIENT_UDPATE);
-            AClientUpdate.CreateNowPlatformUpdate().Start(StartupResUpdate, OnClientUpdateProgress, OnError);
+            new AppUpdate().Start(StartupResUpdate, OnClientUpdateProgress, OnError);
         }
 
         private void OnClientUpdateProgress(float progress, long totalSize)
@@ -144,7 +143,7 @@ namespace Zero
             OnStageChange(EState.STARTUP);
             GameObject.Destroy(this.gameObject);
             //加载ILRuntimePrefab;            
-            GameObject mainPrefab = ResMgr.Ins.Load<GameObject>(Runtime.Ins.VO.mainPrefab);
+            GameObject mainPrefab = ResMgr.Ins.Load<GameObject>(ZeroConst.ROOT_AB_FILE_NAME, Runtime.Ins.VO.mainPrefab);
             GameObject go = GameObject.Instantiate(mainPrefab);
             go.name = mainPrefab.name;
         }

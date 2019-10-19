@@ -68,7 +68,7 @@ namespace Zero
         string AssetBundlePath2ResourcePath(string abName, string assetName)
         {
             abName = ABNameWithoutExtension(abName);
-            if (abName.ToLower() != HotResConst.SPECIAL_AB_NAME) //resources表示从根目录获取资源，则不需要添加目录
+            if (abName.ToLower() != ZeroConst.ROOT_AB_FILE_NAME) //resources表示从根目录获取资源，则不需要添加目录
             {
                 assetName = FileSystem.CombinePaths(abName, assetName);
             }

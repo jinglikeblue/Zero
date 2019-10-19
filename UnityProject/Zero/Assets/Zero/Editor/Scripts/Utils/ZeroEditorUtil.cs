@@ -1,4 +1,5 @@
 ﻿using Jing;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -7,38 +8,8 @@ using UnityEngine;
 
 namespace Zero.Edit
 {
-    public class ZeroEditorUtil
+    public class ZeroEditorUtil : EditorWindow
     {
-        /// <summary>
-        /// 平台目录
-        /// </summary>
-        public static string PlatformDirName
-        {
-            get
-            {
-                string name;
-#if UNITY_STANDALONE
-                name = "pc/";
-#elif UNITY_IPHONE
-        name = "ios/";
-#elif UNITY_ANDROID
-                name = "android/";
-#endif
-                return name;
-            }
-        }
-
-        /// <summary>
-        /// 项目的Resources目录
-        /// </summary>
-        public static string ResourcesFolder {
-            get
-            {
-                string resourcesDir = FileSystem.CombineDirs(true, Application.dataPath, "Resources");
-                return resourcesDir;
-            }
-        }
-
         /// <summary>
         /// 打开目录
         /// </summary>
@@ -61,22 +32,13 @@ namespace Zero.Edit
         }
 
         /// <summary>
-        /// 当前发布平台
+        /// 显示编辑器Tip信息.
         /// </summary>
-        public static BuildTarget CurrentPlatform
+        /// <param name="content"></param>
+        [Obsolete("建议使用EditorWindowExtensions.ShowTip扩展方法")]
+        public static void ShowTip(EditorWindow editorWin, string content)
         {
-            get
-            {
-                BuildTarget platform;
-#if UNITY_STANDALONE
-                platform = BuildTarget.StandaloneWindows;
-#elif UNITY_IPHONE
-        platform = BuildTarget.iOS;
-#elif UNITY_ANDROID
-        platform = BuildTarget.Android;
-#endif
-                return platform;
-            }
+            editorWin.ShowTip(content);
         }
     }
 }

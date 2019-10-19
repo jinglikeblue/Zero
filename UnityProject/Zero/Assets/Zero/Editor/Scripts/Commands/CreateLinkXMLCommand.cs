@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -20,28 +21,47 @@ namespace Zero.Edit
         /// <summary>
         /// 命名空间节点
         /// </summary>
+        [HideLabel]
+        [Serializable]
         public class NamespaceNodeVO
         {
+            [HideInEditorMode]
             public string name;
+            [LabelText("$Label"), ListDrawerSettings(ShowPaging = false, IsReadOnly = true)]
+            [DisplayAsString]
             public List<string> typeNameList = new List<string>();
 
             public NamespaceNodeVO(string name)
             {
                 this.name = name;
             }
+
+            string Label()
+            {
+                return string.Format("{0} [Namespace]", name);
+            }
         }
 
         /// <summary>
         /// 动态库节点
         /// </summary>
+        [HideLabel]
+        [Serializable]
         public class AssemblyNodeVO
         {
+            [HideInEditorMode]
             public string name;
+            [LabelText("$Label"), ListDrawerSettings(ShowPaging = false, IsReadOnly = true)]
             public List<NamespaceNodeVO> nsNodeList = new List<NamespaceNodeVO>();
 
             public AssemblyNodeVO(string name)
             {
                 this.name = name;
+            }
+
+            string Label()
+            {
+                return string.Format("{0}.dll", name);
             }
         }        
 

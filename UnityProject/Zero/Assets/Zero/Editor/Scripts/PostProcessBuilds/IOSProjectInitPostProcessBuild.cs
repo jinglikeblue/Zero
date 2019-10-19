@@ -24,24 +24,24 @@ namespace Zero.Edit.IOS
                 return;
             }
 
-            IOSProjectInitConfig cfg = new IOSProjectInitConfig();
+            var cfg = EditorConfigUtil.LoadConfig<IOSProjectInitConfigVO>(IOSProjectInitConfigVO.CONFIG_NAME);
 
             string projPath = PBXProject.GetPBXProjectPath(path);
             PBXProject pbx = new PBXProject();
             pbx.ReadFromString(File.ReadAllText(projPath));
             string guid = pbx.TargetGuidByName("Unity-iPhone");
 
-            foreach(var framework in cfg.Cfg.frameworkToProjectList)
+            foreach(var framework in cfg.frameworkToProjectList)
             {
                 pbx.AddFrameworkToProject(guid, framework, false);
             }
             
-            foreach(var entry in cfg.Cfg.file2BuildList)
+            foreach(var entry in cfg.file2BuildList)
             {
                 pbx.AddFileToBuild(guid, pbx.AddFile(entry.Key, entry.Value, PBXSourceTree.Sdk));
             }
 
-            foreach (var entry in cfg.Cfg.buildPropertyList)
+            foreach (var entry in cfg.buildPropertyList)
             {
                 pbx.SetBuildProperty(guid, entry.Key, entry.Value);
             }
@@ -52,51 +52,21 @@ namespace Zero.Edit.IOS
             string plistPath = path + "/Info.plist";
             InfoPListEditor pListEditor = new InfoPListEditor(plistPath);
 
-            foreach (var entry in cfg.Cfg.pListDataList)
+            foreach (var entry in cfg.pListDataList)
             {
                 pListEditor.Add(entry.Key, entry.Value);
             }
 
-            foreach (string urlScheme in cfg.Cfg.urlSchemeList)
+            foreach (string urlScheme in cfg.urlSchemeList)
             {
                 pListEditor.AddUrlScheme("ZeroUrlSchemes", urlScheme);
             }
 
-            foreach (string whiteUrlScheme in cfg.Cfg.appQueriesSchemeList)
+            foreach (string whiteUrlScheme in cfg.appQueriesSchemeList)
             {
                 pListEditor.AddLSApplicationQueriesScheme(whiteUrlScheme);
             }
             pListEditor.Save();
-
-            //string projPath = PBXProject.GetPBXProjectPath(path);
-            //PBXProject pbx = new PBXProject();
-            //pbx.ReadFromString(File.ReadAllText(projPath));
-            //string guid = pbx.TargetGuidByName("Unity-iPhone");
-
-            ////支付宝需要的内容
-            //pbx.AddFrameworkToProject(guid, "CoreTelephony.framework", false);
-            //pbx.AddFileToBuild(guid, pbx.AddFile("usr/lib/libz.tbd", "Frameworks/libz.tbd", PBXSourceTree.Sdk));
-            //pbx.AddFileToBuild(guid, pbx.AddFile("usr/lib/libc++.tbd", "Frameworks/libc++.tbd", PBXSourceTree.Sdk));
-
-            ////微信SDK需要的内容
-            //pbx.SetBuildProperty(guid, "ENABLE_BITCODE", "NO");
-            //pbx.SetBuildProperty(guid, "OTHER_LDFLAGS", "-ObjC");
-            //File.WriteAllText(projPath, pbx.WriteToString());
-
-            //////修改PList
-            //string plistPath = path + "/Info.plist";
-            //InfoPListEditor pListEditor = new InfoPListEditor(plistPath);
-            //pListEditor.Add("FacebookAppID", "1642587459185521");
-            //pListEditor.Add("FacebookDisplayName", "");
-            //foreach (string urlScheme in data.urlSchemes)
-            //{
-            //    pListEditor.AddUrlScheme("ZeroUrlSchemes", urlScheme);
-            //}
-            //foreach (string whiteUrlScheme in data.whiteSchemeList)
-            //{
-            //    pListEditor.AddLSApplicationQueriesScheme(whiteUrlScheme);
-            //}
-            //pListEditor.Save();
         }
     }
 }

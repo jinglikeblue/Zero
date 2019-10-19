@@ -1,0 +1,15 @@
+﻿using Zero;
+
+namespace ILGenerated
+{
+    /// <summary>
+    /// [自动生成的]AssetBundle名称
+    /// </summary>
+    public class AssetBundleName
+    {
+	    /// <summary>
+		/// [Zero/发布/AssetBundleName.cs]自动生成的AssetBundle名称类
+		/// </summary>
+        public const string ROOT_ASSETS = ZeroConst.ROOT_AB_FILE_NAME + ZeroConst.AB_EXTENSION;{0}
+    }
+}

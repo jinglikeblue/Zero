@@ -1,96 +1,127 @@
-﻿using System.Collections.Generic;
+﻿using Sirenix.OdinInspector;
+using Sirenix.OdinInspector.Editor;
+using Sirenix.Utilities;
+using Sirenix.Utilities.Editor;
+using System;
+using System.Collections.Generic;
 using UnityEditor;
-using UnityEngine;
 
 namespace Zero.Edit
 {
-    public class PackingTagEditorWin : AEditorWin
+    public class PackingTagEditorWin : OdinEditorWindow
     {
         /// <summary>
         /// 打开窗口
         /// </summary>
         public static void Open()
         {
-            var win = EditorWindow.GetWindow<PackingTagEditorWin>("Packing Tag Manager", true);
-            //win.titleContent = new GUIContent(, "Packing Tag Manager");
-            win.minSize = new Vector2(800, 700);
-            win.maxSize = new Vector2(1000, 700);
-            win.Show();
+            var win = GetWindow<PackingTagEditorWin>("Packing Tag 标记管理器");
+            win.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 600);
         }
 
-        Dictionary<string, List<TextureImporter>> _ptData;
 
-        HashSet<string> _selectKey;
-
-        Vector2 _pos = Vector2.zero;
-
-        private void OnGUI()
-        {
-            GUILayout.BeginVertical();
-            GUILayout.Space(10);
-
-            if (GUILayout.Button("扫描项目中的 Packing Tag 标记", GUILayout.Height(30)))
-            {
-                RefreshPackingTags();
-            }
-
-            if (null != _ptData)
-            {
-                _pos = GUILayout.BeginScrollView(_pos);
-                foreach (var key in _ptData.Keys)
-                {
-                    if (GUILayout.Toggle(_selectKey.Contains(key), string.Format("{0} [{1}]", key, _ptData[key].Count)))
-                    {
-                        _selectKey.Add(key);
-                    }
-                    else
-                    {
-                        _selectKey.Remove(key);
-                    }
-                }
-                GUILayout.EndScrollView();
-
-                if (GUILayout.Button("删除选中的Packing Tag", GUILayout.Height(30)))
-                {
-                    DeleteSelected();                 
-                }
-            }
-
-            GUILayout.EndVertical();
-        }
-
+        [LabelText("扫描项目中的 Packing Tag 标记"), Button(size: ButtonSizes.Large), PropertyOrder(-1)]
         void RefreshPackingTags()
-        {
-            _selectKey = new HashSet<string>();
-            _ptData = new FindAllPackingTagCommand().Excute();
+        {            
+            var ptData = new FindAllPackingTagCommand().Excute();
+            list.Clear();
+            foreach (var data in ptData)
+            {
+                ItemVO vo = new ItemVO();
+                vo.packingTag = data.Key;
+                foreach (var ti in data.Value)
+                {
+                    vo.Add(ti);
+                }
+                list.Add(vo);
+            }
         }
 
+        [LabelText("删除选中的 Packing Tag 标记"), Button(size: ButtonSizes.Medium)]
         public void DeleteSelected()
         {
-            var selectCount = _selectKey.Count;
-            var processIdx = 0;
-            foreach (var key in _selectKey)
+            List<ItemVO> delList = new List<ItemVO>();
+            foreach(var vo in list)
             {
-                processIdx++;
-                List<TextureImporter> tiList;
-                _ptData.TryGetValue(key, out tiList);
-                if (null != tiList)
+                if(vo.selected)
                 {
-
-                    float total = tiList.Count - 1;
-                    for (int i = 0; i < tiList.Count; i++)
-                    {
-                        var ti = tiList[i];
-                        var title = string.Format("正在删除Packing Tag[{0}/{1}]: {2}({3}/{4})", processIdx, selectCount, key, i + 1, tiList.Count);
-                        EditorUtility.DisplayProgressBar(title, ti.assetPath, i / total);
-                        ti.spritePackingTag = string.Empty;
-                        ti.SaveAndReimport();
-                    }
-                    _ptData.Remove(key);
+                    delList.Add(vo);
                 }
             }
-            EditorUtility.ClearProgressBar();
-            _selectKey.Clear();
+
+
+            var selectCount = delList.Count;
+            var processIdx = 0;
+            foreach (var item in delList)
+            {
+                processIdx++;
+
+                float total = item.spriteList.Count - 1;
+                for (int i = 0; i < item.spriteList.Count; i++)
+                {
+                    var ti = item.spriteList[i].ti;
+                    var title = string.Format("正在删除Packing Tag[{0}/{1}]: {2}({3}/{4})", processIdx, selectCount, item.packingTag, i + 1, item.spriteList.Count);
+                    EditorUtility.DisplayProgressBar(title, ti.assetPath, i / total);
+                    ti.spritePackingTag = string.Empty;
+                    ti.SaveAndReimport();
+                    list.Remove(item);
+                }                    
+                
+            }
+            
+            EditorUtility.ClearProgressBar();            
+        }        
+        
+        [LabelText("Packing Tag 列表"), ListDrawerSettings(Expanded = true, ShowPaging = false, IsReadOnly = true)]
+        public List<ItemVO> list = new List<ItemVO>();
+
+        
+        [Serializable]
+        public class ItemVO
+        {
+            [HideInEditorMode]
+            public string packingTag;
+
+            string PackingTagTitle()
+            {                
+                return string.Format("Packing Tag: [{0}]", packingTag);
+            }
+
+            [HorizontalGroup("ItemVO")]
+            [HideLabel]
+            public bool selected = false;
+
+            [HorizontalGroup("ItemVO")]
+            [TableColumnWidth(70)]
+            [LabelText("$PackingTagTitle"), ListDrawerSettings(IsReadOnly =true)]
+            public List<Sprite> spriteList = new List<Sprite>();
+
+            [Serializable]
+            [HideLabel]
+            public class Sprite
+            {
+                [HorizontalGroup("Sprite")]
+                [HideLabel, ReadOnly]
+                public string name;                                
+                
+                [HideInEditorMode]                
+                public TextureImporter ti;
+
+                [HorizontalGroup("Sprite", width:60)]
+                [Button, LabelText("Select"),LabelWidth(60)]
+                void Select()
+                {
+                    Selection.objects = new UnityEngine.Object[] { ti };
+                }
+            }
+
+            public void Add(TextureImporter ti)
+            {
+                var spr = new Sprite();
+                spr.name = ti.assetPath;
+                spr.ti = ti;
+                spriteList.Add(spr);
+            }
         }
     }
 }

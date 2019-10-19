@@ -1,15 +1,24 @@
-﻿using UnityEditor;
+﻿using Sirenix.OdinInspector;
+using Sirenix.OdinInspector.Editor;
+using Sirenix.Utilities;
+using Sirenix.Utilities.Editor;
+using System;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Zero.Edit
 {
-    public class ILRuntimeEditorWin : AEditorWin
+    public class ILRuntimeEditorWin : OdinEditorWindow
     {
-        const string CONFIG_NAME = "ILRuntimeCfg.json";
+        const string CONFIG_NAME = "ilruntime_config.json";
 
+        [HideLabel]
+        [Serializable]
         public class ConfigVO
         {
-            public string bindingCodeDir = "";
+            [LabelText("绑定代码发布目录"), FolderPath]
+            public string bindingCodeDir;
         }
 
         /// <summary>
@@ -17,81 +26,53 @@ namespace Zero.Edit
         /// </summary>
         public static void Open()
         {
-            var win = EditorWindow.GetWindow<ILRuntimeEditorWin>();
-            win.titleContent = new GUIContent("ILRuntime Manager");
-            win.minSize = new Vector2(1000, 300);
-            win.maxSize = new Vector2(600, 300);
-            win.Show();
-        }
+            var win = GetWindow<ILRuntimeEditorWin>("ILRuntime", true);
+            win.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 600);
+        }        
 
-        ConfigVO cfg;
-
-        private void OnEnable()
+        override protected void OnEnable()
         {
+            base.OnEnable();
             cfg = EditorConfigUtil.LoadConfig<ConfigVO>(CONFIG_NAME);
-            if (null == cfg)
-            {
-                cfg = new ConfigVO();
-            }
         }
 
-        private void OnGUI()
+        [LabelText("保存配置"), Button(size:ButtonSizes.Medium), PropertyOrder(-1)]
+        void SaveConfig()
         {
-            EditorGUILayout.BeginVertical();
+            EditorConfigUtil.SaveConfig(cfg, CONFIG_NAME);
+            ShowNotification(new GUIContent("保存成功"));
+        }
 
-            EditorGUILayout.Space();
-            if (GUILayout.Button("保存配置"))
+        public ConfigVO cfg;
+
+        [HorizontalGroup("BottomButtons")]
+        [LabelText("生成绑定代码"), Button]
+        void GenerateCLRBindingScripts()
+        {
+            var dllFile = UnityEditor.EditorUtility.OpenFilePanel("选择热更DLL", Application.dataPath, "dll");
+            if (false == string.IsNullOrEmpty(dllFile))
             {
-                EditorConfigUtil.SaveConfig(cfg, CONFIG_NAME);
-                ShowNotification(new GUIContent("保存成功"));
+                GenerateCLRBindingByAnalysis(dllFile, cfg.bindingCodeDir);
             }
 
-            GUILayout.Space(10);
+            EditorUtility.DisplayDialog("提示", "成功！", "OK");
+            AssetDatabase.Refresh();
+        }
 
-            GUILayout.BeginHorizontal();
-            cfg.bindingCodeDir = EditorGUILayout.TextField("绑定代码发布目录:", cfg.bindingCodeDir);
-            if (GUILayout.Button("选择目录", GUILayout.Width(100)))
+        [HorizontalGroup("BottomButtons")]
+        [LabelText("清空绑定代码"), Button]
+        void ClearCLRBindingScripts()
+        {
+            if (FileUtil.DeleteFileOrDirectory(cfg.bindingCodeDir))
             {
-                var dir = UnityEditor.EditorUtility.OpenFolderPanel("选择发布目录", "", "");
-                if (false == string.IsNullOrEmpty(dir))
-                {
-                    dir = string.Format("Assets{0}", dir.Replace(Application.dataPath, ""));
-                    cfg.bindingCodeDir = dir;
-                }
-            }
-            GUILayout.EndHorizontal();
-
-            GUILayout.BeginHorizontal();
-
-            if (GUILayout.Button("生成绑定代码", GUILayout.Width(100)))
-            {
-                var dllFile = UnityEditor.EditorUtility.OpenFilePanel("选择热更DLL", Application.dataPath, "dll");
-                if (false == string.IsNullOrEmpty(dllFile))
-                {
-                    GenerateCLRBindingByAnalysis(dllFile, cfg.bindingCodeDir);
-                }
-
                 EditorUtility.DisplayDialog("提示", "成功！", "OK");
-                AssetDatabase.Refresh();
             }
-
-            if (GUILayout.Button("清空绑定代码", GUILayout.Width(100)))
+            else
             {
-                if(FileUtil.DeleteFileOrDirectory(cfg.bindingCodeDir))
-                {
-                    EditorUtility.DisplayDialog("提示", "成功！", "OK");
-                }
-                else
-                {
-                    EditorUtility.DisplayDialog("提示", "失败！", "OK");
-                }
-
-                AssetDatabase.Refresh();
+                EditorUtility.DisplayDialog("提示", "失败！", "OK");
             }
 
-            GUILayout.EndHorizontal();
-
-            EditorGUILayout.EndVertical();
+            AssetDatabase.Refresh();
         }
 
         void GenerateCLRBindingByAnalysis(string dllFile, string generatedDir)

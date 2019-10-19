@@ -33,12 +33,12 @@ namespace Zero
         string[] _groups;
 
         public void Start(string name, Action onComplete, Action<float, long> onProgress = null, Action<string> onError = null)
-        {            
+        {
             Start(new string[] { name }, onComplete, onProgress);
         }
 
         public void Start(string[] groups, Action onComplete, Action<float, long> onProgress = null, Action<string> onError = null)
-        {            
+        {
             _onComplete = onComplete;
             _onProgress = onProgress;
             _onError = onError;
@@ -66,7 +66,7 @@ namespace Zero
                 var netItem = Runtime.Ins.netResVer.Get(resName);
 
                 //将要下载的文件依次添加入下载器
-                groupLoader.AddLoad(Runtime.Ins.netResDir + resName, Runtime.Ins.localResDir + resName, netItem.version, netItem.size, OnItemLoaded, netItem);
+                groupLoader.AddLoad(FileSystem.CombinePaths(Runtime.Ins.netResDir, resName), FileSystem.CombinePaths(Runtime.Ins.localResDir, resName), netItem.version, netItem.size, OnItemLoaded, netItem);
             }
             //启动下载器开始下载
             groupLoader.StartLoad();
@@ -81,19 +81,19 @@ namespace Zero
 
             //判断下载是否返回错误
             if (null != groupLoader.Error)
-            {                
+            {
                 if (null != _onError)
                 {
                     _onError.Invoke(groupLoader.Error);
                 }
                 yield break;
-            }            
+            }
 
             _onComplete();
         }
 
         private void OnItemLoaded(object obj)
-        {            
+        {
             var item = (ResVerVO.Item)obj;
             Log.CI(Log.COLOR_BLUE, "下载完成：{0} Ver:{1}", item.name, item.version);
             Runtime.Ins.localResVer.SetVerAndSave(item.name, item.version);

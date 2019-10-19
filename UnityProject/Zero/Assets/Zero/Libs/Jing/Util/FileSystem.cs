@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace Jing
 {
@@ -70,12 +71,13 @@ namespace Jing
             if (args.Length == 0)
             {
                 return "";
-            }            
+            }                              
 
             string path = args[0];
             for (int i = 1; i < args.Length; i++)
             {
-                path = Path.Combine(path, args[i]);
+                var node = RemoveStartPathSeparator(args[i]);
+                path = Path.Combine(path, node);
             }
 
             //为了好看
@@ -149,5 +151,69 @@ namespace Jing
 
             return path;
         }
+
+        /// <summary>
+        /// 将源目录或文件拷贝到目标地址。拷贝过程中如果目录不存在，则创建。
+        /// </summary>
+        /// <param name="source">源目录或文件</param>
+        /// <param name="target">目标目录或文件</param>
+        /// <param name="overwrite">有相同的文件是否覆盖</param>
+        /// <param name="extFilters">要过滤(不拷贝)的文件后缀名</param>
+        /// <returns></returns>
+        public static void Copy(string source, string target, bool overwrite, string[] extFilters = null)
+        {
+            source = StandardizeBackslashSeparator(source);
+            target = StandardizeBackslashSeparator(target);
+            if (File.Exists(source))
+            {
+                //拷贝文件
+                CopyFile(source, target, overwrite);
+            }
+            else
+            {
+                var subFiles = Directory.GetFiles(source, "*", SearchOption.AllDirectories);
+                for (int i = 0; i < subFiles.Length; i++)
+                {
+                    var subFile = StandardizeBackslashSeparator(subFiles[i]);
+                    var subFileRelativePath = subFile.Replace(source, "");
+                    var targetSubFile = CombinePaths(target, subFileRelativePath);
+                    CopyFile(subFile, targetSubFile, true, extFilters);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 文件拷贝
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="target"></param>
+        /// <param name="overwrite"></param>
+        static void CopyFile(string source, string target, bool overwrite, string[] extFilters = null)
+        {
+            if (false == File.Exists(source))
+            {
+                throw new Exception(string.Format("文件不存在:[{0}]", source));
+            }
+
+            if (null != extFilters)
+            {
+                var ext = Path.GetExtension(source);
+                foreach(var extFilter in extFilters)
+                {
+                    if (ext.Equals(extFilter))
+                    {
+                        return;
+                    }
+                }
+            }
+
+            var targetDir = Directory.GetParent(target);
+            if (false == targetDir.Exists)
+            {
+                targetDir.Create();
+            }
+
+            File.Copy(source, target, overwrite);
+        }        
     }
 }

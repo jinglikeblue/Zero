@@ -3,6 +3,8 @@ using LitJson;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace Zero.Edit
@@ -18,7 +20,7 @@ namespace Zero.Edit
             get
             {
                 DirectoryInfo temp = Directory.GetParent(Application.dataPath);
-                string dir = FileSystem.CombineDirs(true, temp.FullName, "EditorConfig");
+                string dir = FileSystem.CombineDirs(false, temp.FullName, "EditorConfigs");
                 if (!Directory.Exists(dir))
                 {
                     Directory.CreateDirectory(dir);
@@ -34,8 +36,9 @@ namespace Zero.Edit
         /// <param name="fileName">文件名</param>
         public static void SaveConfig(object data, string fileName)
         {
-            string json = JsonMapper.ToJson(data);
-            File.WriteAllText(Path.Combine(ConfigDir, fileName), json);
+            string json = JsonMapper.ToPrettyJson(data);
+            json = Regex.Unescape(json);
+            File.WriteAllText(FileSystem.CombinePaths(ConfigDir, fileName), json, Encoding.UTF8);
         }
 
         /// <summary>
@@ -46,10 +49,10 @@ namespace Zero.Edit
         /// <returns></returns>
         public static T LoadConfig<T>(string fileName)
         {
-            string path = Path.Combine(ConfigDir, fileName);
+            string path = FileSystem.CombinePaths(ConfigDir, fileName);
             if (File.Exists(path))
             {
-                string json = File.ReadAllText(path);
+                string json = File.ReadAllText(path, Encoding.UTF8);
                 return JsonMapper.ToObject<T>(json);
             }
             return default(T);

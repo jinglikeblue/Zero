@@ -1,4 +1,8 @@
 ﻿using Jing;
+using Sirenix.OdinInspector;
+using Sirenix.OdinInspector.Editor;
+using Sirenix.Utilities;
+using Sirenix.Utilities.Editor;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,144 +11,178 @@ using UnityEngine;
 
 namespace Zero.Edit
 {
-    public class FindUselessAssetsEditorWin:AEditorWin
+    public class FindUselessAssetsEditorWin : OdinEditorWindow
     {
         /// <summary>
         /// 打开窗口
         /// </summary>
         public static void Open()
         {
-            var win = EditorWindow.GetWindow<FindUselessAssetsEditorWin>("Useless Assets Find", true);            
-            win.minSize = new Vector2(800, 700);
-            win.maxSize = new Vector2(1000, 700);
-            win.Show();
+            var win = GetWindow<FindUselessAssetsEditorWin>("查找项目中的无用资源", true);
+            win.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 610);
         }
 
-        Vector2 _pos = Vector2.zero;
+        /// <summary>
+        /// 所有有用的资源
+        /// </summary>
         HashSet<string> _usefulAssets;
-        List<string> _uselessAssets;        
-        HashSet<string> _selectFiles;
-        bool _selectAll = false;
 
-        private void OnGUI()
+        bool IsUsefulAssetsInited()
         {
-            GUILayout.BeginVertical();
-            GUILayout.Space(10);
-
-            if (GUILayout.Button(_usefulAssets == null ? "初始化扫描库" : "重置扫描库", GUILayout.Height(30)))
-            {
-                if (EditorUtility.DisplayDialog("提示", "构建扫描库根据项目大小耗费时间可能很长！", "继续", "取消"))
-                {
-                    _usefulAssets = GetUsefulAssetsSet();
-                }
-            }
-
-            if (null == _usefulAssets)
-            {
-                GUILayout.EndVertical();
-                return;
-            }
-
-            if (GUILayout.Button("从选中文件中扫描无用的资源", GUILayout.Height(30)))
-            {
-                _selectFiles = new HashSet<string>();
-                _pos = Vector2.zero;
-                _selectAll = false;
-                _uselessAssets = GetUselessAssets(_usefulAssets);
-            }
-            
-
-            if(null != _uselessAssets && _uselessAssets.Count > 0)
-            {
-                _pos = GUILayout.BeginScrollView(_pos);
-                foreach (var asset in _uselessAssets)
-                {
-                    if (GUILayout.Toggle(_selectFiles.Contains(asset), string.Format("{0}", asset)))
-                    {
-                        _selectFiles.Add(asset);
-                    }
-                    else
-                    {
-                        _selectFiles.Remove(asset);
-                    }
-                }
-                GUILayout.EndScrollView();
-
-
-                GUILayout.BeginHorizontal();                
-                string label = _selectFiles.Count == _uselessAssets.Count ? "取消全选" : "全选";
-                label += string.Format("[{0}/{1}]", _selectFiles.Count, _uselessAssets.Count);
-                if (GUILayout.Button(label, GUILayout.Height(30), GUILayout.Width(200)))
-                {
-                    if(_selectFiles.Count == _uselessAssets.Count)
-                    {
-                        _selectFiles = new HashSet<string>();
-                    }
-                    else
-                    {
-                        foreach(var file in _uselessAssets)
-                        {
-                            _selectFiles.Add(file);
-                        }
-                    }
-                }
-
-                if (GUILayout.Button("删除选中的资源", GUILayout.Height(30)))
-                {
-                    DeleteAssets(_selectFiles);
-                }
-                GUILayout.EndHorizontal();
-            }
-            GUILayout.EndVertical();
+            return null != _usefulAssets ? true : false;
         }
 
-        private void DeleteAssets(HashSet<string> selectKey)
+
+        [LabelText("重置扫描库"), Button(size: ButtonSizes.Large), PropertyOrder(-1)]
+        void ResetUsefulAssetsSet()
         {
-            float selectCount = selectKey.Count;
+            if (EditorUtility.DisplayDialog("提示", "构建扫描库根据项目大小耗费时间可能很长！", "继续", "取消"))
+            {
+                _usefulAssets = GetUsefulAssetsSet();
+            }
+        }
+
+        [LabelText("从选中文件中扫描无用的资源"), Button(size: ButtonSizes.Large), PropertyOrder(-1), ShowIf("IsUsefulAssetsInited")]
+        void FindUselessAssets()
+        {
+            var uselessAssets = GetUselessAssets(_usefulAssets);
+            uselessItems.Clear();
+            foreach (var asset in uselessAssets)
+            {
+                var item = new UselessItemVO();
+                item.asset = asset;
+                uselessItems.Add(item);
+            }
+        }
+
+        /// <summary>
+        /// 没有用的资源列表
+        /// </summary>
+        [ShowIf("HasUselessAssets"), LabelText("Useless Assets"), ListDrawerSettings(IsReadOnly = true, NumberOfItemsPerPage = 19, Expanded = true)]
+        public List<UselessItemVO> uselessItems = new List<UselessItemVO>();
+
+        [HideLabel]
+        [Serializable]
+        public class UselessItemVO
+        {
+            [HideInEditorMode]
+            public string asset;
+
+            [HorizontalGroup("UselessItem")]
+            [ToggleLeft, LabelText("$asset")]
+            public bool select = false;
+
+            [HorizontalGroup("UselessItem", width:60)]
+            [Button, LabelText("Select"), LabelWidth(60)]
+            void Select()
+            {
+                var ai = AssetImporter.GetAtPath(asset);
+                Selection.objects = new UnityEngine.Object[] { ai };
+            }
+        }
+
+        bool HasUselessAssets()
+        {
+            if (uselessItems != null && uselessItems.Count > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        string SelectAllButtonLabel()
+        {
+            int selectedCount = 0;
+            foreach(var item in uselessItems)
+            {
+                if (item.select)
+                {
+                    selectedCount++;
+                }
+            }
+            return string.Format("全选 [{0}/{1}]", selectedCount, uselessItems.Count);
+        }
+
+        [HorizontalGroup("BottomButtons", 200)]
+        [LabelText("$SelectAllButtonLabel"), Button(size: ButtonSizes.Large), ShowIf("HasUselessAssets")]
+        void SelectAll()
+        {
+            //判断是否都是选中状态
+            bool isAllSelected = true;
+
+            foreach (var item in uselessItems)
+            {
+                if(item.select == false)
+                {
+                    isAllSelected = false;
+                    break;
+                }
+            }                       
+
+            foreach (var item in uselessItems)
+            {
+                item.select = !isAllSelected;
+            }
+        }        
+
+        [HorizontalGroup("BottomButtons")]
+        [LabelText("删除选中的资源"), Button(size: ButtonSizes.Large), ShowIf("HasUselessAssets")]
+        void DeleteSelected()
+        {
+            List<UselessItemVO> toDelList = new List<UselessItemVO>();
+            int i = uselessItems.Count;            
+            while (--i > -1)
+            {
+                var item = uselessItems[i];
+                if (item.select)
+                {
+                    toDelList.Add(item);
+                }
+            }            
+
+            float selectCount = toDelList.Count;
             var processIdx = 0;
-            foreach (var asset in selectKey)
+            foreach (var item in toDelList)
             {
                 processIdx++;
-                FileUtil.DeleteFileOrDirectory(asset);
+                FileUtil.DeleteFileOrDirectory(item.asset);
                 var title = string.Format("已删除...[{0}/{1}]", processIdx, selectCount);
-                EditorUtility.DisplayProgressBar(title, asset, processIdx / selectCount);
+                EditorUtility.DisplayProgressBar(title, item.asset, processIdx / selectCount);
 
-                _uselessAssets.Remove(asset);
+                uselessItems.Remove(item);
             }
             AssetDatabase.Refresh();
-            EditorUtility.ClearProgressBar();
-            _selectFiles.Clear();
-            
+            EditorUtility.ClearProgressBar();            
         }
 
-        private List<string> GetUselessAssets(HashSet<string> usefulAssets)
+        List<string> GetUselessAssets(HashSet<string> usefulAssets)
         {
             var uselessAssets = new List<string>();
             var objs = Selection.GetFiltered<UnityEngine.Object>(SelectionMode.DeepAssets);
-            
+
             for (int i = 0; i < objs.Length; i++)
             {
                 var obj = objs[i];
                 var type = obj.GetType();
-                if(obj is DefaultAsset)
+                if (obj is DefaultAsset)
                 {
                     //文件夹不处理
                     continue;
                 }
 
-                if(obj is MonoScript)
+                if (obj is MonoScript)
                 {
                     //脚本代码不处理
                     continue;
                 }
 
-                if(obj is SceneAsset)
+                if (obj is SceneAsset)
                 {
                     //场景文件不处理
                     continue;
                 }
 
-                var file = AssetDatabase.GetAssetPath(obj);                
+                var file = AssetDatabase.GetAssetPath(obj);
 
                 var title = string.Format("已扫描...[{0}/{1}]", i + 1, objs.Length);
                 EditorUtility.DisplayProgressBar(title, file, i / objs.Length);
@@ -177,14 +215,14 @@ namespace Zero.Edit
                 var ai = AssetImporter.GetAtPath(FileSystem.CombinePaths("Assets", file));
                 if (null != ai)
                 {
-                    if(ai.assetBundleName != "")
+                    if (ai.assetBundleName != "")
                     {
                         //是AB资源，有用
                         sets.Add(ai.assetPath);
                     }
 
                     string[] depends = AssetDatabase.GetDependencies(ai.assetPath);
-                    foreach(var depend in depends)
+                    foreach (var depend in depends)
                     {
                         if (depend != ai.assetPath)
                         {
