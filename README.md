@@ -37,8 +37,6 @@ Zero是在Unity中一套游戏开发框架，为游戏开发核心的问题提�
 
 # 快速入门
 
-版本：**1.3**
-
 #### Unity环境
 Unity版本： **2018.4.0**  
 Scripting Runtime Version: **.NET 4.x Equivalent**    
@@ -55,3 +53,42 @@ Api Compatibility Level: **.NET 4.x**
 QQ群：695429639
 
 ![](Docs/Imgs/QQChatGroups.png)
+
+
+---
+## 更新日志
+
+```
+2019.10
+Version 2.0
+```
+
+>功能调整
+
+- 以下内容直接限定，不再为可配置内容，减少误操作  
+    - 启动Prefab
+    - 启动类，包括方法
+    - DLL文件名
+- 增加@Configs目录，放置配置文件，打包时可以输出到打包目录
+- 更新只保留打开更新URL，如果需要其它操作，请自行扩展
+- 移除Socket库，如需要socket通信请使用第三方库
+- SettingUpdate的版本号跳转功能阉割掉，作用不大
+
+>优化
+- OnData调整
+    - 改为必定触发，没有数据时传null
+    - OnData改为在OnInit后，OnEnable前触发，可参考Adam的OnInitData
+
+>Editor
+- 完全重构Editor
+    - 使用Odin插件重写Editor工具
+    - 重新设计Editor结构，配置统一化，清晰、简洁
+- HotRes发布修改
+    - AssetBundle部分直接采用Adam的打包方案，提高打包效率，减少打包操作
+    - 热更资源AB目录限定为@Resources目录
+        - 目录限定后，因为可以确定AB包的名称，所以可以通过工具，自动生成该目录的AB文件名称常量
+    - 热更代码开发目录限定为@Scripts目录
+    - 增加热更配置目录@Configs目录
+    - res.json不再配置Manifest文件路径，自动生成
+- 不再提供DLL代码排除功能（意义不大）
+
