@@ -37,9 +37,11 @@ namespace Zero.Edit
         [MenuItem("Zero/调试/清理[Caches]目录", false, 400)]
         public static void ClearCachesDir()
         {
-            var root = Directory.GetParent(Application.dataPath).FullName;
-            var cacheDirPath = FileSystem.CombineDirs(false, root, "Caches");
-            Directory.Delete(cacheDirPath, true);
+            var cacheDir = new DirectoryInfo(ZeroConst.PERSISTENT_DATA_PATH);
+            if (cacheDir.Exists)
+            {
+                cacheDir.Delete(true);
+            }            
         }
 
         [MenuItem("Zero/调试/GC", false, 401)]
