@@ -58,7 +58,9 @@ namespace Zero.Edit
             get
             {
                 BuildTarget platform;
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE_OSX
+                platform = BuildTarget.StandaloneOSX;
+#elif UNITY_STANDALONE
                 platform = BuildTarget.StandaloneWindows;
 #elif UNITY_IPHONE
         platform = BuildTarget.iOS;
