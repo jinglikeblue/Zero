@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEditor;
 using UnityEngine;
 
 namespace Zero
@@ -12,10 +11,10 @@ namespace Zero
         /// <summary>
         /// Zero框架专用配色
         /// </summary>
-        const string COLOR_ZERO_PRO = "50E3C2";
-        const string COLOR_ZERO1_PRO = "D6E884";
-        const string COLOR_ZERO = "622C8E";
-        const string COLOR_ZERO1 = "106DED";
+        const string COLOR_ZERO1_PRO = "50E3C2";
+        const string COLOR_ZERO2_PRO = "D6E884";
+        const string COLOR_ZERO1 = "622C8E";
+        const string COLOR_ZERO2 = "106DED";
 
         /// <summary>
         /// 红色
@@ -68,14 +67,28 @@ namespace Zero
             return C(COLOR_RED, format, args);
         }
 
-        public static string Zero(string format, params object[] args)
-        {            
-            return C(EditorGUIUtility.isProSkin ? COLOR_ZERO_PRO : COLOR_ZERO, format, args);
-        }
-
         public static string Zero1(string format, params object[] args)
         {
-            return C(EditorGUIUtility.isProSkin ? COLOR_ZERO1_PRO : COLOR_ZERO1, format, args);
+            string color = COLOR_ZERO1;
+#if UNITY_EDITOR            
+            if(UnityEditor.EditorGUIUtility.isProSkin)
+            {
+                color = COLOR_ZERO1_PRO;
+            }
+#endif
+            return C(color, format, args);
+        }
+
+        public static string Zero2(string format, params object[] args)
+        {
+            string color = COLOR_ZERO2;
+#if UNITY_EDITOR            
+            if (UnityEditor.EditorGUIUtility.isProSkin)
+            {
+                color = COLOR_ZERO2_PRO;
+            }
+#endif
+            return C(color, format, args);
         }
 
         public static string Orange(string format, params object[] args)

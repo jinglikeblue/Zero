@@ -18,7 +18,7 @@ namespace Zero
 
         public void Start(Action onLoaded, Action<string> onError)
         {
-            Debug.Log(Log.Zero("「ResVerFileUpdate」资源版本号文件更新检查..."));
+            Debug.Log(Log.Zero1("「ResVerFileUpdate」资源版本号文件更新检查..."));
             _onLoaded = onLoaded;
             _onError = onError;
             _localPath = FileSystem.CombinePaths(Runtime.Ins.localResDir , ZeroConst.RES_JSON_FILE_NAME);

@@ -13,13 +13,13 @@
         },
         {
             "name" : "ab/manifest.ab",
-            "version" : "86eb89bb7d75d2cdd199551ee0f9505e",
+            "version" : "9774084e28a090a19753096bc6d60b2b",
             "size"    : 1794
         },
         {
             "name" : "ab/root_assets.ab",
-            "version" : "676344fb9d35ff7c11a142720f51e454",
-            "size"    : 6247
+            "version" : "da24f160aea7a6cf249095361760bf49",
+            "size"    : 6149
         },
         {
             "name" : "ab/auto_depends/cross_0.ab",
@@ -52,14 +52,19 @@
             "size"    : 4591
         },
         {
+            "name" : "configs/read_me.txt",
+            "version" : "6be53db955f8d95d1e441e7956fa36b7",
+            "size"    : 117
+        },
+        {
             "name" : "dll/scripts.dll",
-            "version" : "af9f89201e08621e1a84fa85497bd271",
-            "size"    : 21504
+            "version" : "eea87a5427f1d5e448e3b933c3c0aa89",
+            "size"    : 22016
         },
         {
             "name" : "dll/scripts.pdb",
-            "version" : "927f1eb00c38a4b2d2bd0989bbc18850",
-            "size"    : 8104
+            "version" : "0d156530702f31f157562dcb4313801f",
+            "size"    : 8236
         }
     ]
 }

@@ -18,7 +18,7 @@ namespace Zero
 
         public void Start(Action onLoaded, Action<string> onError)
         {
-            Debug.Log(Log.Zero("「SettingUpdate」配置文件更新检查..."));
+            Debug.Log(Log.Zero1("「SettingUpdate」配置文件更新检查..."));
             _onLoaded = onLoaded;
             _onError = onError;
             _localPath = FileSystem.CombinePaths(Runtime.Ins.localResDir, "setting.json");
@@ -26,7 +26,7 @@ namespace Zero
             if (Runtime.Ins.IsLoadAssetsFromNet && Runtime.Ins.localData.IsUpdateSetting)
             {
                 var netPath = FileSystem.CombinePaths(Runtime.Ins.netResDir , "setting.json");
-                Debug.Log(Log.Zero("配置文件: {0}", netPath));
+                Debug.Log(Log.Zero1("配置文件: {0}", netPath));
                 ILBridge.Ins.StartCoroutine(Update(netPath));
             }
             else

@@ -30,7 +30,7 @@ namespace Zero
 
         public AssemblyILWorker(Assembly assembly)
         {
-            Debug.Log(Log.Zero("外部程序集执行方式：[Assembly]"));
+            Debug.Log(Log.Zero1("外部程序集执行方式：[Assembly]"));
             _assembly = assembly;
         }
 

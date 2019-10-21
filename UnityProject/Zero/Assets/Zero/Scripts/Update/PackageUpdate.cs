@@ -12,7 +12,7 @@ namespace Zero
     {
         public void Start(Action onComplete, Action<float, long> onProgress)
         {
-            Debug.Log(Log.Zero("「PackageUpdate」内嵌资源解压检查..."));
+            Debug.Log(Log.Zero1("「PackageUpdate」内嵌资源解压检查..."));
             ILBridge.Ins.StartCoroutine(Run(onComplete, onProgress));
         }
 

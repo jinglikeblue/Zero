@@ -1,4 +1,7 @@
-﻿namespace IL
+﻿using UnityEngine;
+using Zero;
+
+namespace IL
 {
     class ILMain
     {
@@ -6,7 +9,7 @@
         /// 入口方法
         /// </summary>
         public static void Main()
-        {
+        {            
             new ILDemo.DemoMain();
         }
     }

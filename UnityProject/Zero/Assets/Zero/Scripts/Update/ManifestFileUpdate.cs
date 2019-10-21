@@ -21,7 +21,7 @@ namespace Zero
 
         public void Start(Action onUpdate, Action<string> onError)
         {
-            Debug.Log(Log.Zero("「ManifestFileUpdate」Manifest描述文件更新检查..."));
+            Debug.Log(Log.Zero1("「ManifestFileUpdate」Manifest描述文件更新检查..."));
             _rt = Runtime.Ins;
             _manifestName = FileSystem.CombinePaths(ZeroConst.AB_DIR_NAME, ZeroConst.MANIFEST_FILE_NAME + ZeroConst.AB_EXTENSION);
             _onUpdate = onUpdate;

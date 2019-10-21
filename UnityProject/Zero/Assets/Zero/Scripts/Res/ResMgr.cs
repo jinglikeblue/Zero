@@ -44,7 +44,7 @@ namespace Zero
             switch (type)
             {
                 case EResMgrType.ASSET_BUNDLE:
-                    Debug.Log(Log.Zero("初始化资源管理器... 资源来源：[AssetBundle]  Manifest路径：{0}", assetRoot));
+                    Debug.Log(Log.Zero1("初始化资源管理器... 资源来源：[AssetBundle]  Manifest路径：{0}", assetRoot));
                     var newMgr = new AssetBundleResMgr(assetRoot);
                     if (_mgr != null && _mgr is AssetBundleResMgr)
                     {
@@ -54,11 +54,11 @@ namespace Zero
                     _mgr = newMgr;
                     break;
                 case EResMgrType.RESOURCES:
-                    Debug.Log(Log.Zero("初始化资源管理器... 资源来源：[Resources]"));                    
+                    Debug.Log(Log.Zero1("初始化资源管理器... 资源来源：[Resources]"));                    
                     _mgr = new ResourcesResMgr();                    
                     break;
                 case EResMgrType.ASSET_DATA_BASE:
-                    Debug.Log(Log.Zero("初始化资源管理器... 资源来源：[AssetDataBase] 资源根目录：{0}", assetRoot));
+                    Debug.Log(Log.Zero1("初始化资源管理器... 资源来源：[AssetDataBase] 资源根目录：{0}", assetRoot));
                     _mgr = new AssetDataBaseResMgr(assetRoot);
                     break;
             }

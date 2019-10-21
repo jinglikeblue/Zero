@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Jing;
+using System;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.Events;
@@ -64,11 +65,6 @@ namespace Zero
         /// </summary>
         public event Action<string> onError;               
 
-        void Start()
-        {            
-
-        }
-
         /// <summary>
         /// 开始激活预加载
         /// </summary>
@@ -83,12 +79,12 @@ namespace Zero
             //初始化运行环境配置环境
             Runtime.Ins.Init(runtimeCfg);
 
-            Debug.Log(Log.Zero("游戏运行模式：[{0}]", Runtime.Ins.IsHotResProject?Runtime.Ins.ResMode.ToString():"Local"));
+            Debug.Log(Log.Zero1("游戏运行模式：[{0}]", Runtime.Ins.IsHotResProject?Runtime.Ins.ResMode.ToString():"Local"));
 
             if (false == Runtime.Ins.IsHotResProject)
             {
                 ResMgr.Ins.Init(ResMgr.EResMgrType.RESOURCES);
-                StartMainPrefab();
+                RunScripts();
             }
             else
             {
@@ -130,22 +126,12 @@ namespace Zero
             OnStageChange(EState.RES_UPDATE);           
 
             ResUpdate update = new ResUpdate();
-            update.Start(Runtime.Ins.setting.startupResGroups, StartMainPrefab, OnUpdateStartupResGroups, onError);
+            update.Start(Runtime.Ins.setting.startupResGroups, RunScripts, OnUpdateStartupResGroups, onError);
         }
 
         private void OnUpdateStartupResGroups(float progress, long totalSize)
         {            
             OnProgress(progress, totalSize);
-        }
-
-        void StartMainPrefab()
-        {            
-            OnStageChange(EState.STARTUP);
-            GameObject.Destroy(this.gameObject);
-            //加载ILRuntimePrefab;            
-            GameObject mainPrefab = ResMgr.Ins.Load<GameObject>(ZeroConst.ROOT_AB_FILE_NAME, Runtime.Ins.VO.mainPrefab);
-            GameObject go = GameObject.Instantiate(mainPrefab);
-            go.name = mainPrefab.name;
         }
 
         void OnProgress(float progress, long totalSize)
@@ -177,6 +163,35 @@ namespace Zero
             if (null != onError)
             {
                 onError.Invoke(error);
+            }
+        }
+
+        void RunScripts()
+        {
+            OnStageChange(EState.STARTUP);
+            GameObject.Destroy(this.gameObject);
+
+            var cfg = Runtime.Ins.VO;
+            bool isUseDll = cfg.isUseDll && cfg.isHotResProject;
+            
+            if (isUseDll)
+            {
+                Debug.Log(Log.Zero1("@Scripts代码运行环境: [外部程序集]"));
+
+                string dllDir = FileSystem.CombineDirs(false, Runtime.Ins.localResDir, ZeroConst.DLL_DIR_NAME);
+                //初始化IL
+                ILBridge.Ins.Startup(dllDir, ZeroConst.DLL_FILE_NAME, cfg.isDebugIL, cfg.isLoadPdb);
+                //调用启动方法
+                ILBridge.Ins.Invoke(cfg.className, cfg.methodName);
+            }
+            else
+            {
+                Debug.Log(Log.Zero1("@Scripts代码运行环境: [本地程序集]"));
+
+                Type type = Type.GetType(cfg.className);
+                //使用本地类，直接启动本地类
+                MethodInfo method = type.GetMethod(cfg.methodName, BindingFlags.Static | BindingFlags.Public);
+                method.Invoke(null, null);
             }
         }
     }

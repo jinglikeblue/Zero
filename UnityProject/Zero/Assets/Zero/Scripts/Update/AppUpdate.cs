@@ -18,7 +18,7 @@ namespace Zero
         /// <param name="onOver">不用更新的回调</param>
         public void Start(Action<bool> onOver, Action<float, long> onProgress, Action<string> onError)
         {
-            Debug.Log(Log.Zero("「{0}」客户端版本号检查...", this.GetType().Name));
+            Debug.Log(Log.Zero1("「{0}」客户端版本号检查...", this.GetType().Name));
             if (false == Runtime.Ins.IsLoadAssetsFromNet)
             {
                 onOver(false);
@@ -30,7 +30,7 @@ namespace Zero
             _onError = onError;
             int result = CheckVersionCode(Application.version, Runtime.Ins.setting.client.version);
 
-            Debug.Log(Log.Zero("客户端版本号 本地: {0}   网络: {1}  更新地址：{2}", Application.version, Runtime.Ins.setting.client.version, Runtime.Ins.setting.client.url));
+            Debug.Log(Log.Zero1("客户端版本号 本地: {0}   网络: {1}  更新地址：{2}", Application.version, Runtime.Ins.setting.client.version, Runtime.Ins.setting.client.url));
 
             if (result == -1)
             {

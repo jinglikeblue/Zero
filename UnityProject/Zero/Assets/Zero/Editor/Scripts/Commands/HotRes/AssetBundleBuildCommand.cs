@@ -257,14 +257,20 @@ namespace Zero.Edit
 
             assetBundleManifest = BuildPipeline.BuildAssetBundles(ZeroEditorConst.ASSET_BUNDLE_CACHE_DIR, abbList, BuildAssetBundleOptions.ChunkBasedCompression | BuildAssetBundleOptions.DeterministicAssetBundle, ZeroEditorConst.BUILD_PLATFORM);
 
-            //清理不再需要的资源(需要修改算法，只保留需要的，完全清理不需要的资源)
-            CleanCahceDir();
+            if (null != assetBundleManifest)
+            {
+                //清理不再需要的资源(需要修改算法，只保留需要的，完全清理不需要的资源)
+                CleanCahceDir();
+            }
+            else
+            {
+                throw new Exception("AssetBundle打包失败!");
+            }
         }
 
         void CleanCahceDir()
-        {
-            var manifest = assetBundleManifest;
-            var assetBundles = manifest.GetAllAssetBundles();
+        {            
+            var assetBundles = assetBundleManifest.GetAllAssetBundles();
             //需要留下的文件
             HashSet<string> usefulFileSet = new HashSet<string>();
             usefulFileSet.Add(ZeroConst.AB_DIR_NAME);
