@@ -1,8 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace Zero
 {
@@ -22,13 +20,10 @@ namespace Zero
         public bool isLogEnable;
 
         [Title("启动")]
-        [LabelText("启动Prefab路径"), DisableInEditorMode, DisableInPlayMode]
-        public string mainPrefab = @"ILContent";
-
-        [LabelText("启动类(完全限定类名)"), DisableInEditorMode, DisableInPlayMode]
+        [LabelText("启动类(完全限定类名)"), DisplayAsString]
         public string className;
 
-        [LabelText("启动方法(静态)"), DisableInEditorMode, DisableInPlayMode]
+        [LabelText("启动方法(静态)"), DisplayAsString]
         public string methodName;
 
         [Title("热更配置")]
@@ -38,10 +33,10 @@ namespace Zero
         [LabelText("网络资源的根目录"), ShowIf("isHotResProject"), ShowIf("hotResMode", EHotResMode.NET_ASSET_BUNDLE)]
         public string netRoot;
 
-        [LabelText("本地资源的根目录"), ShowIf("isHotResProject"), DisableInEditorMode, DisableInPlayMode, ShowIf("hotResMode", EHotResMode.LOCAL_ASSET_BUNDLE)]
+        [LabelText("本地资源的根目录"), ShowIf("isHotResProject"), DisplayAsString, ShowIf("hotResMode", EHotResMode.LOCAL_ASSET_BUNDLE)]
         public string localResRoot = "请查看「ZeroEditorConst.PUBLISH_RES_ROOT_DIR」";
 
-        [LabelText("Asset中热更资源的根目录"), ShowIf("isHotResProject"), DisableInEditorMode, DisableInPlayMode, ShowIf("hotResMode", EHotResMode.ASSET_DATA_BASE)]
+        [LabelText("Asset中热更资源的根目录"), ShowIf("isHotResProject"), DisplayAsString, ShowIf("hotResMode", EHotResMode.ASSET_DATA_BASE)]
         public string hotResRoot = ZeroConst.HOT_RESOURCES_ROOT_DIR;
 
         [Title("热更代码配置")]
