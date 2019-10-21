@@ -102,8 +102,8 @@ namespace Zero
                 if (null == _streamingAssetsPath)
                 {
                     _streamingAssetsPath = Application.streamingAssetsPath;
-#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_ANDROID
-                    //如果在编辑器下，或是PC平台或Android平台，则要加上file://才能读取资源
+#if UNITY_EDITOR || UNITY_STANDALONE || UNITY_IPHONE
+                    //如果在编辑器下，或是PC平台或iOS平台，则要加上file://才能读取资源
                     _streamingAssetsPath = "file://" + _streamingAssetsPath;
 #endif
                 }
