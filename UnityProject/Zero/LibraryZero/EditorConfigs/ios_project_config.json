@@ -1,6 +1,5 @@
 ﻿
 {
-    "CONFIG_NAME" : "ios_project_config.json",
     "frameworkToProjectList" : [
         "CoreTelephony.framework"
     ],

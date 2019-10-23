@@ -10,7 +10,9 @@ using UnityEngine;
 namespace Zero.Edit
 {
     public class IOSProjectInitEditorWin : OdinEditorWindow
-    {        
+    {
+        public const string CONFIG_NAME = "ios_project_config.json";
+
         /// <summary>
         /// 打开窗口
         /// </summary>
@@ -18,13 +20,13 @@ namespace Zero.Edit
         {
             var win = GetWindow<IOSProjectInitEditorWin>("iOS 项目配置");
             win.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 600);
-        }
+        }        
 
         IOSProjectInitConfigVO _cfg;
 
         override protected void OnEnable()
         {
-            _cfg = EditorConfigUtil.LoadConfig<IOSProjectInitConfigVO>(IOSProjectInitConfigVO.CONFIG_NAME);
+            _cfg = EditorConfigUtil.LoadConfig<IOSProjectInitConfigVO>(CONFIG_NAME);
             frameworkToProjectList = _cfg.frameworkToProjectList;
             file2BuildList = _cfg.file2BuildList;
             setBuildProperty = _cfg.buildPropertyList;
@@ -46,7 +48,7 @@ namespace Zero.Edit
             _cfg.appQueriesSchemeList = appQueriesSchemeList;
 
 
-            EditorConfigUtil.SaveConfig(_cfg, IOSProjectInitConfigVO.CONFIG_NAME);
+            EditorConfigUtil.SaveConfig(_cfg, CONFIG_NAME);
             ShowNotification(new GUIContent("保存成功"));
         }
 
