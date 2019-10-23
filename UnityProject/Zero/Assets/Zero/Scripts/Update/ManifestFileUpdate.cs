@@ -44,7 +44,7 @@ namespace Zero
             {
                 if (Runtime.Ins.IsLoadAssetsByAssetDataBase)
                 {
-                    ResMgr.Ins.Init(ResMgr.EResMgrType.ASSET_DATA_BASE, Runtime.Ins.VO.hotResRoot);
+                    ResMgr.Ins.Init(ResMgr.EResMgrType.ASSET_DATA_BASE, ZeroConst.HOT_RESOURCES_ROOT_DIR);
                 }
                 else
                 {

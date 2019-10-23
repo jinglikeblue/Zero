@@ -126,7 +126,7 @@ namespace Zero
                     //开发环境
                     if (IsLoadAssetsFromNet)
                     {
-                        localResDir = FileSystem.CombineDirs(false, ZeroConst.PERSISTENT_DATA_PATH, "zero", "res");
+                        localResDir = ZeroConst.WWW_RES_PERSISTENT_DATA_PATH;
                     }
                     else
                     {
@@ -136,8 +136,8 @@ namespace Zero
                 default:                    
                     throw new System.Exception(string.Format("抱歉！Zero暂时不支持平台：{0}", Application.platform));                    
             }
-            
-            generateFilesDir = FileSystem.CombineDirs(false, ZeroConst.PERSISTENT_DATA_PATH, "zero", "generated");
+
+            generateFilesDir = ZeroConst.GENERATES_PERSISTENT_DATA_PATH;
 
             //确保本地资源目录存在
             if (false == Directory.Exists(localResDir))

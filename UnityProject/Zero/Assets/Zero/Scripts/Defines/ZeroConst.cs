@@ -21,6 +21,16 @@ namespace Zero
         public const string DLL_DIR_NAME = "dll";
 
         /// <summary>
+        /// @Scripts中的代码启动类
+        /// </summary>
+        public const string LOGIC_SCRIPT_STARTUP_CLASS_NAME = "IL.Main";
+
+        /// <summary>
+        /// @Scripts中的代码启动方法
+        /// </summary>
+        public const string LOGIC_SCRIPT_STARTUP_METHOD = "Startup";
+
+        /// <summary>
         /// 配置资源的目录名称
         /// </summary>
         public const string CONFIG_DIR_NAME = "configs";
@@ -145,5 +155,15 @@ namespace Zero
                 return _persistentDataPath;
             }
         }
+
+        /// <summary>
+        /// 网络下载的更新资源存储的目录
+        /// </summary>
+        public static string WWW_RES_PERSISTENT_DATA_PATH = FileSystem.CombineDirs(false, PERSISTENT_DATA_PATH, "zero", "res");
+
+        /// <summary>
+        /// 框架生成文件存放地址
+        /// </summary>
+        public static string GENERATES_PERSISTENT_DATA_PATH = FileSystem.CombineDirs(false, PERSISTENT_DATA_PATH, "zero", "generated");
     }
 }

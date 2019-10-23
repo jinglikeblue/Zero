@@ -573,13 +573,11 @@ MonoBehaviour:
   runtimeCfg:
     isHotResProject: 1
     isLogEnable: 1
-    className: IL.ILMain
-    methodName: Main
+    className: IL.Main
+    methodName: Startup
     hotResMode: 0
     netRoot: http://wepieces.cn/unity/zero/demo/Res
-    localResRoot: LibraryZero/Release/res/pc
-    hotResRoot: Assets/@Resources
-    isUseDll: 1
+    isUseDll: 0
     ilType: 0
     isDebugIL: 1
     isLoadPdb: 1
