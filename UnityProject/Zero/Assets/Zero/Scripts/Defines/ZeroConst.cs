@@ -28,7 +28,7 @@ namespace Zero
         /// <summary>
         /// 热更DLL的文件名称（不含后缀）
         /// </summary>
-        public const string DLL_FILE_NAME = "scripts";        
+        public const string DLL_FILE_NAME = "scripts";
 
         /// <summary>
         /// 资源版本描述文件的名称
@@ -60,11 +60,24 @@ namespace Zero
         /// </summary>
         public const string ROOT_AB_FILE_NAME = "root_assets";
 
+        #region 基于项目根目录的路径
+
         /// <summary>
         /// 热更资源在项目中根目录
         /// </summary>
         static public string HOT_RESOURCES_ROOT_DIR = "Assets/@Resources";
 
+        /// <summary>
+        /// Zero框架的Library目录
+        /// </summary>
+        static public string ZERO_LIBRARY_DIR = "LibraryZero";
+
+        /// <summary>
+        /// 热更资源发布目录
+        /// </summary>
+        static public string PUBLISH_RES_ROOT_DIR = FileSystem.CombineDirs(false, ZERO_LIBRARY_DIR, "Release", "res", PLATFORM_DIR_NAME);
+
+        #endregion
 
         static string _platformDirName = null;
 
@@ -124,7 +137,7 @@ namespace Zero
                 {
                     _persistentDataPath = Application.persistentDataPath;
 #if UNITY_EDITOR
-                    _persistentDataPath = FileSystem.CombineDirs(false, Directory.GetParent(Application.dataPath).FullName, "Caches");
+                    _persistentDataPath = FileSystem.CombineDirs(false, Directory.GetParent(Application.dataPath).FullName, ZERO_LIBRARY_DIR, "RuntimeCaches");
 #elif UNITY_STANDALONE
                 _persistentDataPath = FileSystem.CombineDirs(false, Application.dataPath, "Caches");
 #endif

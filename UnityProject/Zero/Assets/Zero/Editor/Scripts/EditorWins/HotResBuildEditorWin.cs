@@ -92,7 +92,7 @@ namespace Zero.Edit
             if (isOpenPublishDir)
             {
                 //打开目录
-                ZeroEditorUtil.OpenDirectory(FileSystem.CombineDirs(false, ZeroEditorConst.PUBLISH_RES_ROOT_DIR));
+                ZeroEditorUtil.OpenDirectory(FileSystem.CombineDirs(false, ZeroConst.PUBLISH_RES_ROOT_DIR));
             }
             else
             {
@@ -146,7 +146,7 @@ namespace Zero.Edit
         /// </summary>
         void BuildResJsonFile()
         {
-            new ResJsonBuildCommand(ZeroEditorConst.PUBLISH_RES_ROOT_DIR).Execute();
+            new ResJsonBuildCommand(ZeroConst.PUBLISH_RES_ROOT_DIR).Execute();
         }
     }
 }

@@ -575,11 +575,11 @@ MonoBehaviour:
     isLogEnable: 1
     className: IL.ILMain
     methodName: Main
-    hotResMode: 2
+    hotResMode: 0
     netRoot: http://wepieces.cn/unity/zero/demo/Res
-    localResRoot: "\u8BF7\u67E5\u770B\u300CZeroEditorConst.PUBLISH_RES_ROOT_DIR\u300D"
+    localResRoot: LibraryZero/Release/res/pc
     hotResRoot: Assets/@Resources
-    isUseDll: 0
+    isUseDll: 1
     ilType: 0
     isDebugIL: 1
     isLoadPdb: 1

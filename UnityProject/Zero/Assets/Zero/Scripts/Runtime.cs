@@ -130,7 +130,7 @@ namespace Zero
                     }
                     else
                     {
-                        localResDir = FileSystem.CombineDirs(false, Directory.GetParent(Application.dataPath).FullName, "Res", ZeroConst.PLATFORM_DIR_NAME);                        
+                        localResDir = ZeroConst.PUBLISH_RES_ROOT_DIR;
                     }                  
                     break;
                 default:                    

@@ -34,7 +34,7 @@ namespace Zero
         public string netRoot;
 
         [LabelText("本地资源的根目录"), ShowIf("isHotResProject"), DisplayAsString, ShowIf("hotResMode", EHotResMode.LOCAL_ASSET_BUNDLE)]
-        public string localResRoot = "请查看「ZeroEditorConst.PUBLISH_RES_ROOT_DIR」";
+        public string localResRoot = ZeroConst.PUBLISH_RES_ROOT_DIR;
 
         [LabelText("Asset中热更资源的根目录"), ShowIf("isHotResProject"), DisplayAsString, ShowIf("hotResMode", EHotResMode.ASSET_DATA_BASE)]
         public string hotResRoot = ZeroConst.HOT_RESOURCES_ROOT_DIR;
