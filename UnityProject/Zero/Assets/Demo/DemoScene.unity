@@ -572,7 +572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runtimeCfg:
     isHotResProject: 1
-    isLogEnable: 1
+    isLogEnable: 0
     className: IL.Main
     methodName: Startup
     hotResMode: 0

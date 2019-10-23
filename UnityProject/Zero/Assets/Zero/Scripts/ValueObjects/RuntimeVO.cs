@@ -16,6 +16,7 @@ namespace Zero
         [LabelText("项目是否使用热更")]
         public bool isHotResProject;
 
+        [SuffixLabel("关闭日志打印可以提高执行效率")]        
         [LabelText("是否允许打印日志")]
         public bool isLogEnable;
 
