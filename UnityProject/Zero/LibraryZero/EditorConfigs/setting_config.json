@@ -4,7 +4,7 @@
         "version" : "0.1",
         "url"     : "http://wepieces.cn/unity/zero/demo/zero.exe"
     },
-    "netResRoot" : "http://wepieces.cn/unity/zero/demo/Res",
+    "netResRoot" : "http://wepieces.cn/unity/zero/demo/res",
     "startupResGroups" : [
         "/"
     ],
