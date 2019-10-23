@@ -23,7 +23,7 @@ namespace Zero.Edit
         }
 
         [MenuItem("Zero/发布/自动生成代码", false, 200)]
-        public static void GenerateAssetBundleName()
+        public static void GenerateCode()
         {
             GenerateCodeEditorWin.Open();            
         }

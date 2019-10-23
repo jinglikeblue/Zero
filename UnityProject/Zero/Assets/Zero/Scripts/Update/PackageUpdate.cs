@@ -28,9 +28,6 @@ namespace Zero
 
                 Runtime.Ins.localData.IsInit = true;
 
-                Debug.Log("PackageZip:" + ZeroConst.STREAMING_ASSETS_PATH);
-                Debug.Log("PackageZip:" + ZeroConst.PACKAGE_ZIP_FILE_NAME);
-
                 //检查是否存在Package.zip
                 string path = FileSystem.CombinePaths(ZeroConst.STREAMING_ASSETS_PATH, ZeroConst.PACKAGE_ZIP_FILE_NAME);
                 WWW www = new WWW(path);

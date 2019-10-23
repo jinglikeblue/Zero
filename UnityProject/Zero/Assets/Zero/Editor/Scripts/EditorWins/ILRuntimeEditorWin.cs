@@ -36,7 +36,7 @@ namespace Zero.Edit
             cfg = EditorConfigUtil.LoadConfig<ConfigVO>(CONFIG_NAME);
         }
 
-        [LabelText("保存配置"), Button(size:ButtonSizes.Medium), PropertyOrder(-1)]
+        [LabelText("保存配置"), Button(size:ButtonSizes.Large), PropertyOrder(-1)]
         void SaveConfig()
         {
             EditorConfigUtil.SaveConfig(cfg, CONFIG_NAME);
@@ -46,21 +46,20 @@ namespace Zero.Edit
         public ConfigVO cfg;
 
         [HorizontalGroup("BottomButtons")]
-        [LabelText("生成绑定代码"), Button]
+        [LabelText("生成绑定代码"), Button(ButtonSizes.Medium)]
         void GenerateCLRBindingScripts()
         {
-            var dllFile = UnityEditor.EditorUtility.OpenFilePanel("选择热更DLL", Application.dataPath, "dll");
+            var dllFile = UnityEditor.EditorUtility.OpenFilePanel("选择热更DLL", ZeroConst.PUBLISH_RES_ROOT_DIR, "dll");
             if (false == string.IsNullOrEmpty(dllFile))
             {
                 GenerateCLRBindingByAnalysis(dllFile, cfg.bindingCodeDir);
-            }
-
-            EditorUtility.DisplayDialog("提示", "成功！", "OK");
-            AssetDatabase.Refresh();
+                EditorUtility.DisplayDialog("提示", "成功！", "OK");
+                AssetDatabase.Refresh();
+            }            
         }
 
         [HorizontalGroup("BottomButtons")]
-        [LabelText("清空绑定代码"), Button]
+        [LabelText("清空绑定代码"), Button(ButtonSizes.Medium)]
         void ClearCLRBindingScripts()
         {
             if (FileUtil.DeleteFileOrDirectory(cfg.bindingCodeDir))
