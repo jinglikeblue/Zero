@@ -34,7 +34,13 @@ namespace Zero.Edit
             IOSProjectInitEditorWin.Open();
         }
 
-        [MenuItem("Zero/调试/清理[Caches]目录", false, 400)]
+        [MenuItem("Zero/资源优化", false, 401)]
+        public static void PackingTagEdit()
+        {
+            AssetsOptimizesEditorWin.Open();
+        }
+
+        [MenuItem("Zero/调试/清理[Caches]目录", false, 601)]
         public static void ClearCachesDir()
         {
             var cacheDir = new DirectoryInfo(ZeroConst.PERSISTENT_DATA_PATH);
@@ -44,23 +50,13 @@ namespace Zero.Edit
             }            
         }
 
-        [MenuItem("Zero/调试/GC", false, 401)]
+        [MenuItem("Zero/调试/GC", false, 602)]
         public static void GC()
         {
-            ResMgr.Ins.DoGC();
+            ResMgr.Ins.DoGC();            
         }
 
-        [MenuItem("Zero/资源/Packing Tag 管理", false, 501)]
-        public static void PackingTagEdit()
-        {
-            PackingTagEditorWin.Open();
-        }
 
-        [MenuItem("Zero/资源/查找无用的资源", false, 502)]
-        public static void FindUselessAssets()
-        {
-            FindUselessAssetsEditorWin.Open();
-        }
 
         [MenuItem("Zero/About", false, 800)]
         public static void Document()

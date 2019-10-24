@@ -6,20 +6,17 @@ using Sirenix.Utilities.Editor;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using System.Threading;
 using UnityEditor;
 using UnityEngine;
 
 namespace Zero.Edit
 {
-    public class FindUselessAssetsEditorWin : OdinEditorWindow
+    public class UselessAssetsOptimizesModule : AEditorModule
     {
-        /// <summary>
-        /// 打开窗口
-        /// </summary>
-        public static void Open()
+        public UselessAssetsOptimizesModule(EditorWindow editorWin) : base(editorWin)
         {
-            var win = GetWindow<FindUselessAssetsEditorWin>("查找项目中的无用资源", true);
-            win.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 610);
         }
 
         /// <summary>
@@ -32,7 +29,7 @@ namespace Zero.Edit
             return null != _usefulAssets ? true : false;
         }
 
-
+        [Title("查找项目无用资源", TitleAlignment = TitleAlignments.Centered)]
         [LabelText("重置扫描库"), Button(size: ButtonSizes.Large), PropertyOrder(-1)]
         void ResetUsefulAssetsSet()
         {
@@ -72,7 +69,7 @@ namespace Zero.Edit
             [ToggleLeft, LabelText("$asset")]
             public bool select = false;
 
-            [HorizontalGroup("UselessItem", width:60)]
+            [HorizontalGroup("UselessItem", width: 60)]
             [Button, LabelText("Select"), LabelWidth(60)]
             void Select()
             {
@@ -93,7 +90,7 @@ namespace Zero.Edit
         string SelectAllButtonLabel()
         {
             int selectedCount = 0;
-            foreach(var item in uselessItems)
+            foreach (var item in uselessItems)
             {
                 if (item.select)
                 {
@@ -112,25 +109,25 @@ namespace Zero.Edit
 
             foreach (var item in uselessItems)
             {
-                if(item.select == false)
+                if (item.select == false)
                 {
                     isAllSelected = false;
                     break;
                 }
-            }                       
+            }
 
             foreach (var item in uselessItems)
             {
                 item.select = !isAllSelected;
             }
-        }        
+        }
 
         [HorizontalGroup("BottomButtons")]
         [LabelText("删除选中的资源"), Button(size: ButtonSizes.Large), ShowIf("HasUselessAssets")]
         void DeleteSelected()
         {
             List<UselessItemVO> toDelList = new List<UselessItemVO>();
-            int i = uselessItems.Count;            
+            int i = uselessItems.Count;
             while (--i > -1)
             {
                 var item = uselessItems[i];
@@ -138,7 +135,7 @@ namespace Zero.Edit
                 {
                     toDelList.Add(item);
                 }
-            }            
+            }
 
             float selectCount = toDelList.Count;
             var processIdx = 0;
@@ -152,7 +149,7 @@ namespace Zero.Edit
                 uselessItems.Remove(item);
             }
             AssetDatabase.Refresh();
-            EditorUtility.ClearProgressBar();            
+            EditorUtility.ClearProgressBar();
         }
 
         List<string> GetUselessAssets(HashSet<string> usefulAssets)

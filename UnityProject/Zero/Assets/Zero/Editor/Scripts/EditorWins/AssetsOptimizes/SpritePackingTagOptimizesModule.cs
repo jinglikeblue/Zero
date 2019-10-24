@@ -1,28 +1,28 @@
-﻿using Sirenix.OdinInspector;
+﻿using Jing;
+using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Threading;
 using UnityEditor;
+using UnityEngine;
 
 namespace Zero.Edit
 {
-    public class PackingTagEditorWin : OdinEditorWindow
+    public class SpritePackingTagOptimizesModule : AEditorModule
     {
-        /// <summary>
-        /// 打开窗口
-        /// </summary>
-        public static void Open()
+        public SpritePackingTagOptimizesModule(EditorWindow editorWin) : base(editorWin)
         {
-            var win = GetWindow<PackingTagEditorWin>("Packing Tag 标记管理器");
-            win.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 600);
         }
 
-
+        [Title("Sprite Packing Tag 管理", TitleAlignment = TitleAlignments.Centered)]
         [LabelText("扫描项目中的 Packing Tag 标记"), Button(size: ButtonSizes.Large), PropertyOrder(-1)]
         void RefreshPackingTags()
-        {            
+        {
             var ptData = new FindAllPackingTagCommand().Excute();
             list.Clear();
             foreach (var data in ptData)
@@ -41,9 +41,9 @@ namespace Zero.Edit
         public void DeleteSelected()
         {
             List<ItemVO> delList = new List<ItemVO>();
-            foreach(var vo in list)
+            foreach (var vo in list)
             {
-                if(vo.selected)
+                if (vo.selected)
                 {
                     delList.Add(vo);
                 }
@@ -65,17 +65,17 @@ namespace Zero.Edit
                     ti.spritePackingTag = string.Empty;
                     ti.SaveAndReimport();
                     list.Remove(item);
-                }                    
-                
+                }
+
             }
-            
-            EditorUtility.ClearProgressBar();            
-        }        
-        
+
+            EditorUtility.ClearProgressBar();
+        }
+
         [LabelText("Packing Tag 列表"), ListDrawerSettings(Expanded = true, ShowPaging = false, IsReadOnly = true)]
         public List<ItemVO> list = new List<ItemVO>();
 
-        
+
         [Serializable]
         public class ItemVO
         {
@@ -83,7 +83,7 @@ namespace Zero.Edit
             public string packingTag;
 
             string PackingTagTitle()
-            {                
+            {
                 return string.Format("Packing Tag: [{0}]", packingTag);
             }
 
@@ -93,7 +93,7 @@ namespace Zero.Edit
 
             [HorizontalGroup("ItemVO")]
             [TableColumnWidth(70)]
-            [LabelText("$PackingTagTitle"), ListDrawerSettings(IsReadOnly =true)]
+            [LabelText("$PackingTagTitle"), ListDrawerSettings(IsReadOnly = true)]
             public List<Sprite> spriteList = new List<Sprite>();
 
             [Serializable]
@@ -101,14 +101,14 @@ namespace Zero.Edit
             public class Sprite
             {
                 [HorizontalGroup("Sprite")]
-                [HideLabel, ReadOnly]
-                public string name;                                
-                
-                [HideInEditorMode]                
+                [HideLabel, DisplayAsString]
+                public string name;
+
+                [HideInEditorMode]
                 public TextureImporter ti;
 
-                [HorizontalGroup("Sprite", width:60)]
-                [Button, LabelText("Select"),LabelWidth(60)]
+                [HorizontalGroup("Sprite", width: 60)]
+                [Button, LabelText("Select"), LabelWidth(60)]
                 void Select()
                 {
                     Selection.objects = new UnityEngine.Object[] { ti };
