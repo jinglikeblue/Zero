@@ -22,7 +22,7 @@ namespace Zero.Edit
             HotResBuildEditorWin.Open();
         }
 
-        [MenuItem("Zero/发布/自动生成代码", false, 200)]
+        [MenuItem("Zero/自动生成代码", false, 200)]
         public static void GenerateCode()
         {
             GenerateCodeEditorWin.Open();            
@@ -60,18 +60,6 @@ namespace Zero.Edit
         public static void FindUselessAssets()
         {
             FindUselessAssetsEditorWin.Open();
-        }
-
-        [MenuItem("Zero/IL2CPP/Create [Link.xml]", false, 600)]
-        public static void LinkerXMLCreate()
-        {
-            LinkXMLEditorWin.Open();
-        }
-
-        [MenuItem("Zero/ILRuntime", false, 700)]
-        public static void ILRuntimeEdit()
-        {
-            ILRuntimeEditorWin.Open();
         }
 
         [MenuItem("Zero/About", false, 800)]

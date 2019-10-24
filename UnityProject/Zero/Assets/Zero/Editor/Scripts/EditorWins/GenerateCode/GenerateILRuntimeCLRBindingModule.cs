@@ -9,66 +9,48 @@ using UnityEngine;
 
 namespace Zero.Edit
 {
-    public class ILRuntimeEditorWin : OdinEditorWindow
+    public class GenerateILRuntimeCLRBindingModule : AEditorModule
     {
         const string CONFIG_NAME = "ilruntime_config.json";
 
-        [HideLabel]
-        [Serializable]
-        public class ConfigVO
+        const string GENERATED_OUTPUT_DIR = "Assets/Zero/Libs/ILRuntime/Generated";
+
+
+        [Title("ILRuntime CLR Binding 代码生成", TitleAlignment = TitleAlignments.Centered)]
+        [LabelText("绑定代码发布目录"), DisplayAsString]
+        public string outputDir = GENERATED_OUTPUT_DIR;
+
+        public GenerateILRuntimeCLRBindingModule(EditorWindow editorWin) : base(editorWin)
         {
-            [LabelText("绑定代码发布目录"), FolderPath]
-            public string bindingCodeDir;
+            
         }
 
-        /// <summary>
-        /// 打开窗口
-        /// </summary>
-        public static void Open()
-        {
-            var win = GetWindow<ILRuntimeEditorWin>("ILRuntime", true);
-            win.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 600);
-        }        
-
-        override protected void OnEnable()
-        {
-            base.OnEnable();
-            cfg = EditorConfigUtil.LoadConfig<ConfigVO>(CONFIG_NAME);
-        }
-
-        [LabelText("保存配置"), Button(size:ButtonSizes.Large), PropertyOrder(-1)]
-        void SaveConfig()
-        {
-            EditorConfigUtil.SaveConfig(cfg, CONFIG_NAME);
-            ShowNotification(new GUIContent("保存成功"));
-        }
-
-        public ConfigVO cfg;
-
+        [PropertySpace(10)]
         [HorizontalGroup("BottomButtons")]
-        [LabelText("生成绑定代码"), Button(ButtonSizes.Medium)]
+        [LabelText("生成绑定代码"), Button(ButtonSizes.Large)]
         void GenerateCLRBindingScripts()
         {
             var dllFile = UnityEditor.EditorUtility.OpenFilePanel("选择热更DLL", ZeroConst.PUBLISH_RES_ROOT_DIR, "dll");
             if (false == string.IsNullOrEmpty(dllFile))
             {
-                GenerateCLRBindingByAnalysis(dllFile, cfg.bindingCodeDir);
+                GenerateCLRBindingByAnalysis(dllFile, GENERATED_OUTPUT_DIR);
                 EditorUtility.DisplayDialog("提示", "成功！", "OK");
                 AssetDatabase.Refresh();
-            }            
+            }
         }
 
+        [PropertySpace(10)]
         [HorizontalGroup("BottomButtons")]
-        [LabelText("清空绑定代码"), Button(ButtonSizes.Medium)]
+        [LabelText("清空绑定代码"), Button(ButtonSizes.Large)]
         void ClearCLRBindingScripts()
         {
-            if (FileUtil.DeleteFileOrDirectory(cfg.bindingCodeDir))
-            {
-                EditorUtility.DisplayDialog("提示", "成功！", "OK");
+            if (FileUtil.DeleteFileOrDirectory(GENERATED_OUTPUT_DIR))
+            {                
+                editorWin.ShowTip("完成!");
             }
             else
             {
-                EditorUtility.DisplayDialog("提示", "失败！", "OK");
+                editorWin.ShowTip("目标不存在或产生错误!");                
             }
 
             AssetDatabase.Refresh();
@@ -77,7 +59,7 @@ namespace Zero.Edit
         void GenerateCLRBindingByAnalysis(string dllFile, string generatedDir)
         {
             //用新的分析热更dll调用引用来生成绑定代码
-            ILRuntime.Runtime.Enviorment.AppDomain domain = new ILRuntime.Runtime.Enviorment.AppDomain();            
+            ILRuntime.Runtime.Enviorment.AppDomain domain = new ILRuntime.Runtime.Enviorment.AppDomain();
 
             using (System.IO.FileStream fs = new System.IO.FileStream(dllFile, System.IO.FileMode.Open, System.IO.FileAccess.Read))
             {
