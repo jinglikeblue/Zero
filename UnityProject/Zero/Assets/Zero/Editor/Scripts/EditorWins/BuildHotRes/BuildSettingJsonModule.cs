@@ -4,18 +4,16 @@ using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
+using System.Threading;
 using UnityEditor;
 using UnityEngine;
 
 namespace Zero.Edit
 {
-    /// <summary>
-    /// 配置文件窗口
-    /// </summary>
-    public class SettingEditorWin : OdinEditorWindow
+    public class BuildSettingJsonModule : AEditorModule
     {
         const string CONFIG_NAME = "setting_config.json";
 
@@ -24,19 +22,8 @@ namespace Zero.Edit
         /// </summary>
         SettingVO cfg;
 
-        /// <summary>
-        /// 打开窗口
-        /// </summary>
-        public static void Open()
+        public BuildSettingJsonModule(EditorWindow editorWin) : base(editorWin)
         {
-            var win = GetWindow<SettingEditorWin>();
-            win.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 600);
-        }
-
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-
             SetCfg(EditorConfigUtil.LoadConfig<SettingVO>(CONFIG_NAME));
         }
 
@@ -44,11 +31,11 @@ namespace Zero.Edit
         {
             this.cfg = cfg;
             version = cfg.client.version;
-            url = cfg.client.url;            
+            url = cfg.client.url;
             netResRoot = cfg.netResRoot;
             startupResGroups = cfg.startupResGroups;
             startupParams = cfg.startupParams;
-            if(null == startupParams)
+            if (null == startupParams)
             {
                 startupParams = new Dictionary<string, string>();
             }
@@ -57,13 +44,14 @@ namespace Zero.Edit
         void UpdateCfg()
         {
             cfg.client.version = version;
-            cfg.client.url = url;            
+            cfg.client.url = url;
             cfg.netResRoot = netResRoot;
             cfg.startupResGroups = startupResGroups;
-            cfg.startupParams = startupParams;            
+            cfg.startupParams = startupParams;
         }
 
-        [Button("保存配置", buttonSize: ButtonSizes.Medium),PropertyOrder(-1)]
+        [Title("setting.json 热更配置文件", TitleAlignment = TitleAlignments.Centered)]
+        [Button("保存配置", buttonSize: ButtonSizes.Medium), PropertyOrder(-1)]
         void SaveConfig()
         {
             UpdateCfg();
@@ -81,7 +69,7 @@ namespace Zero.Edit
                     var jsonStr = File.ReadAllText(selectedFile);
                     SetCfg(LitJson.JsonMapper.ToObject<SettingVO>(jsonStr));
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Debug.LogError("读取选择的setting.json文件失败：" + selectedFile);
                     Debug.LogError(e);
@@ -103,16 +91,16 @@ namespace Zero.Edit
 
         [Space(10)]
         [InfoBox("客户端启动运行所必需下载的网络资源组，通过指定group名称来批量下载。如果要下载所有资源，则指定为[/]即可")]
-        [LabelText("启动资源组"),ListDrawerSettings(NumberOfItemsPerPage = 7, Expanded = false)]
+        [LabelText("启动资源组"), ListDrawerSettings(NumberOfItemsPerPage = 7, Expanded = false)]
         public string[] startupResGroups;
 
-        [Title("启动参数配置")]        
+        [Title("启动参数配置"),ShowInInspector]
         public Dictionary<string, string> startupParams;
 
 
-        [Button("发布「setting.json」", buttonSize:ButtonSizes.Medium), PropertyOrder(999)]
+        [Button("发布「setting.json」", buttonSize: ButtonSizes.Medium), PropertyOrder(999)]
         void BuildSettingJsonFile()
-        {            
+        {
             if (false == Directory.Exists(ZeroConst.PUBLISH_RES_ROOT_DIR))
             {
                 Directory.CreateDirectory(ZeroConst.PUBLISH_RES_ROOT_DIR);

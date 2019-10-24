@@ -10,16 +10,10 @@ namespace Zero.Edit
     /// </summary>
     public class EditorMenu
     {
-        [MenuItem("Zero/发布/setting.json配置", false, 0)]
-        public static void Setting()
+        [MenuItem("Zero/热更新", false, 0)]
+        public static void HotResBuild()
         {
-            SettingEditorWin.Open();
-        }
-
-        [MenuItem("Zero/发布/热更资源", false, 100)]
-        public static void PublishHotRes()
-        {
-            HotResBuildEditorWin.Open();
+            BuildHotResEditorWin.Open();
         }
 
         [MenuItem("Zero/自动生成代码", false, 200)]
@@ -55,8 +49,6 @@ namespace Zero.Edit
         {
             ResMgr.Ins.DoGC();            
         }
-
-
 
         [MenuItem("Zero/About", false, 800)]
         public static void Document()

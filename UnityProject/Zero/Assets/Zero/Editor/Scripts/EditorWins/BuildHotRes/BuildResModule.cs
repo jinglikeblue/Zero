@@ -13,26 +13,22 @@ using UnityEngine;
 
 namespace Zero.Edit
 {
-    public class HotResBuildEditorWin : OdinEditorWindow
+    public class BuildResModule : AEditorModule
     {
-        /// <summary>
-        /// 打开窗口
-        /// </summary>
-        public static void Open()
+        public BuildResModule(EditorWindow editorWin) : base(editorWin)
         {
-            var win = GetWindow<HotResBuildEditorWin>("热更资源构建", true);
-            win.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 600);
         }
 
-        [Title("勾选构建内容")]        
-        [LabelText("Build DLL (构建热更代码)"),ToggleLeft]
+        [Title("热更资源打包", TitleAlignment = TitleAlignments.Centered)]
+        [Title("勾选构建内容")]
+        [LabelText("Build DLL (构建热更代码)"), ToggleLeft]
         public bool isBuildDLL = true;
         [LabelText("Build AssetBundles (构建AB包)"), ToggleLeft]
         public bool isBuildAB = true;
         [LabelText("Build res.json (构建资源版本号)"), ToggleLeft]
         public bool isBuildResJson = true;
         [LabelText("Copy Configs (拷贝配置文件)"), ToggleLeft]
-        public bool isCopyConfigs = true;        
+        public bool isCopyConfigs = true;
 
         [LabelText("发布热更资源"), Button(ButtonSizes.Medium)]
         void BuildPart1()
@@ -61,7 +57,7 @@ namespace Zero.Edit
                 Debug.Log("开始发布DLL");
                 BuildDll(() =>
                 {
-                    Debug.Log("DLL发布成功");                    
+                    Debug.Log("DLL发布成功");
                     BuildPart2();
                 },
                 () =>
@@ -80,7 +76,7 @@ namespace Zero.Edit
         public bool isOpenPublishDir = true;
 
         void BuildPart2()
-        {           
+        {
             if (isBuildResJson)
             {
                 EditorUtility.DisplayProgressBar("打包热更资源", "开始发布版本描述文件", 0f);
@@ -104,12 +100,12 @@ namespace Zero.Edit
 
         void CopyConfigs()
         {
-            if(Directory.Exists(ZeroEditorConst.CONFIG_PUBLISH_DIR))
+            if (Directory.Exists(ZeroEditorConst.CONFIG_PUBLISH_DIR))
             {
                 Directory.Delete(ZeroEditorConst.CONFIG_PUBLISH_DIR, true);
             }
             //拷贝文件
-            FileSystem.Copy(ZeroEditorConst.HOT_CONFIG_ROOT_DIR, ZeroEditorConst.CONFIG_PUBLISH_DIR, true, new string[] { ".meta"});
+            FileSystem.Copy(ZeroEditorConst.HOT_CONFIG_ROOT_DIR, ZeroEditorConst.CONFIG_PUBLISH_DIR, true, new string[] { ".meta" });
         }
 
         /// <summary>
