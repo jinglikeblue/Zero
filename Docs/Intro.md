@@ -14,18 +14,18 @@
     - [其它](Other.md)
     - [扩展](Extend.md)
 - Editor工具
-    - Publish
-        - [Setting](PublishSettingEditor.md)
-        - [HotRes](PublishHotResEditor.md)
-    - [iOS]
-        - [ProjectInit](IOSProjectInitEditor.md)
-    - Assets
+    - 热更新
+        - [setting.json](PublishSettingEditor.md)
+        - [热更资源](PublishHotResEditor.md)
+    - 自动生成代码
+        - [AssetBundleName.cs]
+        - [link.xml](CreateLinkXML.md)        
+        - [ILRuntime CLR Binding Codes](ILRuntimeGeneratedEditor.md)
+    - [iOSProjectInit](IOSProjectInitEditor.md)        
+    - 资源优化
         - [Packing Tag Manager](PackingTagEditor.md)
-        - [Find Useless Assets](FindUselessAssetsEditor.md)        
-    - IL2CPP
-        - [Create "link.xml"](CreateLinkXML.md)        
-    - ILRuntime[(官方网站)](http://ourpalm.github.io/ILRuntime/public/v1/guide/index.html)
-        - [Create Generated](ILRuntimeGeneratedEditor.md)        
+        - [查找项目无用资源](FindUselessAssetsEditor.md)         
+- ILRuntime[(官方网站)](http://ourpalm.github.io/ILRuntime/public/v1/guide/index.html)        
 - [Q&A](QuestionAnswer.md)
 
 
