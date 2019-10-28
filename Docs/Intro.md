@@ -6,7 +6,7 @@
 
 ### 目录
 - [从Demo开始](Demo.md)
-- 内容
+- 框架内容
     - [Preload介绍](Preload.md)
     - [ILContent介绍](ILContent.md)
     - [视图管理](ViewFramework.md)
@@ -21,7 +21,8 @@
         - [AssetBundleName.cs]
         - [link.xml](CreateLinkXML.md)        
         - [ILRuntime CLR Binding Codes](ILRuntimeGeneratedEditor.md)
-    - [iOSProjectInit](IOSProjectInitEditor.md)        
+    - 项目自动化配置
+        - [iOS项目配置](IOSProjectInitEditor.md)        
     - 资源优化
         - [Packing Tag Manager](PackingTagEditor.md)
         - [查找项目无用资源](FindUselessAssetsEditor.md)         

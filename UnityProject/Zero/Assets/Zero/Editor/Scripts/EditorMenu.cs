@@ -22,7 +22,7 @@ namespace Zero.Edit
             GenerateCodeEditorWin.Open();            
         }
 
-        [MenuItem("Zero/项目初始化", false, 300)]
+        [MenuItem("Zero/项目自动化配置", false, 300)]
         public static void IosProjectInit()
         {
             PorjectInitEditorWin.Open();

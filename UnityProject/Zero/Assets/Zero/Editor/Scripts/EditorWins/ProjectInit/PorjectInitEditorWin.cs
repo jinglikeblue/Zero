@@ -20,7 +20,7 @@ namespace Zero.Edit
         /// </summary>
         public static void Open()
         {
-            var win = GetWindow<PorjectInitEditorWin>("项目初始化", true);
+            var win = GetWindow<PorjectInitEditorWin>("项目自动化配置", true);
             var rect = GUIHelper.GetEditorWindowRect().AlignCenter(1000, 600);
             win.position = rect;
         }
