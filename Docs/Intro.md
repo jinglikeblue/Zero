@@ -18,7 +18,7 @@
         - [setting.json](PublishSettingEditor.md)
         - [热更资源](PublishHotResEditor.md)
     - 自动生成代码
-        - [AssetBundleName.cs]
+        - [AssetBundleName.cs](AssetBundleNameGenerate.md)
         - [link.xml](CreateLinkXML.md)        
         - [ILRuntime CLR Binding Codes](ILRuntimeGeneratedEditor.md)
     - 项目自动化配置
