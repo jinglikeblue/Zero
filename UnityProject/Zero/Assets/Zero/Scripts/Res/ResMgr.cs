@@ -17,12 +17,10 @@ namespace Zero
             ASSET_DATA_BASE,
         }
 
-        static ResMgr _ins = new ResMgr();
-
-        public static ResMgr Ins
-        {
-            get { return _ins; }
-        }
+        /// <summary>
+        /// 单例
+        /// </summary>
+        public static ResMgr Ins { get; } = new ResMgr();
 
         private ResMgr()
         {
