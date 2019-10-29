@@ -13,33 +13,31 @@
 Zero提供了了一套视图管理解决方案，在该方案下，开发者可以方便的管理界面上的元素。该视图管理方案是Zero的核心之一，建议所有使用Zero框架的项目都使用视图管理模块来进行开发。
 
 ### AView
-AView是一个抽象的视图包装器类，每一个AView都有一个关联的GameObject。所有的视图（Prefab）都需要一个对应的AView子类来对其进行管理。
+为了要最大限度的利用代码热更，所以我们的代码都不能继承MonoBehaviour。但是我们又要对GameObject进行管理，于是Zero提供了AView。  
+
+>AView是一个抽象的视图包装器类，每一个AView都有一个关联的GameObject。所有的视图（Prefab）都需要一个对应的AView子类来对其进行管理。
 
 ##### 生命周期
 
-1. OnInit  
-**初始化时触发，此时已关联GameObject**
-2. OnData(object data)  
-**初始化后如果有数据传入，该方法被触发**
+1. OnInit(object data)  
+**初始化时触发，此时已关联GameObject。如果初始化时没有传入数据，则data为null。**
 3. OnEnable  
 **GameObject的Active变为true时触发**
 4. OnDisable  
 **GameObject的Active变为false时触发**
 5. OnDestroy  
-**被销毁时触发**
+**GameObject被销毁时触发**
 
 ##### 参数
 
-- onDestroyHandler  
-**销毁委托事件**
+- onDestroyed  
+**对象已销毁的事件**
 - gameObject  
 **关联的GameObject对象**
-- IsDestroyed  
+- transform
+**关联对象的Transform**
+- isDestroyed  
 **是否销毁了**
-- Name  
-**对象(GameObject)名称**
-- ViewName  
-**对象对应的视图（Prefab）名称**
 
 ##### 设置Active
 
@@ -66,7 +64,7 @@ public T GetChildComplent<T>(string childName)
 ##### 子视图创建
 
 ```
-public T CreateViewChlid<T>(string childName, object data = null) where T:AView
+public T CreateChildView<T>(string childName, object data = null) where T:AView
 ```
 
 每一个AView的子对象都可以用另一个AView对象去管理，通过该API可以将子GameObject通过用AView子类进行包装。

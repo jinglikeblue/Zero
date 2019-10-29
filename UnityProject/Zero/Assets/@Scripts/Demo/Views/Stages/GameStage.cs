@@ -13,11 +13,11 @@ namespace ILDemo
 
         Boss _boss;              
 
-        protected override void OnInit()
+        protected override void OnInit(object data)
         {
             _blocks = GetChild("Blocks");
             _blockPrefab = ObjectBindingData.Find(gameObject, "blockPrefab")[0] as GameObject;            
-            _boss = CreateViewChild<Boss>("Boss");
+            _boss = CreateChildView<Boss>("Boss");
 
             UIPanelMgr.Ins.SwitchASync<GamePanel>(this);
         }
@@ -32,17 +32,17 @@ namespace ILDemo
 
         private void OnProgressBlock(float progress)
         {
-            Log.I("方块资源加载进度:{0}", progress);
+            Debug.LogFormat("方块资源加载进度:{0}", progress);
         }
 
         private void OnLoadedBlock(UnityEngine.Object obj)
         {
-            Log.I("方块资源加载完成:{0}", obj.ToString());
+            Debug.LogFormat("方块资源加载完成:{0}", obj.ToString());
         }
 
         private void OnCreatedBlock(Block obj)
         {
-            Log.I("方块视图创建完成:{0}", obj.ToString());
+            Debug.LogFormat("方块视图创建完成:{0}", obj.ToString());
         }
     }
 }

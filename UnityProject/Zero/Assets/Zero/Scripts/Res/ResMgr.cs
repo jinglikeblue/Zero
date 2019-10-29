@@ -17,12 +17,10 @@ namespace Zero
             ASSET_DATA_BASE,
         }
 
-        static ResMgr _ins = new ResMgr();
-
-        public static ResMgr Ins
-        {
-            get { return _ins; }
-        }
+        /// <summary>
+        /// 单例
+        /// </summary>
+        public static ResMgr Ins { get; } = new ResMgr();
 
         private ResMgr()
         {
@@ -44,7 +42,7 @@ namespace Zero
             switch (type)
             {
                 case EResMgrType.ASSET_BUNDLE:
-                    Log.CI(Log.COLOR_BLUE, "初始化资源管理器... 资源来源：[AssetBundle]  Manifest路径：{0}", assetRoot);
+                    Debug.Log(Log.Zero1("初始化资源管理器... 资源来源：[AssetBundle]  Manifest路径：{0}", assetRoot));
                     var newMgr = new AssetBundleResMgr(assetRoot);
                     if (_mgr != null && _mgr is AssetBundleResMgr)
                     {
@@ -54,11 +52,11 @@ namespace Zero
                     _mgr = newMgr;
                     break;
                 case EResMgrType.RESOURCES:
-                    Log.CI(Log.COLOR_BLUE, "初始化资源管理器... 资源来源：[Resources]");
+                    Debug.Log(Log.Zero1("初始化资源管理器... 资源来源：[Resources]"));                    
                     _mgr = new ResourcesResMgr();                    
                     break;
                 case EResMgrType.ASSET_DATA_BASE:
-                    Log.CI(Log.COLOR_BLUE, "初始化资源管理器... 资源来源：[AssetDataBase] 资源根目录：{0}", assetRoot);
+                    Debug.Log(Log.Zero1("初始化资源管理器... 资源来源：[AssetDataBase] 资源根目录：{0}", assetRoot));
                     _mgr = new AssetDataBaseResMgr(assetRoot);
                     break;
             }

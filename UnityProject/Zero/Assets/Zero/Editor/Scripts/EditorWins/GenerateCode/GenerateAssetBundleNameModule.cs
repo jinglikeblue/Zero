@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace Zero.Edit
 {    
-    public class GenerateAssetBundleNameModule
+    public class GenerateAssetBundleNameModule: AEditorModule
     {
         const string CONFIG_NAME = "asset_bundle_name_config.json";
 
@@ -29,7 +29,7 @@ namespace Zero.Edit
 
         Dictionary<string, AssetBundleItemVO> _lastFindDic;
 
-        public GenerateAssetBundleNameModule()
+        public GenerateAssetBundleNameModule(EditorWindow win) : base(win)
         {
             _lastFindDic = LoadConfig();
 
@@ -56,6 +56,7 @@ namespace Zero.Edit
 
         bool _isFindingAB = false;
 
+        [Title("AssetBundleName.cs 生成", TitleAlignment = TitleAlignments.Centered)]
         [LabelText("保存配置"), Button(size: ButtonSizes.Large), PropertyOrder(-1)]
         void SaveConfig()
         {
@@ -89,17 +90,33 @@ namespace Zero.Edit
 
             var classContent = template.Replace("{0}", sb.ToString());
             File.WriteAllText(OUTPUT_CLASS_FILE, classContent);
+            OpenFile();
+            editorWin.ShowTip("生成完毕!");
+        }
 
+        [Space(10)]
+        [LabelText("生成地址")]
+        [DisplayAsString]
+        [InlineButton("OpenFile")]
+        public string generatedPath = OUTPUT_CLASS_FILE;
 
-            UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal(OUTPUT_CLASS_FILE, 0);
-
-            //this.ShowTip("生成完毕");
+        void OpenFile()
+        {
+            if(File.Exists(OUTPUT_CLASS_FILE))
+            {
+                UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal(OUTPUT_CLASS_FILE, 0);
+            }
+            else
+            {
+                editorWin.ShowTip("文件不存在!");
+            }
         }
 
         [Space(10)]
         [ShowInInspector]
         [LabelText("AssetBundle List"), ListDrawerSettings(IsReadOnly = true, Expanded = true), HideIf("_isFindingAB")]
         public List<AssetBundleItemVO> abList;
+
 
 
         public struct AssetBundleItemVO

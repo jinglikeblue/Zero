@@ -126,18 +126,18 @@ namespace Zero
                     //开发环境
                     if (IsLoadAssetsFromNet)
                     {
-                        localResDir = FileSystem.CombineDirs(false, ZeroConst.PERSISTENT_DATA_PATH, "zero", "res");
+                        localResDir = ZeroConst.WWW_RES_PERSISTENT_DATA_PATH;
                     }
                     else
                     {
-                        localResDir = FileSystem.CombineDirs(false, Directory.GetParent(Application.dataPath).FullName, "Res", ZeroConst.PLATFORM_DIR_NAME);                        
+                        localResDir = ZeroConst.PUBLISH_RES_ROOT_DIR;
                     }                  
                     break;
                 default:                    
                     throw new System.Exception(string.Format("抱歉！Zero暂时不支持平台：{0}", Application.platform));                    
             }
-            
-            generateFilesDir = FileSystem.CombineDirs(false, ZeroConst.PERSISTENT_DATA_PATH, "zero", "generated");
+
+            generateFilesDir = ZeroConst.GENERATES_PERSISTENT_DATA_PATH;
 
             //确保本地资源目录存在
             if (false == Directory.Exists(localResDir))
@@ -153,11 +153,11 @@ namespace Zero
             localData = new LocalDataModel();
             localResVer = new LocalResVerModel();
 
-            Log.CI(Log.COLOR_ORANGE, "Streaming Assets Dir: {0}", ZeroConst.STREAMING_ASSETS_PATH);
-            Log.CI(Log.COLOR_ORANGE, "Net Res Dir         : {0}", netResDir);
-            Log.CI(Log.COLOR_ORANGE, "Persistent Data Dir : {0}", ZeroConst.PERSISTENT_DATA_PATH);
-            Log.CI(Log.COLOR_ORANGE, "Local Res Dir       : {0}", localResDir);
-            Log.CI(Log.COLOR_ORANGE, "Generate Files Dir  : {0}", generateFilesDir);
+            Debug.Log(Log.Zero1("Streaming Assets Dir: {0}", ZeroConst.STREAMING_ASSETS_PATH));
+            Debug.Log(Log.Zero1("Net Res Dir         : {0}", netResDir));
+            Debug.Log(Log.Zero1("Persistent Data Dir : {0}", ZeroConst.PERSISTENT_DATA_PATH));
+            Debug.Log(Log.Zero1("Local Res Dir       : {0}", localResDir));
+            Debug.Log(Log.Zero1("Generate Files Dir  : {0}", generateFilesDir));
         }        
     }
 }

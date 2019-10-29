@@ -17,11 +17,6 @@ namespace ILDemo
 
         int _page = 0;
 
-        protected override void OnData(object data)
-        {
-            
-        }
-
         protected override void OnDisable()
         {
             UIEventListener.Get(gameObject).onClick -= ShowNextPage;
@@ -35,7 +30,7 @@ namespace ILDemo
             _btnClose.onClick.AddListener(Destroy);
         }
 
-        protected override void OnInit()
+        protected override void OnInit(object data)
         {
             _tip = GetComponent<RawImage>();
             var resData = gameObject.GetComponent<ObjectBindingData>();

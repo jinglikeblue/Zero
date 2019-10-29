@@ -12,7 +12,7 @@ namespace Zero
     {
         public void Start(Action onComplete, Action<float, long> onProgress)
         {
-            Log.CI(Log.COLOR_BLUE, "「PackageUpdate」内嵌资源解压检查...");
+            Debug.Log(Log.Zero1("「PackageUpdate」内嵌资源解压检查..."));
             ILBridge.Ins.StartCoroutine(Run(onComplete, onProgress));
         }
 
@@ -28,9 +28,6 @@ namespace Zero
 
                 Runtime.Ins.localData.IsInit = true;
 
-                Debug.Log("PackageZip:" + ZeroConst.STREAMING_ASSETS_PATH);
-                Debug.Log("PackageZip:" + ZeroConst.PACKAGE_ZIP_FILE_NAME);
-
                 //检查是否存在Package.zip
                 string path = FileSystem.CombinePaths(ZeroConst.STREAMING_ASSETS_PATH, ZeroConst.PACKAGE_ZIP_FILE_NAME);
                 WWW www = new WWW(path);
@@ -43,7 +40,7 @@ namespace Zero
                 //Package.zip不存在
                 if (null != www.error)
                 {
-                    Log.I("解压[{0}]:{1}", ZeroConst.PACKAGE_ZIP_FILE_NAME, www.error);
+                    Debug.LogFormat("解压[{0}]:{1}", ZeroConst.PACKAGE_ZIP_FILE_NAME, www.error);
                     break;
                 }
 
@@ -52,13 +49,13 @@ namespace Zero
                 zh.UnZip(www.bytes, Runtime.Ins.localResDir);
                 while (false == zh.isDone)
                 {
-                    Log.I("[{0}]解压进度:{1}%", ZeroConst.PACKAGE_ZIP_FILE_NAME, zh.progress * 100);
+                    Debug.LogFormat("[{0}]解压进度:{1}%", ZeroConst.PACKAGE_ZIP_FILE_NAME, zh.progress * 100);
                     onProgress(zh.progress, www.bytes.Length);
                     yield return new WaitForEndOfFrame();
                 }
                 www.Dispose();
 
-                Log.I("[{0}]解压完成", ZeroConst.PACKAGE_ZIP_FILE_NAME);
+                Debug.LogFormat("[{0}]解压完成", ZeroConst.PACKAGE_ZIP_FILE_NAME);
 
                 //重新加载一次版本号文件，因为可能被覆盖了
                 Runtime.Ins.localResVer.Load();

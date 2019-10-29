@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-#if !UNITY_2019_1_OR_NEWER
+#if UNITY_EDITOR && !UNITY_2019_1_OR_NEWER
 #pragma warning disable 0618
 
 namespace Sirenix.OdinInspector.Editor.Drawers
@@ -39,4 +39,4 @@ namespace Sirenix.OdinInspector.Editor.Drawers
     }
 }
 
-#endif // UNITY_2019_1_OR_NEWER
+#endif // UNITY_EDITOR && !UNITY_2019_1_OR_NEWER

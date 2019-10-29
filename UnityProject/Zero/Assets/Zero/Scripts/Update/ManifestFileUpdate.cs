@@ -21,7 +21,7 @@ namespace Zero
 
         public void Start(Action onUpdate, Action<string> onError)
         {
-            Log.CI(Log.COLOR_BLUE, "「ManifestFileUpdate」Manifest描述文件更新检查...");
+            Debug.Log(Log.Zero1("「ManifestFileUpdate」Manifest描述文件更新检查..."));
             _rt = Runtime.Ins;
             _manifestName = FileSystem.CombinePaths(ZeroConst.AB_DIR_NAME, ZeroConst.MANIFEST_FILE_NAME + ZeroConst.AB_EXTENSION);
             _onUpdate = onUpdate;
@@ -44,7 +44,7 @@ namespace Zero
             {
                 if (Runtime.Ins.IsLoadAssetsByAssetDataBase)
                 {
-                    ResMgr.Ins.Init(ResMgr.EResMgrType.ASSET_DATA_BASE, Runtime.Ins.VO.hotResRoot);
+                    ResMgr.Ins.Init(ResMgr.EResMgrType.ASSET_DATA_BASE, ZeroConst.HOT_RESOURCES_ROOT_DIR);
                 }
                 else
                 {
@@ -69,7 +69,7 @@ namespace Zero
 
             if (null != loader.error)
             {
-                Log.E(loader.error);
+                Debug.LogError(loader.error);
                 if (null != _onError)
                 {
                     _onError.Invoke(loader.error);

@@ -116,13 +116,13 @@ namespace Zero
                 var depends = GetAllDepends(item.name);
                 nameList.AddRange(depends);
 
-                Log.CI(Log.COLOR_PURPLE, "版本检查的资源：{0}", item.name);
+                Debug.Log(Log.Zero2("版本检查的资源：{0}", item.name));
                 if (depends.Count > 0)
                 {
-                    Log.CI(Log.COLOR_PURPLE, "依赖的资源列表:");
+                    Debug.Log(Log.Zero2("依赖的资源列表:"));
                     foreach (var depend in depends)
                     {
-                        Log.CI(Log.COLOR_PURPLE, "              {0}", depend);
+                        Debug.Log(Log.Zero2("              {0}", depend));
                     }
                 }
             }

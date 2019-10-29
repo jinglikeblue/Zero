@@ -19,13 +19,12 @@ namespace Zero.Edit
         {
             get
             {
-                DirectoryInfo temp = Directory.GetParent(Application.dataPath);
-                string dir = FileSystem.CombineDirs(false, temp.FullName, "EditorConfigs");
-                if (!Directory.Exists(dir))
+                DirectoryInfo temp = Directory.GetParent(Application.dataPath);                
+                if (!Directory.Exists(ZeroEditorConst.EDITOR_CONFIG_DIR))
                 {
-                    Directory.CreateDirectory(dir);
+                    Directory.CreateDirectory(ZeroEditorConst.EDITOR_CONFIG_DIR);
                 }
-                return dir;
+                return ZeroEditorConst.EDITOR_CONFIG_DIR;
             }
         }
 

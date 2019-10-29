@@ -6,26 +6,27 @@
 
 ### 目录
 - [从Demo开始](Demo.md)
-- 内容
+- 框架内容
     - [Preload介绍](Preload.md)
-    - [ILContent介绍](ILContent.md)
+    - [热更架构介绍](HotResIntro.md)
     - [视图管理](ViewFramework.md)
     - [资源管理](ResManager.md)
     - [其它](Other.md)
     - [扩展](Extend.md)
 - Editor工具
-    - Publish
-        - [Setting](PublishSettingEditor.md)
-        - [HotRes](PublishHotResEditor.md)
-    - [iOS]
-        - [ProjectInit](IOSProjectInitEditor.md)
-    - Assets
+    - 热更新
+        - [setting.json](PublishSettingEditor.md)
+        - [热更资源](PublishHotResEditor.md)
+    - 自动生成代码
+        - [AssetBundleName.cs](AssetBundleNameGenerate.md)
+        - [link.xml](CreateLinkXML.md)        
+        - [ILRuntime CLR Binding Codes](ILRuntimeGeneratedEditor.md)
+    - 项目自动化配置
+        - [iOS项目配置](IOSProjectInitEditor.md)        
+    - 资源优化
         - [Packing Tag Manager](PackingTagEditor.md)
-        - [Find Useless Assets](FindUselessAssetsEditor.md)        
-    - IL2CPP
-        - [Create "link.xml"](CreateLinkXML.md)        
-    - ILRuntime[(官方网站)](http://ourpalm.github.io/ILRuntime/public/v1/guide/index.html)
-        - [Create Generated](ILRuntimeGeneratedEditor.md)        
+        - [查找项目无用资源](FindUselessAssetsEditor.md)         
+- ILRuntime[(官方网站)](http://ourpalm.github.io/ILRuntime/public/v1/guide/index.html)        
 - [Q&A](QuestionAnswer.md)
 
 

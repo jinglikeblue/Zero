@@ -73,7 +73,7 @@ namespace Zero
             T asset = ab.LoadAsset<T>(assetName);
             if (null == asset)
             {
-                Log.E("获取的资源不存在： AssetBundle: {0}  Asset: {1}", abName, assetName);
+                Debug.LogErrorFormat("获取的资源不存在： AssetBundle: {0}  Asset: {1}", abName, assetName);
             }
             return asset;
         }
@@ -177,7 +177,7 @@ namespace Zero
             if (false == File.Exists(abPath))
             {
                 //加载的AB资源不存在
-                Log.E(string.Format("[{0}] 不存在", abPath));
+                Debug.LogErrorFormat("[{0}] 不存在", abPath);
                 return null;                
             }
 

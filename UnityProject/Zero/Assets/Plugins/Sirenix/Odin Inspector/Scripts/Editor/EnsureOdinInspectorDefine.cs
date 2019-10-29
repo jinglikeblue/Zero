@@ -1,9 +1,11 @@
-﻿#if UNITY_EDITOR
-//-----------------------------------------------------------------------
+﻿//-----------------------------------------------------------------------
 // <copyright file="EnsureOdinInspectorDefine.cs" company="Sirenix IVS">
 // Copyright (c) Sirenix IVS. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
+
+#if UNITY_EDITOR
+
 namespace Sirenix.Utilities
 {
     using System;
@@ -106,4 +108,5 @@ namespace Sirenix.Utilities
     //        }
     //    }
 }
-#endif
+
+#endif // UNITY_EDITOR

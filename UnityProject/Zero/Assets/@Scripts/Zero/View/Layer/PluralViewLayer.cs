@@ -31,14 +31,14 @@ namespace ILZero
         {
             if (false == _viewList.Contains(view))
             {
-                view.onDestroyHandler += RemoveView;
+                view.onDestroyed += RemoveView;
                 _viewList.Add(view);
             }
         }
 
         void RemoveView(AView view)
         {
-            view.onDestroyHandler -= RemoveView;
+            view.onDestroyed -= RemoveView;
             _viewList.Remove(view);
         }
 
@@ -56,7 +56,7 @@ namespace ILZero
             while (--idx > -1)
             {
                 var view = _viewList[idx];
-                view.onDestroyHandler -= RemoveView;
+                view.onDestroyed -= RemoveView;
                 view.Destroy();
             }
             _viewList.Clear();
