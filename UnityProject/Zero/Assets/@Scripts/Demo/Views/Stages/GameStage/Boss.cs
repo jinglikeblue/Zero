@@ -33,12 +33,10 @@ namespace ILDemo
             
         }       
 
-        protected override void OnInit()
+        protected override void OnInit(object data)
         {
             _body = GetComponent<Rigidbody2D>();
-            _collider = GetComponent<EdgeCollider2D>();
-
-            
+            _collider = GetComponent<EdgeCollider2D>();            
         }
 
         protected override void OnEnable()

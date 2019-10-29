@@ -5,4 +5,6 @@
 场景文件位置：Asset/Demo/DemoScene  
 建议先按照下图所示配置启动运行，待确认Demo正常执行后再逐步尝试其他的运行方式。
 
+## 界面截图
+
 ![](Imgs/default_preload_config.jpg)

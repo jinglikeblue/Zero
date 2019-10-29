@@ -31,13 +31,13 @@ namespace ILZero
         {
             if(null != Current)
             {
-                Current.onDestroyHandler -= OnViewDestroy;
+                Current.onDestroyed -= OnViewDestroy;
                 Current.Destroy();
                 Current = null;           
             }
 
             Current = view;
-            view.onDestroyHandler += OnViewDestroy;
+            view.onDestroyed += OnViewDestroy;
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace ILZero
         {            
             if (Current == view)
             {
-                Current.onDestroyHandler -= OnViewDestroy;
+                Current.onDestroyed -= OnViewDestroy;
                 Current = null;
             }
         }
@@ -57,7 +57,7 @@ namespace ILZero
         {
             if(null != Current)
             {                
-                Current.onDestroyHandler -= OnViewDestroy;
+                Current.onDestroyed -= OnViewDestroy;
                 Current.Destroy();
                 Current = null;
             }

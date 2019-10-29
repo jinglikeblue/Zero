@@ -9,9 +9,9 @@ namespace IL
 {
     public class ILContentView : AView
     {
-        protected override void OnInit()
+        protected override void OnInit(object data)
         {
-            base.OnInit();
+            base.OnInit(data);
             var rootTransform = gameObject.transform;
             var stageRoot = rootTransform.Find("Stage");
             var uiPanelRoot = rootTransform.Find("UICanvas/UIPanel");

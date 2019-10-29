@@ -11,31 +11,37 @@ namespace ILZero
     public abstract class AView
     {
         /// <summary>
-        /// 销毁委托事件
+        /// 对象已销毁的事件
         /// </summary>
-        public event Action<AView> onDestroyHandler;
+        public event Action<AView> onDestroyed;
 
         /// <summary>
-        /// Unity中的GameObject对象
+        /// 关联的GameObject对象
         /// </summary>
-        public GameObject gameObject { get; private set; }        
+        public GameObject gameObject { get; private set; }
+
+        /// <summary>
+        /// 关联对象的Transform
+        /// </summary>
+        public Transform transform
+        {
+            get
+            {
+                if (null != gameObject)
+                {
+                    return gameObject.transform;
+                }
+                return null;
+            }
+        }
 
         /// <summary>
         /// 是否销毁了
         /// </summary>
-        public bool IsDestroyed
+        public bool isDestroyed
         {
             get { return gameObject == null ? true : false; }
-        }        
-
-        /// <summary>
-        /// 对象名称
-        /// </summary>
-        public string Name
-        {
-            get { return gameObject.name; }
-            set { gameObject.name = value; }
-        }                      
+        }
 
         /// <summary>
         /// 挂载到GameObject上的脚本
@@ -52,9 +58,7 @@ namespace ILZero
             _z.onDisable += OnGameObjectDisable;
             _z.onDestroy += OnGameObjectDestroy;
 
-            OnInit();            
-
-            OnData(data);
+            OnInit(data);
 
             if (this.gameObject.activeInHierarchy)
             {
@@ -77,10 +81,7 @@ namespace ILZero
             _z = null;
             gameObject = null;
             OnDestroy();
-            if(null != onDestroyHandler)
-            {
-                onDestroyHandler.Invoke(this);
-            }            
+            onDestroyed?.Invoke(this);
         }
 
         /// <summary>
@@ -89,9 +90,9 @@ namespace ILZero
         /// <param name="isActive"></param>
         public void SetActive(bool isActive)
         {
-            if(isActive)
+            if (isActive)
             {
-                if(false == gameObject.activeInHierarchy)
+                if (false == gameObject.activeInHierarchy)
                 {
                     gameObject.SetActive(true);
                     //WhenEnable();
@@ -99,10 +100,10 @@ namespace ILZero
             }
             else
             {
-                if(gameObject.activeInHierarchy)
+                if (gameObject.activeInHierarchy)
                 {
                     //WhenDisable();
-                    gameObject.SetActive(false);                    
+                    gameObject.SetActive(false);
                 }
             }
         }
@@ -122,7 +123,7 @@ namespace ILZero
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T AudoGetComponent<T>() where T :Component
+        public T AudoGetComponent<T>() where T : Component
         {
             return ComponentUtil.AutoGet<T>(gameObject);
         }
@@ -167,7 +168,7 @@ namespace ILZero
         public Transform GetChild(string childName)
         {
             return gameObject.transform.Find(childName);
-        }    
+        }
 
         /// <summary>
         /// 得到子对象
@@ -178,7 +179,7 @@ namespace ILZero
         {
             return gameObject.transform.GetChild(index);
         }
-        
+
         /// <summary>
         /// 得到子对象
         /// </summary>
@@ -187,7 +188,7 @@ namespace ILZero
         public GameObject GetChildGameObject(string childName)
         {
             var child = GetChild(childName);
-            if(null != child)
+            if (null != child)
             {
                 return child.gameObject;
             }
@@ -210,39 +211,70 @@ namespace ILZero
         }
 
         /// <summary>
-        /// 得到子视图对象
+        /// 创建子视图对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="childName"></param>
         /// <returns></returns>
-        public T CreateViewChild<T>(string childName, object data = null) where T:AView
-        {          
+        public T CreateChildView<T>(string childName, object data = null) where T : AView
+        {
             var childGameObject = GetChildGameObject(childName);
-            return CreateViewChild<T>(childGameObject, data);
+            return CreateChildView<T>(childGameObject, data);
         }
 
         /// <summary>
-        /// 得到子对象视图
+        /// 创建子视图对象
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="index"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        public T CreateViewChild<T>(int index, object data = null) where T : AView
+        public T CreateChildView<T>(int index, object data = null) where T : AView
         {
             var childGameObject = GetChildGameObject(index);
-            return CreateViewChild<T>(childGameObject, data);
+            return CreateChildView<T>(childGameObject, data);
         }
 
-        public T CreateViewChild<T>(GameObject childGameObject, object data = null) where T : AView
+        /// <summary>
+        /// 创建子视图对象
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="childGameObject"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public T CreateChildView<T>(GameObject childGameObject, object data = null) where T : AView
+        {
+            var childView = CreateChildView(typeof(T), childGameObject, data);
+
+            if (null == childView)
+            {
+                return default;
+            }
+
+            return childView as T;
+        }
+
+        /// <summary>
+        /// 创建子视图对象
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="childGameObject"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public AView CreateChildView(Type type, GameObject childGameObject, object data = null)
         {
             if (null == childGameObject)
             {
-                return default(T);
+                return null;
             }
 
-            T viewChild = Activator.CreateInstance(typeof(T)) as T;
-            viewChild.SetGameObject(childGameObject, data);            
+            if (false == type.IsSubclassOf(typeof(AView)))
+            {
+                throw new Exception(string.Format("[{0}]并不是AView的子类", type.FullName));
+            }
+
+            AView viewChild = Activator.CreateInstance(type) as AView;
+            viewChild.SetGameObject(childGameObject, data);
             return viewChild;
         }
 
@@ -251,7 +283,7 @@ namespace ILZero
         /// </summary>
         public void Destroy()
         {
-            if (IsDestroyed)
+            if (isDestroyed)
             {
                 return;
             }
@@ -261,55 +293,34 @@ namespace ILZero
 
         public Coroutine StartCoroutine(IEnumerator routine)
         {
-            if(null == _z)
+            if (null == _z)
             {
                 return null;
             }
             return _z.StartCoroutine(routine);
         }
 
-        public void StopAllCoroutines()
-        {
-            if (null != _z)
-            {
-                _z.StopAllCoroutines();
-            }
-        }
-
         public void StopCoroutine(IEnumerator routine)
         {
-            if (null != _z)
-            {
-                _z.StopCoroutine(routine);
-            }
+            _z?.StopCoroutine(routine);
         }
 
         public void StopCoroutine(Coroutine routine)
         {
-            if (null != _z)
-            {
-                _z.StopCoroutine(routine);
-            }
+            _z?.StopCoroutine(routine);
         }
 
+        public void StopAllCoroutines()
+        {
+            _z?.StopAllCoroutines();
+        }
 
         #region 子类按需求重写实现的方法
+
         /// <summary>
         /// 初始化方法
         /// </summary>
-        protected virtual void OnInit()
-        {
-
-        }
-        
-
-
-        /// <summary>
-        /// 当显示对象被实例化后该方法被调用。在该方法中可以预备视图所需要的数据。
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="data"></param>
-        protected virtual void OnData(object data)
+        protected virtual void OnInit(object data)
         {
 
         }
@@ -337,6 +348,7 @@ namespace ILZero
         {
 
         }
+
         #endregion
     }
 }

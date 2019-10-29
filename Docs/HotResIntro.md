@@ -1,10 +1,11 @@
-# ILContent
+# 热更架构介绍
 
 ### 目录
-- [简介](#简介)
-- [Zero中IL的定义](#Zero中IL的定义)
-- [ILContent模板Prefab](#ILContent模板)
-- [ILContent.cs](#ILContent.cs)
+- [简介](#简介)    
+    - [热更内容开始的入口]
+    - [热更配置文件]
+    - [热更AssetBundle文件]
+    - [热更代码文件]
 - [使用ILBridge捕获Unity引擎事件](#使用ILBridge捕获Unity引擎事件)
 - [使用ILBridge执行协程](#使用ILBridge执行协程)
 - [使用BindingData给GameObject绑定数据](#BindingData)
@@ -107,5 +108,5 @@ IEnumerator Update()
 ## 约定
 - Assets/ZeroIL中的代码
     - 均不可继承主工程的类（包括引擎命名空间以及.net命名空间）。
-    - 热更框架不支持使用 .NET 3.5 以上的特性
-    - 不可开启新的线程。多线程代码请在其它位置编写。
+    - 热更框架不支持使用 .NET 4.5 以上的特性
+    - 不可开启新的线程。多线程代码请在主工程位置编写。

@@ -8,7 +8,8 @@ namespace ILDemo
     class GamePanel : AView
     {
         GameStage stage;
-        protected override void OnData(object data)
+
+        protected override void OnInit(object data)
         {
             stage = data as GameStage;
         }

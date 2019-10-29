@@ -13,11 +13,11 @@ namespace ILDemo
 
         Boss _boss;              
 
-        protected override void OnInit()
+        protected override void OnInit(object data)
         {
             _blocks = GetChild("Blocks");
             _blockPrefab = ObjectBindingData.Find(gameObject, "blockPrefab")[0] as GameObject;            
-            _boss = CreateViewChild<Boss>("Boss");
+            _boss = CreateChildView<Boss>("Boss");
 
             UIPanelMgr.Ins.SwitchASync<GamePanel>(this);
         }

@@ -117,7 +117,7 @@ namespace ILDemo
         void OnShowView(AView view, bool isBlur, bool isCloseOthers)
         {
             _layer.ViewList.Sort(ComparerView);
-            view.onDestroyHandler += OnViewDestroy;
+            view.onDestroyed += OnViewDestroy;
 
             if (isBlur)
             {
@@ -172,7 +172,7 @@ namespace ILDemo
         /// <param name="view"></param>
         void OnViewDestroy(AView view)
         {
-            view.onDestroyHandler -= OnViewDestroy;
+            view.onDestroyed -= OnViewDestroy;
             _needBlurViewSet.Remove(view);
             UpdateBlur();
         }
@@ -184,7 +184,7 @@ namespace ILDemo
         {
             foreach (var view in _layer.ViewList)
             {
-                view.onDestroyHandler -= OnViewDestroy;
+                view.onDestroyed -= OnViewDestroy;
             }
             _needBlurViewSet.Clear();
             _blur.gameObject.transform.SetAsFirstSibling();

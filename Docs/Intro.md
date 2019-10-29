@@ -8,7 +8,7 @@
 - [从Demo开始](Demo.md)
 - 框架内容
     - [Preload介绍](Preload.md)
-    - [ILContent介绍](ILContent.md)
+    - [热更架构介绍](HotResIntro.md)
     - [视图管理](ViewFramework.md)
     - [资源管理](ResManager.md)
     - [其它](Other.md)
