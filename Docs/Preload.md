@@ -8,7 +8,7 @@
     2. [检查/更新Setting.json](#2.检查/更新setting.json)
     3. [检查/更新客户端](#3.检查/更新客户端)
     4. [检查/更新启动资源](#4.检查/更新启动资源)
-    5. [启动ILContents](#5.启动ILContents)
+    5. [进入热更区域](#5.进入热更区域)
 - [Preload配置参数详解](#Preload配置参数详解)
 
 ![](Imgs/preload_inspector.jpg)
@@ -27,7 +27,7 @@ Hierarchy中的Preload是一个简单的游戏启动的加载视图，该视图�
 2. [检查/更新Setting.json](#2.检查/更新setting.json)
 3. [检查/更新客户端](#3.检查/更新客户端)
 4. [检查/更新启动资源](#4.检查/更新启动资源)
-5. [启动ILContents](#5.启动ILContents)
+5. [进入热更区域](#5.进入热更区域)
 
 >PS:如果项目不使用热更，则Preload会直接进入[步骤5]
 
@@ -70,7 +70,7 @@ Hierarchy中的Preload是一个简单的游戏启动的加载视图，该视图�
 ### 4.资源更新检查
 >加载热更资源的res.json(通过Editor工具发布)文件，并根据配置的启动资源组，比较并更新资源为最新版本。
 
-### 5.启动ILContents
+### 5.进入热更区域
 >当Zero完成了预热以后，则会启动@Scripts中的Main函数，并销毁Preload。
 
 至此，整个游戏进入中间层(热更区域)阶段。

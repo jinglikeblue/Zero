@@ -2,10 +2,10 @@
 
 ### 目录
 - [简介](#简介)    
-    - [热更内容开始的入口]
-    - [热更配置文件]
-    - [热更AssetBundle文件]
-    - [热更代码文件]
+    - 热更内容开始的入口
+    - 热更配置文件
+    - 热更AssetBundle文件
+    - 热更代码文件
 - [使用ILBridge捕获Unity引擎事件](#使用ILBridge捕获Unity引擎事件)
 - [使用ILBridge执行协程](#使用ILBridge执行协程)
 - [使用BindingData给GameObject绑定数据](#BindingData)
@@ -13,48 +13,24 @@
 
 ## 简介
 
-> ILContent是游戏业务逻辑内容的起点，根据需求可以放到热更环境中。IL前缀表示这是一个中间件。在Zero中，所有ILContent中的内容都可以做成热更内容。
+> 为了应付项目的频繁更新以及问题修正，资源的热更新（动态更新）是一种在项目中常用的手段。在Unity中，提供了资源的热更方案，就是打包AssetBundle文件。代码部分，Zero通过整合ILRuntime框架实现了代码的热更，并且统一的开发语言（C#）让开发就如同常规开发一样方便。
 
-在Preload完成预热后，会自动销毁绑定自己的GameObject，并拉起ILContent。而我们的游戏的整个逻辑则在ILContent中完成。
+## 热更内容开始的入口
 
-Asset/Zero/ILContent组件是Zero框架中视图框架的很好的模板。根据Demo代码可以理解到整个Zero的视图管理机制可以通过ILContent组件很好的运作起来。
+在Preload预热流程的最后一步，会调用热更代码的Main函数，让程序进入热更代码区域。从这里开始所有的内容，都可以根据需求动态更新。
 
-- ILContent.cs 组件  
-该组件被ILContent绑定，通过Runtime的配置，其决定了IL代码的环境是使用本地程序集（打包时内嵌的代码），还是外部程序集（热更DLL代码库）
+### 热更配置文件
 
-## Zero中IL的定义
+通常我们需要热更新的配置文件，统一放在```Assets/@Configs```目录中，这样构建热更资源的时候会更新到发布目录
 
-在Zero中IL指的是包含游戏主体业务逻辑的资源、代码等内容。并且所有IL包括的（遵照「约定」开发的）内容都可以热更新。  
+## 热更AssetBundle文件
 
-### 代码放置位置
+我们需要打包放到AssetBundle中的资源都统一放在```Assets/@Resources```目录中，构建AB文件时会按照"[文件夹名].ab"的格式将各个文件夹中的资源打包到一个以文件夹名命名的ab包中。*@Resources根目录下的资源会被打包到root_assets.ab中*
 
-业务逻辑代码统一放在Assets/ZeroIL中。
+配合AssetBundleName生成工具，可以快速创建所有ab包名称的常量
 
-如果代码需要热更，则将ZeroIL文件夹中的代码统一打包为DLL即可。
-
-建议给自己项目的代码创建一个文件夹来放置所有的代码。
-
-Assets/ZeroIL/Zero目录中代码为Zero框架核心代码，同样参与到热更中。且千万不要删除。
-
-## ILContent模板
-
-Asset/Zero/ILContent是一个基于Zero的标准Prefab模板，结构如下：
-
-- Stage  
-Zero中的舞台，由StageMgr管理，同一时间只能有一个舞台在场景中，且舞台必须自带摄像机。用来放置Unity世界中的物体，可以理解为将Scene抽象到Prefab中来理解。
-- UICamera  
-Zero中用来显示UI的摄像机，由UICanvas绑定。因为该摄像机拍摄的内容和Stage中摄像机拍摄的内容渲染的层级不一样，如果有需求在Stage的物体与物体之间显示UI，那么可以直接在Stage中创建UI对象，只是那些对象需要开发者自行管理。摄像机参数需要根据项目自行调整。
-- UICanvas  
-Zero框架的UI容器，参数根据项目需求可自行调整。
-    - UIPanel   
-    Panel表示UI面板，在界面上最多只能存在一个，通过UIPanelMgr管理
-    - UIWin  
-    Win表示UI中的窗口，在界面上可以根据需要存在多个，通过UIWinMgr管理
-        - Blur  
-        窗口之间的阻挡，根据打开窗口时的配置，如果需要阻挡窗口与下方的交互，则该图层会出现。可以根据需要自行修改Blur的内容，但是请保留Blur本身。
-
-## ILContent.cs
-该组件被ILContent绑定，通过Runtime的配置，其决定了IL代码的环境是使用本地程序集（打包时内嵌的代码），还是外部程序集（热更DLL代码库）。
+## 热更代码文件
+放在```Assets/@Scripts```中的代码，可以通过发布工具构建为dll，这些代码都是可以再Preload中动态更新的。
 
 ## 使用ILBridge捕获Unity引擎事件
 当我们希望在IL代码中捕获到Unity引擎的OnGUI、Update、FixedUpdate等事件时，可以通过单例ILBridge.Ins提供的委托来捕获。
