@@ -9,5 +9,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -262940062, guid: a4865f1ab4504ed8a368670db22f409c, type: 3}
-  m_Name: PathLookup
+  m_Name: OdinPathLookup
   m_EditorClassIdentifier: 

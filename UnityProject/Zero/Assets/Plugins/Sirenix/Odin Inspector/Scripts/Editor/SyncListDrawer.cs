@@ -4,7 +4,8 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-#if !UNITY_2019_1_OR_NEWER
+#if UNITY_EDITOR && !UNITY_2019_1_OR_NEWER
+#pragma warning disable 0618
 
 namespace Sirenix.OdinInspector.Editor.Drawers
 {
@@ -17,9 +18,7 @@ namespace Sirenix.OdinInspector.Editor.Drawers
     /// SyncList property drawer.
     /// </summary>
     [DrawerPriority(0, 0, 2)]
-#pragma warning disable 0618 // Type or member is obsolete
     public class SyncListDrawer<TList, TElement> : OdinValueDrawer<TList> where TList : SyncList<TElement>
-#pragma warning restore 0618 // Type or member is obsolete
     {
         /// <summary>
         /// Draws the property.
@@ -86,4 +85,4 @@ namespace Sirenix.OdinInspector.Editor.Drawers
     }
 }
 
-#endif // UNITY_2019_1_OR_NEWER
+#endif // UNITY_EDITOR && !UNITY_2019_1_OR_NEWER
