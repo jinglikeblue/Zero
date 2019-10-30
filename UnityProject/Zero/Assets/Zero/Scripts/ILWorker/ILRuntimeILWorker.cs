@@ -1,24 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Zero
 {
     public class ILRuntimeILWorker : BaseILWorker
     {
-        static private List<BaseILRuntimeCompound> _rgList = new List<BaseILRuntimeCompound>();
-
-        /// <summary>
-        /// 注册ILRuntime的适配器注册类
-        /// </summary>
-        /// <param name="rg"></param>
-        internal static void RegisterILRuntimeGenerics(BaseILRuntimeCompound rg)
-        {
-            _rgList.Add(rg);
-        }
-
         //AppDomain是ILRuntime的入口，最好是在一个单例类中保存，整个游戏全局就一个，这里为了示例方便，每个例子里面都单独做了一个
         //大家在正式项目中请全局只创建一个AppDomain
         ILRuntime.Runtime.Enviorment.AppDomain _appdomain = null;
@@ -57,8 +44,8 @@ namespace Zero
         {
             var appdomain = _appdomain;
 
-            //注册LitJson
-            LitJson.JsonMapper.RegisterILRuntimeCLRRedirection(appdomain);
+            //这里做一些Zero依赖的的ILRuntime的注册
+            new ILRuntimeRegisters(appdomain).Register();
 
             //进行CLR绑定。通过反射执行，这样如果没有绑定代码，也不会报错
             var classCLRBinding = Type.GetType("ILRuntime.Runtime.Generated.CLRBindings");
@@ -70,68 +57,6 @@ namespace Zero
                 {
                     methodInitialize.Invoke(null, new object[] { appdomain });
                 }                
-            }
-
-            //使用Couroutine时，C#编译器会自动生成一个实现了IEnumerator，IEnumerator<object>，IDisposable接口的类，因为这是跨域继承，所以需要写CrossBindAdapter
-            appdomain.RegisterCrossBindingAdaptor(new CoroutineAdapter());
-
-            #region 这里做一些Zero依赖的的ILRuntime的注册
-            appdomain.DelegateManager.RegisterMethodDelegate<float>();
-            appdomain.DelegateManager.RegisterMethodDelegate<PointerEventData>();
-            appdomain.DelegateManager.RegisterMethodDelegate<AxisEventData>();
-            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Object>();
-            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Collider2D>();            appdomain.DelegateManager.RegisterMethodDelegate<System.Int32>();
-            appdomain.DelegateManager.RegisterMethodDelegate<System.String, System.String>();            appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance>();            appdomain.DelegateManager.RegisterMethodDelegate<System.Boolean>();
-            appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Int32>();
-
-            appdomain.DelegateManager.RegisterMethodDelegate<System.Object, System.Net.DownloadProgressChangedEventArgs>();
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Net.DownloadProgressChangedEventHandler>((act) =>
-            {
-                return new System.Net.DownloadProgressChangedEventHandler((sender, e) =>
-                {
-                    ((Action<System.Object, System.Net.DownloadProgressChangedEventArgs>)act)(sender, e);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterMethodDelegate<System.Object, System.ComponentModel.AsyncCompletedEventArgs>();
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.ComponentModel.AsyncCompletedEventHandler>((act) =>
-            {
-                return new System.ComponentModel.AsyncCompletedEventHandler((sender, e) =>
-                {
-                    ((Action<System.Object, System.ComponentModel.AsyncCompletedEventArgs>)act)(sender, e);
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Threading.ThreadStart>((act) =>
-            {
-                return new System.Threading.ThreadStart(() =>
-                {
-                    ((Action)act)();
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<UnityEngine.Events.UnityAction>((act) =>
-            {
-                return new UnityEngine.Events.UnityAction(() =>
-                {
-                    ((Action)act)();
-                });
-            });
-
-            appdomain.DelegateManager.RegisterDelegateConvertor<System.Comparison<ILRuntime.Runtime.Intepreter.ILTypeInstance>>((act) =>
-            {
-                return new System.Comparison<ILRuntime.Runtime.Intepreter.ILTypeInstance>((x, y) =>
-                {
-                    return ((Func<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Int32>)act)(x, y);
-                });
-            });
-
-            #endregion
-
-            //开发者自己的适配器注册类
-            foreach (var rg in _rgList)
-            {
-                rg.Register(appdomain);
             }
         }
 

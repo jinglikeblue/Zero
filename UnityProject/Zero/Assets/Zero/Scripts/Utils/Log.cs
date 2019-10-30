@@ -67,6 +67,12 @@ namespace Zero
             return C(COLOR_RED, format, args);
         }
 
+        /// <summary>
+        /// 比较重要的日志信息
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static string Zero1(string format, params object[] args)
         {
             string color = COLOR_ZERO1;
@@ -79,6 +85,12 @@ namespace Zero
             return C(color, format, args);
         }
 
+        /// <summary>
+        /// 不是太重要的日志信息
+        /// </summary>
+        /// <param name="format"></param>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static string Zero2(string format, params object[] args)
         {
             string color = COLOR_ZERO2;

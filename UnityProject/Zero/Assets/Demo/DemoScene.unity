@@ -575,9 +575,9 @@ MonoBehaviour:
     isLogEnable: 1
     className: IL.Main
     methodName: Startup
-    hotResMode: 0
+    hotResMode: 1
     netRoot: http://wepieces.cn/unity/zero/demo/res
-    isUseDll: 0
+    isUseDll: 1
     ilType: 0
     isDebugIL: 1
     isLoadPdb: 1

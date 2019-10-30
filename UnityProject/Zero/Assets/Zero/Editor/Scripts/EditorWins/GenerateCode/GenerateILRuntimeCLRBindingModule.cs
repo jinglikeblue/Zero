@@ -1,11 +1,5 @@
 ﻿using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor;
-using Sirenix.Utilities;
-using Sirenix.Utilities.Editor;
-using System;
-using System.Collections.Generic;
 using UnityEditor;
-using UnityEngine;
 
 namespace Zero.Edit
 {
@@ -77,17 +71,17 @@ namespace Zero.Edit
         void GenerateCLRBindingByAnalysis(string dllFile, string generatedDir)
         {
             //用新的分析热更dll调用引用来生成绑定代码
-            ILRuntime.Runtime.Enviorment.AppDomain domain = new ILRuntime.Runtime.Enviorment.AppDomain();
+            ILRuntime.Runtime.Enviorment.AppDomain appdomain = new ILRuntime.Runtime.Enviorment.AppDomain();
 
             using (System.IO.FileStream fs = new System.IO.FileStream(dllFile, System.IO.FileMode.Open, System.IO.FileAccess.Read))
             {
-                domain.LoadAssembly(fs);
+                appdomain.LoadAssembly(fs);
 
                 #region 这里需要注册所有热更DLL中用到的跨域继承Adapter，否则无法正确抓取引用        
-                domain.RegisterCrossBindingAdaptor(new CoroutineAdapter());
+                new ILRuntimeRegisters(appdomain).Register();
                 #endregion
 
-                ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(domain, generatedDir);
+                ILRuntime.Runtime.CLRBinding.BindingCodeGenerator.GenerateBindingCode(appdomain, generatedDir);
             }
         }
     }
