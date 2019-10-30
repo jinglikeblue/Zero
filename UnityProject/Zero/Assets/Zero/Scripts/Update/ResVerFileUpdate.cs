@@ -18,7 +18,7 @@ namespace Zero
 
         public void Start(Action onLoaded, Action<string> onError)
         {
-            Log.CI(Log.COLOR_BLUE, "「ResVerFileUpdate」资源版本号文件更新检查...");
+            Debug.Log(Log.Zero1("「ResVerFileUpdate」资源版本号文件更新检查..."));
             _onLoaded = onLoaded;
             _onError = onError;
             _localPath = FileSystem.CombinePaths(Runtime.Ins.localResDir , ZeroConst.RES_JSON_FILE_NAME);
@@ -50,7 +50,7 @@ namespace Zero
 
             if (null != loader.error)
             {
-                Log.E(loader.error);
+                Debug.LogErrorFormat(loader.error);
                 if (null != _onError)
                 {
                     _onError.Invoke(loader.error);

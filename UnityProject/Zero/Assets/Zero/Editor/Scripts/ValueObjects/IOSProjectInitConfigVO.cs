@@ -10,9 +10,7 @@ namespace Zero.Edit
     /// iOS项目初始化配置
     /// </summary>
     public class IOSProjectInitConfigVO
-    {
-        public const string CONFIG_NAME = "ios_project_config.json";
-
+    {        
         /// <summary>
         /// framework库配置
         /// </summary>

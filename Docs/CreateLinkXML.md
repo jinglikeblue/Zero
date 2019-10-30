@@ -4,4 +4,8 @@
 
 >Unity提供了一个方式来告诉Unity引擎，哪些类型是不能够被剪裁掉的。具体做法就是在Unity工程的Assets目录中建立一个叫link.xml的XML文件。
 
->该工具可以直接根据选中的目录中的DLL来自动生成一个link.xml文件。
+>该工具可以直接根据选中的目录中的DLL来自动生成一个link.xml文件。将该文件拷贝到项目Assets目录下即可。
+
+## 界面截图
+
+![](Imgs/link_xml_generate.png)

@@ -4,456 +4,6 @@
         <name>Sirenix.Utilities.Editor</name>
     </assembly>
     <members>
-        <member name="T:Sirenix.Utilities.Editor.CodeGeneration.AccessModifier">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="F:Sirenix.Utilities.Editor.CodeGeneration.AccessModifier.Private">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="F:Sirenix.Utilities.Editor.CodeGeneration.AccessModifier.Protected">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="F:Sirenix.Utilities.Editor.CodeGeneration.AccessModifier.Public">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="F:Sirenix.Utilities.Editor.CodeGeneration.AccessModifier.Internal">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="F:Sirenix.Utilities.Editor.CodeGeneration.AccessModifier.ProtectedInternal">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="T:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator.#ctor">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="P:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator.DefaultNamespace">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="P:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator.ReferenceUserScriptAssemblies">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="P:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator.ReferenceUnityAssemblies">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="P:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator.IncludeEditorAssemblies">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="P:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator.IncludeNonPluginUserScriptAssemblies">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="P:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator.LogErrors">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="P:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator.KeepFilesOnError">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="P:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator.KeepFiles">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="P:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator.IncludeActiveUnityDefines">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator.AddDefine(System.String)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator.AddExternAlias(System.String,System.Reflection.Assembly)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator.AddExternAlias(System.String,System.String)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator.AddReferencedAssembly(System.Reflection.Assembly)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator.AddReferencedAssembly(System.String)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator.Compile(System.String,System.Boolean)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator.CreateCodeWriter(System.String)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.AssemblyGenerator.Dispose">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="T:Sirenix.Utilities.Editor.CodeGeneration.CodeGenerationUtilities">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="F:Sirenix.Utilities.Editor.CodeGeneration.CodeGenerationUtilities.UserScriptAssemblies">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeGenerationUtilities.TypeIsFromUnityAssembly(System.Type)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeGenerationUtilities.TypeIsFromUserScriptAssembly(System.Type)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeGenerationUtilities.TypeIsFromUserScriptAssembly(System.Type,System.Nullable{Sirenix.Utilities.Editor.CodeGeneration.UserAssemblyType}@)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeGenerationUtilities.PrintAsParameters(System.Type[],System.String[],System.Boolean,System.Boolean)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeGenerationUtilities.PrintAsParameters(System.Reflection.ParameterInfo[],System.Boolean,System.Boolean)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="T:Sirenix.Utilities.Editor.CodeGeneration.CodeGeneratorExtensions">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeGeneratorExtensions.Stringify(Sirenix.Utilities.Editor.CodeGeneration.AccessModifier)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="T:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.#ctor">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.#ctor(System.IO.Stream)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.#ctor(System.IO.TextWriter)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="P:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.Indent">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="P:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.IndentWithTabs">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="P:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.Namespace">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="P:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.SpacesPerIndent">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.AddExternAlias(System.String)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.BeginGetter(System.Nullable{Sirenix.Utilities.Editor.CodeGeneration.AccessModifier})">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.BeginConstructor(Sirenix.Utilities.Editor.CodeGeneration.AccessModifier,System.String)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.BeginConstructor(Sirenix.Utilities.Editor.CodeGeneration.AccessModifier,System.String,System.String)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.BeginConstructor(Sirenix.Utilities.Editor.CodeGeneration.AccessModifier,System.String,System.String,System.Type[],System.String[])">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.EndConstructor">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.BeginMethod(Sirenix.Utilities.Editor.CodeGeneration.AccessModifier,System.Type,System.String)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.BeginMethod(Sirenix.Utilities.Editor.CodeGeneration.AccessModifier,System.Type,System.String,System.Type[],System.String[])">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.BeginMethod(Sirenix.Utilities.Editor.CodeGeneration.AccessModifier,System.Type,System.String,System.Boolean,System.Boolean)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.BeginMethod(Sirenix.Utilities.Editor.CodeGeneration.AccessModifier,System.Type,System.String,System.Type[],System.String[],System.Boolean,System.Boolean,System.Boolean)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.BeginProperty(Sirenix.Utilities.Editor.CodeGeneration.AccessModifier,System.Type,System.String,System.Boolean)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.BeginSegment">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.BeginSetter(System.Nullable{Sirenix.Utilities.Editor.CodeGeneration.AccessModifier})">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.Dispose">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.EmptyLine">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.EndGetter">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.EndMethod">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.EndProperty">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.EndSegment(System.String)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.EndSetter">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.GetFinalCode">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.BeginType(Sirenix.Utilities.Editor.CodeGeneration.AccessModifier,Sirenix.Utilities.Editor.CodeGeneration.TypeDeclaration,System.String)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.BeginType(Sirenix.Utilities.Editor.CodeGeneration.AccessModifier,Sirenix.Utilities.Editor.CodeGeneration.TypeDeclaration,System.String,System.Type,System.Type[])">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.EndType">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.PasteChunk(System.String)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.UseNamespace(System.String)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.RegisterTypeSeen(System.Type)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.RegisterTypesSeen(System.Collections.Generic.IEnumerable{System.Type})">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.RegisterTypesSeen(System.Type[])">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.Write(System.String)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.WriteAttribute(System.Type,System.String,System.Type[])">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.WriteAutoProperty(Sirenix.Utilities.Editor.CodeGeneration.AccessModifier,System.Type,System.String,System.Nullable{Sirenix.Utilities.Editor.CodeGeneration.AccessModifier})">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.WriteComment(System.String)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.WriteField(Sirenix.Utilities.Editor.CodeGeneration.AccessModifier,System.Type,System.String)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.WriteLine(System.String,System.Object[])">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.WriteLineIndentation">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.NewLine">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.CodeGeneration.CodeWriter.WriteLine(System.String)">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="T:Sirenix.Utilities.Editor.CodeGeneration.TypeDeclaration">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="F:Sirenix.Utilities.Editor.CodeGeneration.TypeDeclaration.Class">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="F:Sirenix.Utilities.Editor.CodeGeneration.TypeDeclaration.StaticClass">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="F:Sirenix.Utilities.Editor.CodeGeneration.TypeDeclaration.SealedClass">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="F:Sirenix.Utilities.Editor.CodeGeneration.TypeDeclaration.Struct">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="T:Sirenix.Utilities.Editor.CodeGeneration.UserAssemblyType">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="F:Sirenix.Utilities.Editor.CodeGeneration.UserAssemblyType.Standard">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="F:Sirenix.Utilities.Editor.CodeGeneration.UserAssemblyType.StandardEditor">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="F:Sirenix.Utilities.Editor.CodeGeneration.UserAssemblyType.Plugin">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
-        <member name="F:Sirenix.Utilities.Editor.CodeGeneration.UserAssemblyType.PluginEditor">
-            <summary>
-            Not yet documented.
-            </summary>
-        </member>
         <member name="T:Sirenix.Utilities.Editor.EditorIcon">
             <summary>
             Icon for using in editor GUI.
@@ -1162,27 +712,23 @@
             Not yet documented.
             </summary>
         </member>
-        <member name="T:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility">
+        <member name="T:Sirenix.Utilities.Editor.Expressions.ExpressionUtility">
             <summary>
-            Utility for compiling and emitting expression delegates.
+            Utility for parsing and emitting expression delegates.
             </summary>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileExpression(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>
-            Compiles an expression and tries to emit a delegate method.
-            </summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseExpression(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and tries to emit a delegate method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted delegate if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileExpression(System.String,System.Boolean,System.Type,System.Type[],System.String@,System.Boolean)">
-            <summary>
-            Compiles an expression and tries to emit a delegate method.
-            </summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseExpression(System.String,System.Boolean,System.Type,System.Type[],System.String@,System.Boolean)">
+            <summary>Parses an expression and tries to emit a delegate method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="parameters">The parameters of the expression delegate.</param>
@@ -1190,199 +736,206 @@
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted delegate if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileExpression(System.String,Sirenix.Utilities.Editor.Expressions.EmitContext,System.String@,System.Boolean)">
-            <summary>
-            Compiles an expression and tries to emit a delegate method.
-            </summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseExpression(System.String,System.Boolean,System.Type,System.Type[],System.String[],System.String@,System.Boolean)">
+            <summary>Parses an expression and tries to emit a delegate method.</summary>
+            <param name="expression">The expression to parse.</param>
+            <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
+            <param name="contextType">The context type for the execution of the expression.</param>
+            <param name="parameters">The parameters of the expression delegate.</param>
+            <param name="parameterNames">The names of the expression's parameters, for use with the named parameter syntax.</param>
+            <param name="errorMessage">Output for any errors that may occur.</param>
+            <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
+            <returns>Returns the emitted delegate if the expression is compiled successfully. Otherwise, null.</returns>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseExpression(System.String,Sirenix.Utilities.Editor.Expressions.EmitContext,System.String@,System.Boolean)">
+            <summary>Parses an expression and tries to emit a delegate method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="context">The emit context.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted delegate if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileExpression(System.String,Sirenix.Utilities.Editor.Expressions.EmitContext,System.Type,System.String@,System.Boolean)">
-            <summary>
-            Compiles an expression and tries to emit a delegate of the specified type.
-            </summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseExpression(System.String,Sirenix.Utilities.Editor.Expressions.EmitContext,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and tries to emit a delegate of the specified type.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="context">The emit context.</param>
             <param name="delegateType">The type of the delegate to emit.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted delegate if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileFunc``1(System.String,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionFunc method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseFunc``1(System.String,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionFunc method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted ExpressionFunc if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileFunc``2(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionFunc method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseFunc``2(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionFunc method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted ExpressionFunc if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileFunc``3(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionFunc method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseFunc``3(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionFunc method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted ExpressionFunc if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileFunc``4(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionFunc method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseFunc``4(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionFunc method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted ExpressionFunc if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileFunc``5(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionFunc method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseFunc``5(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionFunc method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted ExpressionFunc if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileFunc``6(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionFunc method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseFunc``6(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionFunc method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted ExpressionFunc if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileFunc``7(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionFunc method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseFunc``7(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionFunc method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted ExpressionFunc if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileFunc``8(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionFunc method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseFunc``8(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionFunc method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted ExpressionFunc if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileFunc``9(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionFunc method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseFunc``9(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionFunc method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted ExpressionFunc if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileFunc``10(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionFunc method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseFunc``10(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionFunc method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted ExpressionFunc if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileAction(System.String,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionAction method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseAction(System.String,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionAction method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted ExpressionAction if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileAction``1(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionAction method.</summary>
-            <param name="expression">The expression to compile.</param>
-            <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
-            <param name="contextType">The context type for the execution of the expression.</param>
-            <param name="errorMessage">Output for any errors that may occur.</param>
-            <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
-            <returns>Returns the emitted ExpressionAction if the expression is compiled successfully. Otherwise, null.</returns>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileAction``2(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionAction method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseAction``1(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionAction method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted ExpressionAction if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileAction``3(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionAction method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseAction``2(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionAction method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted ExpressionAction if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileAction``4(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionAction method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseAction``3(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionAction method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted ExpressionAction if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileAction``5(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionAction method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseAction``4(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionAction method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted ExpressionAction if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileAction``6(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionAction method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseAction``5(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionAction method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted ExpressionAction if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileAction``7(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionAction method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseAction``6(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionAction method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted ExpressionAction if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileAction``8(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionAction method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseAction``7(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionAction method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
             <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
             <returns>Returns the emitted ExpressionAction if the expression is compiled successfully. Otherwise, null.</returns>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionCompilerUtility.CompileAction``9(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
-            <summary>Compiles an expression and emits an ExpressionAction method.</summary>
-            <param name="expression">The expression to compile.</param>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseAction``8(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionAction method.</summary>
+            <param name="expression">The expression to parse.</param>
+            <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
+            <param name="contextType">The context type for the execution of the expression.</param>
+            <param name="errorMessage">Output for any errors that may occur.</param>
+            <param name="richTextError">If <c>true</c> then error message will be formatted with color tags. Otherwise, the error message will be formatted with text only.</param>
+            <returns>Returns the emitted ExpressionAction if the expression is compiled successfully. Otherwise, null.</returns>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.Expressions.ExpressionUtility.ParseAction``9(System.String,System.Boolean,System.Type,System.String@,System.Boolean)">
+            <summary>Parses an expression and emits an ExpressionAction method.</summary>
+            <param name="expression">The expression to parse.</param>
             <param name="isStatic">Indicates if the expression should be static instead of instanced.</param>
             <param name="contextType">The context type for the execution of the expression.</param>
             <param name="errorMessage">Output for any errors that may occur.</param>
@@ -2505,9 +2058,14 @@
              </example>
              <seealso cref="T:Sirenix.Utilities.Editor.SirenixEditorGUI"/>
         </member>
-        <member name="F:Sirenix.Utilities.Editor.GUITabGroup.AnimationSpeed">
+        <member name="F:Sirenix.Utilities.Editor.GUITabGroup.t">
             <summary>
             The animation speed (1 / s)
+            </summary>
+        </member>
+        <member name="F:Sirenix.Utilities.Editor.GUITabGroup.AnimationSpeed">
+            <summary>
+            The animation speed
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.GUITabGroup.OuterRect">
@@ -2520,12 +2078,10 @@
             The inner rect of the current tab page.
             </summary>
         </member>
-        <member name="P:Sirenix.Utilities.Editor.GUITabGroup.FixedHeight">
+        <member name="M:Sirenix.Utilities.Editor.GUITabGroup.SetCurrentPage(Sirenix.Utilities.Editor.GUITabPage)">
             <summary>
             If true, the tab group will have the height equal to the biggest page. Otherwise the tab group will animate in height as well when changing page.
             </summary>
-        </member>
-        <member name="M:Sirenix.Utilities.Editor.GUITabGroup.SetCurrentPage(Sirenix.Utilities.Editor.GUITabPage)">
             <summary>
             Sets the current page.
             </summary>
@@ -2539,6 +2095,11 @@
         <member name="P:Sirenix.Utilities.Editor.GUITabGroup.T">
             <summary>
             Gets the t.
+            </summary>
+        </member>
+        <member name="P:Sirenix.Utilities.Editor.GUITabGroup.ToolbarHeight">
+            <summary>
+            The height of the tab buttons.
             </summary>
         </member>
         <member name="M:Sirenix.Utilities.Editor.GUITabGroup.RegisterTab(System.String)">
@@ -2649,6 +2210,7 @@
         <member name="P:Sirenix.Utilities.Editor.GUIHelper.ContextWidth">
             <summary>
             Gets the current editor gui context width. Only set these if you know what it does.
+            Setting this has been removed. Use PushContextWidth and PopContextWidth instead.
             </summary>
         </member>
         <member name="P:Sirenix.Utilities.Editor.GUIHelper.BetterLabelWidth">
@@ -2755,6 +2317,18 @@
             Gets the playmode color tint.
             </summary>
             <returns>The playmode color tint.</returns>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.GUIHelper.PushContextWidth(System.Single)">
+            <summary>
+            Pushes a context width to the context width stack.
+            Remember to pop the value again with <see cref="M:Sirenix.Utilities.Editor.GUIHelper.PopContextWidth"/>.
+            </summary>
+            <param name="width">The width to push.</param>
+        </member>
+        <member name="M:Sirenix.Utilities.Editor.GUIHelper.PopContextWidth">
+            <summary>
+            Pops a value pushed by <see cref="M:Sirenix.Utilities.Editor.GUIHelper.PushContextWidth(System.Single)"/>.
+            </summary>
         </member>
         <member name="M:Sirenix.Utilities.Editor.GUIHelper.PushColor(UnityEngine.Color,System.Boolean)">
             <summary>
@@ -6520,7 +6094,7 @@
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndBoxHeader">
             <summary>
-            Ends drawing a box header started by <see cref="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginToolbarBoxHeader"/>,
+            Ends drawing a box header started by <see cref="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginToolbarBoxHeader(System.Single)"/>,
             </summary>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginToolbarBox(System.String,System.Boolean,UnityEngine.GUILayoutOption[])">
@@ -6553,7 +6127,7 @@
             Ends the drawing a box with a toolbar style header started by <see cref="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginToolbarBox(UnityEngine.GUILayoutOption[])"/>.
             </summary>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginToolbarBoxHeader">
+        <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginToolbarBoxHeader(System.Single)">
             <summary>
             Begins drawing a toolbar style box header. Remember to end with <see cref="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndToolbarBoxHeader"/>.
             </summary>
@@ -6561,7 +6135,7 @@
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.EndToolbarBoxHeader">
             <summary>
-            Ends the drawing of a toolbar style box header started by <see cref="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginToolbarBoxHeader"/>.
+            Ends the drawing of a toolbar style box header started by <see cref="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginToolbarBoxHeader(System.Single)"/>.
             </summary>
         </member>
         <member name="M:Sirenix.Utilities.Editor.SirenixEditorGUI.BeginLegendBox(System.String,System.Boolean,UnityEngine.GUILayoutOption[])">
@@ -7140,6 +6714,16 @@
             Left right aligned white mini label style.
             </summary>
         </member>
+        <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.CenteredWhiteMiniLabel">
+            <summary>
+            Centered white mini label style.
+            </summary>
+        </member>
+        <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.CenteredBlackMiniLabel">
+            <summary>
+            Centered black mini label style.
+            </summary>
+        </member>
         <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.ListItem">
             <summary>
             List item style.
@@ -7348,6 +6932,11 @@
         <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.ModuleHeader">
             <summary>
             Unitys ShurikenModuleTitle GUIStyle.
+            </summary>
+        </member>
+        <member name="P:Sirenix.Utilities.Editor.SirenixGUIStyles.CardStyle">
+            <summary>
+            Draw this one manually with: new Color(1, 1, 1, EditorGUIUtility.isProSkin ? 0.25f : 0.45f)
             </summary>
         </member>
         <member name="T:Sirenix.Utilities.Editor.GUITabPage">
@@ -7581,11 +7170,12 @@
             Gets all assets of the specified type.
             </summary>
         </member>
-        <member name="M:Sirenix.Utilities.Editor.AssetUtilities.GetAllAssetsOfType(System.Type)">
+        <member name="M:Sirenix.Utilities.Editor.AssetUtilities.GetAllAssetsOfType(System.Type,System.String)">
             <summary>
             Gets all assets of the specified type.
             </summary>
             <param name="type">The type of assets to find.</param>
+            <param name="folderPath">The asset folder path.</param>
         </member>
         <member name="M:Sirenix.Utilities.Editor.AssetUtilities.GetAllAssetsOfTypeWithProgress(System.Type,System.String)">
             <summary>
@@ -7840,6 +7430,225 @@
             </summary>
             <param name="sprite"></param>
             <returns></returns>
+        </member>
+        <member name="T:Sirenix.Utilities.MemberFinderExtensions">
+            <summary>
+            Not yet documented.
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinderExtensions.FindMember(System.Type)">
+            <summary>
+            <para>Find members of the given type, while providing good error messages based on the following search filters provided.</para>
+            <para>See <see cref="T:Sirenix.Utilities.MemberFinder"/> for more information.</para>
+            </summary>
+        </member>
+        <member name="T:Sirenix.Utilities.MemberFinder">
+            <summary>
+            <para>
+            The MemberFinder is a utility class often used by Odin drawers to find fields, methods, and
+            properties while providing good user-friendly error messages based on the search criteria.
+            </para>
+            <para>
+            The MemberFinder is initialized by ether using the extensions method type.FindMember() or MemberFinder.Start(type),
+            and must be ended again using ether TryGetMember() or GetMember().
+            </para>
+            </summary>
+            <example>
+            <code>
+            // Finds any member (FieldInfo, PropertyInfo or MethodInfo) "memberName" with a return type of string.
+            string errorMessage;
+            MemberInfo myMember = typeof(MyType)
+                                    .FindMember()
+                                    .IsNamed("memberName")
+                                    .HasReturnType(typeof(string))
+                                    .HasNoParameters()
+                                    .GetMember(out errorMessage);
+            If no matching member was found, myMember will be null and errorMessage will contain a proper formatted error message based on the search filters provided.
+            </code>
+            </example>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Sirenix.Utilities.MemberFinder"/> class.
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Sirenix.Utilities.MemberFinder"/> class.
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.Start``1">
+            <summary>
+            <para>Find members of the given type, while providing good error messages based on the following search filters provided.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.Start(System.Type)">
+            <summary>
+            <para>Find members of the given type, while providing good error messages based on the following search filters provided.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.HasNoParameters">
+            <summary>
+            Can be true for both fields, properties and methods.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.IsDeclaredOnly">
+            <summary>
+            Exclude members found in base-types.
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.HasParameters(System.Type)">
+            <summary>
+            <para>Only include methods with the following parameter.</para>
+            <para>Calling this will also exclude fields and properties.</para>
+            <para>Parameter type inheritance is supported.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.HasParameters(System.Type,System.Type)">
+            <summary>
+            <para>Only include methods with the following parameters.</para>
+            <para>Calling this will also exclude fields and properties.</para>
+            <para>Parameter type inheritance is supported.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.HasParameters(System.Type,System.Type,System.Type)">
+            <summary>
+            <para>Only include methods with the following parameters.</para>
+            <para>Calling this will also exclude fields and properties.</para>
+            <para>Parameter type inheritance is supported.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.HasParameters(System.Type,System.Type,System.Type,System.Type)">
+            <summary>
+            <para>Only include methods with the following parameters.</para>
+            <para>Calling this will also exclude fields and properties.</para>
+            <para>Parameter type inheritance is supported.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.HasParameters``1">
+            <summary>
+            <para>Only include methods with the following parameters.</para>
+            <para>Calling this will also exclude fields and properties.</para>
+            <para>Parameter type inheritance is supported.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.HasParameters``2">
+            <summary>
+            <para>Only include methods with the following parameters.</para>
+            <para>Calling this will also exclude fields and properties.</para>
+            <para>Parameter type inheritance is supported.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.HasParameters``3">
+            <summary>
+            <para>Only include methods with the following parameters.</para>
+            <para>Calling this will also exclude fields and properties.</para>
+            <para>Parameter type inheritance is supported.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.HasParameters``4">
+            <summary>
+            <para>Only include methods with the following parameters.</para>
+            <para>Calling this will also exclude fields and properties.</para>
+            <para>Parameter type inheritance is supported.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.HasReturnType(System.Type,System.Boolean)">
+            <summary>
+            Determines whether [has return type] [the specified return type].
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.HasReturnType``1(System.Boolean)">
+            <summary>
+            Can be true for both fields, properties and methods.
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.IsFieldOrProperty">
+            <summary>
+            Calls IsField() and IsProperty().
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.IsStatic">
+            <summary>
+            Only include static members. By default, both static and non-static members are included.
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.IsInstance">
+            <summary>
+            Only include non-static members. By default, both static and non-static members are included.
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.IsNamed(System.String)">
+            <summary>
+            Specify the name of the member.
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.IsProperty">
+            <summary>
+            <para>Excludes fields and methods if nether IsField() or IsMethod() is called. Otherwise includes properties.</para>
+            <para>By default, all member types are included.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.IsMethod">
+            <summary>
+            <para>Excludes fields and properties if nether IsField() or IsProperty() is called. Otherwise includes methods.</para>
+            <para>By default, all member types are included.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.IsField">
+            <summary>
+            <para>Excludes properties and methods if nether IsProperty() or IsMethod() is called. Otherwise includes fields.</para>
+            <para>By default, all member types are included.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.IsPublic">
+            <summary>
+            <para>Excludes non-public members if IsNonPublic() has not yet been called. Otherwise includes public members.</para>
+            <para>By default, both public and non-public members are included.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.IsNonPublic">
+            <summary>
+            <para>Excludes public members if IsPublic() has not yet been called. Otherwise includes non-public members.</para>
+            <para>By default, both public and non-public members are included.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.ReturnsVoid">
+            <summary>
+            Excludes fields and properties, and only includes methods with a return type of void.
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.GetMember``1">
+            <summary>
+            <para>Gets the member based on the search filters provided</para>
+            <para>Returns null if no member was found.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.GetMember``1(System.String@)">
+            <summary>
+            <para>Gets the member based on the search filters provided, and provides a proper error message if no members was found.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.GetMember(System.String@)">
+            <summary>
+            <para>Gets the member based on the search filters provided, and provides a proper error message if no members was found.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.TryGetMember``1(``0@,System.String@)">
+            <summary>
+            <para>Try gets the member based on the search filters provided, and provides a proper error message if no members was found.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.TryGetMember(System.Reflection.MemberInfo@,System.String@)">
+            <summary>
+            <para>Try gets the member based on the search filters provided, and provides a proper error message if no members was found.</para>
+            </summary>
+        </member>
+        <member name="M:Sirenix.Utilities.MemberFinder.TryGetMembers(System.Reflection.MemberInfo[]@,System.String@)">
+            <summary>
+            <para>Try gets all members based on the search filters provided, and provides a proper error message if no members was found.</para>
+            </summary>
         </member>
         <member name="P:Sirenix.OdinInspector.Editor.IResizableColumn.ColWidth">
             <summary>

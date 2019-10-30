@@ -283,7 +283,7 @@ namespace Jing
 
         void SetError(string error)
         {
-            Log.E("下载失败 [{0}] ：{1}", _url, error);
+            Debug.LogErrorFormat("下载失败 [{0}] ：{1}", _url, error);
 
             //删除文件
             if(File.Exists(savePath))

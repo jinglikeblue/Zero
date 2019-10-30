@@ -1,4 +1,5 @@
-﻿using ILGenerated;
+﻿using IL;
+using ILGenerated;
 using ILZero;
 using System;
 using UnityEngine;
@@ -11,9 +12,6 @@ namespace ILDemo
         public DemoMain()
         {
             Init();
-            RegistStages();
-            RegistUIPanel();
-            RegistUIWin();
             Go();
         }
 
@@ -24,37 +22,10 @@ namespace ILDemo
             AudioDevice.Create("bgm");
             AudioDevice.Create("effect");
 
-            var ILContent = GameObject.Find("ILContent");
-            var stageRoot = ILContent.transform.Find("Stage");
-            var uiPanelRoot = ILContent.transform.Find("UICanvas/UIPanel");
-            var uiWinRoot = ILContent.transform.Find("UICanvas/UIWin");
-
-            StageMgr.Ins.Init(stageRoot);
-            UIPanelMgr.Ins.Init(uiPanelRoot);
-            UIWinMgr.Ins.Init(uiWinRoot);
-        }
-
-
-        void RegistStages()
-        {
-            RegistView<GameStage>(AssetBundleName.PREFABS_STAGES);
-        }
-
-        void RegistUIPanel()
-        {
-            RegistView<MenuPanel>(AssetBundleName.PREFABS_PANELS);
-            RegistView<GamePanel>(AssetBundleName.PREFABS_PANELS);
-        }
-
-        void RegistUIWin()
-        {
-            RegistView<HelpWin>(AssetBundleName.PREFABS_WINS);
-        }
-
-        void RegistView<T>(string abName)
-        {
-            Type t = typeof(T);
-            ViewFactory.Register(abName, t.Name, t);
+            //加载ILRuntimePrefab;
+            GameObject mainPrefab = ResMgr.Ins.Load<GameObject>(ZeroConst.ROOT_AB_FILE_NAME, "ILContent");
+            var ilContent = ViewFactory.Create<ILContentView>(mainPrefab, null);
+            ilContent.gameObject.name = mainPrefab.name;
         }
 
         public void Go()

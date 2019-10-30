@@ -14,31 +14,31 @@ namespace Zero.Edit
     /// Zero编辑器的常量
     /// </summary>
     public class ZeroEditorConst
-    {        
+    {
         /// <summary>
-        /// 资源发布目录
+        /// 编辑器配置文件目录
         /// </summary>
-        static public string PUBLISH_RES_ROOT_DIR = FileSystem.CombineDirs(false, "Res", ZeroConst.PLATFORM_DIR_NAME);
+        static public string EDITOR_CONFIG_DIR = FileSystem.CombineDirs(false, ZeroConst.ZERO_LIBRARY_DIR, "EditorConfigs");
 
         /// <summary>
         /// DLL打包的发布目录
         /// </summary>
-        static public string DLL_PUBLISH_DIR = FileSystem.CombineDirs(false, PUBLISH_RES_ROOT_DIR, ZeroConst.DLL_DIR_NAME);
+        static public string DLL_PUBLISH_DIR = FileSystem.CombineDirs(false, ZeroConst.PUBLISH_RES_ROOT_DIR, ZeroConst.DLL_DIR_NAME);
 
         /// <summary>
         /// AssetBundle打包的发布目录
         /// </summary>
-        static public string ASSET_BUNDLE_PUBLISH_DIR = FileSystem.CombineDirs(false, PUBLISH_RES_ROOT_DIR, ZeroConst.AB_DIR_NAME);
+        static public string ASSET_BUNDLE_PUBLISH_DIR = FileSystem.CombineDirs(false, ZeroConst.PUBLISH_RES_ROOT_DIR, ZeroConst.AB_DIR_NAME);
 
         /// <summary>
         /// 配置的发布目录
         /// </summary>
-        static public string CONFIG_PUBLISH_DIR = FileSystem.CombineDirs(false, PUBLISH_RES_ROOT_DIR, ZeroConst.CONFIG_DIR_NAME);
+        static public string CONFIG_PUBLISH_DIR = FileSystem.CombineDirs(false, ZeroConst.PUBLISH_RES_ROOT_DIR, ZeroConst.CONFIG_DIR_NAME);
 
         /// <summary>
         /// AssetBundle打包缓存目录
         /// </summary>
-        static public string ASSET_BUNDLE_CACHE_DIR = FileSystem.CombineDirs(false, "Library", "ZeroHotResCache", ZeroConst.AB_DIR_NAME);
+        static public string ASSET_BUNDLE_CACHE_DIR = FileSystem.CombineDirs(false, ZeroConst.ZERO_LIBRARY_DIR, "ReleaseCache", ZeroConst.AB_DIR_NAME);
 
         /// <summary>
         /// 热更代码的根目录

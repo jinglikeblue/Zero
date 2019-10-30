@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Zero
@@ -24,7 +25,7 @@ namespace Zero
 
         public ILRuntimeILWorker(byte[] dllBytes, string libDir, string libName, bool isDebug, bool isNeedPdbFile)
         {
-            Log.CI(Log.COLOR_ORANGE, "外部程序集执行方式：[ILRuntime]");
+            Debug.Log(Log.Zero1("外部程序集执行方式：[ILRuntime]"));
 
             //首先实例化ILRuntime的AppDomain，AppDomain是一个应用程序域，每个AppDomain都是一个独立的沙盒
             _appdomain = new ILRuntime.Runtime.Enviorment.AppDomain();

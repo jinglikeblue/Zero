@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Demos/RouShan/RouShan.unity
+    path: Assets/Demo/DemoScene.unity
     guid: 6015799b897e81d47901b9de6cb66782
   m_configObjects: {}

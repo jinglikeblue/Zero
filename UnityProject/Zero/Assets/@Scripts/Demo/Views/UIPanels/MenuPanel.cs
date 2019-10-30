@@ -24,7 +24,7 @@ namespace ILDemo
             btnHelp.onClick.AddListener(OpenHelpWin);
         }
 
-        protected override void OnInit()
+        protected override void OnInit(object data)
         {
             btnTap = GetChild("BtnTap").gameObject;
             btnHelp = GetChildComponent<Button>("BtnHelp");
