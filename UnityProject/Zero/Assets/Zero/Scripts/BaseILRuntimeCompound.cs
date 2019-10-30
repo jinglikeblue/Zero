@@ -6,9 +6,9 @@
     /// 报错代码类似：KeyNotFoundException: Cannot find Delegate Adapter for:[XXX], Please add following code:
     /// 这时只需要将报错内容提示的代码(following code下面一行)粘贴到该类的Register方法中即可。
     /// </summary>
-    public abstract class BaseILRuntimeGenerics 
+    public abstract class BaseILRuntimeCompound 
     {
-        public BaseILRuntimeGenerics()
+        public BaseILRuntimeCompound()
         {
 
         }

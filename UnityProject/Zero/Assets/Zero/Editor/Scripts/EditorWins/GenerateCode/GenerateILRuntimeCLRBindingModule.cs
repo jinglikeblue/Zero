@@ -30,13 +30,31 @@ namespace Zero.Edit
         [LabelText("生成绑定代码"), Button(ButtonSizes.Large)]
         void GenerateCLRBindingScripts()
         {
-            var dllFile = UnityEditor.EditorUtility.OpenFilePanel("选择热更DLL", ZeroConst.PUBLISH_RES_ROOT_DIR, "dll");
-            if (false == string.IsNullOrEmpty(dllFile))
+            EditorUtility.DisplayProgressBar("生成绑定代码", "清空旧的绑定代码", 0f);
+            FileUtil.DeleteFileOrDirectory(GENERATED_OUTPUT_DIR);
+            EditorUtility.DisplayProgressBar("生成绑定代码", "构建新的scripts.dll", 0.5f);            
+            var cmd = new DllBuildCommand(ZeroEditorConst.HOT_SCRIPT_ROOT_DIR, ZeroEditorConst.DLL_PUBLISH_DIR);
+            cmd.onFinished += OnDllBuildFinished;
+            cmd.Execute();
+        }
+
+        private void OnDllBuildFinished(DllBuildCommand cmd, bool isSuccess)
+        {
+            cmd.onFinished -= OnDllBuildFinished;            
+            if (isSuccess)
             {
-                GenerateCLRBindingByAnalysis(dllFile, GENERATED_OUTPUT_DIR);
-                EditorUtility.DisplayDialog("提示", "成功！", "OK");
-                AssetDatabase.Refresh();
+                EditorUtility.DisplayProgressBar("生成绑定代码", "解析生成绑定代码", 0.9f);
+                //构建成功后开始解析生成绑定代码
+                GenerateCLRBindingByAnalysis(cmd.assemblyPath, GENERATED_OUTPUT_DIR);                
+                editorWin.ShowTip("完成!");
             }
+            else
+            {                
+                editorWin.ShowTip("生成绑定代码失败!");
+            }
+
+            EditorUtility.ClearProgressBar();
+            AssetDatabase.Refresh();
         }
 
         [PropertySpace(10)]

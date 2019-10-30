@@ -20,6 +20,17 @@ namespace Zero.Edit
 
         string _outputAssemblyPath;
 
+        /// <summary>
+        /// 代码地址
+        /// </summary>
+        public string assemblyPath
+        {
+            get
+            {
+                return _outputAssemblyPath;
+            }
+        }
+
         public DllBuildCommand(string sourcesDir, string outputDir)
         {
             _sourcesDir = sourcesDir;

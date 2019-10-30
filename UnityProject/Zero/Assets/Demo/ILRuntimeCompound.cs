@@ -2,7 +2,7 @@
 
 namespace Demo
 {
-    public class DemoILRuntimeGenerics : BaseILRuntimeGenerics
+    public class ILRuntimeCompound : BaseILRuntimeCompound
     {
         public override void Register(ILRuntime.Runtime.Enviorment.AppDomain appdomain)
         {

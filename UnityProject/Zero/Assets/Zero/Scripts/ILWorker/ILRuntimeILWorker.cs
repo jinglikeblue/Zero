@@ -8,13 +8,13 @@ namespace Zero
 {
     public class ILRuntimeILWorker : BaseILWorker
     {
-        static private List<BaseILRuntimeGenerics> _rgList = new List<BaseILRuntimeGenerics>();
+        static private List<BaseILRuntimeCompound> _rgList = new List<BaseILRuntimeCompound>();
 
         /// <summary>
         /// 注册ILRuntime的适配器注册类
         /// </summary>
         /// <param name="rg"></param>
-        internal static void RegisterILRuntimeGenerics(BaseILRuntimeGenerics rg)
+        internal static void RegisterILRuntimeGenerics(BaseILRuntimeCompound rg)
         {
             _rgList.Add(rg);
         }
