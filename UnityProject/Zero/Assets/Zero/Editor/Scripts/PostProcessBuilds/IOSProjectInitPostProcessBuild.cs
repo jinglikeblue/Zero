@@ -24,7 +24,7 @@ namespace Zero.Edit.IOS
                 return;
             }
 
-            var cfg = EditorConfigUtil.LoadConfig<IOSProjectInitConfigVO>(IOSProjectInitConfigVO.CONFIG_NAME);
+            var cfg = EditorConfigUtil.LoadConfig<IOSProjectInitConfigVO>(IOSProjectInitModule.CONFIG_NAME);
 
             string projPath = PBXProject.GetPBXProjectPath(path);
             PBXProject pbx = new PBXProject();
