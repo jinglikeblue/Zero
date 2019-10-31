@@ -1,9 +1,5 @@
 ﻿using ILDemo;
-using ZeroGenerated;
-using ZeroHot;
 using System;
-using UnityEngine;
-using Zero;
 
 namespace ZeroHot
 {

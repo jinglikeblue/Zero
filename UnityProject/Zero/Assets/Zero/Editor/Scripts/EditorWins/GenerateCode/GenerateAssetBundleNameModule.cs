@@ -20,7 +20,7 @@ namespace ZeroEditor
 
         const string TEMPLATE_FILE = "Assets/Zero/Editor/Configs/AssetBundleNameClassTemplate.txt";
 
-        const string OUTPUT_CLASS_FILE = "Assets/@Scripts/Generated/AssetBundleName.cs";
+        const string OUTPUT_CLASS_FILE = "Assets/@Scripts/Zero/Generated/AssetBundleName.cs";
 
         const string FIELD_EXPLAIN_FORMAT = "\t\t" + @"/// <summary>
         /// {0}
