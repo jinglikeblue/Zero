@@ -1,4 +1,4 @@
-﻿namespace Zero.Edit
+﻿namespace ZeroEditor
 {
     public static class EditorWindowExtensions
     {

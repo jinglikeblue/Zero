@@ -11,7 +11,7 @@ using System.Threading;
 using UnityEditor;
 using UnityEngine;
 
-namespace Zero.Edit
+namespace ZeroEditor
 {
     public class GenerateCodeEditorWin : OdinMenuEditorWindow
     {

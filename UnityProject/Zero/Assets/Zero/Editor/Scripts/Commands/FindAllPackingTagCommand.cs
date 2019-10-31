@@ -4,7 +4,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace Zero.Edit
+namespace ZeroEditor
 {
     class FindAllPackingTagCommand
     {

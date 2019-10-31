@@ -1,6 +1,6 @@
 using Zero;
 
-namespace ILGenerated
+namespace ZeroGenerated
 {
     /// <summary>
     /// [自动生成的]AssetBundle名称

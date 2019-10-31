@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Xml;
 using UnityEngine;
 
-namespace Zero.Edit
+namespace ZeroEditor
 {
     public class CreateLinkXMLCommand
     {

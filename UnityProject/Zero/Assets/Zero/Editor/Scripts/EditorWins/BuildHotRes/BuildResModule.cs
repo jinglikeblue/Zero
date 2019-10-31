@@ -10,8 +10,9 @@ using System.Text;
 using System.Threading;
 using UnityEditor;
 using UnityEngine;
+using Zero;
 
-namespace Zero.Edit
+namespace ZeroEditor
 {
     public class BuildResModule : AEditorModule
     {

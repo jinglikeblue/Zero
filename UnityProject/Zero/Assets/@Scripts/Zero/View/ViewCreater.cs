@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zero;
 
-namespace ILZero
+namespace ZeroHot
 {
     /// <summary>
     /// 视图创建器

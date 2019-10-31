@@ -23,7 +23,7 @@ namespace Zero
         /// <summary>
         /// @Scripts中的代码启动类
         /// </summary>
-        public const string LOGIC_SCRIPT_STARTUP_CLASS_NAME = "IL.Main";
+        public const string LOGIC_SCRIPT_STARTUP_CLASS_NAME = "ZeroHot.Main";
 
         /// <summary>
         /// @Scripts中的代码启动方法

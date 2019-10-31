@@ -4,8 +4,9 @@ using System.IO;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;
+using Zero;
 
-namespace Zero.Edit
+namespace ZeroEditor
 {
     public class DllBuildCommand 
     {

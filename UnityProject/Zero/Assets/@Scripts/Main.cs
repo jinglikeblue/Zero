@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zero;
 
-namespace IL
+namespace ZeroHot
 {
     public class Main
     {

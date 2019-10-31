@@ -1,7 +1,8 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEditor;
+using Zero;
 
-namespace Zero.Edit
+namespace ZeroEditor
 {
     public class GenerateILRuntimeCLRBindingModule : AEditorModule
     {

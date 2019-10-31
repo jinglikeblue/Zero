@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEditor;
 
-namespace Zero.Edit
+namespace ZeroEditor
 {
     public class AEditorModule
     {

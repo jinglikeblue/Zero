@@ -7,8 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
+using Zero;
 
-namespace Zero.Edit
+namespace ZeroEditor
 {
     /// <summary>
     /// Zero编辑器的常量

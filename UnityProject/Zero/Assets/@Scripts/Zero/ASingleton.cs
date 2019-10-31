@@ -1,4 +1,4 @@
-﻿namespace ILZero
+﻿namespace ZeroHot
 {
     /// <summary>
     /// 单例模式基类

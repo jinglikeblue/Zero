@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEditor.Callbacks;
 using UnityEditor.iOS.Xcode;
 
-namespace Zero.Edit.IOS
+namespace ZeroEditor.IOS
 {
     /// <summary>
     /// XCODE项目的初始化
