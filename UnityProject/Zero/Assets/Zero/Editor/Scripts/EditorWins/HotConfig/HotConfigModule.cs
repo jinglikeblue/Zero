@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Text;
 using Jing;
 using System.IO;
+using Zero;
 
 namespace ZeroEditor
 {
@@ -15,7 +16,7 @@ namespace ZeroEditor
 
         public HotConfigModule(Type type, string path, EditorWindow editorWin) : base(editorWin)
         {
-            _path = FileSystem.CombinePaths(ZeroEditorConst.HOT_CONFIG_ROOT_DIR, path);
+            _path = FileSystem.CombinePaths(ZeroConst.HOT_CONFIGS_ROOT_DIR, path);
 
             if (File.Exists(_path))
             {

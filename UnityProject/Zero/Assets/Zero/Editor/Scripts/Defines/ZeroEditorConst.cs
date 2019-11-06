@@ -47,11 +47,6 @@ namespace ZeroEditor
         static public string HOT_SCRIPT_ROOT_DIR = "Assets/@Scripts";
 
         /// <summary>
-        /// 热更配置的根目录
-        /// </summary>
-        static public string HOT_CONFIG_ROOT_DIR = "Assets/@Configs";
-
-        /// <summary>
         /// 当前发布平台
         /// </summary>
         static public BuildTarget BUILD_PLATFORM

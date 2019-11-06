@@ -44,6 +44,9 @@ namespace Zero
 
                 //模糊匹配资源名称
                 var files = Directory.GetFiles(dir);
+
+                bool isAssetNameContainExt = assetName.Contains(".");
+
                 foreach (var file in files)
                 {
                     if (Path.GetExtension(file) == ".meta")
@@ -51,7 +54,11 @@ namespace Zero
                         continue;
                     }
 
-                    if (Path.GetFileNameWithoutExtension(file) == assetName)
+                    if (isAssetNameContainExt && Path.GetFileName(file) == assetName)
+                    {
+                        return file;
+                    }
+                    else if(Path.GetFileNameWithoutExtension(file) == assetName)
                     {
                         return file;
                     }
@@ -71,7 +78,7 @@ namespace Zero
 
         public override T Load<T>(string abName, string assetName)
         {
-#if UNITY_EDITOR
+#if UNITY_EDITOR            
             string path = AssetBundlePath2ResourcePath(abName, assetName);
             var asset = UnityEditor.AssetDatabase.LoadAssetAtPath<T>(path);
             if (null == asset)

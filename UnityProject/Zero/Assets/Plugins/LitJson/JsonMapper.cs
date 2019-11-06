@@ -327,7 +327,7 @@ namespace LitJson
             return op;
         }
 
-        private static object ReadValue (Type inst_type, JsonReader reader)
+        public static object ReadValue (Type inst_type, JsonReader reader, string fieldName = null)
         {
             reader.Read ();
 
@@ -399,8 +399,8 @@ namespace LitJson
 
                 // No luck
                 throw new JsonException (String.Format (
-                        "Can't assign value '{0}' (type {1}) to type {2}",
-                        reader.Value, json_type, inst_type));
+                        "Can't assign value '{0}' (type {1}) to type {2} [{3}]",
+                        reader.Value, json_type, inst_type, fieldName));
             }
 
             object instance = null;
@@ -466,7 +466,7 @@ namespace LitJson
 
                         if (prop_data.IsField) {
                             ((FieldInfo) prop_data.Info).SetValue (
-                                instance, ReadValue (prop_data.Type, reader));
+                                instance, ReadValue (prop_data.Type, reader, prop_data.Info.Name));
                         } else {
                             PropertyInfo p_info =
                                 (PropertyInfo) prop_data.Info;
@@ -711,6 +711,11 @@ namespace LitJson
             };
             RegisterImporter (base_importers_table, typeof (string),
                               typeof (DateTime), importer);
+            importer = delegate (object input) {
+                return Convert.ToSingle((double)input);
+            };
+            RegisterImporter(base_importers_table, typeof(double),
+                              typeof(float), importer);
         }
 
         private static void RegisterImporter (
@@ -804,6 +809,11 @@ namespace LitJson
                 return;
             }
 
+            if(obj is Single)
+            {
+                writer.Write((float)obj);
+                return;
+            }
             Type obj_type;
             if (obj is ILRuntime.Runtime.Intepreter.ILTypeInstance)
             {

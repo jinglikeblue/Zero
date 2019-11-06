@@ -73,9 +73,14 @@ namespace Zero
         #region 基于项目根目录的路径
 
         /// <summary>
-        /// 热更资源在项目中根目录
+        /// 热更资源在项目中的根目录
         /// </summary>
         static public string HOT_RESOURCES_ROOT_DIR = "Assets/@Resources";
+
+        /// <summary>
+        /// 热更配置在项目中的根目录
+        /// </summary>
+        static public string HOT_CONFIGS_ROOT_DIR = "Assets/@Configs";
 
         /// <summary>
         /// Zero框架的Library目录
