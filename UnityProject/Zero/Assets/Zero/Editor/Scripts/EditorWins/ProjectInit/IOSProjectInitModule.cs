@@ -11,7 +11,7 @@ using System.Threading;
 using UnityEditor;
 using UnityEngine;
 
-namespace Zero.Edit
+namespace ZeroEditor
 {
     class IOSProjectInitModule : AEditorModule
     {
@@ -22,6 +22,10 @@ namespace Zero.Edit
         public IOSProjectInitModule(EditorWindow editorWin) : base(editorWin)
         {
             _cfg = EditorConfigUtil.LoadConfig<IOSProjectInitConfigVO>(CONFIG_NAME);
+            if(null == _cfg)
+            {
+                _cfg = new IOSProjectInitConfigVO();
+            }
             frameworkToProjectList = _cfg.frameworkToProjectList;
             file2BuildList = _cfg.file2BuildList;
             setBuildProperty = _cfg.buildPropertyList;

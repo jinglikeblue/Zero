@@ -7,8 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
+using Zero;
 
-namespace Zero.Edit
+namespace ZeroEditor
 {
     /// <summary>
     /// Zero编辑器的常量
@@ -44,11 +45,6 @@ namespace Zero.Edit
         /// 热更代码的根目录
         /// </summary>
         static public string HOT_SCRIPT_ROOT_DIR = "Assets/@Scripts";
-
-        /// <summary>
-        /// 热更配置的根目录
-        /// </summary>
-        static public string HOT_CONFIG_ROOT_DIR = "Assets/@Configs";
 
         /// <summary>
         /// 当前发布平台

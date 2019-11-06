@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using Zero;
 
-namespace ILZero
+namespace ZeroHot
 {
     /// <summary>
     /// 视图对象

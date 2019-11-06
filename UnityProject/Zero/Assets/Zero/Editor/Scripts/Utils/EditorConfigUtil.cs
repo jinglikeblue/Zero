@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace Zero.Edit
+namespace ZeroEditor
 {
     public class EditorConfigUtil
     {

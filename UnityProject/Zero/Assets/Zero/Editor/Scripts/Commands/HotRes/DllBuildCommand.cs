@@ -4,8 +4,9 @@ using System.IO;
 using UnityEditor;
 using UnityEditor.Compilation;
 using UnityEngine;
+using Zero;
 
-namespace Zero.Edit
+namespace ZeroEditor
 {
     public class DllBuildCommand 
     {
@@ -19,6 +20,17 @@ namespace Zero.Edit
         string _outputDir;
 
         string _outputAssemblyPath;
+
+        /// <summary>
+        /// 代码地址
+        /// </summary>
+        public string assemblyPath
+        {
+            get
+            {
+                return _outputAssemblyPath;
+            }
+        }
 
         public DllBuildCommand(string sourcesDir, string outputDir)
         {

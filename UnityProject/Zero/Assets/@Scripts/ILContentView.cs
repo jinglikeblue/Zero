@@ -1,11 +1,7 @@
 ﻿using ILDemo;
-using ILGenerated;
-using ILZero;
 using System;
-using UnityEngine;
-using Zero;
 
-namespace IL
+namespace ZeroHot
 {
     public class ILContentView : AView
     {

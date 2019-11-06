@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace ILZero
+namespace ZeroHot
 {
     /// <summary>
     /// 复数的视图层，该层中的视图，可以同时存在

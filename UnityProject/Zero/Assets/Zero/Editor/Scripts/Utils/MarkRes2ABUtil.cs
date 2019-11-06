@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using UnityEditor;
 
-namespace Zero.Edit
+namespace ZeroEditor
 {
     /// <summary>
     /// 将资源打上AB标记

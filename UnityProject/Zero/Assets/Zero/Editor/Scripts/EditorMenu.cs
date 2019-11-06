@@ -2,8 +2,9 @@
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using Zero;
 
-namespace Zero.Edit
+namespace ZeroEditor
 {
     /// <summary>
     /// Zero框架编辑器菜单
@@ -14,6 +15,12 @@ namespace Zero.Edit
         public static void HotResBuild()
         {
             BuildHotResEditorWin.Open();
+        }
+
+        [MenuItem("Zero/数据配置编辑", false, 100)]
+        public static void Configs()
+        {
+            HotConfigEditorWin.Open("数据配置编辑");
         }
 
         [MenuItem("Zero/自动生成代码", false, 200)]

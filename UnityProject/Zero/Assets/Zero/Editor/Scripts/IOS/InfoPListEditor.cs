@@ -2,7 +2,7 @@
 using System.IO;
 using UnityEditor.iOS.Xcode;
 
-namespace Zero.Edit.IOS
+namespace ZeroEditor.IOS
 {
     /// <summary>
     /// 修改XCODE项目中的info.plist文件

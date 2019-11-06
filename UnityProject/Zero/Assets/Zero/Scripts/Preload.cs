@@ -69,13 +69,8 @@ namespace Zero
         /// 开始激活预加载
         /// </summary>
         /// <param name="rg"></param>
-        public void StartPreload(BaseILRuntimeGenerics rg = null)
+        public void StartPreload()
         {            
-            if(null != rg)
-            {
-                ILRuntimeILWorker.RegisterILRuntimeGenerics(rg);
-            }
-
             //初始化运行环境配置环境
             Runtime.Ins.Init(runtimeCfg);
 

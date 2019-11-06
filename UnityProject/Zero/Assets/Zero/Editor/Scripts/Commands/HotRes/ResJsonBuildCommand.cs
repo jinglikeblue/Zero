@@ -4,8 +4,9 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEditor;
+using Zero;
 
-namespace Zero.Edit
+namespace ZeroEditor
 {
     /// <summary>
     /// 版本号文件生成命令。针对目标目录中的所有文件生成一个res.json文件，描述其MD5以及文件大小

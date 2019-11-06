@@ -12,7 +12,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace Zero.Edit
+namespace ZeroEditor
 {
     public class AssetsOptimizesEditorWin : OdinMenuEditorWindow
     {

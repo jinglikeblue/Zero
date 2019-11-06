@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zero;
 
-namespace ILZero
+namespace ZeroHot
 {
     /// <summary>
     /// 视图工厂

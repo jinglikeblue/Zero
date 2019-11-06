@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using Zero;
-using ILZero;
-using System;
-using ILGenerated;
+using ZeroHot;
 
 namespace ILDemo
 {

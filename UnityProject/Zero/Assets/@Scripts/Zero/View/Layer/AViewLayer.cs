@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ILZero
+namespace ZeroHot
 {
     public abstract class AViewLayer
     {
