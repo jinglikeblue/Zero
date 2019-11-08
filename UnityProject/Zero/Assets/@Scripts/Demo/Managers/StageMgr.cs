@@ -63,5 +63,10 @@ namespace ILDemo
         {
             _layer.Clear();
         }
+
+        public override void Destroy()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

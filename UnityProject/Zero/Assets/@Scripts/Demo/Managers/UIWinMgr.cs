@@ -191,5 +191,10 @@ namespace ILDemo
             _blur.gameObject.SetActive(false);
             _layer.Clear();
         }
+
+        public override void Destroy()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

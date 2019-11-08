@@ -42,7 +42,7 @@ namespace Zero
         //public string hotResRoot = ZeroConst.HOT_RESOURCES_ROOT_DIR;
 
         [Title("热更代码配置")]
-        [LabelText("使用DLL"), ShowIf("isHotResProject")]
+        [LabelText("使用DLL"), ShowIf("isHotResProject")]        
         public bool isUseDll;
 
         [LabelText("DLL执行方式"), ValueDropdown("ILType"), ShowIf("isHotResProject"), ShowIf("isUseDll")]

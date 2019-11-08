@@ -1,10 +1,18 @@
 ﻿namespace ZeroHot
 {
+    public abstract class BaseSingleton
+    {
+        /// <summary>
+        /// 执行销毁
+        /// </summary>
+        public abstract void Destroy();
+    };
+
     /// <summary>
     /// 单例模式基类
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public abstract class ASingleton<T> where T:new()
+    public abstract class ASingleton<T> : BaseSingleton where T : BaseSingleton, new()
     {
         private static object _singletonLock = new object(); //锁同步
 
@@ -15,7 +23,8 @@
         /// </summary>
         public static T Ins
         {
-            get {
+            get
+            {
                 lock (_singletonLock)
                 {
                     if (null == _ins)
@@ -32,6 +41,7 @@
         /// </summary>
         public static void ResetIns()
         {
+            _ins.Destroy();
             _ins = default(T);
         }
 

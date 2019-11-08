@@ -41,8 +41,15 @@ namespace ZeroEditor
         }
 
         protected void AddModule<Module>(string path, EditorIcon icon = null) where Module : AEditorModule
-        {            
-            menuTree.Add(path, Activator.CreateInstance(typeof(Module), new object[] { this}), icon);
-        }
+        {
+            if (null == icon)
+            {
+                menuTree.Add(path, Activator.CreateInstance(typeof(Module), new object[] { this }));
+            }
+            else
+            {
+                menuTree.Add(path, Activator.CreateInstance(typeof(Module), new object[] { this }), icon);
+            }
+        }        
     }
 }

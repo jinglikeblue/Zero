@@ -18,7 +18,7 @@ namespace ZeroEditor
 
         public AEditorModule(EditorWindow editorWin)
         {
-            this.editorWin = editorWin;
+            this.editorWin = editorWin;            
         }
     }
 }
