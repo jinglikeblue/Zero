@@ -48,7 +48,7 @@ namespace ZeroEditor
             var scriptPaths = Directory.GetFiles(_sourcesDir, "*.cs", SearchOption.AllDirectories);
             var ab = new AssemblyBuilder(_outputAssemblyPath, scriptPaths);
             ab.compilerOptions = new ScriptCompilerOptions();
-            ab.flags = AssemblyBuilderFlags.DevelopmentBuild;
+            ab.flags = AssemblyBuilderFlags.DevelopmentBuild | AssemblyBuilderFlags.EditorAssembly;
             ab.additionalReferences = GetDepends();                       
             ab.buildFinished += OnFinished;
             if (false == ab.Build())
