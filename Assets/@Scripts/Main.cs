@@ -9,7 +9,7 @@ namespace ZeroHot
         /// 入口方法
         /// </summary>
         public static void Startup()
-        {            
+        {
             new ILDemo.DemoMain();
         }
     }
