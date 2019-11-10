@@ -216,8 +216,8 @@ namespace marijnz.EditorCoroutines
 		}
 
 		void Initialize()
-		{
-			previousTimeSinceStartup = DateTime.Now;
+		{            
+            previousTimeSinceStartup = DateTime.Now;
 			EditorApplication.update += OnUpdate;
 		}
 

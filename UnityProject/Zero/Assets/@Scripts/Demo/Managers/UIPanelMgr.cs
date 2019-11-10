@@ -13,6 +13,10 @@ namespace ILDemo
     {
         SingularViewLayer _layer;
 
+        public UIPanelMgr()
+        {
+        }
+
         public void Init(Transform root)
         {
             if (null == _layer)
@@ -62,6 +66,11 @@ namespace ILDemo
         public void Clear()
         {
             _layer.Clear();
+        }
+
+        public override void Destroy()
+        {
+            throw new NotImplementedException();
         }
     }
 }

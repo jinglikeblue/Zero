@@ -28,6 +28,7 @@
         - [查找项目无用资源](FindUselessAssetsEditor.md)         
 - ILRuntime[(官方网站)](http://ourpalm.github.io/ILRuntime/public/v1/guide/index.html)        
 - [Q&A](QuestionAnswer.md)
+- [注意事项](Warning.md)
 
 
 ---

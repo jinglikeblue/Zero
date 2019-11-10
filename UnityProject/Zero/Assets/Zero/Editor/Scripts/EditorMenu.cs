@@ -13,7 +13,7 @@ namespace ZeroEditor
     {
         [MenuItem("Zero/热更新", false, 0)]
         public static void HotResBuild()
-        {
+        {            
             BuildHotResEditorWin.Open();
         }
 

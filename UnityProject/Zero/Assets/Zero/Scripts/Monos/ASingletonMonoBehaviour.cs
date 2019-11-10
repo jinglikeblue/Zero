@@ -25,8 +25,7 @@ namespace Zero
                     {
                         var go = new GameObject();
                         go.name = typeof(T).Name;
-                        go.AddComponent<T>();
-                        _ins = go.GetComponent<T>();
+                        _ins = go.AddComponent<T>();                        
                     }
 
                     DontDestroyOnLoad(_ins.gameObject);

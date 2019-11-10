@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
-using Zero;
 
 namespace Zero
 {
@@ -72,7 +73,7 @@ namespace Zero
 
             Assembly assembly = null;
 
-            //开发时，优先保证代码在ILRuntime下能够正常运行
+            //如果是反射执行模式，则优先检查是否反射执行，如果不行则切换为ILRuntime模式
             if (Runtime.Ins.VO.ilType == EILType.REFLECTION)
             {
                 assembly = AssemblyILWorker.LoadAssembly(dllBytes);
@@ -91,7 +92,7 @@ namespace Zero
         }
 
         public void Invoke(string clsName, string methodName)
-        {
+        {            
             if (null != iLWorker)
             {
                 iLWorker.Invoke(clsName, methodName);
@@ -150,7 +151,65 @@ namespace Zero
         {
             if (null != onApplicationQuit)
             {
-                onApplicationQuit.Invoke();
+                onApplicationQuit.Invoke();                
+            }
+        }
+
+        Dictionary<object, CoroutineProxy> _routineDic = new Dictionary<object, CoroutineProxy>();
+
+        CoroutineProxy GetCoroutineProxy(object target, bool isAutoCreate)
+        {            
+            CoroutineProxy cp;
+            _routineDic.TryGetValue(target, out cp);
+
+            if (CoroutineProxy.pool.IsInPool(cp))
+            {
+                cp = null;
+            }
+
+            if (null == cp && isAutoCreate)
+            {
+                if(CoroutineProxy.pool.CurrentSize > 0)
+                {
+                    cp = CoroutineProxy.pool.GetInstance();
+                }
+                else
+                {
+                    GameObject go = new GameObject();
+                    go.transform.SetParent(transform);
+                    cp = go.AddComponent<CoroutineProxy>();
+                }
+                cp.gameObject.name = "CoroutineProxy_" + target.GetHashCode();
+                _routineDic[target] = cp;
+            }
+
+            return cp;
+        }
+
+        public Coroutine StartCoroutine(object target, IEnumerator coroutine)
+        {            
+            var cp = GetCoroutineProxy(target, true);           
+            return cp.StartTrackedCoroutine(coroutine);
+        }
+
+        public void StopCoroutine(object target, IEnumerator routine)
+        {            
+            var cp = GetCoroutineProxy(target, false);
+            cp?.StopTrackedCoroutine(routine);
+        }
+
+        public void StopCoroutine(object target, Coroutine routine)
+        {
+            var cp = GetCoroutineProxy(target, false);
+            cp?.StopTrackedCoroutine(routine);
+        }
+
+        public void StopAllCoroutines(object target)
+        {
+            var cp = GetCoroutineProxy(target, false);            
+            if(null != cp)
+            {
+                cp.StopAllTrackedCoroutines();                
             }
         }
     }
