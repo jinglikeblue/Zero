@@ -1,0 +1,44 @@
+ManifestFileVersion: 0
+CRC: 1062650421
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 419e0582b9459f5dd3cd75136aa04d94
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: cebba3de0335eb6929273f67bf9d43ff
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -98529514, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: d9d0bf2357abdfc4fa1ab5aeaa87a9e8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c392de9f026c2f94c91e15c8d856b5a3, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+Assets:
+- Assets/@Resources/prefabs/wins/HelpWin.prefab
+Dependencies: []

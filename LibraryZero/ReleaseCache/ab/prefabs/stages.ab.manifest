@@ -1,0 +1,53 @@
+ManifestFileVersion: 0
+CRC: 4054169807
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: cdcd473b32e18c582e9f3f758842873f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1845e527d457cd992db2e1023f91449b
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 50
+  Script: {instanceID: 0}
+- Class: 61
+  Script: {instanceID: 0}
+- Class: 62
+  Script: {instanceID: 0}
+- Class: 68
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: d9d0bf2357abdfc4fa1ab5aeaa87a9e8, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 7162394c07bb5d047886bb82b43e285b, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 210
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/@Resources/prefabs/stages/GameStage.prefab
+Dependencies:
+- F:/projects/Zero/LibraryZero/ReleaseCache/ab/prefabs/stages/gamestage.ab
+- F:/projects/Zero/LibraryZero/ReleaseCache/ab/auto_depends/cross_0.ab
+- F:/projects/Zero/LibraryZero/ReleaseCache/ab/auto_depends/cross_1.ab
