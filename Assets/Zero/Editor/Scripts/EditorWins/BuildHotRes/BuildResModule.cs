@@ -73,8 +73,15 @@ namespace ZeroEditor
             }
         }
 
-        [LabelText("发布完成后打开发布目录"), ToggleLeft, PropertyOrder(1)]
+        [LabelText("发布完成后打开发布目录"), ToggleLeft, PropertyOrder(999)]
+        [InlineButton("OpenPublishDir", "打开发布目录")]
         public bool isOpenPublishDir = true;
+
+        void OpenPublishDir()
+        {
+            //打开目录
+            ZeroEditorUtil.OpenDirectory(ZeroConst.PUBLISH_RES_ROOT_DIR);
+        }
 
         void BuildPart2()
         {
@@ -88,8 +95,7 @@ namespace ZeroEditor
 
             if (isOpenPublishDir)
             {
-                //打开目录
-                ZeroEditorUtil.OpenDirectory(FileSystem.CombineDirs(false, ZeroConst.PUBLISH_RES_ROOT_DIR));
+                OpenPublishDir();                
             }
             else
             {

@@ -99,7 +99,7 @@ namespace ZeroEditor
         public Dictionary<string, string> startupParams;
 
 
-        [Button("发布「setting.json」", buttonSize: ButtonSizes.Medium), PropertyOrder(999)]
+        [Button("发布「setting.json」", buttonSize: ButtonSizes.Medium), PropertyOrder(998)]
         void BuildSettingJsonFile()
         {
             if (false == Directory.Exists(ZeroConst.PUBLISH_RES_ROOT_DIR))
@@ -117,6 +117,22 @@ namespace ZeroEditor
             string jsonStr = LitJson.JsonMapper.ToPrettyJson(cfg);
             File.WriteAllText(filePath, jsonStr);
 
+            if (isOpenPublishDir)
+            {
+                OpenPublishDir();
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("", "发布完成!", "确定");
+            }
+        }
+
+        [LabelText("发布完成后打开发布目录"), ToggleLeft, PropertyOrder(999)]
+        [InlineButton("OpenPublishDir", "打开发布目录")]
+        public bool isOpenPublishDir = true;
+
+        void OpenPublishDir()
+        {
             //打开目录
             ZeroEditorUtil.OpenDirectory(ZeroConst.PUBLISH_RES_ROOT_DIR);
         }
