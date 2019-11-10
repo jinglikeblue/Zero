@@ -1,0 +1,31 @@
+ManifestFileVersion: 0
+CRC: 2070539392
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1db95007f60d4ff2e5712c6597002df5
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: acf62b62aced8ca4cdb8202d8991ff19
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 50
+  Script: {instanceID: 0}
+- Class: 61
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/@Resources/prefabs/stages/gamestage/Block.prefab
+Dependencies:
+- F:/projects/Zero/LibraryZero/ReleaseCache/ab/auto_depends/cross_1.ab

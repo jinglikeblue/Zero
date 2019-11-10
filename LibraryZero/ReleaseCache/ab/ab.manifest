@@ -1,0 +1,33 @@
+ManifestFileVersion: 0
+CRC: 1324503937
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: root_assets.ab
+      Dependencies: {}
+    Info_1:
+      Name: audios.ab
+      Dependencies: {}
+    Info_2:
+      Name: prefabs/panels.ab
+      Dependencies:
+        Dependency_0: auto_depends/cross_0.ab
+    Info_3:
+      Name: prefabs/stages.ab
+      Dependencies:
+        Dependency_0: prefabs/stages/gamestage.ab
+        Dependency_1: auto_depends/cross_0.ab
+        Dependency_2: auto_depends/cross_1.ab
+    Info_4:
+      Name: prefabs/stages/gamestage.ab
+      Dependencies:
+        Dependency_0: auto_depends/cross_1.ab
+    Info_5:
+      Name: prefabs/wins.ab
+      Dependencies: {}
+    Info_6:
+      Name: auto_depends/cross_0.ab
+      Dependencies: {}
+    Info_7:
+      Name: auto_depends/cross_1.ab
+      Dependencies: {}

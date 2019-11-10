@@ -572,11 +572,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   runtimeCfg:
     isHotResProject: 1
-    isLogEnable: 1    
+    isLogEnable: 1
+    className: ZeroHot.Main
     methodName: Startup
-    hotResMode: 2
+    hotResMode: 1
     netRoot: http://wepieces.cn/unity/zero/demo/res
-    isUseDll: 0
+    isUseDll: 1
     ilType: 0
     isDebugIL: 1
     isLoadPdb: 1
