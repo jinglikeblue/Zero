@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using Zero;
 
@@ -10,6 +12,10 @@ namespace ZeroHot
     /// </summary>
     public abstract class AView
     {
+        static readonly Type OBJECT_TYPE = typeof(UnityEngine.Object);
+        static readonly Type TRANSFORM_TYPE = typeof(UnityEngine.Transform);
+        static readonly Type GAME_OBJECT_TYPE = typeof(UnityEngine.GameObject);
+
         /// <summary>
         /// 对象已销毁的事件
         /// </summary>
@@ -52,6 +58,8 @@ namespace ZeroHot
         {
             this.gameObject = gameObject;
 
+            AutoReference();
+
             _z = ComponentUtil.AutoGet<ZeroView>(this.gameObject);
             _z.aViewClass = GetType().FullName;
             _z.onEnable += OnGameObjectEnable;
@@ -65,6 +73,55 @@ namespace ZeroHot
                 OnEnable();
             }
         }
+
+        #region 变量自动引用
+
+        void AutoReference()
+        {
+            Dictionary<string, FieldInfo> fieldDic = new Dictionary<string, FieldInfo>();
+            var fields = GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            var mbType = typeof(UnityEngine.Object);
+            foreach (var field in fields)
+            {
+                var t = field.GetType();
+                if (field.FieldType.IsSubclassOf(mbType))
+                {
+                    fieldDic[field.Name.ToLower()] = field;
+                }
+            }
+
+            if (fieldDic.Count > 0)
+            {
+                AutoReference(transform, fieldDic);
+            }
+        }
+
+        void AutoReference(Transform t, Dictionary<string, FieldInfo> dic)
+        {
+            var name = t.name.ToLower();
+            if (dic.ContainsKey(name))
+            {
+                if (dic[name].FieldType.Equals(GAME_OBJECT_TYPE))
+                {
+                    dic[name].SetValue(this, t.gameObject);
+                }
+                else if (dic[name].FieldType.Equals(TRANSFORM_TYPE))
+                {
+                    dic[name].SetValue(this, t);
+                }
+                else
+                {
+                    dic[name].SetValue(this, t.GetComponent(dic[name].FieldType));
+                }
+            }
+
+            for (int i = 0; i < t.childCount; i++)
+            {
+                AutoReference(t.GetChild(i), dic);
+            }
+        }
+
+        #endregion
 
         private void OnGameObjectEnable()
         {

@@ -3,7 +3,7 @@ CRC: 2070539392
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 1db95007f60d4ff2e5712c6597002df5
+    Hash: f77260b3e98ef5ff05629220cfa1e0a1
   TypeTreeHash:
     serializedVersion: 2
     Hash: acf62b62aced8ca4cdb8202d8991ff19
@@ -28,4 +28,4 @@ ClassTypes:
 Assets:
 - Assets/@Resources/prefabs/stages/gamestage/Block.prefab
 Dependencies:
-- F:/projects/Zero/LibraryZero/ReleaseCache/ab/auto_depends/cross_1.ab
+- D:/_projects/Zero/LibraryZero/ReleaseCache/ab/auto_depends/cross_1.ab

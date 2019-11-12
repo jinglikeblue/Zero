@@ -330,13 +330,13 @@ namespace ZeroEditor
             {
                 string sourceABPath = FileSystem.CombinePaths(ZeroEditorConst.ASSET_BUNDLE_CACHE_DIR, ab);
                 string targetABPath = FileSystem.CombinePaths(outputDir, ab);
-                FileSystem.Copy(sourceABPath, targetABPath, true);
+                FileSystem.CopyFile(sourceABPath, targetABPath, true);
             }
 
             //移动Manifest文件
             string sourceManifestPath = FileSystem.CombinePaths(ZeroEditorConst.ASSET_BUNDLE_CACHE_DIR, ZeroConst.AB_DIR_NAME);
             string targetManifestPath = FileSystem.CombinePaths(outputDir, ZeroConst.MANIFEST_FILE_NAME + ZeroConst.AB_EXTENSION);
-            FileSystem.Copy(sourceManifestPath, targetManifestPath, true);
+            FileSystem.CopyFile(sourceManifestPath, targetManifestPath, true);
         }
     }    
 }

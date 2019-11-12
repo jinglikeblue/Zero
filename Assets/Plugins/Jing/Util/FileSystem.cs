@@ -153,58 +153,53 @@ namespace Jing
         }
 
         /// <summary>
-        /// 将源目录或文件拷贝到目标地址。拷贝过程中如果目录不存在，则创建。
+        /// 检查是否允许拷贝的委托
         /// </summary>
-        /// <param name="source">源目录或文件</param>
-        /// <param name="target">目标目录或文件</param>
-        /// <param name="overwrite">有相同的文件是否覆盖</param>
-        /// <param name="extFilters">要过滤(不拷贝)的文件后缀名</param>
+        /// <param name="sourceFile"></param>
+        /// <param name="targetFile"></param>
         /// <returns></returns>
-        public static void Copy(string source, string target, bool overwrite, string[] extFilters = null)
-        {
+        public delegate bool CheckCopyEnableDelegate(string sourceFile, string targetFile);
+
+        public static void CopyDir(string source, string target, CheckCopyEnableDelegate checkCopyEnable = null)
+        {            
             source = StandardizeBackslashSeparator(source);
             target = StandardizeBackslashSeparator(target);
-            if (File.Exists(source))
+
+            if (false == Directory.Exists(source))
             {
-                //拷贝文件
-                CopyFile(source, target, overwrite);
+                throw new Exception(string.Format("文件夹不存在:[{0}]", source));
             }
-            else
+
+            var subFiles = Directory.GetFiles(source, "*", SearchOption.AllDirectories);
+            for (int i = 0; i < subFiles.Length; i++)
             {
-                var subFiles = Directory.GetFiles(source, "*", SearchOption.AllDirectories);
-                for (int i = 0; i < subFiles.Length; i++)
+                var subFile = StandardizeBackslashSeparator(subFiles[i]);
+                var subFileRelativePath = subFile.Replace(source, "");
+                var targetFile = CombinePaths(target, subFileRelativePath);
+                bool copyEnable = true;
+                if(checkCopyEnable != null)
                 {
-                    var subFile = StandardizeBackslashSeparator(subFiles[i]);
-                    var subFileRelativePath = subFile.Replace(source, "");
-                    var targetSubFile = CombinePaths(target, subFileRelativePath);
-                    CopyFile(subFile, targetSubFile, true, extFilters);
+                    copyEnable = checkCopyEnable(subFile, targetFile);
+                }
+
+                if (copyEnable)
+                {
+                    CopyFile(subFile, targetFile, true);
                 }
             }
         }
 
         /// <summary>
-        /// 文件拷贝
+        /// 拷贝文件
         /// </summary>
         /// <param name="source"></param>
         /// <param name="target"></param>
         /// <param name="overwrite"></param>
-        static void CopyFile(string source, string target, bool overwrite, string[] extFilters = null)
+        public static void CopyFile(string source, string target, bool overwrite)
         {
             if (false == File.Exists(source))
             {
                 throw new Exception(string.Format("文件不存在:[{0}]", source));
-            }
-
-            if (null != extFilters)
-            {
-                var ext = Path.GetExtension(source);
-                foreach(var extFilter in extFilters)
-                {
-                    if (ext.Equals(extFilter))
-                    {
-                        return;
-                    }
-                }
             }
 
             var targetDir = Directory.GetParent(target);
@@ -214,6 +209,6 @@ namespace Jing
             }
 
             File.Copy(source, target, overwrite);
-        }        
+        }
     }
 }

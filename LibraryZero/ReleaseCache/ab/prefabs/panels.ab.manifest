@@ -3,10 +3,10 @@ CRC: 1969663908
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 3909e6e7f8c19a94f2b4e89aee61d875
+    Hash: 927f845d3807c80da0918184cb7f448b
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 30f6c51dbf0baa580d7863bc04503369
+    Hash: 71c331f3f32e39e2d5e0f2e63f2c6cec
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -18,11 +18,11 @@ ClassTypes:
 - Class: 95
   Script: {instanceID: 0}
 - Class: 114
-  Script: {fileID: 11500000, guid: 9297b3203e6e0924691a209eb9ecb80f, type: 3}
-- Class: 114
   Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 - Class: 114
   Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 9297b3203e6e0924691a209eb9ecb80f, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 213
@@ -37,4 +37,4 @@ Assets:
 - Assets/@Resources/prefabs/panels/GamePanel.prefab
 - Assets/@Resources/prefabs/panels/MenuPanel.prefab
 Dependencies:
-- F:/projects/Zero/LibraryZero/ReleaseCache/ab/auto_depends/cross_0.ab
+- D:/_projects/Zero/LibraryZero/ReleaseCache/ab/auto_depends/cross_0.ab

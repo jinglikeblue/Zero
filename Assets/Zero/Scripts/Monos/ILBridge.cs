@@ -56,6 +56,16 @@ namespace Zero
         BaseILWorker iLWorker;
 
         /// <summary>
+        /// 是否是ILRuntime模式
+        /// </summary>
+        public bool IsILRuntimeMode { get; private set; } = false;
+
+        /// <summary>
+        /// 当ILRuntime模式时存在值
+        /// </summary>
+        public ILRuntime.Runtime.Enviorment.AppDomain ILRuntimeAppDomain { get; private set; }
+
+        /// <summary>
         /// 启动热更代码执行
         /// </summary>
         /// <param name="dllDir">Dll文件所在目录</param>
@@ -87,7 +97,11 @@ namespace Zero
             else
             {
                 //使用ILRuntime
-                iLWorker = new ILRuntimeILWorker(dllBytes, dllDir, dllName, isDebug, isNeedPdbFile);
+                var ilruntimeWorker = new ILRuntimeILWorker(dllBytes, dllDir, dllName, isDebug, isNeedPdbFile);                
+                iLWorker = ilruntimeWorker;
+
+                ILRuntimeAppDomain = ilruntimeWorker.appDomain;
+                IsILRuntimeMode = true;
             }
         }
 
