@@ -113,7 +113,7 @@ namespace Zero
             var listeners = GameObject.FindObjectsOfType<AudioListener>();
             for (int i = 0; i < listeners.Length; i++)
             {
-                GameObject.Destroy(listeners[i]);
+                GameObject.DestroyImmediate(listeners[i]);
             }
         }
 

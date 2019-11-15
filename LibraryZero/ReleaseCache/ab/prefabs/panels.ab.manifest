@@ -3,7 +3,7 @@ CRC: 1969663908
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 927f845d3807c80da0918184cb7f448b
+    Hash: 3909e6e7f8c19a94f2b4e89aee61d875
   TypeTreeHash:
     serializedVersion: 2
     Hash: 71c331f3f32e39e2d5e0f2e63f2c6cec
@@ -37,4 +37,4 @@ Assets:
 - Assets/@Resources/prefabs/panels/GamePanel.prefab
 - Assets/@Resources/prefabs/panels/MenuPanel.prefab
 Dependencies:
-- D:/_projects/Zero/LibraryZero/ReleaseCache/ab/auto_depends/cross_0.ab
+- F:/projects/Zero/LibraryZero/ReleaseCache/ab/auto_depends/cross_0.ab
