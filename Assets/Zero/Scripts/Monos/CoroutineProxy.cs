@@ -7,12 +7,14 @@ using ZeroHot;
 /// <summary>
 /// 携程代理工具
 /// </summary>
-public class CoroutineProxy : MonoBehaviour, IRecyclable
+public class CoroutineProxy : MonoBehaviour
 {
     /// <summary>
-    /// 对象池
+    /// 绑定的对象
     /// </summary>
-    public readonly static ObjectPool<CoroutineProxy> pool = new ObjectPool<CoroutineProxy>(5);
+    public object bindingObj;
+
+    public event Action<CoroutineProxy> onDestroy;
 
     HashSet<TrackedCoroutine> _tcSet = new HashSet<TrackedCoroutine>();
 
@@ -90,19 +92,13 @@ public class CoroutineProxy : MonoBehaviour, IRecyclable
     {
         if (_tcSet.Count == 0)
         {
-            //GameObject.Destroy(this.gameObject);
-            pool.Recycle(this);
+            GameObject.DestroyImmediate(this.gameObject);            
         }
     }
 
-    public void Recycled()
-    {        
-        _tcSet.Clear();        
-    }
-
-    public void Discarded()
+    void OnDestroy()
     {
-        GameObject.DestroyImmediate(gameObject);
+        onDestroy?.Invoke(this);
     }
 
     public class TrackedCoroutine : IEnumerator

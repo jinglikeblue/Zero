@@ -18,7 +18,7 @@ namespace Zero
             if(null == gameObject)
             {
                 return null;
-            }           
+            }
 
             T component = gameObject.GetComponent<T>();
             if (null == component)

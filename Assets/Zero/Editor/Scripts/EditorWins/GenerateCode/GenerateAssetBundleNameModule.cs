@@ -1,50 +1,55 @@
 ﻿using Jing;
 using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor;
-using Sirenix.Utilities;
-using Sirenix.Utilities.Editor;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading;
 using UnityEditor;
 using UnityEngine;
 using Zero;
 
 namespace ZeroEditor
-{    
+{
     public class GenerateAssetBundleNameModule: AEditorModule
     {
+        /// <summary>
+        /// 配置文件位置
+        /// </summary>
         const string CONFIG_NAME = "asset_bundle_name_config.json";
 
-        const string TEMPLATE_FILE = "Assets/Zero/Editor/Configs/AssetBundleNameClassTemplate.txt";
-
-        const string OUTPUT_CLASS_FILE = "Assets/@Scripts/Generated/AssetBundleName.cs";
-
-        const string FIELD_EXPLAIN_FORMAT = "\t\t" + @"/// <summary>
-        /// {0}
-        /// </summary>";
-
-        const string FIELD_FORMAT = "\t\tpublic const string {0} = \"{1}\";";
-
         Dictionary<string, AssetBundleItemVO> _lastFindDic;
+
+        struct ConfigVO {
+            public List<AssetBundleItemVO> abList;
+            public string viewClassNS;
+        }
+
+        ConfigVO cfg;
 
         public GenerateAssetBundleNameModule(EditorWindow win) : base(win)
         {
             _lastFindDic = LoadConfig();
-
+            abList = cfg.abList;
+            viewClassNS = cfg.viewClassNS;
             new Thread(FindAssetBundles).Start();
         }
 
         Dictionary<string, AssetBundleItemVO> LoadConfig()
         {
-            var tempList = EditorConfigUtil.LoadConfig<List<AssetBundleItemVO>>(CONFIG_NAME);
+            try
+            {
+                cfg = EditorConfigUtil.LoadConfig<ConfigVO>(CONFIG_NAME);
+            }
+            catch(Exception e)
+            {
+                Debug.LogError(e);
+                cfg = new ConfigVO();
+            }
             //转成字典，方便查询
             Dictionary<string, AssetBundleItemVO> dic = new Dictionary<string, AssetBundleItemVO>();
-            if (null != tempList)
+            if (null != cfg.abList)
             {
-                foreach (var vo in tempList)
+                foreach (var vo in cfg.abList)
                 {
                     dic.Add(vo.assetbundle, vo);
                 }
@@ -57,11 +62,13 @@ namespace ZeroEditor
 
         bool _isFindingAB = false;
 
-        [Title("AssetBundleName.cs 生成", TitleAlignment = TitleAlignments.Centered)]
+        [Title("资源相关代码生成", TitleAlignment = TitleAlignments.Centered)]
         [LabelText("保存配置"), Button(size: ButtonSizes.Large), PropertyOrder(-1)]
         void SaveConfig()
         {
-            EditorConfigUtil.SaveConfig(abList, CONFIG_NAME);
+            cfg.viewClassNS = viewClassNS;
+            cfg.abList = abList;
+            EditorConfigUtil.SaveConfig(cfg, CONFIG_NAME);
             //this.ShowTip("保存完毕");
         }
 
@@ -69,43 +76,40 @@ namespace ZeroEditor
         [LabelText("开始生成"), Button(size: ButtonSizes.Large), PropertyOrder(-1)]
         void GeneratedAssetBundleNameClass()
         {
-            var dir = Directory.GetParent(OUTPUT_CLASS_FILE);
-            if (false == dir.Exists)
-            {
-                dir.Create();
-            }
-
-            var template = File.ReadAllText(TEMPLATE_FILE);
-            StringBuilder sb = new StringBuilder();
-
-            foreach (var vo in abList)
-            {
-                sb.AppendLine();
-                sb.AppendLine();
-                if (false == string.IsNullOrEmpty(vo.explain))
-                {
-                    sb.AppendLine(string.Format(FIELD_EXPLAIN_FORMAT, vo.explain));
-                }
-                sb.Append(string.Format(FIELD_FORMAT, vo.GetFieldName(), vo.assetbundle));
-            }
-
-            var classContent = template.Replace("{0}", sb.ToString());
-            File.WriteAllText(OUTPUT_CLASS_FILE, classContent);
-            OpenFile();
+            new GenerateABClassCommand(abList).Excute();
+            new GenerateAutoViewRegisterClassCommand(abList, viewClassNS).Excute();
             editorWin.ShowTip("生成完毕!");
-        }
+        }   
 
         [Space(10)]
-        [LabelText("生成地址")]
+        [LabelText("资源名称类生成地址")]
         [DisplayAsString]
-        [InlineButton("OpenFile")]
-        public string generatedPath = OUTPUT_CLASS_FILE;
+        [InlineButton("OpenABClassFile", "Open")]
+        public string abClassPath = GenerateABClassCommand.OUTPUT_FILE;
 
-        void OpenFile()
+        [LabelText("视图类命名空间前缀(以\".\"结尾)")]
+        public string viewClassNS;
+        
+        [LabelText("视图注册类生成地址")]
+        [DisplayAsString]
+        [InlineButton("OpenRegisterClassFile", "Open")]
+        public string registerClassPath = GenerateAutoViewRegisterClassCommand.OUTPUT_FILE;
+
+        void OpenABClassFile()
         {
-            if(File.Exists(OUTPUT_CLASS_FILE))
+            OpenFile(GenerateABClassCommand.OUTPUT_FILE);
+        }
+
+        void OpenRegisterClassFile()
+        {
+            OpenFile(GenerateAutoViewRegisterClassCommand.OUTPUT_FILE);
+        }
+
+        void OpenFile(string file)
+        {
+            if (File.Exists(file))
             {
-                UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal(OUTPUT_CLASS_FILE, 0);
+                UnityEditorInternal.InternalEditorUtility.OpenFileAtLineExternal(file, 0);
             }
             else
             {
@@ -115,31 +119,8 @@ namespace ZeroEditor
 
         [Space(10)]
         [ShowInInspector]
-        [LabelText("AssetBundle List"), ListDrawerSettings(IsReadOnly = true, Expanded = true), HideIf("_isFindingAB")]
+        [LabelText("AssetBundle List"), ListDrawerSettings(IsReadOnly = true, Expanded = true, NumberOfItemsPerPage = 6), HideIf("_isFindingAB")]
         public List<AssetBundleItemVO> abList;
-
-
-
-        public struct AssetBundleItemVO
-        {
-            /// <summary>
-            /// 注释
-            /// </summary>
-            [LabelText("添加注释")]
-            public string explain;
-
-            /// <summary>
-            /// assetbundle名称
-            /// </summary>
-            [LabelText("$GetFieldName")]
-            [DisplayAsString]
-            public string assetbundle;
-
-            public string GetFieldName()
-            {
-                return assetbundle.Replace("/", "_").Replace(".ab", "").ToUpper();
-            }
-        }
 
         /// <summary>
         /// 找出所有要打包的资源
@@ -149,11 +130,35 @@ namespace ZeroEditor
             _isFindingAB = true;
 
             List<AssetBundleItemVO> list = new List<AssetBundleItemVO>();
+
+            //添加默认的
+            var rootFiles = Directory.GetFiles(ZeroConst.HOT_RESOURCES_ROOT_DIR);
+            if(rootFiles.Length > 0)
+            {
+                AssetBundleItemVO rootItem;
+                rootItem.explain = @"@Resources根目录下资源";
+                rootItem.assetbundle = ZeroConst.ROOT_AB_FILE_NAME + ZeroConst.AB_EXTENSION;
+                rootItem.assetList = new List<string>();
+                foreach (var file in rootFiles)
+                {
+                    if (Path.GetExtension(file).Equals(".meta"))
+                    {
+                        continue;
+                    }
+                    rootItem.assetList.Add(Path.GetFileName(file));
+                }
+                if(rootItem.assetList.Count > 0)
+                {
+                    list.Add(rootItem);
+                }
+            }
+
             string[] dirs = Directory.GetDirectories(ZeroConst.HOT_RESOURCES_ROOT_DIR, "*", SearchOption.AllDirectories);
             foreach (var dir in dirs)
             {
                 var sDir = FileSystem.StandardizeBackslashSeparator(dir);
                 var di = new DirectoryInfo(sDir);
+                var files = di.GetFiles();
                 if (di.GetFiles().Length == 0)
                 {
                     continue;
@@ -164,13 +169,19 @@ namespace ZeroEditor
                 AssetBundleItemVO vo;
                 vo.explain = _lastFindDic.ContainsKey(abName) ? _lastFindDic[abName].explain : "";
                 vo.assetbundle = abName;
-                list.Add(vo);
+                vo.assetList = new List<string>();
+                foreach(var file in files)
+                {
+                    if (file.Extension.Equals(".meta"))
+                    {
+                        continue;
+                    }
+                    vo.assetList.Add(file.Name);
+                }
+                list.Add(vo);                               
             }
 
-
             abList = list;
-
-
             _isFindingAB = false;
         }
     }

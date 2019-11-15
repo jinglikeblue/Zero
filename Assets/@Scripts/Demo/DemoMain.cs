@@ -20,8 +20,8 @@ namespace ILDemo
             AudioDevice.Create("effect");
 
             //加载ILRuntimePrefab;
-            GameObject mainPrefab = ResMgr.Ins.Load<GameObject>(ZeroConst.ROOT_AB_FILE_NAME, "ILContent");
-            var ilContent = ViewFactory.Create<ILContentView>(mainPrefab, null);
+            GameObject mainPrefab = ResMgr.Ins.Load<GameObject>(AB.ROOT_ASSETS.NAME, AB.ROOT_ASSETS.ILContent);
+            var ilContent = ViewFactory.Create<ILContent>(mainPrefab, null);
             ilContent.gameObject.name = mainPrefab.name;
         }
 

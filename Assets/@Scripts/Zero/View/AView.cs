@@ -57,6 +57,7 @@ namespace ZeroHot
         internal void SetGameObject(GameObject gameObject, object data = null)
         {
             this.gameObject = gameObject;
+            var isActive = this.gameObject.activeInHierarchy;            
 
             AutoReference();
 
@@ -68,7 +69,12 @@ namespace ZeroHot
 
             OnInit(data);
 
-            if (this.gameObject.activeInHierarchy)
+            /*
+             * 通过isActive来限定，只有当gameObject本来为activeInHierarchy状态，
+             * 并且执行OnInit后还在activeInHierarchy状态时，才调用OnEnable，因为
+             * OnInit中可能执行了SetActive，并且触发了OnGameObjectEnable或OnGameObjectDisable
+             */
+            if (isActive && this.gameObject.activeInHierarchy)
             {
                 OnEnable();
             }
@@ -151,15 +157,13 @@ namespace ZeroHot
             {
                 if (false == gameObject.activeInHierarchy)
                 {
-                    gameObject.SetActive(true);
-                    //WhenEnable();
+                    gameObject.SetActive(true);                    
                 }
             }
             else
             {
                 if (gameObject.activeInHierarchy)
-                {
-                    //WhenDisable();
+                {                    
                     gameObject.SetActive(false);
                 }
             }

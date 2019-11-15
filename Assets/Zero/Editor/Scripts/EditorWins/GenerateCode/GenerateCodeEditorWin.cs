@@ -34,8 +34,8 @@ namespace ZeroEditor
         {            
             OdinMenuTree tree = new OdinMenuTree();
             tree.Config.DrawSearchToolbar = true;
-            tree.Add("AssetBundleName.cs", new GenerateAssetBundleNameModule(this));
             tree.Add("link.xml", new GenerateLinkXMLModule(this));
+            tree.Add("Assets资源名生成", new GenerateAssetBundleNameModule(this));            
             tree.Add("ILRuntime CLR Binding Codes", new GenerateILRuntimeCLRBindingModule(this));
             return tree;
         }

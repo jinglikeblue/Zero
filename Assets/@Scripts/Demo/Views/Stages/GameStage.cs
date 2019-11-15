@@ -25,7 +25,7 @@ namespace ILDemo
             var ac = ResMgr.Ins.Load<AudioClip>("audios.ab", "click");
             AudioDevice.Get("effect").Play(gameObject,ac);            
             //以异步方式创建Block
-            ViewFactory.CreateAsync<Block>(AssetBundleName.PREFABS_STAGES_GAMESTAGE, "Block", _blocks, null, OnCreatedBlock, OnProgressBlock, OnLoadedBlock);
+            ViewFactory.CreateAsync<Block>(AB.PREFABS_STAGES_GAMESTAGE.NAME, AB.PREFABS_STAGES_GAMESTAGE.Block, _blocks, null, OnCreatedBlock, OnProgressBlock, OnLoadedBlock);
         }
 
         private void OnProgressBlock(float progress)

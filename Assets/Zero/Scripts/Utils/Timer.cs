@@ -165,8 +165,7 @@ namespace Zero
             while (true)
             {
                 //计算到下次触发要等待的间隔    
-                var tn = _triggerDT - DateTime.UtcNow;
-
+                var tn = _triggerDT - DateTime.UtcNow;                
                 yield return new WaitForSeconds((float)tn.TotalSeconds);
                 triggeredTimes++;
                 onTriggered?.Invoke(this);

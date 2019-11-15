@@ -1,9 +1,9 @@
-﻿using ILDemo;
-using System;
+﻿using System;
+using ZeroHot;
 
-namespace ZeroHot
+namespace ILDemo
 {
-    public class ILContentView : AView
+    public class ILContent : AView
     {
         protected override void OnInit(object data)
         {
@@ -14,9 +14,11 @@ namespace ZeroHot
             var uiWinRoot = rootTransform.Find("UICanvas/UIWin");
 
 
-            RegistStages();
-            RegistUIPanel();
-            RegistUIWin();
+            //
+
+            //RegistStages();
+            //RegistUIPanel();
+            //RegistUIWin();
 
             StageMgr.Ins.Init(stageRoot);
             UIPanelMgr.Ins.Init(uiPanelRoot);
@@ -25,18 +27,18 @@ namespace ZeroHot
 
         void RegistStages()
         {
-            RegistView<GameStage>(AssetBundleName.PREFABS_STAGES);
+            RegistView<GameStage>(AB.PREFABS_STAGES.NAME);
         }
 
         void RegistUIPanel()
         {
-            RegistView<MenuPanel>(AssetBundleName.PREFABS_PANELS);
-            RegistView<GamePanel>(AssetBundleName.PREFABS_PANELS);
+            RegistView<MenuPanel>(AB.PREFABS_PANELS.NAME);
+            RegistView<GamePanel>(AB.PREFABS_PANELS.NAME);
         }
 
         void RegistUIWin()
         {
-            RegistView<HelpWin>(AssetBundleName.PREFABS_WINS);
+            RegistView<HelpWin>(AB.PREFABS_WINS.NAME);
         }
 
         void RegistView<T>(string abName)
