@@ -25,7 +25,7 @@ namespace ZeroEditor
             /// <summary>
             /// 要引入的Dll列表
             /// </summary>
-            public List<string> includeDlls;            
+            public List<string> includeDlls;
         }
 
         ConfigVO _cfg;
@@ -38,11 +38,20 @@ namespace ZeroEditor
         public GenerateLinkXMLModule(EditorWindow editorWin) : base(editorWin)
         {
             _cfg = EditorConfigUtil.LoadConfig<ConfigVO>(CONFIG_NAME);
-            //var defaultDir = FileSystem.CombineDirs(true, EditorApplication.applicationContentsPath);            
-            //if (false == _cfg.includeDirs.Contains(defaultDir))
-            //{
-            //    _cfg.includeDirs.Add(defaultDir);
-            //}
+            if (null == _cfg.includeDirs)
+            {
+                _cfg.includeDirs = new List<string>();
+            }
+            if (null == _cfg.includeDlls)
+            {
+                _cfg.includeDlls = new List<string>();
+            }
+
+            var defaultDir = FileSystem.CombineDirs(true, EditorApplication.applicationContentsPath);
+            if (false == _cfg.includeDirs.Contains(defaultDir))
+            {
+                _cfg.includeDirs.Add(defaultDir);
+            }
 
             includeDirs = _cfg.includeDirs;
             includeDlls = _cfg.includeDlls;
@@ -51,7 +60,7 @@ namespace ZeroEditor
         }
 
         void SaveConfig()
-        {            
+        {
             EditorConfigUtil.SaveConfig(_cfg, CONFIG_NAME);
         }
 
@@ -61,7 +70,7 @@ namespace ZeroEditor
         [LabelText("导出位置"), DisplayAsString, PropertyOrder(-999)]
         public string path = "assets/link.xml";
 
-        [HorizontalGroup("AddButtons",order:-1)]
+        [HorizontalGroup("AddButtons", order: -1)]
         [LabelText("添加扫描目录"), Button(size: ButtonSizes.Large)]
         void AddDir()
         {
@@ -92,7 +101,7 @@ namespace ZeroEditor
         [PropertySpace(10)]
         [LabelText("扫描的Dll文件夹列表"), ListDrawerSettings(Expanded = true, HideAddButton = true, DraggableItems = false)]
         [DisplayAsString]
-        [OnValueChanged("OnListChange", includeChildren: true)]        
+        [OnValueChanged("OnListChange", includeChildren: true)]
         public List<string> includeDirs = new List<string>();
 
         [PropertySpace(10)]
@@ -106,7 +115,7 @@ namespace ZeroEditor
             Debug.Log("列表数据变化");
             RefreshPreviewList();
             SaveConfig();
-        }        
+        }
 
         [PropertySpace(10)]
         [LabelText("导出 [link.xml]"), Button(size: ButtonSizes.Large), DisableIf("_isRefresh")]
@@ -114,17 +123,7 @@ namespace ZeroEditor
         {
             const string OUTPUT_FILE = "Assets/link.xml";
 
-            //string saveDir = EditorUtility.OpenFolderPanel("选择保存位置", Application.dataPath, "");
-            //if (string.IsNullOrEmpty(saveDir))
-            //{
-            //    return;
-            //}            
-            //var savePath = FileSystem.CombinePaths(saveDir, "link.xml");
-
             new GenerateLinkXMLCommand(outputPreviewList, OUTPUT_FILE).Excute();
-
-            //打开目录
-            //ZeroEditorUtil.OpenDirectory(OUTPUT_FILE);
 
             AssetDatabase.Refresh();
             ShowTip("[{0}] 导出完毕!", OUTPUT_FILE);
@@ -132,14 +131,15 @@ namespace ZeroEditor
 
         [PropertySpace(10)]
         [LabelText("保留类型预览"), DisplayAsString, PropertyOrder(999), ListDrawerSettings(DraggableItems = false, HideRemoveButton = true, HideAddButton = true, NumberOfItemsPerPage = 20)]
-        public List<string> outputPreviewList;       
+        public List<string> outputPreviewList;
 
         /// <summary>
         /// 刷新导出预览列表
         /// </summary>
         void RefreshPreviewList()
         {
-            new Thread(() => {
+            new Thread(() =>
+            {
                 _isRefresh = true;
                 HashSet<string> assemblySet = new HashSet<string>();
 
