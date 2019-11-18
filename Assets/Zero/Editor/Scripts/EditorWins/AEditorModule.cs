@@ -25,5 +25,9 @@ namespace ZeroEditor
         {
             editorWin.ShowTip(content);
         }
+
+        public void ShowTip(string content, params object[] args) {
+            ShowTip(string.Format(content, args));
+        }
     }
 }

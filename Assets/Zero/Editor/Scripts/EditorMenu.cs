@@ -1,7 +1,5 @@
-﻿using Jing;
-using System.IO;
+﻿using System.IO;
 using UnityEditor;
-using UnityEngine;
 using Zero;
 
 namespace ZeroEditor
