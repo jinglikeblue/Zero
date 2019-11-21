@@ -1,27 +1,56 @@
 ﻿
-[
-    {
-        "explain" : "音效",
-        "assetbundle" : "audios.ab"
-    },
-    {
-        "explain" : "",
-        "assetbundle" : "prefabs.ab"
-    },
-    {
-        "explain" : "面板",
-        "assetbundle" : "prefabs/panels.ab"
-    },
-    {
-        "explain" : "舞台",
-        "assetbundle" : "prefabs/stages.ab"
-    },
-    {
-        "explain" : "窗口",
-        "assetbundle" : "prefabs/wins.ab"
-    },
-    {
-        "explain" : "游戏场景",
-        "assetbundle" : "prefabs/stages/gamestage.ab"
-    }
-]
+{
+    "abList" : [
+        {
+            "explain" : "@Resources根目录下资源",
+            "assetbundle" : "root_assets.ab",
+            "assetList"   : [
+                "ILContent.prefab"
+            ]
+        },
+        {
+            "explain" : "音效",
+            "assetbundle" : "audios.ab",
+            "assetList"   : [
+                "bgm.mp3",
+                "click.mp3"
+            ]
+        },
+        {
+            "explain" : "Prefabs",
+            "assetbundle" : "prefabs.ab",
+            "assetList"   : [
+            ]
+        },
+        {
+            "explain" : "面板",
+            "assetbundle" : "prefabs/panels.ab",
+            "assetList"   : [
+                "GamePanel.prefab",
+                "MenuPanel.prefab"
+            ]
+        },
+        {
+            "explain" : "舞台",
+            "assetbundle" : "prefabs/stages.ab",
+            "assetList"   : [
+                "GameStage.prefab"
+            ]
+        },
+        {
+            "explain" : "窗口",
+            "assetbundle" : "prefabs/wins.ab",
+            "assetList"   : [
+                "HelpWin.prefab"
+            ]
+        },
+        {
+            "explain" : "游戏场景",
+            "assetbundle" : "prefabs/stages/gamestage.ab",
+            "assetList"   : [
+                "Block.prefab"
+            ]
+        }
+    ],
+    "viewClassNS" : "ILDemo."
+}

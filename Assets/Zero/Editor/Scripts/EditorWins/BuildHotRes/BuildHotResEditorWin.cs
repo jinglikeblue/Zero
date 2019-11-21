@@ -34,8 +34,8 @@ namespace ZeroEditor
         {
             OdinMenuTree tree = new OdinMenuTree();
             tree.Config.DrawSearchToolbar = true;
-            tree.Add("setting.json", new BuildSettingJsonModule(this));
             tree.Add("热更资源", new BuildResModule(this));
+            tree.Add("setting.json", new BuildSettingJsonModule(this));            
             return tree;
         }
     }

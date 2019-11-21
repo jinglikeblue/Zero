@@ -1,15 +1,18 @@
-﻿using Zero;
-
+﻿//该类由 [Zero → 自动生成代码 → Assets资源名生成] 工具自动创建
 namespace ZeroHot
 {
     /// <summary>
-    /// [自动生成的]AssetBundle名称
+    /// [自动生成的]AssetBundle数据
     /// </summary>
-    public class AssetBundleName
-    {
-	    /// <summary>
-		/// [Zero/发布/AssetBundleName.cs]自动生成的AssetBundle名称类
-		/// </summary>
-        public const string ROOT_ASSETS = ZeroConst.ROOT_AB_FILE_NAME + ZeroConst.AB_EXTENSION;{0}
-    }
+    public sealed class [CLASS NAME]
+    {[CLASS LIST]	}
 }
+------------------------------Split--------------------------------		/// <summary>
+		/// [EXPLAIN]
+		/// </summary>
+------------------------------Split--------------------------------
+[EXPLAIN]		public sealed class [CLASS NAME]
+		{[FIELD LIST]            
+		}
+------------------------------Split--------------------------------
+			public const string [FIELD NAME] = "[FIELD VALUE]";

@@ -27,7 +27,7 @@ namespace ZeroEditor
             {
                 if(null == _tree)
                 {
-                    _tree = new OdinMenuTree();
+                    _tree = new OdinMenuTree();                    
                     _tree.Config.DrawSearchToolbar = true;                    
                 }
                 return _tree;
@@ -41,7 +41,7 @@ namespace ZeroEditor
         }
 
         protected void AddModule<Module>(string path, EditorIcon icon = null) where Module : AEditorModule
-        {
+        {            
             if (null == icon)
             {
                 menuTree.Add(path, Activator.CreateInstance(typeof(Module), new object[] { this }));

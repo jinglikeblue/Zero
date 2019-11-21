@@ -56,6 +56,16 @@ namespace Zero
         BaseILWorker iLWorker;
 
         /// <summary>
+        /// 是否是ILRuntime模式
+        /// </summary>
+        public bool IsILRuntimeMode { get; private set; } = false;
+
+        /// <summary>
+        /// 当ILRuntime模式时存在值
+        /// </summary>
+        public ILRuntime.Runtime.Enviorment.AppDomain ILRuntimeAppDomain { get; private set; }
+
+        /// <summary>
         /// 启动热更代码执行
         /// </summary>
         /// <param name="dllDir">Dll文件所在目录</param>
@@ -87,12 +97,16 @@ namespace Zero
             else
             {
                 //使用ILRuntime
-                iLWorker = new ILRuntimeILWorker(dllBytes, dllDir, dllName, isDebug, isNeedPdbFile);
+                var ilruntimeWorker = new ILRuntimeILWorker(dllBytes, dllDir, dllName, isDebug, isNeedPdbFile);
+                iLWorker = ilruntimeWorker;
+
+                ILRuntimeAppDomain = ilruntimeWorker.appDomain;
+                IsILRuntimeMode = true;
             }
         }
 
         public void Invoke(string clsName, string methodName)
-        {            
+        {
             if (null != iLWorker)
             {
                 iLWorker.Invoke(clsName, methodName);
@@ -151,35 +165,28 @@ namespace Zero
         {
             if (null != onApplicationQuit)
             {
-                onApplicationQuit.Invoke();                
+                onApplicationQuit.Invoke();
             }
         }
 
+        #region 协程代理
         Dictionary<object, CoroutineProxy> _routineDic = new Dictionary<object, CoroutineProxy>();
 
         CoroutineProxy GetCoroutineProxy(object target, bool isAutoCreate)
-        {            
+        {
             CoroutineProxy cp;
             _routineDic.TryGetValue(target, out cp);
 
-            if (CoroutineProxy.pool.IsInPool(cp))
-            {
-                cp = null;
-            }
-
             if (null == cp && isAutoCreate)
             {
-                if(CoroutineProxy.pool.CurrentSize > 0)
+                GameObject go = new GameObject("CoroutineProxy_" + target.GetHashCode());
+                go.transform.SetParent(transform);
+                cp = go.AddComponent<CoroutineProxy>();
+                cp.bindingObj = target;
+                cp.onDestroy += (proxy) =>
                 {
-                    cp = CoroutineProxy.pool.GetInstance();
-                }
-                else
-                {
-                    GameObject go = new GameObject();
-                    go.transform.SetParent(transform);
-                    cp = go.AddComponent<CoroutineProxy>();
-                }
-                cp.gameObject.name = "CoroutineProxy_" + target.GetHashCode();
+                    _routineDic.Remove(proxy.bindingObj);
+                };
                 _routineDic[target] = cp;
             }
 
@@ -187,13 +194,13 @@ namespace Zero
         }
 
         public Coroutine StartCoroutine(object target, IEnumerator coroutine)
-        {            
-            var cp = GetCoroutineProxy(target, true);           
+        {
+            var cp = GetCoroutineProxy(target, true);
             return cp.StartTrackedCoroutine(coroutine);
         }
 
         public void StopCoroutine(object target, IEnumerator routine)
-        {            
+        {
             var cp = GetCoroutineProxy(target, false);
             cp?.StopTrackedCoroutine(routine);
         }
@@ -206,11 +213,12 @@ namespace Zero
 
         public void StopAllCoroutines(object target)
         {
-            var cp = GetCoroutineProxy(target, false);            
-            if(null != cp)
+            var cp = GetCoroutineProxy(target, false);
+            if (null != cp)
             {
-                cp.StopAllTrackedCoroutines();                
+                cp.StopAllTrackedCoroutines();
             }
         }
+        #endregion
     }
 }

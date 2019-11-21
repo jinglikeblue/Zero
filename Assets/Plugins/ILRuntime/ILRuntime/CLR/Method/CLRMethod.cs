@@ -306,14 +306,21 @@ namespace ILRuntime.CLR.Method
                     if (declaringType.IsValueType)
                         instance = ILIntepreter.CheckAndCloneValueType(instance, appdomain);
                     if (instance == null)
-                        throw new NullReferenceException();
+                        return null;
                 }
                 object res = null;
                 /*if (redirect != null)
                     res = redirect(new ILContext(appdomain, intepreter, esp, mStack, this), instance, param, genericArguments);
                 else*/
                 {
-                    res = def.Invoke(instance, param);
+                    try
+                    {
+                        res = def.Invoke(instance, param);
+                    }
+                    catch(Exception e)
+                    {
+                        return null;
+                    }
                 }
 
                 FixReference(paramCount, esp, param, mStack, instance, !def.IsStatic);

@@ -1,9 +1,5 @@
 ﻿using Sirenix.OdinInspector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 
 namespace ZeroEditor
@@ -19,6 +15,19 @@ namespace ZeroEditor
         public AEditorModule(EditorWindow editorWin)
         {
             this.editorWin = editorWin;            
+        }                
+
+        /// <summary>
+        /// 显示提示信息
+        /// </summary>
+        /// <param name="content"></param>
+        public void ShowTip(string content)
+        {
+            editorWin.ShowTip(content);
+        }
+
+        public void ShowTip(string content, params object[] args) {
+            ShowTip(string.Format(content, args));
         }
     }
 }

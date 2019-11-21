@@ -112,8 +112,24 @@ namespace ZeroEditor
                 Directory.Delete(ZeroEditorConst.CONFIG_PUBLISH_DIR, true);
             }
             //拷贝文件
-            FileSystem.Copy(ZeroConst.HOT_CONFIGS_ROOT_DIR, ZeroEditorConst.CONFIG_PUBLISH_DIR, true, new string[] { ".meta" });
+            FileSystem.CopyDir(ZeroConst.HOT_CONFIGS_ROOT_DIR, ZeroEditorConst.CONFIG_PUBLISH_DIR, (s,t)=> {
+                var ext = Path.GetExtension(s);
+                if (ext.Equals(".meta"))
+                {
+                    return false;
+                }
+                return true;
+            });
         }
+
+        //private bool CheckCopyEnable(string sourceFile, string targetFile)
+        //{
+        //    if (Path.GetExtension(sourceFile).Equals(".meta"))
+        //    {
+        //        return false;
+        //    }
+        //    return true;
+        //}
 
         /// <summary>
         /// 构建热更AssetBundle资源

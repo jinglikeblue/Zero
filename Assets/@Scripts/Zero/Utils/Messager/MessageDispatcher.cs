@@ -24,7 +24,12 @@ namespace ZeroHot
         /// <param name="code"></param>
         public void RegisterReceiver<TReceiver>(TCode code) where TReceiver : IMessageReceiver
         {
-            var receiverType = typeof(TReceiver);           
+            var receiverType = typeof(TReceiver);
+            RegisterReceiver(code, receiverType);
+        }
+
+        public void RegisterReceiver(TCode code, Type receiverType)
+        {
             _receiverDic[code] = receiverType;
         }
 

@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using Zero;
-
-namespace ZeroHot
+﻿namespace ZeroHot
 {
     public class Main
     {
@@ -10,6 +7,8 @@ namespace ZeroHot
         /// </summary>
         public static void Startup()
         {
+            ViewAutoRegister.Register();
+
             new ILDemo.DemoMain();
         }
     }

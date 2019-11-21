@@ -17,6 +17,11 @@ namespace ZeroEditor
     public class ZeroEditorConst
     {
         /// <summary>
+        /// 项目目录
+        /// </summary>
+        static public string PROJECT_PATH = Directory.GetParent(Application.dataPath).FullName;
+
+        /// <summary>
         /// 编辑器配置文件目录
         /// </summary>
         static public string EDITOR_CONFIG_DIR = FileSystem.CombineDirs(false, ZeroConst.ZERO_LIBRARY_DIR, "EditorConfigs");

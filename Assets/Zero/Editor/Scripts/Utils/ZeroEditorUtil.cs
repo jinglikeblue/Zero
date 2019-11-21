@@ -18,16 +18,22 @@ namespace ZeroEditor
         {
             if (string.IsNullOrEmpty(path)) return;
 
+            var fullPath = FileSystem.CombineDirs(true, ZeroEditorConst.PROJECT_PATH, path);
+            if (!Directory.Exists(fullPath))
+            {
+                Debug.LogError("[无法打开文件夹]不存在: " + fullPath);
+                return;
+            }
+
             if (Application.platform == RuntimePlatform.WindowsEditor)
             {
-                path = path.Replace("/", "\\");
-                if (!Directory.Exists(path))
-                {
-                    Debug.LogError("No Directory: " + path);
-                    return;
-                }
-
-                System.Diagnostics.Process.Start("explorer.exe", path);
+                fullPath = FileSystem.StandardizeSlashSeparator(fullPath);
+                System.Diagnostics.Process.Start("explorer.exe", fullPath);
+            }
+            else if(Application.platform == RuntimePlatform.OSXEditor)
+            {
+                var args = string.Format("{0} {1}", "Tools/Mac/OpenDir.sh", fullPath);
+                System.Diagnostics.Process.Start("bash", args);
             }
         }
 

@@ -65,12 +65,23 @@ namespace Jing
         int _pos;
 
         /// <summary>
-        /// 目前字节大小
+        /// 目前指针位置
         /// </summary>
-        public int Size
+        public int Position
         {
             get { return _pos; }
         }        
+
+        /// <summary>
+        /// 还可读/写的字节数
+        /// </summary>
+        public int Available
+        {
+            get
+            {
+                return _bytes.Length - _pos;
+            }
+        }
 
         /// <summary>
         /// 将数据转为字节数组导出
@@ -78,8 +89,8 @@ namespace Jing
         /// <returns></returns>
         public byte[] ToBytes()
         {
-            byte[] bytes = new byte[Size];
-            Array.Copy(_bytes, 0, bytes, 0, Size);
+            byte[] bytes = new byte[Position];
+            Array.Copy(_bytes, 0, bytes, 0, Position);
             return bytes;
         }
 
@@ -95,7 +106,7 @@ namespace Jing
 
         public ByteArray(int bufferSize, bool isBigEndian = true)
         {                       
-            Init(new byte[Size], isBigEndian);            
+            Init(new byte[bufferSize], isBigEndian);            
         }
 
         void Init(byte[] bytes, bool isBigEndian = true)
@@ -134,6 +145,11 @@ namespace Jing
             WriteBytes(BitConverter.GetBytes(v));
         }
 
+        public void WriteUShort(ushort v)
+        {
+            WriteShort((short)v);
+        }
+
         public void WriteInt(int v)
         {
             if (_isNeedConvertEndian)
@@ -144,6 +160,11 @@ namespace Jing
             WriteBytes(BitConverter.GetBytes(v));            
         }
 
+        public void WriteUInt(uint v)
+        {
+            WriteInt((int)v);
+        }
+
         public void WriteLong(long v)
         {
             if (_isNeedConvertEndian)
@@ -152,6 +173,11 @@ namespace Jing
             }
 
             WriteBytes(BitConverter.GetBytes(v));
+        }
+
+        public void WriteULong(ulong v)
+        {
+            WriteLong((long)v);
         }
 
         public void WriteFloat(float v)
@@ -202,6 +228,11 @@ namespace Jing
             return v;
         }
 
+        public ushort ReadUShort()
+        {            
+            return (ushort)ReadShort();
+        }
+
         public int ReadInt()
         {
             int v = BitConverter.ToInt32(_bytes, _pos);
@@ -213,6 +244,11 @@ namespace Jing
             return v;
         }
 
+        public uint ReadUInt()
+        {
+            return (uint)ReadInt();
+        }
+
         public long ReadLong()
         {
             long v = BitConverter.ToInt64(_bytes, _pos);
@@ -222,6 +258,11 @@ namespace Jing
             }
             MovePos(LONG_SIZE);
             return v;
+        }
+
+        public ulong ReadULong()
+        {
+            return (ulong)ReadULong();
         }
 
         public float ReadFloat()
