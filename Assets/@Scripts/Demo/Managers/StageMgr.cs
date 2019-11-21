@@ -49,7 +49,7 @@ namespace ILDemo
 
         private void OnASyncShow(AView view, object token)
         {
-            var onCreated = token as Action<AView>;
+            var onCreated = (Action<AView>)token;
             if (null != onCreated)
             {
                 onCreated.Invoke(view);

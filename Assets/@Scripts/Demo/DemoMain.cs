@@ -1,6 +1,7 @@
 ﻿using ZeroHot;
 using UnityEngine;
 using Zero;
+using System;
 
 namespace ILDemo
 {
@@ -29,9 +30,19 @@ namespace ILDemo
         {
             //Log.GUI("This demo is code by Jing");
             GUIDeviceInfo.Show();
-            UIPanelMgr.Ins.SwitchASync<MenuPanel>();
+            UIPanelMgr.Ins.SwitchASync<MenuPanel>(null, OnCreated, OnProgress);
             //播放背景音乐
             AudioDevice.Get("bgm").Play(ResMgr.Ins.Load<AudioClip>("audios/bgm"), true);
+        }
+
+        private void OnProgress(float progress)
+        {
+            Debug.Log("加载进度：" + progress);
+        }
+
+        private void OnCreated(AView view)
+        {
+            Debug.Log("创建完成:" + view.gameObject.name);
         }
     }
 }
