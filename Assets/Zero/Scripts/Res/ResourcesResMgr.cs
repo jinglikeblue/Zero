@@ -30,7 +30,12 @@ namespace Zero
 
         public override void LoadAsync(string abName, string assetName, Action<UnityEngine.Object> onLoaded, Action<float> onProgress = null)
         {
-            ILBridge.Ins.StartCoroutine(ResourceLoadAsync(AssetBundlePath2ResourcePath(abName, assetName), onLoaded, onProgress));
+            ILBridge.Ins.StartCoroutine(ResourceLoadAsync<UnityEngine.Object>(AssetBundlePath2ResourcePath(abName, assetName), onLoaded, onProgress));
+        }
+
+        public override void LoadAsync<T>(string abName, string assetName, Action<T> onLoaded, Action<float> onProgress = null)
+        {
+            ILBridge.Ins.StartCoroutine(ResourceLoadAsync<T>(AssetBundlePath2ResourcePath(abName, assetName), onLoaded, onProgress));
         }
 
         public override void Unload(string abName, bool isUnloadAllLoaded = false, bool isUnloadDepends = true)
@@ -43,7 +48,7 @@ namespace Zero
             Resources.UnloadUnusedAssets();
         }
 
-        IEnumerator ResourceLoadAsync(string assetPath, Action<UnityEngine.Object> onLoaded, Action<float> onProgress)
+        IEnumerator ResourceLoadAsync<T>(string assetPath, Action<T> onLoaded, Action<float> onProgress) where T : UnityEngine.Object
         {
             ResourceRequest rr = Resources.LoadAsync(assetPath);
             do
@@ -57,7 +62,7 @@ namespace Zero
             while (false == rr.isDone);
 
             //加载完成
-            onLoaded.Invoke(rr.asset);
+            onLoaded.Invoke((T)rr.asset);
         }
 
         /// <summary>

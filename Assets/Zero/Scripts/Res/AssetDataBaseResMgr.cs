@@ -93,22 +93,27 @@ namespace Zero
 
         public override void LoadAsync(string abName, string assetName, Action<UnityEngine.Object> onLoaded, Action<float> onProgress = null)
         {
-            ILBridge.Ins.StartCoroutine(ResourceLoadAsync(AssetBundlePath2ResourcePath(abName, assetName), onLoaded, onProgress));
+            ILBridge.Ins.StartCoroutine(ResourceLoadAsync<UnityEngine.Object>(AssetBundlePath2ResourcePath(abName, assetName), onLoaded, onProgress));
         }
 
-        IEnumerator ResourceLoadAsync(string assetPath, Action<UnityEngine.Object> onLoaded, Action<float> onProgress)
+        public override void LoadAsync<T>(string abName, string assetName, Action<T> onLoaded, Action<float> onProgress = null)
         {
-            if(null != onProgress)
+            ILBridge.Ins.StartCoroutine(ResourceLoadAsync<T>(AssetBundlePath2ResourcePath(abName, assetName), onLoaded, onProgress));
+        }
+
+        IEnumerator ResourceLoadAsync<T>(string assetPath, Action<T> onLoaded, Action<float> onProgress) where T : UnityEngine.Object
+        {
+            if (null != onProgress)
             {
                 onProgress.Invoke(0);
-            }            
+            }
             yield return new WaitForEndOfFrame();
 #if UNITY_EDITOR
             if (null != onProgress)
             {
                 onProgress.Invoke(1);
             }
-            UnityEngine.Object obj = UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(assetPath);
+            T obj = UnityEditor.AssetDatabase.LoadAssetAtPath<T>(assetPath);
             if (null != onLoaded)
             {
                 onLoaded.Invoke(obj);
