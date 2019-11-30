@@ -16,13 +16,8 @@ namespace Zero
             if (null == onEvent)
             {
                 return;
-            }
+            }            
             onEvent.Invoke(eventData);
-        }
-
-        public static PointerDownEventListener Get(GameObject gameObject)
-        {
-            return ComponentUtil.AutoGet<PointerDownEventListener>(gameObject);
         }
     }
 }

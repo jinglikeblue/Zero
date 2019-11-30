@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 4054169807
+CRC: 3092628461
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: cdcd473b32e18c582e9f3f758842873f
+    Hash: cc30b12043125584f41cce1aba835d25
   TypeTreeHash:
     serializedVersion: 2
     Hash: 1845e527d457cd992db2e1023f91449b
@@ -48,6 +48,6 @@ ClassTypes:
 Assets:
 - Assets/@Resources/prefabs/stages/GameStage.prefab
 Dependencies:
-- F:/projects/Zero/LibraryZero/ReleaseCache/ab/prefabs/stages/gamestage.ab
-- F:/projects/Zero/LibraryZero/ReleaseCache/ab/auto_depends/cross_0.ab
-- F:/projects/Zero/LibraryZero/ReleaseCache/ab/auto_depends/cross_1.ab
+- D:/_projects/Zero/LibraryZero/ReleaseCache/ab/prefabs/stages/gamestage.ab
+- D:/_projects/Zero/LibraryZero/ReleaseCache/ab/auto_depends/cross_0.ab
+- D:/_projects/Zero/LibraryZero/ReleaseCache/ab/auto_depends/cross_1.ab

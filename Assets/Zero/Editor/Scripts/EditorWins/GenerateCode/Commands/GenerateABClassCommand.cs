@@ -92,7 +92,13 @@ namespace ZeroEditor
 
             foreach (var viewName in viewNameList)
             {
-                var fieldName = Path.GetFileNameWithoutExtension(viewName);
+                //var fieldName = Path.GetFileNameWithoutExtension(viewName);
+                string fieldName = Path.GetFileNameWithoutExtension(viewName);
+                var ext = Path.GetExtension(viewName);
+                if (false == ext.Equals(".prefab"))
+                {
+                    fieldName = string.Format("{0}_{1}", fieldName, ext.Replace(".", ""));
+                }
                 sb.Append(GenerateFiled(fieldName, viewName));
                 //sb.AppendLine();
             }

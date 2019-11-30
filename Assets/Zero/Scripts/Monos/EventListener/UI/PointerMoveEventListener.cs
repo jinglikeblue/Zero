@@ -19,10 +19,5 @@ namespace Zero
             }
             onEvent.Invoke(eventData);
         }
-
-        public static PointerMoveEventListener Get(GameObject gameObject)
-        {
-            return ComponentUtil.AutoGet<PointerMoveEventListener>(gameObject);
-        }
     }
 }

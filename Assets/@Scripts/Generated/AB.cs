@@ -23,8 +23,8 @@ namespace ZeroHot
 		{
 			public const string NAME = "audios.ab";
 
-			public const string bgm = "bgm.mp3";
-			public const string click = "click.mp3";            
+			public const string bgm_mp3 = "bgm.mp3";
+			public const string click_mp3 = "click.mp3";            
 		}
 
 		/// <summary>

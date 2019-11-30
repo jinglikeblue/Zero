@@ -36,15 +36,6 @@ namespace Zero
         /// </summary>
         public event Action<PointerEventData> onPointerExit;
 
-        /// <summary>
-        /// 获取GameObject的UI事件组件，没有则会自动添加
-        /// </summary>
-        /// <param name="gameObject"></param>
-        /// <returns></returns>
-        public static UIEventListener Get(GameObject gameObject)
-        {
-            return ComponentUtil.AutoGet<UIEventListener>(gameObject);
-        }
 
         public void OnPointerClick(PointerEventData eventData)
         {
