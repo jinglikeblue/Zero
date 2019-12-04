@@ -145,5 +145,10 @@ namespace ZeroHot
         {
             _cache.Clear();
         }
+
+        public override void Init()
+        {
+            
+        }
     }
 }

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
+using UnityEngine;
+using Zero;
 
 namespace ZeroEditor
 {
@@ -85,6 +88,12 @@ namespace ZeroEditor
 
         string GenerateFieldList(string abName, List<string> viewNameList)
         {
+            var abNameWithoutExt = abName;
+            if (abNameWithoutExt.EndsWith(ZeroConst.AB_EXTENSION))
+            {
+                abNameWithoutExt = abName.Substring(0, abName.Length - ZeroConst.AB_EXTENSION.Length);
+            }
+            
             StringBuilder sb = new StringBuilder();
 
             sb.Append(GenerateFiled("NAME", abName));
@@ -100,6 +109,9 @@ namespace ZeroEditor
                     fieldName = string.Format("{0}_{1}", fieldName, ext.Replace(".", ""));
                 }
                 sb.Append(GenerateFiled(fieldName, viewName));
+                //添加全名
+                var assetPath = ResMgr.Ins.LinkAssetPath(abNameWithoutExt, viewName);
+                sb.Append(GenerateFiled(fieldName + "_assetPath", assetPath));
                 //sb.AppendLine();
             }
 
@@ -108,8 +120,21 @@ namespace ZeroEditor
 
         string GenerateFiled(string fieldName, string fieldValue)
         {
-            fieldName = fieldName.Replace(' ', '_');
+            fieldName = MakeFieldNameRightful(fieldName);            
             return _fieldT.Replace(FIELD_NAME_FLAG, fieldName).Replace(FIELD_VALUE_FLAG, fieldValue);
-        }
+        } 
+
+        string MakeFieldNameRightful(string fieldName)
+        {
+            fieldName = fieldName.Replace(' ', '_');
+            var firstChar = fieldName[0];
+            Regex regex = new Regex("[a-zA-Z_]");
+            if (false == regex.IsMatch(firstChar.ToString()))
+            {
+                Debug.LogWarningFormat("「{0}」字段不是合法的(前缀已自动添加下划线): {1}", OUTPUT_FILE, fieldName);
+                fieldName = "_" + fieldName;
+            }
+            return fieldName;
+        }        
     }
 }

@@ -23,6 +23,9 @@ namespace Zero
         [Header("AView子类名称")]
         public string aViewClass;
 
+        [Header("AView对象")]
+        public object aViewObject;
+
         private void Awake()
         {
             IsAwake = true;

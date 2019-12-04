@@ -16,13 +16,13 @@ namespace ZeroHot
         /// <param name="collection"></param>
         /// <param name="keyFieldName"></param>
         /// <returns></returns>
-        static public Dictionary<TKey, TValue> Array2Table<TKey, TValue>(IEnumerable<TValue> collection, string keyFieldName)
+        static public Dictionary<TKey, TValue> Array2Table<TKey, TValue>(IEnumerable<TValue> collection, string keyFieldName, string tableName = "")
         {
             if (null == collection)
-            {                
+            {
                 return null;
             }
-            
+
             var enumerator = collection.GetEnumerator();
             Dictionary<TKey, TValue> dic = new Dictionary<TKey, TValue>();
 
@@ -34,13 +34,13 @@ namespace ZeroHot
                 var keyValue = (TKey)fi.GetValue(enumerator.Current);
                 if (dic.ContainsKey(keyValue))
                 {
-                    Debug.LogError("构建表[{0}]重复的Key:{1}");
+                    Debug.LogErrorFormat("构建表[{0}]检测到重复的Key:{1} Value:{2}", tableName, keyFieldName, keyValue);
                 }
                 else
                 {
                     dic.Add(keyValue, enumerator.Current);
                 }
-            }            
+            }
 
             return dic;
         }

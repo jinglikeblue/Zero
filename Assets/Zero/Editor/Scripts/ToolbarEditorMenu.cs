@@ -7,7 +7,7 @@ namespace ZeroEditor
     /// <summary>
     /// Zero框架编辑器菜单
     /// </summary>
-    public class EditorMenu
+    public class ToolbarEditorMenu
     {
         [MenuItem("Zero/热更新", false, 0)]
         public static void HotResBuild()

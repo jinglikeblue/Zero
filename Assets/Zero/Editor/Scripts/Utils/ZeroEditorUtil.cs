@@ -1,4 +1,5 @@
 ﻿using Jing;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -45,6 +46,34 @@ namespace ZeroEditor
         public static void ShowTip(EditorWindow editorWin, string content)
         {
             editorWin.ShowTip(content);
+        }
+
+        /// <summary>
+        /// 获取全部选中物体的路径 
+        /// </summary>
+        /// <param name="isAbsolutePath">是否获取的是绝对路径</param>
+        /// <returns></returns>
+        public static string[] GetSelectedObjectPathList(bool isAbsolutePath = false)
+        {
+            string[] paths = new string[Selection.objects.Length];
+            for (int i = 0; i < Selection.objects.Length; i++)
+            {
+                paths[i] = GetAssetAbsolutePath(AssetDatabase.GetAssetPath(Selection.objects[i]));
+            }
+            return paths;
+        }
+
+        /// <summary>  
+        /// 获取资源的绝对路径  
+        /// </summary>  
+        /// <param name="path">Assets/Editor/...</param>  
+        /// <returns></returns>  
+        public static string GetAssetAbsolutePath(string assetPath)
+        {
+            string m_path = Application.dataPath;
+            m_path = m_path.Substring(0, m_path.Length - 6);
+            m_path += assetPath;
+            return m_path;
         }
     }
 }

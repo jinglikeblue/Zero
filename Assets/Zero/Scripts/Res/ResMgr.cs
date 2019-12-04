@@ -194,8 +194,8 @@ namespace Zero
         {
             if(abName == null)
             {
-                abName = "";
-            }
+                abName = "";                
+            }           
 
             if(assetName == null)
             {

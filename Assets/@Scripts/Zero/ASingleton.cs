@@ -3,6 +3,11 @@
     public abstract class BaseSingleton
     {
         /// <summary>
+        /// 初始化方法
+        /// </summary>
+        public abstract void Init();
+
+        /// <summary>
         /// 执行销毁
         /// </summary>
         public abstract void Destroy();
@@ -30,6 +35,7 @@
                     if (null == _ins)
                     {
                         _ins = new T();
+                        _ins.Init();
                     }
                 }
                 return _ins;
@@ -47,7 +53,7 @@
 
         protected ASingleton()
         {
-
+            
         }
     }
 }

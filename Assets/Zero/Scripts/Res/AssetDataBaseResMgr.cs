@@ -83,7 +83,7 @@ namespace Zero
             var asset = UnityEditor.AssetDatabase.LoadAssetAtPath<T>(path);
             if (null == asset)
             {
-                Debug.LogErrorFormat("资源不存在：{0}", path);
+                Debug.LogErrorFormat("资源不存在：{0}", ResMgr.Ins.LinkAssetPath(abName, assetName));
             }
             return asset;
 #else
