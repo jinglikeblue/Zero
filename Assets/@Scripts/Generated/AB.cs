@@ -13,7 +13,8 @@ namespace ZeroHot
 		{
 			public const string NAME = "root_assets.ab";
 
-			public const string ILContent = "ILContent.prefab";            
+			public const string ILContent = "ILContent.prefab";
+			public const string ILContent_assetPath = "root_assets/ILContent.prefab";            
 		}
 
 		/// <summary>
@@ -24,7 +25,9 @@ namespace ZeroHot
 			public const string NAME = "audios.ab";
 
 			public const string bgm_mp3 = "bgm.mp3";
-			public const string click_mp3 = "click.mp3";            
+			public const string bgm_mp3_assetPath = "audios/bgm.mp3";
+			public const string click_mp3 = "click.mp3";
+			public const string click_mp3_assetPath = "audios/click.mp3";            
 		}
 
 		/// <summary>
@@ -44,7 +47,9 @@ namespace ZeroHot
 			public const string NAME = "prefabs/panels.ab";
 
 			public const string GamePanel = "GamePanel.prefab";
-			public const string MenuPanel = "MenuPanel.prefab";            
+			public const string GamePanel_assetPath = "prefabs/panels/GamePanel.prefab";
+			public const string MenuPanel = "MenuPanel.prefab";
+			public const string MenuPanel_assetPath = "prefabs/panels/MenuPanel.prefab";            
 		}
 
 		/// <summary>
@@ -54,7 +59,8 @@ namespace ZeroHot
 		{
 			public const string NAME = "prefabs/stages.ab";
 
-			public const string GameStage = "GameStage.prefab";            
+			public const string GameStage = "GameStage.prefab";
+			public const string GameStage_assetPath = "prefabs/stages/GameStage.prefab";            
 		}
 
 		/// <summary>
@@ -64,7 +70,8 @@ namespace ZeroHot
 		{
 			public const string NAME = "prefabs/wins.ab";
 
-			public const string HelpWin = "HelpWin.prefab";            
+			public const string HelpWin = "HelpWin.prefab";
+			public const string HelpWin_assetPath = "prefabs/wins/HelpWin.prefab";            
 		}
 
 		/// <summary>
@@ -74,7 +81,8 @@ namespace ZeroHot
 		{
 			public const string NAME = "prefabs/stages/gamestage.ab";
 
-			public const string Block = "Block.prefab";            
+			public const string Block = "Block.prefab";
+			public const string Block_assetPath = "prefabs/stages/gamestage/Block.prefab";            
 		}
 	}
 }

@@ -55,7 +55,7 @@ namespace ZeroEditor
         void FindABAsync()
         {
             //查找当前@Resources的AB信息
-            List<AssetBundleItemVO>  list = SeanHotResources();
+            List<AssetBundleItemVO>  list = SearchHotResources();
 
             //配置中的数据，转成字典
             Dictionary<string, AssetBundleItemVO> dic = new Dictionary<string, AssetBundleItemVO>();
@@ -82,7 +82,7 @@ namespace ZeroEditor
             onFinished?.Invoke(this, this.list);
         }
 
-        List<AssetBundleItemVO> SeanHotResources()
+        List<AssetBundleItemVO> SearchHotResources()
         {
             List<AssetBundleItemVO> list = new List<AssetBundleItemVO>();
 
