@@ -580,7 +580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runtimeCfg:
-    isHotResProject: 0
+    isHotResProject: 1
     isLogEnable: 1
     className: ZeroHot.Main
     methodName: Startup
