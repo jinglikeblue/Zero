@@ -208,7 +208,7 @@ namespace Zero
             else
             {                
                 ab = AssetBundle.LoadFromFile(abPath);
-                _loadedABDic[abName] = ab;
+                _loadedABDic[abName] = ab;                
             }
             return ab;
         }

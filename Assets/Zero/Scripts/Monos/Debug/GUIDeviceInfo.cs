@@ -37,7 +37,7 @@ namespace Zero
         private void Update()
         {
             _frameCount++;
-            _cd -= Time.deltaTime;
+            _cd -= Time.unscaledDeltaTime;
             if (_cd <= 0f)
             {
                 _avgFps = _frameCount;

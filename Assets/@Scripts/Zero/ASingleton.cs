@@ -5,7 +5,7 @@
         /// <summary>
         /// 初始化方法
         /// </summary>
-        public abstract void Init();
+        protected abstract void Init();
 
         /// <summary>
         /// 执行销毁
@@ -29,17 +29,24 @@
         public static T Ins
         {
             get
-            {
-                lock (_singletonLock)
-                {
-                    if (null == _ins)
-                    {
-                        _ins = new T();
-                        _ins.Init();
-                    }
-                }
-                return _ins;
+            {                
+                return GetIns();
             }
+        }
+
+        /// <summary>
+        /// 创建单例，如果单例对象不存在，则会创建
+        /// </summary>
+        public static T GetIns()
+        {
+            lock (_singletonLock)
+            {
+                if (null == _ins)
+                {
+                    _ins = new T();
+                }
+            }
+            return _ins;
         }
 
         /// <summary>
@@ -47,13 +54,13 @@
         /// </summary>
         public static void ResetIns()
         {
-            _ins.Destroy();
+            _ins?.Destroy();
             _ins = default(T);
         }
 
         protected ASingleton()
         {
-            
+            Init();
         }
     }
 }

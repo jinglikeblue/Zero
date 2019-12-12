@@ -197,7 +197,7 @@ namespace ILDemo
             throw new NotImplementedException();
         }
 
-        public override void Init()
+        protected override void Init()
         {
 
         }

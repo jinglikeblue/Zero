@@ -54,15 +54,22 @@ namespace Zero
         {
             string[] locals = local.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
             string[] nets = net.Split(new char[] { '.' }, StringSplitOptions.RemoveEmptyEntries);
-            if (locals.Length != nets.Length)
-            {
-                return -1;
-            }
 
-            for (int i = 0; i < locals.Length; i++)
+            int compareLength = locals.Length > nets.Length ? locals.Length : nets.Length;
+
+            for (int i = 0; i < compareLength; i++)
             {
-                int lc = int.Parse(locals[i]);
-                int nc = int.Parse(nets[i]);
+                int lc = 0;
+                if (i < locals.Length)
+                {
+                    lc = int.Parse(locals[i]);
+                }
+
+                int nc = 0;
+                if (i < nets.Length)
+                {
+                    nc = int.Parse(nets[i]);
+                }
 
                 if (lc > nc)
                 {

@@ -162,16 +162,37 @@ namespace Zero
                     source.volume = _volume;
                 }
             }
-        }        
+        }
+
+        float _pitch = 1;
+
+        /// <summary>
+        /// 声音速度
+        /// </summary>
+        public float Pitch
+        {
+            get
+            {
+                return _pitch;
+            }
+            set
+            {
+                _pitch = value;
+                foreach (var source in _depositedSourceSet)
+                {
+                    source.pitch = _pitch;
+                }
+            }
+        }
 
         /// <summary>
         /// 播放AudioClip
         /// </summary>
         /// <param name="ac"></param>
         /// <param name="loop"></param>
-        public int Play(AudioClip ac, bool loop = false)
+        public AudioSource Play(AudioClip ac, bool loop = false)
         {
-            return Play(_go, ac, loop).GetInstanceID();
+            return Play(_go, ac, loop);
         }
 
         /// <summary>
@@ -183,7 +204,7 @@ namespace Zero
         public AudioSource Play(GameObject gameObject, AudioClip clip, bool loop = false)
         {            
             var sources = gameObject.GetComponents<AudioSource>();
-            AudioSource source = null;
+            AudioSource source = null;            
             foreach (var tempSource in sources)
             {
                 if (false == tempSource.isPlaying && _createdSourceSet.Contains(tempSource))
@@ -201,6 +222,7 @@ namespace Zero
             source.loop = loop;
             source.clip = clip;
             source.volume = _volume;
+            source.pitch = _pitch;
             source.Play();
             _depositedSourceSet.Add(source);
             return source;

@@ -49,7 +49,10 @@ public class CoroutineProxy : MonoBehaviour
         if (tc != null)
         {
             RemoveTC(tc);
-            base.StopCoroutine(routine);
+            if (null != this)
+            {
+                base.StopCoroutine(routine);
+            }
         }
     }
 
@@ -68,7 +71,10 @@ public class CoroutineProxy : MonoBehaviour
         if (tc != null)
         {
             RemoveTC(tc);
-            base.StopCoroutine(routine);
+            if (null != this)
+            {
+                base.StopCoroutine(routine);
+            }
         }
     }
 

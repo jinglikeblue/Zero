@@ -4,7 +4,7 @@ using UnityEditor;
 
 namespace ZeroEditor
 {
-    public class AEditorModule
+    public abstract class AEditorModule
     {
         /// <summary>
         /// 关联的编辑器窗口
@@ -28,6 +28,16 @@ namespace ZeroEditor
 
         public void ShowTip(string content, params object[] args) {
             ShowTip(string.Format(content, args));
+        }
+
+        public virtual void OnEnable()
+        {
+
+        }
+
+        public virtual void OnDisable()
+        {
+
         }
     }
 }

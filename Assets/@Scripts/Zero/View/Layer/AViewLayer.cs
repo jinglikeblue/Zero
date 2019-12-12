@@ -38,7 +38,21 @@ namespace ZeroHot
             BeforeShow();
             var view = ViewFactory.Create<AViewType>(Root, data);
             ShowView(view);
-            return view as AViewType;
+            return view;
+        }
+
+        /// <summary>
+        /// 显示视图(使用该方式显示视图，请先在ViewFactory中注册type)
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public AView Show(Type type, object data = null)
+        {
+            BeforeShow();
+            var view = ViewFactory.Create(type, Root, data);
+            ShowView(view);
+            return view;
         }
 
         /// <summary>
