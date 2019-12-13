@@ -19,10 +19,5 @@ namespace Zero
             }
             onEvent.Invoke(eventData);
         }
-
-        public static PointerBeginDragEventListener Get(GameObject gameObject)
-        {
-            return ComponentUtil.AutoGet<PointerBeginDragEventListener>(gameObject);
-        }
     }
 }

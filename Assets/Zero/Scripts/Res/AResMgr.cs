@@ -81,5 +81,15 @@ namespace Zero
         /// <param name="onLoaded"></param>
         /// <param name="onProgress"></param>
         public abstract void LoadAsync(string abName, string assetName, Action<UnityEngine.Object> onLoaded, Action<float> onProgress = null);
+
+        /// <summary>
+        /// 异步获取一个资源
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="abName"></param>
+        /// <param name="assetName"></param>
+        /// <param name="onLoaded"></param>
+        /// <param name="onProgress"></param>
+        public abstract void LoadAsync<T>(string abName, string assetName, Action<T> onLoaded, Action<float> onProgress = null) where T:UnityEngine.Object;
     }
 }

@@ -145,6 +145,19 @@ namespace Zero
         /// 异步加载一个资源
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <param name="abName">资源包名称</param>
+        /// <param name="assetName">资源名称</param>
+        /// <param name="onLoaded"></param>
+        /// <param name="onProgress"></param>
+        public void LoadAsync<T>(string abName, string assetName, Action<T> onLoaded, Action<float> onProgress = null) where T:UnityEngine.Object
+        {
+            _mgr.LoadAsync<T>(abName, assetName, onLoaded, onProgress);
+        }
+
+        /// <summary>
+        /// 异步加载一个资源
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="assetPath">资源路径</param>        
         /// <param name="onLoaded"></param>
         /// <param name="onProgress"></param>
@@ -157,6 +170,21 @@ namespace Zero
         }
 
         /// <summary>
+        /// 异步加载一个资源
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="assetPath">资源路径</param>        
+        /// <param name="onLoaded"></param>
+        /// <param name="onProgress"></param>
+        public void LoadAsync<T>(string assetPath, Action<T> onLoaded, Action<float> onProgress = null) where T : UnityEngine.Object
+        {
+            string abName;
+            string assetName;
+            SeparateAssetPath(assetPath, out abName, out assetName);
+            _mgr.LoadAsync<T>(abName, assetName, onLoaded, onProgress);
+        }
+
+        /// <summary>
         /// 将资源所在路径以及资源名合并成一个完整的资源路径
         /// </summary>
         /// <param name="abName"></param>
@@ -166,8 +194,8 @@ namespace Zero
         {
             if(abName == null)
             {
-                abName = "";
-            }
+                abName = "";                
+            }           
 
             if(assetName == null)
             {

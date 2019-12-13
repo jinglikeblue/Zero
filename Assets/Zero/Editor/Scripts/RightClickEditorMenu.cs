@@ -6,7 +6,7 @@ using ZeroEditor;
 /// <summary>
 /// 自定义右键菜单
 /// </summary>
-public class CustomRightClickMenu
+public class RightClickEditorMenu
 {
     [MenuItem("Assets/Zero快捷操作/生成DLL", false, 0)]
     static void GenerateDll()

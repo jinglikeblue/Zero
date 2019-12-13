@@ -24,7 +24,7 @@ namespace ZeroHot
 
         protected override void BeforeShow()
         {
-            Clear();
+            
         }
 
         protected override void ShowView(AView view)

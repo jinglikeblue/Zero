@@ -66,5 +66,10 @@ namespace ZeroHot
             }
             _poolDic.Clear();
         }
+
+        protected override void Init()
+        {
+            
+        }
     }
 }

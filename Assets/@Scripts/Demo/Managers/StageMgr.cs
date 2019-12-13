@@ -68,5 +68,10 @@ namespace ILDemo
         {
             throw new NotImplementedException();
         }
+
+        protected override void Init()
+        {
+
+        }
     }
 }

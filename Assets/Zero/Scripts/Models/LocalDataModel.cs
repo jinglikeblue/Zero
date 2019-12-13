@@ -1,4 +1,5 @@
 ﻿using Jing;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -9,6 +10,16 @@ namespace Zero
     /// </summary>
     public class LocalDataModel
     {
+        /// <summary>
+        /// 数据加密Key
+        /// </summary>
+        const string DATA_ENCRYPT_KEY = "zero";
+
+        /// <summary>
+        /// 是否允许加密
+        /// </summary>
+        const bool ENCRYPT_ENABLE = false;
+
         const string FILE_NAME = "local_data.zero.json";
         /// <summary>
         /// 本地数据对象
@@ -37,8 +48,9 @@ namespace Zero
 
             if (File.Exists(_path))
             {
+                var content = File.ReadAllText(_path);
                 //读取已有的数据
-                _vo = LitJson.JsonMapper.ToObject<VO>(File.ReadAllText(_path));
+                _vo = LitJson.JsonMapper.ToObject<VO>(content);
             }
             else
             {
@@ -89,6 +101,11 @@ namespace Zero
         /// <param name="value"></param>
         public void AddValue(string key, string value)
         {
+            if (ENCRYPT_ENABLE)
+            {
+                key = CryptoUtility.AESEncryptString(key, DATA_ENCRYPT_KEY);
+                value = CryptoUtility.AESEncryptString(value, DATA_ENCRYPT_KEY);
+            }
             _vo.localValueDic[key] = value;
             Save2Local();
         }
@@ -100,9 +117,18 @@ namespace Zero
         /// <returns></returns>
         public string ReadValue(string key)
         {
-            if (_vo.localValueDic.ContainsKey(key))
+            if (ENCRYPT_ENABLE)
             {
-                return _vo.localValueDic[key];
+                key = CryptoUtility.AESEncryptString(key, DATA_ENCRYPT_KEY);
+            }
+            if (_vo.localValueDic.ContainsKey(key))
+            {                
+                var value = _vo.localValueDic[key];
+                if (ENCRYPT_ENABLE)
+                {
+                    value = CryptoUtility.AESDecryptString(value, DATA_ENCRYPT_KEY);
+                }
+                return value;
             }
             return null;
         }

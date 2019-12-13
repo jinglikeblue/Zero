@@ -2,6 +2,7 @@
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using ZeroEditor;
@@ -20,7 +21,10 @@ namespace ZeroEditor
             win.position = rect;
         }
 
+        List<AEditorModule> _modules = new List<AEditorModule>();
+
         OdinMenuTree _tree;
+        AEditorModule _currentModule;
         public OdinMenuTree menuTree
         {
             get
@@ -28,10 +32,31 @@ namespace ZeroEditor
                 if(null == _tree)
                 {
                     _tree = new OdinMenuTree();                    
-                    _tree.Config.DrawSearchToolbar = true;                    
+                    _tree.Config.DrawSearchToolbar = true;
+                    _tree.Selection.SelectionChanged += SelectionChanged;
                 }
                 return _tree;
             }
+        }
+
+        private void SelectionChanged(SelectionChangedType sct)
+        {
+            switch (sct)
+            {
+                case SelectionChangedType.ItemRemoved:
+                    break;
+                case SelectionChangedType.ItemAdded:
+                    _currentModule = _tree.Selection.SelectedValue as AEditorModule;
+                    _currentModule.OnEnable();
+                    break;
+                case SelectionChangedType.SelectionCleared:
+                    if (null != _currentModule)
+                    {
+                        _currentModule.OnDisable();
+                        _currentModule = null;
+                    }
+                    break;
+            }            
         }
 
         protected override OdinMenuTree BuildMenuTree()
@@ -40,16 +65,44 @@ namespace ZeroEditor
             return _tree;
         }
 
+        /// <summary>
+        /// 选中指定模块匹配的菜单项
+        /// </summary>
+        /// <typeparam name="Module"></typeparam>
+        public void Select<Module>()
+        {
+            foreach(var module in _modules)
+            {
+                if(module.GetType() == typeof(Module))
+                {
+                    TrySelectMenuItemWithObject(module);
+                    break;
+                }
+            }
+        }
+
         protected void AddModule<Module>(string path, EditorIcon icon = null) where Module : AEditorModule
-        {            
+        {
+            var module = Activator.CreateInstance(typeof(Module), new object[] { this }) as AEditorModule;
             if (null == icon)
             {
-                menuTree.Add(path, Activator.CreateInstance(typeof(Module), new object[] { this }));
+                menuTree.Add(path, module);
             }
             else
             {
-                menuTree.Add(path, Activator.CreateInstance(typeof(Module), new object[] { this }), icon);
+                menuTree.Add(path, module, icon);
             }
-        }        
+            _modules.Add(module);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            foreach(var module in _modules)
+            {
+                module.OnDisable();
+            }
+            _modules.Clear();            
+        }
     }
 }

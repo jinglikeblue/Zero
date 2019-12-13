@@ -30,6 +30,8 @@ namespace ZeroEditor
 
         bool _isAsync;
 
+        string _searchDir = ZeroConst.HOT_RESOURCES_ROOT_DIR;
+
         /// <summary>
         /// 
         /// </summary>
@@ -41,6 +43,17 @@ namespace ZeroEditor
 
         public void Excute()
         {
+            if (false == Directory.Exists(_searchDir))
+            {
+                //热更资源目录不存在，可能是Resources目录
+                _searchDir = "Assets/Resources";
+            }
+
+            if (false == Directory.Exists(_searchDir))
+            {
+                throw new Exception(string.Format("没有一个正确的资源目录:「{0}」或「{1}", ZeroConst.HOT_RESOURCES_ROOT_DIR, _searchDir));
+            }
+
             cfg = GenerateAssetBundleNameModule.LoadConfig();
             if (_isAsync)
             {
@@ -55,7 +68,7 @@ namespace ZeroEditor
         void FindABAsync()
         {
             //查找当前@Resources的AB信息
-            List<AssetBundleItemVO>  list = SeanHotResources();
+            List<AssetBundleItemVO>  list = SearchHotResources();
 
             //配置中的数据，转成字典
             Dictionary<string, AssetBundleItemVO> dic = new Dictionary<string, AssetBundleItemVO>();
@@ -82,12 +95,12 @@ namespace ZeroEditor
             onFinished?.Invoke(this, this.list);
         }
 
-        List<AssetBundleItemVO> SeanHotResources()
+        List<AssetBundleItemVO> SearchHotResources()
         {
             List<AssetBundleItemVO> list = new List<AssetBundleItemVO>();
 
             //添加默认的
-            var rootFiles = Directory.GetFiles(ZeroConst.HOT_RESOURCES_ROOT_DIR);
+            var rootFiles = Directory.GetFiles(_searchDir);
             if (rootFiles.Length > 0)
             {
                 AssetBundleItemVO rootItem;
@@ -108,7 +121,7 @@ namespace ZeroEditor
                 }
             }
 
-            string[] dirs = Directory.GetDirectories(ZeroConst.HOT_RESOURCES_ROOT_DIR, "*", SearchOption.AllDirectories);
+            string[] dirs = Directory.GetDirectories(_searchDir, "*", SearchOption.AllDirectories);
             foreach (var dir in dirs)
             {
                 var sDir = FileSystem.StandardizeBackslashSeparator(dir);
@@ -119,7 +132,7 @@ namespace ZeroEditor
                     continue;
                 }
 
-                string abName = sDir.Substring(ZeroConst.HOT_RESOURCES_ROOT_DIR.Length + 1) + ZeroConst.AB_EXTENSION;
+                string abName = sDir.Substring(_searchDir.Length + 1) + ZeroConst.AB_EXTENSION;
 
                 AssetBundleItemVO vo;
                 vo.explain = null;

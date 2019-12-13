@@ -83,12 +83,20 @@ namespace Zero
             MakeABNameNotEmpty(ref abName);
             abName = ABNameWithExtension(abName);
             AssetBundle ab = LoadAssetBundle(abName);
+            ILBridge.Ins.StartCoroutine(LoadAsync<UnityEngine.Object>(ab, assetName, onLoaded, onProgress));
+        }
+
+        public override void LoadAsync<T>(string abName, string assetName, Action<T> onLoaded, Action<float> onProgress = null)
+        {
+            MakeABNameNotEmpty(ref abName);
+            abName = ABNameWithExtension(abName);
+            AssetBundle ab = LoadAssetBundle(abName);
             ILBridge.Ins.StartCoroutine(LoadAsync(ab, assetName, onLoaded, onProgress));
         }
 
-        IEnumerator LoadAsync(AssetBundle ab, string assetName, Action<UnityEngine.Object> onLoaded, Action<float> onProgress)
+        IEnumerator LoadAsync<T>(AssetBundle ab, string assetName, Action<T> onLoaded, Action<float> onProgress) where T : UnityEngine.Object
         {
-            AssetBundleRequest abr = ab.LoadAssetAsync<GameObject>(assetName);
+            AssetBundleRequest abr = ab.LoadAssetAsync<T>(assetName);
 
             do
             {
@@ -101,7 +109,7 @@ namespace Zero
             while (false == abr.isDone);
 
             //加载完成
-            onLoaded.Invoke(abr.asset);
+            onLoaded.Invoke((T)abr.asset);
         }
 
         public override void Unload(string abName, bool isUnloadAllLoaded = false, bool isUnloadDepends = true)
@@ -200,7 +208,7 @@ namespace Zero
             else
             {                
                 ab = AssetBundle.LoadFromFile(abPath);
-                _loadedABDic[abName] = ab;
+                _loadedABDic[abName] = ab;                
             }
             return ab;
         }

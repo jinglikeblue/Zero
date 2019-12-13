@@ -235,10 +235,6 @@ namespace Jing
             {
                 SetError(e.Error.Message);                
             }
-            else if (_loadedSize < _totalSize)
-            {
-                SetError("Disconnected");                
-            }
             _isDone = true;                      
         }
 
