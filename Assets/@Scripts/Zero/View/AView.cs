@@ -165,7 +165,7 @@ namespace ZeroHot
             {
                 if (gameObject.activeInHierarchy)
                 {                    
-                    gameObject.SetActive(false);
+                    gameObject.SetActive(false);                    
                 }
             }
         }

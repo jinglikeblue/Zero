@@ -144,7 +144,7 @@ namespace ZeroEditor
                     if (file.Extension.Equals(".meta"))
                     {
                         continue;
-                    }
+                    }                    
                     vo.assetList.Add(file.Name);
                 }
                 list.Add(vo);

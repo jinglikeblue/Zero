@@ -61,6 +61,6 @@ namespace ZeroHot
                 Current.Destroy();
                 Current = null;
             }
-        }    
+        }            
     }
 }

@@ -7,6 +7,7 @@ using System.Text;
 using Jing;
 using System.IO;
 using Zero;
+using UnityEngine;
 
 namespace ZeroEditor
 {
@@ -20,8 +21,15 @@ namespace ZeroEditor
 
             if (File.Exists(_path))
             {
-                string json = File.ReadAllText(_path, Encoding.UTF8);
-                vo = JsonMapper.ToObject(type, json);
+                try
+                {
+                    string json = File.ReadAllText(_path, Encoding.UTF8);                
+                    vo = JsonMapper.ToObject(type, json);
+                }
+                catch(Exception e)
+                {
+                    Debug.LogError(e.Message);
+                }
             }
             else
             {

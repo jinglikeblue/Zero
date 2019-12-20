@@ -46,8 +46,11 @@ namespace ZeroEditor
                 case SelectionChangedType.ItemRemoved:
                     break;
                 case SelectionChangedType.ItemAdded:
-                    _currentModule = _tree.Selection.SelectedValue as AEditorModule;
-                    _currentModule.OnEnable();
+                    if (null != _tree.Selection.SelectedValue)
+                    {
+                        _currentModule = _tree.Selection.SelectedValue as AEditorModule;
+                        _currentModule.OnEnable();
+                    }
                     break;
                 case SelectionChangedType.SelectionCleared:
                     if (null != _currentModule)

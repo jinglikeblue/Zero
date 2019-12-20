@@ -5,7 +5,7 @@ namespace ZeroHot
 {
     public abstract class AViewLayer
     {
-        private GameObject _rootGO;
+        public GameObject rootObject { get; private set; }
 
         /// <summary>
         /// 根节点容器
@@ -14,7 +14,25 @@ namespace ZeroHot
         {
             get
             {
-                return _rootGO.transform;
+                return rootObject.transform;
+            }
+        }
+
+        /// <summary>
+        /// 活跃值
+        /// </summary>
+        public bool Active
+        {
+            get
+            {
+                return rootObject.activeInHierarchy;
+            }
+            set
+            {
+                if(rootObject.activeInHierarchy != value)
+                {
+                    rootObject.SetActive(value);
+                }
             }
         }
 
@@ -24,7 +42,12 @@ namespace ZeroHot
         /// <param name="rootGameObject">作为根节点的GameObject对象</param>
         public AViewLayer(GameObject rootGameObject)
         {
-            _rootGO = rootGameObject;
+            if(null == rootGameObject)
+            {
+                throw new Exception("rootGameObject can't be null");
+            }
+
+            rootObject = rootGameObject;
         }
 
         /// <summary>
