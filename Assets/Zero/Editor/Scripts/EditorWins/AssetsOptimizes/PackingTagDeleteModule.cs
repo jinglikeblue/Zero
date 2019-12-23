@@ -1,21 +1,13 @@
-﻿using Jing;
-using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor;
-using Sirenix.Utilities;
-using Sirenix.Utilities.Editor;
+﻿using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Threading;
 using UnityEditor;
-using UnityEngine;
 
 namespace ZeroEditor
 {
-    public class SpritePackingTagOptimizesModule : AEditorModule
+    public class PackingTagDeleteModule : AEditorModule
     {
-        public SpritePackingTagOptimizesModule(EditorWindow editorWin) : base(editorWin)
+        public PackingTagDeleteModule(EditorWindow editorWin) : base(editorWin)
         {
         }
 
