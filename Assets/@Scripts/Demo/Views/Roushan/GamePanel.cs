@@ -24,7 +24,7 @@ namespace ILDemo
         private void OnBtnHelpClick()
         {
             AudioDevice.GC();
-            UIWinMgr.Ins.Open<HelpWin>(null,true,false);
+            UIWinMgr.Ins.Open<HelpWin>(null, true, false);            
         }
 
         protected override void OnEnable()

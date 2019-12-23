@@ -1,5 +1,4 @@
-﻿using System;
-using ZeroHot;
+﻿using ZeroHot;
 
 namespace ILDemo
 {
@@ -9,13 +8,10 @@ namespace ILDemo
         {
             base.OnInit(data);
             var rootTransform = gameObject.transform;
-            var stageRoot = rootTransform.Find("Stage");
-            var uiPanelRoot = rootTransform.Find("UICanvas/UIPanel");
-            var uiWinRoot = rootTransform.Find("UICanvas/UIWin");
-
-            StageMgr.Ins.Init(stageRoot);
-            UIPanelMgr.Ins.Init(uiPanelRoot);
-            UIWinMgr.Ins.Init(uiWinRoot);
+            
+            var stage = CreateChildView<StageMgr>("Stage");
+            var uiPanel = CreateChildView<UIPanelMgr>("UICanvas/UIPanel");
+            var uiWin = CreateChildView<UIWinMgr>("UICanvas/UIWin");
         }
     }
 }

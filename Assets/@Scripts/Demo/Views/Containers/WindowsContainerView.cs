@@ -1,15 +1,14 @@
-﻿using ZeroHot;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Zero;
+using ZeroHot;
 
 namespace ILDemo
 {
     /// <summary>
-    /// 窗口管理器
+    /// 窗口容器视图类
     /// </summary>
-    public class UIWinMgr:ASingleton<UIWinMgr>
+    public class WindowsContainerView: PluralContainerView
     {
         struct WinSetting
         {
@@ -25,12 +24,11 @@ namespace ILDemo
             }
         }
 
+
         /// <summary>
         /// 需要有遮罩的窗口
         /// </summary>
         HashSet<AView> _needBlurViewSet = new HashSet<AView>();
-
-        PluralViewLayer _layer;
 
         /// <summary>
         /// 窗口隔离遮罩
@@ -49,20 +47,15 @@ namespace ILDemo
             }
         }
 
-        public void Init(Transform root)
+        protected override void OnInit(object data)
         {
-            if (null == _layer)
+            base.OnInit(data);
+
+            var blurT = transform.Find("Blur");
+            if (null != blurT)
             {
-                _layer = new PluralViewLayer(root.gameObject);
-                var blurGO = root.Find("Blur");
-                if (null != blurGO)
-                {
-                    _blur = blurGO.GetComponent<Blur>();
-                    if (null != _blur)
-                    {
-                        _blur.gameObject.SetActive(false);
-                    }
-                }
+                _blur = ComponentUtil.AutoGet<Blur>(blurT.gameObject);
+                _blur.gameObject.SetActive(false);
             }
         }
 
@@ -80,7 +73,7 @@ namespace ILDemo
             {
                 CloseAll();
             }
-            var view = _layer.Show<T>(data);
+            var view = Show<T>(data);
             OnShowView(view, isBlur, isCloseOthers);
             return view as T;
         }
@@ -100,7 +93,7 @@ namespace ILDemo
             {
                 CloseAll();
             }
-            _layer.ShowASync<T>(data, OnAsyncOpen, new WinSetting(isBlur, isCloseOthers, onCreated), onProgress);
+            ShowASync<T>(data, OnAsyncOpen, new WinSetting(isBlur, isCloseOthers, onCreated), onProgress);
         }
 
         private void OnAsyncOpen(AView view, object token)
@@ -116,7 +109,6 @@ namespace ILDemo
 
         void OnShowView(AView view, bool isBlur, bool isCloseOthers)
         {
-            _layer.ViewList.Sort(ComparerView);
             view.onDestroyed += OnViewDestroy;
 
             if (isBlur)
@@ -124,13 +116,6 @@ namespace ILDemo
                 _needBlurViewSet.Add(view);
                 UpdateBlur();
             }
-        }
-
-        private int ComparerView(AView x, AView y)
-        {
-            int xIdx = x.gameObject.transform.GetSiblingIndex();
-            int yIdx = y.gameObject.transform.GetSiblingIndex();
-            return xIdx - yIdx;
         }
 
         void UpdateBlur()
@@ -143,9 +128,9 @@ namespace ILDemo
             if (_needBlurViewSet.Count > 0)
             {
                 _blur.gameObject.SetActive(true);
-                for (int i = _layer.ViewList.Count - 1; i > -1; i--)
+                for (int i = viewList.Count - 1; i > -1; i--)
                 {
-                    AView view = _layer.ViewList[i];
+                    AView view = viewList[i];
                     if (_needBlurViewSet.Contains(view))
                     {
                         int viewChildIdx = view.gameObject.transform.GetSiblingIndex();
@@ -182,24 +167,14 @@ namespace ILDemo
         /// </summary>
         public void CloseAll()
         {
-            foreach (var view in _layer.ViewList)
+            foreach (var view in viewList)
             {
                 view.onDestroyed -= OnViewDestroy;
             }
             _needBlurViewSet.Clear();
             _blur.gameObject.transform.SetAsFirstSibling();
             _blur.gameObject.SetActive(false);
-            _layer.Clear();
-        }
-
-        public override void Destroy()
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void Init()
-        {
-
+            Clear();
         }
     }
 }
