@@ -5,7 +5,7 @@ namespace Zero
     /// <summary>
     /// 矩形实用类
     /// </summary>
-    class RectUtility
+    public class RectUtility
     {
         /// <summary>
         /// 判断矩形a是否完整覆盖矩形b，矩形b的四个角都在矩形a的区域内

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
@@ -12,9 +13,6 @@ namespace Zero
     /// </summary>
     public class ILBridge : ASingletonMonoBehaviour<ILBridge>
     {
-        public string dllDir;
-        public string dllName;
-
         /// <summary>
         /// Update事件委托
         /// </summary>
@@ -66,6 +64,22 @@ namespace Zero
         public ILRuntime.Runtime.Enviorment.AppDomain ILRuntimeAppDomain { get; private set; }
 
         /// <summary>
+        /// 获取代码域中的类型清单
+        /// </summary>
+        /// <param name="whereFunc">可选参数，委托通过参数Type判断是否需要加入清单中，返回true则表示需要</param>
+        /// <returns></returns>
+        public Type[] GetTypes(Func<Type, bool> whereFunc = null)
+        {
+            return iLWorker.GetTypes(whereFunc);
+        }
+
+        public void Startup()
+        {
+            //使用Assembly
+            iLWorker = new AssemblyILWorker(this.GetType().Assembly);
+        }
+
+        /// <summary>
         /// 启动热更代码执行
         /// </summary>
         /// <param name="dllDir">Dll文件所在目录</param>
@@ -74,9 +88,6 @@ namespace Zero
         /// <param name="methodName">是否需要加载PDB文件（仅针对ILRuntime，可以在调试时打印出错代码信息）</param>
         public void Startup(string dllDir, string dllName, bool isDebug, bool isNeedPdbFile)
         {
-            this.dllDir = dllDir;
-            this.dllName = dllName;
-
             string dllPath = Path.Combine(dllDir, dllName + ".dll");
 
             byte[] dllBytes = File.ReadAllBytes(dllPath);
@@ -91,11 +102,13 @@ namespace Zero
 
             if (null != assembly)
             {
-                //使用Assembly
+                Debug.Log(Log.Zero1("外部程序集执行方式：[Assembly]"));
+                //使用Assembly                
                 iLWorker = new AssemblyILWorker(assembly);
             }
             else
             {
+                Debug.Log(Log.Zero1("外部程序集执行方式：[ILRuntime]"));
                 //使用ILRuntime
                 var ilruntimeWorker = new ILRuntimeILWorker(dllBytes, dllDir, dllName, isDebug, isNeedPdbFile);
                 iLWorker = ilruntimeWorker;
@@ -107,66 +120,42 @@ namespace Zero
 
         public void Invoke(string clsName, string methodName)
         {
-            if (null != iLWorker)
-            {
-                iLWorker.Invoke(clsName, methodName);
-            }
+            iLWorker.Invoke(clsName, methodName);
         }
 
         private void OnGUI()
         {
-            if (null != onGUI)
-            {
-                onGUI.Invoke();
-            }
+            onGUI?.Invoke();
         }
 
         void Update()
         {
-            if (null != onUpdate)
-            {
-                onUpdate.Invoke();
-            }
+            onUpdate?.Invoke();
         }
 
         private void FixedUpdate()
         {
-            if (null != onFixedUpdate)
-            {
-                onFixedUpdate.Invoke();
-            }
+            onFixedUpdate?.Invoke();
         }
 
         private void LateUpdate()
         {
-            if (null != onLateUpdate)
-            {
-                onLateUpdate.Invoke();
-            }
+            onLateUpdate?.Invoke();
         }
 
         private void OnApplicationFocus(bool focus)
         {
-            if (null != onApplicationFocus)
-            {
-                onApplicationFocus.Invoke(focus);
-            }
+            onApplicationFocus?.Invoke(focus);
         }
 
         private void OnApplicationPause(bool pause)
         {
-            if (null != onApplicationPause)
-            {
-                onApplicationPause.Invoke(pause);
-            }
+            onApplicationPause?.Invoke(pause);
         }
 
         private void OnApplicationQuit()
         {
-            if (null != onApplicationQuit)
-            {
-                onApplicationQuit.Invoke();
-            }
+            onApplicationQuit?.Invoke();
         }
 
         #region 协程代理
