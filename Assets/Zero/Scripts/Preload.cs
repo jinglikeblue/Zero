@@ -183,10 +183,10 @@ namespace Zero
             {
                 Debug.Log(Log.Zero1("@Scripts代码运行环境: [本地程序集]"));
 
-                Type type = Type.GetType(cfg.className);
-                //使用本地类，直接启动本地类
-                MethodInfo method = type.GetMethod(cfg.methodName, BindingFlags.Static | BindingFlags.Public);
-                method.Invoke(null, null);
+                //初始化IL
+                ILBridge.Ins.Startup();
+                //调用启动方法
+                ILBridge.Ins.Invoke(cfg.className, cfg.methodName);
             }
         }
     }

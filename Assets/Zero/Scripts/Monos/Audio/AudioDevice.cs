@@ -306,21 +306,24 @@ namespace Zero
         /// </summary>
         void ClearUnusedAudioSource()
         {
-            HashSet<AudioSource> _unusedSet = new HashSet<AudioSource>();
+            HashSet<AudioSource> uselessSet = new HashSet<AudioSource>();
 
             foreach (var source in _createdSourceSet)
             {
-                if (false == source.isPlaying)
+                if (null == source || false == source.isPlaying)
                 {
-                    _unusedSet.Add(source);                    
+                    uselessSet.Add(source);                    
                 }
             }
 
-            foreach(var unusedSource in _unusedSet)
+            foreach(var uselessSource in uselessSet)
             {
-                GameObject.Destroy(unusedSource);
-                _depositedSourceSet.Remove(unusedSource);
-                _createdSourceSet.Remove(unusedSource);
+                if (null != uselessSource)
+                {
+                    GameObject.Destroy(uselessSource);
+                }
+                _depositedSourceSet.Remove(uselessSource);
+                _createdSourceSet.Remove(uselessSource);
             }
         }
     }

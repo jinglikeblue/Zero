@@ -35,7 +35,8 @@ namespace ZeroEditor
         {
             OdinMenuTree tree = new OdinMenuTree();
             tree.Config.DrawSearchToolbar = true;
-            tree.Add("Sprite Packing Tag 管理", new SpritePackingTagOptimizesModule(this));
+            tree.Add("Sprite Packing Tag 管理/批量删除", new PackingTagDeleteModule(this));
+            tree.Add("Sprite Packing Tag 管理/批量设置", new PackingTagBatchSetModule(this));
             tree.Add("查找项目无用资源", new UselessAssetsOptimizesModule(this));
             return tree;
         }

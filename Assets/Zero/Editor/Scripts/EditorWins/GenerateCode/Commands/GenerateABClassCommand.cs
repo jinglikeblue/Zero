@@ -134,6 +134,12 @@ namespace ZeroEditor
                 Debug.LogWarningFormat("「{0}」字段不是合法的(前缀已自动添加下划线): {1}", OUTPUT_FILE, fieldName);
                 fieldName = "_" + fieldName;
             }
+
+            if (fieldName.IndexOf('.') > -1)
+            {
+                Debug.LogWarningFormat("「{0}」字段不是合法的(已自动替换'.'为'_'): {1}", OUTPUT_FILE, fieldName);
+                fieldName = fieldName.Replace('.', '_');
+            }
             return fieldName;
         }        
     }

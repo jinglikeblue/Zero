@@ -1,0 +1,65 @@
+
+{
+    "items" : [
+        {
+            "name" : "ab/audios.ab",
+            "version" : "725b0a0096b411cef660be4980b74cfb",
+            "size"    : 1465600
+        },
+        {
+            "name" : "ab/manifest.ab",
+            "version" : "e01c91d4c3d735bb1aad1bc8e5ba8709",
+            "size"    : 1794
+        },
+        {
+            "name" : "ab/root_assets.ab",
+            "version" : "da24f160aea7a6cf249095361760bf49",
+            "size"    : 6149
+        },
+        {
+            "name" : "ab/auto_depends/cross_0.ab",
+            "version" : "b62ec48ba9335dc403ca9f6f906e3fec",
+            "size"    : 9566
+        },
+        {
+            "name" : "ab/auto_depends/cross_1.ab",
+            "version" : "9c38d9211bc6c0c27f9c9c74fed92881",
+            "size"    : 3975
+        },
+        {
+            "name" : "ab/prefabs/panels.ab",
+            "version" : "0906e6b19f2c107ce2bdab45cd0db80d",
+            "size"    : 98967
+        },
+        {
+            "name" : "ab/prefabs/stages.ab",
+            "version" : "7b3cf5e3a63df0a42f8528fc239920fd",
+            "size"    : 385745
+        },
+        {
+            "name" : "ab/prefabs/wins.ab",
+            "version" : "618df9e17e4b701cc857fec152e983e7",
+            "size"    : 597459
+        },
+        {
+            "name" : "ab/prefabs/stages/gamestage.ab",
+            "version" : "f0b6b29f6b8209bebaef51dfb4e4385b",
+            "size"    : 4591
+        },
+        {
+            "name" : "configs/read_me.txt",
+            "version" : "6be53db955f8d95d1e441e7956fa36b7",
+            "size"    : 117
+        },
+        {
+            "name" : "dll/scripts.dll",
+            "version" : "10b544f7737f79e83bb170ea2f740da1",
+            "size"    : 28160
+        },
+        {
+            "name" : "dll/scripts.pdb",
+            "version" : "a7e79245b4ba2e39504e0407c83bcd82",
+            "size"    : 10836
+        }
+    ]
+}

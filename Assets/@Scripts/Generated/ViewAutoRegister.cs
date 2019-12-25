@@ -36,11 +36,12 @@ namespace ZeroHot
         private ViewAutoRegister()
         {
             R("root_assets.ab", "ILContent");
-            R("prefabs/panels.ab", "GamePanel");
-            R("prefabs/panels.ab", "MenuPanel");
-            R("prefabs/stages.ab", "GameStage");
-            R("prefabs/wins.ab", "HelpWin");
-            R("prefabs/stages/gamestage.ab", "Block");
+            R("root_assets.ab", "MenuPanel");
+            R("roushan.ab", "Block");
+            R("roushan.ab", "GamePanel");
+            R("roushan.ab", "GameStage");
+            R("roushan.ab", "HelpWin");
+            R("roushan.ab", "StartupPanel");
         }
 
         void R(string abName, string viewName)

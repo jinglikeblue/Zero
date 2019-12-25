@@ -412,8 +412,8 @@ namespace LitJson
 
                 if (! t_data.IsArray && ! t_data.IsList)
                     throw new JsonException (String.Format (
-                            "Type {0} can't act as an array",
-                            inst_type));
+                            "Type {0} can't act as an array [fieldname:{1}]",
+                            inst_type, fieldName));
 
                 IList list;
                 Type elem_type;
