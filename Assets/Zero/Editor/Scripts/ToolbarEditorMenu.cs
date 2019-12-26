@@ -15,10 +15,10 @@ namespace ZeroEditor
             BuildHotResEditorWin.Open();
         }
 
-        [MenuItem("Zero/数据配置编辑", false, 100)]
+        [MenuItem("Zero/配置文件编辑", false, 100)]
         public static void Configs()
         {
-            HotConfigEditorWin.Open("数据配置编辑");
+            HotConfigEditorWin.Open("配置文件编辑");
         }
 
         [MenuItem("Zero/自动生成代码", false, 200)]

@@ -4,8 +4,6 @@ using Sirenix.Utilities.Editor;
 using System;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEngine;
-using ZeroEditor;
 
 namespace ZeroEditor
 {
