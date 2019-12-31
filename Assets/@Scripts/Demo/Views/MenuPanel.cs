@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using ZeroHot;
@@ -17,11 +13,14 @@ namespace ILDemo
         protected override void OnInit(object data)
         {
             base.OnInit(data);
-
             buttonPrefab.SetActive(false);
-            AddBtn("Roushan", () => {
-                UIPanelMgr.Ins.Switch<StartupPanel>();
-            });
+
+            AddBtn("Roushan", RoushanTest);
+        }
+
+        void RoushanTest()
+        {
+            UIPanelMgr.Ins.Switch<StartupPanel>();
         }
 
         void AddBtn(string label, Action action)
@@ -30,8 +29,7 @@ namespace ILDemo
             go.name = label;
             go.SetActive(true);
             go.GetComponentInChildren<Text>().text = label;            
-            go.GetComponent<Button>().onClick.AddListener(() => { action.Invoke(); });
-            
+            go.GetComponent<Button>().onClick.AddListener(() => { action.Invoke(); });           
         }
     }
 }

@@ -10,9 +10,7 @@ namespace ZeroEditor
     class HotConfigEditorWin : AZeroMenuEditorWindow<HotConfigEditorWin>
     {
         protected override void OnEnable()
-        {
-            AddModule<HotConfigEditorSettingModule>("设置", EditorIcons.SettingsCog);
-
+        {            
             var types = Assembly.GetAssembly(typeof(ZeroHot.Main)).GetTypes();
             foreach (var type in types)
             {

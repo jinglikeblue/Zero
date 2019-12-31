@@ -119,7 +119,7 @@ namespace ZeroHot
                 _layer.ShowView(view);
                 if (null != _onCreated)
                 {
-                    _onCreated.Invoke(view as AViewType, _token);
+                    _onCreated.Invoke((AViewType)view, _token);
                 }
             }
         }
