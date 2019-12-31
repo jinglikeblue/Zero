@@ -75,7 +75,7 @@ namespace ILDemo
             }
             var view = Show<T>(data);
             OnShowView(view, isBlur, isCloseOthers);
-            return view as T;
+            return view;
         }
 
         /// <summary>
