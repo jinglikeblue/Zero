@@ -150,7 +150,7 @@ namespace Zero
             localResVer = new LocalResVerModel();
 
             Debug.Log(Log.Zero1("Streaming Assets Dir: {0}", ZeroConst.STREAMING_ASSETS_PATH));
-            Debug.Log(Log.Zero1("Net Res Dir         : {0}", netResDir));
+            Debug.Log(Log.Zero1("Net Res Root        : {0}", netResDir));
             Debug.Log(Log.Zero1("Persistent Data Dir : {0}", ZeroConst.PERSISTENT_DATA_PATH));
             Debug.Log(Log.Zero1("Local Res Dir       : {0}", localResDir));
             Debug.Log(Log.Zero1("Generate Files Dir  : {0}", generateFilesDir));

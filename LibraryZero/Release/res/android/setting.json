@@ -1,10 +1,10 @@
 
 {
     "client" : {
-        "version" : "0.1",
-        "url"     : "http://wepieces.cn/unity/zero/demo/zero.exe"
+        "version" : "1.0",
+        "url"     : "http://5t9whj.coding-pages.com/zero.apk"
     },
-    "netResRoot" : "http://wepieces.cn/unity/zero/demo/res",
+    "netResRoot" : "http://5t9whj.coding-pages.com",
     "startupResGroups" : [
         "/"
     ],
