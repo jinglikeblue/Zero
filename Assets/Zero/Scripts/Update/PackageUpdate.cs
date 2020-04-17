@@ -1,6 +1,7 @@
 ﻿using Jing;
 using System;
 using System.Collections;
+using System.IO;
 using UnityEngine;
 
 namespace Zero
@@ -30,7 +31,8 @@ namespace Zero
 
                 //检查是否存在Package.zip
                 string path = FileSystem.CombinePaths(ZeroConst.STREAMING_ASSETS_PATH, ZeroConst.PACKAGE_ZIP_FILE_NAME);
-                WWW www = new WWW(path);
+                WWW www = new WWW(path);                               
+
                 while (false == www.isDone)
                 {
                     onProgress(0f, 0);
@@ -44,9 +46,15 @@ namespace Zero
                     break;
                 }
 
+                //先将这个文件写到可读写目录中
+                var zipFilePath = FileSystem.CombinePaths(ZeroConst.PERSISTENT_DATA_PATH, "package.zip");
+                File.WriteAllBytes(zipFilePath, www.bytes);
+
                 //解压Zip
                 ZipHelper zh = new ZipHelper();
-                zh.UnZip(www.bytes, Runtime.Ins.localResDir);
+                //将文件解压到可读写目录中
+                zh.UnZip(zipFilePath, ZeroConst.PERSISTENT_DATA_PATH);
+
                 while (false == zh.isDone)
                 {
                     Debug.LogFormat("[{0}]解压进度:{1}%", ZeroConst.PACKAGE_ZIP_FILE_NAME, zh.progress * 100);

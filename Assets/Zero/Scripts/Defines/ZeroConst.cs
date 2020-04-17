@@ -147,7 +147,7 @@ namespace Zero
         public static string PERSISTENT_DATA_PATH
         {
             get
-            {
+            {                
                 if (null == _persistentDataPath)
                 {
                     _persistentDataPath = Application.persistentDataPath;
@@ -169,6 +169,6 @@ namespace Zero
         /// <summary>
         /// 框架生成文件存放地址
         /// </summary>
-        public static string GENERATES_PERSISTENT_DATA_PATH = FileSystem.CombineDirs(false, PERSISTENT_DATA_PATH, "zero", "generated");
+        public static string GENERATES_PERSISTENT_DATA_PATH = FileSystem.CombineDirs(false, PERSISTENT_DATA_PATH, "zero", "generated");        
     }
 }

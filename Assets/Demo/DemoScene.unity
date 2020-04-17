@@ -669,7 +669,7 @@ MonoBehaviour:
     methodName: Startup
     hotResMode: 0
     netRoot: http://5t9whj.coding-pages.com
-    isUseDll: 1
+    isUseDll: 0
     ilType: 0
     isDebugIL: 1
     isLoadPdb: 1

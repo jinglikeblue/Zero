@@ -61,6 +61,10 @@ Hierarchy中的Preload是一个简单的游戏启动的加载视图，该视图�
 
 程序启动的时候，会检测如果是第一次安装程序，且存在package.zip，便会将其解压出来。解压后的资源使用方式和热更资源的使用方式一致，参考 **「资源管理解决方案」**
 
+```
+注意：package.zip中的内容会解压到项目的可读写目录「ZeroConst.PERSISTENT_DATA_PATH」中，如果希望初始化时的资源能够正确匹配，请严格检测压缩文件中的目录路径和下载资源的目录路径一致。可以参考常量「ZeroConst.WWW_RES_PERSISTENT_DATA_PATH」
+```
+
 ### 2.检查/更新setting.json
 >setting.json可以理解为网络资源的入口文件，所有网络资源的加载都从这个配置文件开始。该文件可通过Editor工具进行配置/发布。
 

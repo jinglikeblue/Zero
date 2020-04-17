@@ -1,4 +1,5 @@
 ﻿using ICSharpCode.SharpZipLib.Zip;
+using Jing;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -53,9 +54,9 @@ namespace Zero
         /// <param name="stream">压缩文件流</param>
         /// <param name="targetDir">解压目录</param>
         void UnZip(string targetDir)
-        {           
+        {
             _targetDir = targetDir;
-            ZipConstants.DefaultCodePage = 0;            
+            ZipConstants.DefaultCodePage = 0;
             Thread thread = new Thread(new ThreadStart(ProcessUnZip));
             thread.Start();
         }
@@ -74,11 +75,11 @@ namespace Zero
 
         Stream GetNewStream()
         {
-            if(_zipBytes != null)
+            if (_zipBytes != null)
             {
                 return new MemoryStream(_zipBytes);
             }
-            else if(_zipFile != null)
+            else if (_zipFile != null)
             {
                 return File.OpenRead(_zipFile);
             }
@@ -187,7 +188,7 @@ namespace Zero
                 s.Close();
 
                 //创建LUA脚本目录
-                if(false == Directory.Exists(_targetDir))
+                if (false == Directory.Exists(_targetDir))
                 {
                     Directory.CreateDirectory(_targetDir);
                 }
@@ -197,8 +198,8 @@ namespace Zero
 
                 while ((entry = s.GetNextEntry()) != null)
                 {
-                    string targetPath = _targetDir + entry.Name;
-                    
+                    string targetPath = FileSystem.CombinePaths(_targetDir, entry.Name);
+
                     if (entry.IsDirectory)
                     {
                         Directory.CreateDirectory(targetPath);
@@ -230,13 +231,13 @@ namespace Zero
                         progress = ++current / (float)total;
                         //Thread.Sleep(100);
                     }
-                }  
-                
+                }
+
                 s.Close();
             }
             catch (Exception e)
             {
-                error = e.Message;                
+                error = e.Message;
             }
 
             isDone = true;
