@@ -16,6 +16,13 @@ namespace ILDemo
             buttonPrefab.SetActive(false);
 
             AddBtn("Roushan", RoushanTest);
+            AddBtn("TestAndroidBridge", TestAndroidBridge);
+        }
+
+        private void TestAndroidBridge()
+        {
+            var bridge = new AndroidJavaClass("pieces.jing.zerolib.UnityBridge");
+            bridge.CallStatic<bool>("showToast", "Bridge Test!!!");
         }
 
         void RoushanTest()

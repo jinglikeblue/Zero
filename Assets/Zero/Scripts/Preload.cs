@@ -67,7 +67,10 @@ namespace Zero
         /// </summary>
         /// <param name="rg"></param>
         public void StartPreload()
-        {            
+        {
+            //实例化Native桥接器
+            var startupNativeBridge = NativeBridge.Ins;
+
             //初始化运行环境配置环境
             Runtime.Ins.Init(runtimeCfg);
 

@@ -49,6 +49,16 @@ namespace ZeroEditor
             }            
         }
 
+        [MenuItem("Zero/调试/打开[Caches]目录", false, 602)]
+        public static void OpenCachesDir()
+        {
+            var cacheDir = new DirectoryInfo(ZeroConst.PERSISTENT_DATA_PATH);
+            if (cacheDir.Exists)
+            {
+                ZeroEditorUtil.OpenDirectory(cacheDir.FullName);
+            }
+        }
+
         [MenuItem("Zero/调试/GC", false, 602)]
         public static void GC()
         {

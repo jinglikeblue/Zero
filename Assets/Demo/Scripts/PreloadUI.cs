@@ -13,16 +13,16 @@ namespace Demo
 
         void Start()
         {
-            switch (Application.platform)
-            {
-                case RuntimePlatform.Android:
-                case RuntimePlatform.IPhonePlayer:
-                    Screen.SetResolution(640, 960, true);
-                    break;
-                default:
-                    Screen.SetResolution(640, 960, false);
-                    break;
-            }
+            //switch (Application.platform)
+            //{
+            //    case RuntimePlatform.Android:
+            //    case RuntimePlatform.IPhonePlayer:
+            //        Screen.SetResolution(640, 960, true);
+            //        break;
+            //    default:
+            //        Screen.SetResolution(640, 960, false);
+            //        break;
+            //}          
 
             SetProgress(0, 1);
             Preload preload = GetComponent<Preload>();

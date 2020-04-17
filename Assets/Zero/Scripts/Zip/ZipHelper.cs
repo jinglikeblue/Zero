@@ -3,6 +3,7 @@ using Jing;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading;
 
 namespace Zero
@@ -15,17 +16,27 @@ namespace Zero
         /// <summary>
         /// 进度
         /// </summary>
-        public float progress = 0f;
+        public float progress { get; private set; } = 0f;
 
         /// <summary>
         /// 是否完成
         /// </summary>
-        public bool isDone = false;
+        public bool isDone { get; private set; } = false;
 
         /// <summary>
         /// 错误内容
         /// </summary>
-        public string error = null;
+        public string error { get; private set; } = null;
+
+        /// <summary>
+        /// 已解压的字节数
+        /// </summary>
+        public long decompessSize { get; private set; } = 0;
+
+        /// <summary>
+        /// 总字节数
+        /// </summary>
+        public long totalSize { get; private set; } = 0;
 
         string _zipFile;
         string _targetDir;
@@ -57,6 +68,8 @@ namespace Zero
         {
             _targetDir = targetDir;
             ZipConstants.DefaultCodePage = 0;
+            //解决中文乱码问题
+            //ZipConstants.DefaultCodePage = Encoding.GetEncoding("gbk").CodePage;
             Thread thread = new Thread(new ThreadStart(ProcessUnZip));
             thread.Start();
         }
@@ -171,16 +184,23 @@ namespace Zero
         void ProcessUnZip()
         {
             try
-            {
+            {              
                 ///第一次打开 获取文件总数
                 ZipInputStream s = new ZipInputStream(GetNewStream());
                 //total = s.Length;
                 List<ZipEntry> entryList = new List<ZipEntry>();
+                long totalSize = 0;
                 ZipEntry entry;
                 while ((entry = s.GetNextEntry()) != null)
                 {
-                    entryList.Add(entry);
+                    if (entry.IsFile)
+                    {
+                        entryList.Add(entry);
+                        totalSize += entry.Size;
+                    }
                 }
+                this.totalSize = totalSize;
+                decompessSize = 0;
 
                 long total = entryList.Count;
                 long current = 0;
@@ -205,7 +225,7 @@ namespace Zero
                         Directory.CreateDirectory(targetPath);
                     }
                     else if (entry.IsFile)
-                    {
+                    {                        
                         string dirName = Path.GetDirectoryName(targetPath);
                         if (false == Directory.Exists(dirName))
                         {
@@ -221,6 +241,7 @@ namespace Zero
                             if (size > 0)
                             {
                                 fs.Write(data, 0, size);
+                                decompessSize += size;
                             }
                             else
                             {
@@ -229,7 +250,7 @@ namespace Zero
                             }
                         }
                         progress = ++current / (float)total;
-                        //Thread.Sleep(100);
+                        Thread.Sleep(1);
                     }
                 }
 
