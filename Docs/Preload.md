@@ -105,17 +105,17 @@ Inspector中参数解释：
 
 - 资源来源
 
-    - 从网络资源目录加载<br>将通过配置的网络目录获取setting文件，并下载热更资源
+    - 从网络资源目录加载
+    <br>Relase版使用，通过配置的网络目录获取setting文件，并下载热更资源
 
-        - 网络资源根目录<br>该位置填写web服务器上放置资源的目录,格式通常为*http://wepieces.cn/unity/zero/demo/Res*这种
+        - 网络资源根目录
+        <br>该位置填写web服务器上放置资源的目录,比如：*http://5t9whj.coding-pages.com*
 
-    - 从本地资源目录加载<br>将从*Zero/Publish/HotRes*中配置的Res发布目录下获取资源
-
-        - 本地的资源根目录
+    - 从本地资源目录加载
+    <br>从资源发布目录加载资源，通常用来上传资源前，用IDE校验AB包
 
     - 使用AssetDataBase加载(推荐开发阶段使用)
-
-        - Asset中热更资源的目录<br>将从*Zero/Publish/HotRes*中配置的Res发布目录下获取资源
+    <br>在开发阶段，不用生成AB包，即可加载@Resources下的资源，提高开发效率        
 
 - 使用DLL *如果不勾选，则会通过安装包的代码执行程序。勾选后，将根据选择的方式执行HotRes打包出的DLL*
 

@@ -667,7 +667,7 @@ MonoBehaviour:
     isLogEnable: 1
     className: ZeroHot.Main
     methodName: Startup
-    hotResMode: 2
+    hotResMode: 0
     netRoot: http://5t9whj.coding-pages.com
     isUseDll: 0
     ilType: 0
