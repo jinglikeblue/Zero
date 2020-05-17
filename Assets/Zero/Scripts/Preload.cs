@@ -85,7 +85,7 @@ namespace Zero
             {
                 OnStageChange(EState.UNZIP_PACKAGE);
                 new PackageUpdate().Start(LoadSettingFile, OnPackageUpdate);
-            }
+            }            
         }
 
         public void OnPackageUpdate(float progress, long totalSize)
