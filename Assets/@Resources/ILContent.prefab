@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224227309705492692}
   - component: {fileID: 223378356649707794}
-  - component: {fileID: 114929498622020424}
+  - component: {fileID: 638134535899840982}
   m_Layer: 5
   m_Name: UIWin
   m_TagString: Untagged
@@ -59,7 +59,7 @@ Canvas:
   m_SortingLayerID: 1047701119
   m_SortingOrder: 2
   m_TargetDisplay: 0
---- !u!114 &114929498622020424
+--- !u!114 &638134535899840982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -68,14 +68,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1169329425261924}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 311
+    m_Bits: 4294967295
 --- !u!1 &1183407513434476
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,7 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224895606255002616}
   - component: {fileID: 223558362787483900}
-  - component: {fileID: 114902333475664724}
+  - component: {fileID: 151393028648451052}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -136,7 +136,7 @@ Canvas:
   m_SortingLayerID: 1047701119
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &114902333475664724
+--- !u!114 &151393028648451052
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1183407513434476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
@@ -168,9 +168,9 @@ GameObject:
   m_Component:
   - component: {fileID: 224970032848729278}
   - component: {fileID: 222085173748534158}
-  - component: {fileID: 114841699367716622}
   - component: {fileID: 114446284868477534}
   - component: {fileID: 114782063782336148}
+  - component: {fileID: 3161730557806640463}
   m_Layer: 5
   m_Name: Blur
   m_TagString: Untagged
@@ -205,34 +205,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1388031006015576}
   m_CullTransparentMesh: 0
---- !u!114 &114841699367716622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1388031006015576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.078431375}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &114446284868477534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,6 +229,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3673e4fe89a7b04db095fe4ff67d5e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3161730557806640463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388031006015576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.078431375}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
 --- !u!1 &1398592700849022
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,10 +335,9 @@ Camera:
   m_ClearFlags: 3
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
+  m_GateFitMode: 2
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -420,7 +420,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224284546650242716}
   - component: {fileID: 223558440997745380}
-  - component: {fileID: 114281934053133236}
+  - component: {fileID: 1077441570113276115}
   m_Layer: 5
   m_Name: UIPanel
   m_TagString: Untagged
@@ -468,7 +468,7 @@ Canvas:
   m_SortingLayerID: 1047701119
   m_SortingOrder: 1
   m_TargetDisplay: 0
---- !u!114 &114281934053133236
+--- !u!114 &1077441570113276115
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -477,11 +477,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1749766427664588}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 311
+    m_Bits: 4294967295
