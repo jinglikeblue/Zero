@@ -105,8 +105,10 @@ namespace Zero
             {
                 if (null == _platformDirName)
                 {
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE_WIN
                     _platformDirName = PlatformDirNameConst.PC;
+#elif UNITY_STANDALONE_OSX
+                    _platformDirName = PlatformDirNameConst.OSX;
 #elif UNITY_IPHONE
         _platformDirName = PlatformDirNameConst.IOS;
 #elif UNITY_ANDROID

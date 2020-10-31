@@ -57,8 +57,8 @@ namespace Zero
 #if UNITY_EDITOR
         IEnumerable HotResMode = new ValueDropdownList<EHotResMode>()
         {
-            { "从网络资源目录加载资源", EHotResMode.NET_ASSET_BUNDLE },
-            { "从本地资源目录加载资源", EHotResMode.LOCAL_ASSET_BUNDLE },
+            { "从网络资源目录加载资源（Release版采用）", EHotResMode.NET_ASSET_BUNDLE },
+            { "从本地资源目录加载资源（资源上传前，本地测试AB包采用）", EHotResMode.LOCAL_ASSET_BUNDLE },
             { "使用AssetDataBase加载资源（限开发阶段使用）", EHotResMode.ASSET_DATA_BASE },
         };
 

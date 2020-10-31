@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Zero;
 using ZeroHot;
 
 namespace ILDemo
@@ -16,6 +17,18 @@ namespace ILDemo
             buttonPrefab.SetActive(false);
 
             AddBtn("Roushan", RoushanTest);
+            AddBtn("TestAndroidBridge", TestAndroidBridge);
+        }
+
+        private void TestAndroidBridge()
+        {
+            if(Application.platform != RuntimePlatform.Android)
+            {
+                Debug.Log(Log.Zero1("当前环境并不是Android实机！"));
+                return;
+            }
+            var bridge = new AndroidJavaClass("pieces.jing.zerolib.UnityBridge");
+            bridge.CallStatic<bool>("showToast", "Bridge Test!!!");
         }
 
         void RoushanTest()

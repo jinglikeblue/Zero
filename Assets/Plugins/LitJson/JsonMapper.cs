@@ -388,7 +388,16 @@ namespace LitJson
 
                 // Maybe it's an enum
                 if (vt.IsEnum)
-                    return Enum.ToObject (vt, reader.Value);
+                {
+                    if(reader.Value is string)
+                    {
+                        return Enum.Parse(vt, (string)reader.Value);
+                    }
+                    else
+                    {
+                        return Enum.ToObject(vt, reader.Value);
+                    }
+                }                
 
                 // Try using an implicit conversion operator
                 MethodInfo conv_op = GetConvOp (vt, json_type);
@@ -889,8 +898,10 @@ namespace LitJson
                 static_writer.Reset ();
 
                 WriteValue (obj, static_writer, true, 0);
-
-                return static_writer.ToString ();
+                var json = static_writer.ToString();
+                //解决中文为正则表达式的问题
+                //json = System.Text.RegularExpressions.Regex.Unescape(json);
+                return json;
             }
         }
 
@@ -916,7 +927,10 @@ namespace LitJson
                     _prettyJsonWriter.PrettyPrint = true;
                 }
                 WriteValue(obj, _prettyJsonWriter, true, 0);
-                return _prettyJsonWriter.ToString();
+                var json = _prettyJsonWriter.ToString();
+                //解决中文为正则表达式的问题
+                json = System.Text.RegularExpressions.Regex.Unescape(json);
+                return json;
             }
         }
 
@@ -960,6 +974,13 @@ namespace LitJson
         }
 
         public static object ToObject(Type type, string json)
+        {
+            JsonReader reader = new JsonReader(json);
+
+            return ReadValue(type, reader);
+        }
+
+        public static object ToObject(string json, Type type)
         {
             JsonReader reader = new JsonReader(json);
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Zero
 {
-    public class LongBindingData : MonoBehaviour
+    public class LongBindingData : BaseBinding
     {
         [Serializable]
         public struct BindingVO

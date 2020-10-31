@@ -91,7 +91,7 @@ namespace ZeroEditor
         public string netResRoot;
 
         [Space(10)]
-        [InfoBox("客户端启动运行所必需下载的网络资源组，通过指定group名称来批量下载。如果要下载所有资源，则指定为[/]即可")]
+        [InfoBox("客户端启动运行所必需下载的网络资源组，通过指定资源路径(文件或目录，比如[ab/h.ab]或[dll])来批量下载。如果要下载所有资源，则指定为[/]即可\n")]
         [LabelText("启动资源组"), ListDrawerSettings(NumberOfItemsPerPage = 7, Expanded = false)]
         public string[] startupResGroups;
 

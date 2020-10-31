@@ -210,5 +210,83 @@ namespace Jing
 
             File.Copy(source, target, overwrite);
         }
+
+        /// <summary>
+        /// 获取targetDir相对于startDir的目录地址
+        /// </summary>
+        /// <param name="startDir"></param>
+        /// <param name="targetDir"></param>
+        /// <returns></returns>
+        public static string GetRelativePath(string startDir, string targetDir)
+        {
+            //首先统一路径为反斜杠
+            startDir = CombineDirs(false, startDir);
+            targetDir = CombineDirs(false, targetDir);
+
+            if (startDir == targetDir)
+            {
+                return "./";
+            }
+
+            var minLength = startDir.Length < targetDir.Length ? startDir.Length : targetDir.Length;
+
+            int i;
+            //先找出共同的部分
+            for (i = 0; i < minLength; i++)
+            {
+                if (startDir[i] != targetDir[i])
+                {
+                    break;
+                }
+            }
+
+            if (i == 0)
+            {
+                //根本没有相同的字符，不存在相对路径
+                return null;
+            }
+
+            //截取出公共的部分
+            var commonPart = startDir.Substring(0, i);
+            //获取移除掉公共部分的内容
+            startDir = startDir.Replace(commonPart, "");
+            targetDir = targetDir.Replace(commonPart, "");
+            //移除开头的反斜杠
+            if (startDir.StartsWith("/"))
+            {
+                startDir = startDir.Substring(1);
+            }
+            if (targetDir.StartsWith("/"))
+            {
+                targetDir = targetDir.Substring(1);
+            }
+
+            string result = null;
+            if (startDir.Length == 0)
+            {
+                result = targetDir;
+            }
+            else if (targetDir.Length == 0)
+            {
+                var count = startDir.Split('/').Length;
+                result = "";
+                while (--count > -1)
+                {
+                    result += "../";
+                }
+            }
+            else
+            {
+                var count = startDir.Split('/').Length;
+                result = "";
+                while (--count > -1)
+                {
+                    result += "../";
+                }
+                result += targetDir;
+            }
+
+            return result;
+        }
     }
 }

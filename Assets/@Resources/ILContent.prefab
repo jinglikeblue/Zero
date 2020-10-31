@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224227309705492692}
   - component: {fileID: 223378356649707794}
-  - component: {fileID: 114929498622020424}
+  - component: {fileID: 638134535899840982}
   m_Layer: 5
   m_Name: UIWin
   m_TagString: Untagged
@@ -52,14 +52,14 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_OverrideSorting: 0
+  m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 1047701119
   m_SortingOrder: 2
   m_TargetDisplay: 0
---- !u!114 &114929498622020424
+--- !u!114 &638134535899840982
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224895606255002616}
   - component: {fileID: 223558362787483900}
-  - component: {fileID: 114902333475664724}
+  - component: {fileID: 151393028648451052}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -136,7 +136,7 @@ Canvas:
   m_SortingLayerID: 1047701119
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &114902333475664724
+--- !u!114 &151393028648451052
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,9 +168,9 @@ GameObject:
   m_Component:
   - component: {fileID: 224970032848729278}
   - component: {fileID: 222085173748534158}
-  - component: {fileID: 114841699367716622}
   - component: {fileID: 114446284868477534}
   - component: {fileID: 114782063782336148}
+  - component: {fileID: 3161730557806640463}
   m_Layer: 5
   m_Name: Blur
   m_TagString: Untagged
@@ -205,7 +205,31 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1388031006015576}
   m_CullTransparentMesh: 0
---- !u!114 &114841699367716622
+--- !u!114 &114446284868477534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388031006015576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 153e890cd4694a044a76dda0b45eb582, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114782063782336148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388031006015576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3673e4fe89a7b04db095fe4ff67d5e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3161730557806640463
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -234,30 +258,6 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &114446284868477534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1388031006015576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 153e890cd4694a044a76dda0b45eb582, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114782063782336148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1388031006015576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3673e4fe89a7b04db095fe4ff67d5e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1398592700849022
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,7 +420,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224284546650242716}
   - component: {fileID: 223558440997745380}
-  - component: {fileID: 114281934053133236}
+  - component: {fileID: 1077441570113276115}
   m_Layer: 5
   m_Name: UIPanel
   m_TagString: Untagged
@@ -461,14 +461,14 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_OverrideSorting: 0
+  m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 1047701119
   m_SortingOrder: 1
   m_TargetDisplay: 0
---- !u!114 &114281934053133236
+--- !u!114 &1077441570113276115
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

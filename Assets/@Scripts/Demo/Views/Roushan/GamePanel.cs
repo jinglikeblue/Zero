@@ -41,7 +41,7 @@ namespace ILDemo
 
         void OnResetClick()
         {                     
-            StageMgr.Ins.Switch<GameStage>();
+            StageMgr.Ins.SwitchASync<GameStage>();
         }
     }
 }

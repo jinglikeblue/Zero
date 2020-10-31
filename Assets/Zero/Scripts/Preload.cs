@@ -19,18 +19,22 @@ namespace Zero
             /// 解压StreamingAssets/Package.zip
             /// </summary>
             UNZIP_PACKAGE,
+
             /// <summary>
             /// 更新Setting.json
             /// </summary>
             SETTING_UPDATE,
+
             /// <summary>
             /// 客户端更新
             /// </summary>
             CLIENT_UDPATE,
+
             /// <summary>
             /// 资源更新
             /// </summary>
             RES_UPDATE,
+
             /// <summary>
             /// 启动主程序
             /// </summary>
@@ -38,18 +42,11 @@ namespace Zero
         }        
         
         public RuntimeVO runtimeCfg = new RuntimeVO();
-        
-        EState _currentState;
+
         /// <summary>
         /// 当前状态
         /// </summary>
-        public EState CurrentState
-        {
-            get
-            {
-                return _currentState;
-            }
-        }
+        public EState CurrentState { get; private set; }
 
         /// <summary>
         /// 状态改变的委托
@@ -63,14 +60,17 @@ namespace Zero
         /// <summary>
         /// Preload加热失败
         /// </summary>
-        public event Action<string> onError;               
+        public event Action<string> onError;            
 
         /// <summary>
         /// 开始激活预加载
         /// </summary>
         /// <param name="rg"></param>
         public void StartPreload()
-        {            
+        {
+            //实例化Native桥接器
+            var startupNativeBridge = NativeBridge.Ins;
+
             //初始化运行环境配置环境
             Runtime.Ins.Init(runtimeCfg);
 
@@ -85,7 +85,7 @@ namespace Zero
             {
                 OnStageChange(EState.UNZIP_PACKAGE);
                 new PackageUpdate().Start(LoadSettingFile, OnPackageUpdate);
-            }
+            }            
         }
 
         public void OnPackageUpdate(float progress, long totalSize)
@@ -140,7 +140,7 @@ namespace Zero
 
         void OnStageChange(EState state)
         {
-            _currentState = state;
+            CurrentState = state;
             Debug.LogWarningFormat("state: {0}", state);            
             if(null != onStateChange)
             {

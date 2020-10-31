@@ -65,6 +65,19 @@ namespace Zero
             return dependList;
         }
 
+        public override UnityEngine.Object Load(string abName, string assetName)
+        {
+            MakeABNameNotEmpty(ref abName);
+            abName = ABNameWithExtension(abName);
+            AssetBundle ab = LoadAssetBundle(abName);
+            var asset = ab.LoadAsset(assetName);
+            if (null == asset)
+            {
+                Debug.LogErrorFormat("获取的资源不存在： AssetBundle: {0}  Asset: {1}", abName, assetName);
+            }
+            return asset;
+        }
+
         public override T Load<T>(string abName, string assetName)
         {
             MakeABNameNotEmpty(ref abName);

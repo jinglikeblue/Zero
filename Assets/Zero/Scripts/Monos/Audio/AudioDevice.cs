@@ -38,7 +38,9 @@ namespace Zero
 
             if (_deviceDic.ContainsKey(id))
             {
-                throw new System.Exception(string.Format("AudioDevice id [{0}] already exists!", id));
+                Debug.LogWarning(string.Format("AudioDevice id [{0}] already exists!", id));
+                return null;
+                //throw new System.Exception(string.Format("AudioDevice id [{0}] already exists!", id));
             }
 
             if (null == _audioDeviceFactory)

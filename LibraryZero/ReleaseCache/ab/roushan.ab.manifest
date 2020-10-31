@@ -1,0 +1,76 @@
+ManifestFileVersion: 0
+CRC: 3407526265
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 03cfb9c44e697746f9f03e7ef9008e9c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: f68cfacd15428160f4ae1d6407f8e300
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 50
+  Script: {instanceID: 0}
+- Class: 61
+  Script: {instanceID: 0}
+- Class: 62
+  Script: {instanceID: 0}
+- Class: 68
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 9297b3203e6e0924691a209eb9ecb80f, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 30c890154eac94473a947310789f98b1, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f396ff660b3b44f4bb7b81c30d6ecf1e, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 7162394c07bb5d047886bb82b43e285b, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c392de9f026c2f94c91e15c8d856b5a3, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+- Class: 210
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+- Class: 225
+  Script: {instanceID: 0}
+Assets:
+- Assets/@Resources/roushan/GameStage.prefab
+- Assets/@Resources/roushan/HelpWin.prefab
+- Assets/@Resources/roushan/GamePanel.prefab
+- Assets/@Resources/roushan/StartupPanel.prefab
+- Assets/@Resources/roushan/Block.prefab
+Dependencies: []

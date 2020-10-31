@@ -1,5 +1,6 @@
 ﻿using Jing;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -13,7 +14,9 @@ namespace ZeroEditor
     /// </summary>
     public class GenerateLinkXMLModule : AEditorModule
     {
-        string CONFIG_NAME = "generate_link_xml_config.json";
+        string CONFIG_NAME = "generate_link_xml_config.json";    
+        
+        const string NONEXISTENT_FLAG = "[*不存在*]";
 
         struct ConfigVO
         {
@@ -30,11 +33,6 @@ namespace ZeroEditor
 
         ConfigVO _cfg;
 
-        /// <summary>
-        /// 是否正在刷新列表
-        /// </summary>
-        bool _isRefresh = false;
-
         public GenerateLinkXMLModule(EditorWindow editorWin) : base(editorWin)
         {
             _cfg = EditorConfigUtil.LoadConfig<ConfigVO>(CONFIG_NAME);
@@ -47,21 +45,55 @@ namespace ZeroEditor
                 _cfg.includeDlls = new List<string>();
             }
 
-            var defaultDir = FileSystem.CombineDirs(true, EditorApplication.applicationContentsPath);
-            if (false == _cfg.includeDirs.Contains(defaultDir))
-            {
-                _cfg.includeDirs.Add(defaultDir);
-            }
-
             includeDirs = _cfg.includeDirs;
             includeDlls = _cfg.includeDlls;
+
+            CheckExistsAndRefreshPreviewList();            
+        }
+
+        void CheckExistsAndRefreshPreviewList()
+        {
+            for (int i = 0; i < includeDirs.Count; i++)
+            {
+                if (false == Directory.Exists(includeDirs[i]))
+                {
+                    includeDirs[i] = $"{NONEXISTENT_FLAG}{includeDirs[i]}";
+                }
+            }
+
+            for (int i = 0; i < includeDlls.Count; i++)
+            {
+                if (false == File.Exists(includeDlls[i]))
+                {
+                    includeDlls[i] = $"{NONEXISTENT_FLAG}{includeDlls[i]}";
+                }
+            }
+
+            var defaultDir = FileSystem.CombineDirs(true, EditorApplication.applicationContentsPath);
+            if (false == includeDirs.Contains(defaultDir))
+            {
+                includeDirs.Add(defaultDir);
+                Debug.LogFormat("[{0}]是必须的", defaultDir);                
+            }
 
             RefreshPreviewList();
         }
 
         void SaveConfig()
         {
+            for (int i = 0; i < includeDirs.Count; i++)
+            {
+                includeDirs[i] = includeDirs[i].Replace(NONEXISTENT_FLAG, "");
+            }
+
+            for (int i = 0; i < includeDlls.Count; i++)
+            {
+                includeDlls[i] = includeDlls[i].Replace(NONEXISTENT_FLAG, "");
+            }
+
             EditorConfigUtil.SaveConfig(_cfg, CONFIG_NAME);
+
+            CheckExistsAndRefreshPreviewList();
         }
 
         [Title("link.xml 生成", TitleAlignment = TitleAlignments.Centered)]
@@ -79,6 +111,12 @@ namespace ZeroEditor
             {
                 return;
             }
+            
+            var relativePath = FileSystem.GetRelativePath(ZeroEditorConst.PROJECT_PATH, dir);
+            if(null != relativePath)
+            {
+                dir = relativePath;
+            }
 
             includeDirs.Add(dir);
             OnListChange();
@@ -93,6 +131,14 @@ namespace ZeroEditor
             {
                 return;
             }
+
+            var fi = new FileInfo(dll);
+
+            var relativePath = FileSystem.GetRelativePath(ZeroEditorConst.PROJECT_PATH, fi.DirectoryName);
+            if (null != relativePath)
+            {
+                dll = FileSystem.CombinePaths(relativePath, fi.Name);
+            }            
 
             includeDlls.Add(dll);
             OnListChange();
@@ -112,13 +158,12 @@ namespace ZeroEditor
 
         void OnListChange()
         {
-            Debug.Log("列表数据变化");
-            RefreshPreviewList();
+            Debug.Log("列表数据变化");            
             SaveConfig();
         }
 
         [PropertySpace(10)]
-        [LabelText("导出 [link.xml]"), Button(size: ButtonSizes.Large), DisableIf("_isRefresh")]
+        [LabelText("导出 [link.xml]"), Button(size: ButtonSizes.Large)]
         void CreateLinkXML()
         {
             const string OUTPUT_FILE = "Assets/link.xml";
@@ -138,17 +183,19 @@ namespace ZeroEditor
         /// </summary>
         void RefreshPreviewList()
         {
-            new Thread(() =>
-            {
-                _isRefresh = true;
-                HashSet<string> assemblySet = new HashSet<string>();
+            HashSet<string> assemblySet = new HashSet<string>();
 
-                foreach (var dll in includeDlls)
+            foreach (var dll in includeDlls)
+            {
+                if (File.Exists(dll))
                 {
                     assemblySet.Add(Path.GetFileNameWithoutExtension(dll));
                 }
+            }
 
-                foreach (var dir in includeDirs)
+            foreach (var dir in includeDirs)
+            {
+                if (Directory.Exists(dir))
                 {
                     var files = Directory.GetFiles(dir, "*.dll", SearchOption.AllDirectories);
                     for (int i = 0; i < files.Length; i++)
@@ -157,18 +204,17 @@ namespace ZeroEditor
                         assemblySet.Add(Path.GetFileNameWithoutExtension(file));
                     }
                 }
+            }
 
-                if (null == outputPreviewList)
-                {
-                    outputPreviewList = new List<string>();
-                }
-                else
-                {
-                    outputPreviewList.Clear();
-                }
-                outputPreviewList.AddRange(assemblySet);
-                _isRefresh = false;
-            }).Start();
+            if (null == outputPreviewList)
+            {
+                outputPreviewList = new List<string>();
+            }
+            else
+            {
+                outputPreviewList.Clear();
+            }
+            outputPreviewList.AddRange(assemblySet);
         }
     }
 }

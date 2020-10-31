@@ -13,41 +13,77 @@ namespace Jing
         /// byte类型占用字节数
         /// </summary>
         public const byte BYTE_SIZE = 1;
+
         /// <summary>
         /// char类型占用字节数
         /// </summary>
         public const byte CHAR_SIZE = 2;
+
         /// <summary>
         /// float类型占用字节数
         /// </summary>
         public const byte FLOAT_SIZE = 4;
+
+        /// <summary>
+        /// double类型占用字节数
+        /// </summary>
+        public const byte DOUBLE_SIZE = 8;
+
         /// <summary>
         /// short类型占用字节数
         /// </summary>
         public const byte SHORT_SIZE = 2;
+
+        /// <summary>
+        /// ushort类型占用字节数
+        /// </summary>
+        public const byte USHORT_SIZE = 2;
+
         /// <summary>
         /// int类型占用字节数
         /// </summary>
         public const byte INT_SIZE = 4;
+
+        /// <summary>
+        /// uint类型占用字节数
+        /// </summary>
+        public const byte UINT_SIZE = 4;
+
         /// <summary>
         /// long类型占用字节数
         /// </summary>
-        public const byte LONG_SIZE = 8;      
+        public const byte LONG_SIZE = 8;
 
         /// <summary>
-        /// 默认使用的文本编码(全局生效）
+        /// ulong类型占用字节数
+        /// </summary>
+        public const byte ULONG_SIZE = 8;
+
+        /// <summary>
+        /// 默认使用的文本编码(UTF8，全局生效，可根据需要修改）
         /// </summary>
         public static Encoding defaultEncoding = Encoding.UTF8;
 
         /// <summary>
-        /// 默认的缓冲区大小(全局生效）
+        /// 默认的缓冲区大小(65535，全局生效，可根据需要修改）
         /// </summary>
         public static int defaultBufferSize = 65535;
 
         /// <summary>
         /// 字节数组
         /// </summary>
-        byte[] _bytes;
+        public byte[] Bytes { get; private set; }
+
+        /// <summary>
+        /// 定义的字节数组大小
+        /// </summary>
+        public int Size
+        {
+            get
+            {
+                return Bytes.Length;
+            }
+        }
 
         /// <summary>
         /// 字节序是否是大端
@@ -60,43 +96,58 @@ namespace Jing
         bool _isNeedConvertEndian = false;
 
         /// <summary>
-        /// 字节数组操作位置
+        /// 字节数组操作标识符位置
         /// </summary>
-        int _pos;
+        public int Pos { get; private set; } = 0;
 
         /// <summary>
-        /// 目前指针位置
+        /// 目前有效字节大小
         /// </summary>
-        public int Position
-        {
-            get { return _pos; }
-        }        
+        public int Available { get; private set; } = 0;
 
         /// <summary>
-        /// 还可读/写的字节数
+        /// 剩余可写入的数据长度
         /// </summary>
-        public int Available
+        public int WriteEnableSize
         {
             get
             {
-                return _bytes.Length - _pos;
+                return Size - Available;
             }
         }
 
         /// <summary>
-        /// 将数据转为字节数组导出
+        /// 根据Available以及Pos计算出的剩余可读取的数据长度
+        /// </summary>
+        public int ReadEnableSize
+        {
+            get
+            {
+                return Available - Pos;
+            }
+        }
+
+        /// <summary>
+        /// 将有效数据转为字节数组导出
         /// </summary>
         /// <returns></returns>
-        public byte[] ToBytes()
+        public byte[] GetAvailableBytes()
         {
-            byte[] bytes = new byte[Position];
-            Array.Copy(_bytes, 0, bytes, 0, Position);
+            byte[] bytes = new byte[Available];
+            Array.Copy(Bytes, 0, bytes, 0, Available);
             return bytes;
+        }
+
+        public ByteArray(byte[] bytes, int available, bool isBigEndian = true)
+        {
+            Init(bytes, isBigEndian);
+            Available = available;
         }
 
         public ByteArray(byte[] bytes, bool isBigEndian = true)
         {
             Init(bytes, isBigEndian);
+            Available = bytes.Length;
         }
 
         public ByteArray(bool isBigEndian = true)
@@ -116,101 +167,169 @@ namespace Jing
             {
                 _isNeedConvertEndian = true;
             }
-            _bytes = bytes;
-            _pos = 0;
-        }
-
-        public void Reset()
-        {
-            _pos = 0;
+            Bytes = bytes;
+            SetPos(0);
         }
 
         /// <summary>
-        /// 移动指针
+        /// 重置对象的数据，指针和可读数据都会被初始化
         /// </summary>
+        public void Reset()
+        {
+            if(Bytes.Length != defaultBufferSize)
+            {
+                Bytes = new byte[defaultBufferSize];
+            }
+            Available = 0;
+            SetPos(0);
+        }
+
+        /// <summary>
+        /// 移动指针位置
+        /// </summary>
+        /// <param name="v">移动的偏移值</param>
         public void MovePos(int v)
         {            
-            _pos += v;
+            SetPos(Pos + v);
+        }
+
+        /// <summary>
+        /// 设置指针位置
+        /// </summary>
+        /// <param name="v">指针的位置</param>
+        public void SetPos(int v)
+        {
+            Pos = v;
         }
 
 
         #region write
-        public void WriteShort(short v)
+        public void Write(short v)
         {
             if(_isNeedConvertEndian)
             {
                 v = IPAddress.HostToNetworkOrder(v);
             }
 
-            WriteBytes(BitConverter.GetBytes(v));
+            Write(BitConverter.GetBytes(v));
         }
 
-        public void WriteUShort(ushort v)
+        public void Write(ushort v)
         {
-            WriteShort((short)v);
+            Write((short)v);
         }
 
-        public void WriteInt(int v)
+        public void Write(int v)
         {
             if (_isNeedConvertEndian)
             {                
                 v = IPAddress.HostToNetworkOrder(v);
             }
 
-            WriteBytes(BitConverter.GetBytes(v));            
+            Write(BitConverter.GetBytes(v));            
         }
 
-        public void WriteUInt(uint v)
+        public void Write(uint v)
         {
-            WriteInt((int)v);
+            Write((int)v);
         }
 
-        public void WriteLong(long v)
+        public void Write(long v)
         {
             if (_isNeedConvertEndian)
             {
                 v = IPAddress.HostToNetworkOrder(v);
             }
 
-            WriteBytes(BitConverter.GetBytes(v));
+            Write(BitConverter.GetBytes(v));
         }
 
-        public void WriteULong(ulong v)
+        public void Write(ulong v)
         {
-            WriteLong((long)v);
+            Write((long)v);
         }
 
-        public void WriteFloat(float v)
+        public void Write(float v)
         {
-            WriteBytes(BitConverter.GetBytes(v));
+            Write(BitConverter.GetBytes(v));
         }
 
-        public void WriteChar(char v)
+        public void Write(double v)
         {
-            WriteBytes(BitConverter.GetBytes(v));
+            Write(BitConverter.GetBytes(v));
         }
 
-        public int WriteString(string v)
+        public void Write(char v)
         {
-            return WriteString(v, defaultEncoding);
+            Write(BitConverter.GetBytes(v));
         }
 
-        public int WriteString(string v, Encoding encoding)
+        /// <summary>
+        /// 以默认格式写入字符串数据体,并且会在数据体前面写入一个ushort来表示字符串数据体的长度。
+        /// </summary>
+        /// <param name="v"></param>
+        public void Write(string v)
         {
-            return WriteBytes(encoding.GetBytes(v));
+            Write(v, defaultEncoding);
         }
 
-        public void WriteByte(byte v)
+        /// <summary>
+        /// 以指定格式写入字符串数据体,并且会在数据体前面写入一个ushort来表示字符串数据体的长度。
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="encoding"></param>
+        public void Write(string v, Encoding encoding)
         {
-            _bytes[_pos] = v;
+            byte[] stringBytes = encoding.GetBytes(v);
+            ushort stringSize = (ushort)stringBytes.Length;
+            Write(stringSize);
+            Write(stringBytes);
+        }
+
+        /// <summary>
+        /// 直接以默认格式写入字符串编码数据
+        /// </summary>
+        /// <param name="v"></param>
+        public void WriteStringBytes(string v)
+        {
+            WriteStringBytes(v, defaultEncoding);
+        }  
+
+        /// <summary>
+        /// 直接以指定格式写入字符串的编码数据
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="encoding"></param>
+        public void WriteStringBytes(string v, Encoding encoding)
+        {
+            byte[] stringBytes = encoding.GetBytes(v);
+            Write(stringBytes);
+        }
+
+        public void Write(byte v)
+        {
+            Bytes[Pos] = v;
+            Available += 1;
             MovePos(1);
         }
 
-        public int WriteBytes(byte[] bytes)
+        public void Write(byte[] sourceBytes)
         {
-            bytes.CopyTo(_bytes, _pos);
-            MovePos(bytes.Length);
-            return bytes.Length;
+            Write(sourceBytes, 0, sourceBytes.Length);            
+        }
+
+        /// <summary>
+        /// 将目标字节数组从sourceIndex指定的位置，读取length长度写入
+        /// </summary>
+        /// <param name="sourceBytes">读取的字节数组</param>
+        /// <param name="sourceIndex">读取开始的位置</param>
+        /// <param name="length">读取的长度</param>
+        /// <returns></returns>
+        public void Write(byte[] sourceBytes, int sourceIndex, int length)
+        {
+            Array.Copy(sourceBytes, sourceIndex, Bytes, Pos, length);
+            Available += length;
+            MovePos(length);
         }
 
         #endregion
@@ -219,7 +338,7 @@ namespace Jing
         #region read
         public short ReadShort()
         {
-            short v = BitConverter.ToInt16(_bytes, _pos);
+            short v = BitConverter.ToInt16(Bytes, Pos);
             if (_isNeedConvertEndian)
             {
                 v = IPAddress.NetworkToHostOrder(v);
@@ -229,13 +348,13 @@ namespace Jing
         }
 
         public ushort ReadUShort()
-        {            
+        {
             return (ushort)ReadShort();
         }
 
         public int ReadInt()
         {
-            int v = BitConverter.ToInt32(_bytes, _pos);
+            int v = BitConverter.ToInt32(Bytes, Pos);
             if (_isNeedConvertEndian)
             {
                 v = IPAddress.NetworkToHostOrder(v);
@@ -251,7 +370,7 @@ namespace Jing
 
         public long ReadLong()
         {
-            long v = BitConverter.ToInt64(_bytes, _pos);
+            long v = BitConverter.ToInt64(Bytes, Pos);
             if (_isNeedConvertEndian)
             {
                 v = IPAddress.NetworkToHostOrder(v);
@@ -262,38 +381,76 @@ namespace Jing
 
         public ulong ReadULong()
         {
-            return (ulong)ReadULong();
+            return (ulong)ReadLong();
         }
 
         public float ReadFloat()
         {            
-            float v = BitConverter.ToSingle(_bytes, _pos);
+            float v = BitConverter.ToSingle(Bytes, Pos);
             MovePos(FLOAT_SIZE);
+            return v;
+        }
+
+        public double ReadDouble()
+        {
+            double v = BitConverter.ToDouble(Bytes, Pos);
+            MovePos(DOUBLE_SIZE);
             return v;
         }
 
         public char ReadChar()
         {
-            char v = BitConverter.ToChar(_bytes, _pos);
+            char v = BitConverter.ToChar(Bytes, Pos);
             MovePos(CHAR_SIZE);
             return v;
         }
 
-        public string ReadString(int length)
+        /// <summary>
+        /// 以默认格式读取字符串数据体,并且会在数据体前面读取一个ushort来表示字符串数据体的长度。
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="encoding"></param>
+        public string ReadString()
         {
-            return ReadString(defaultEncoding, length);
+            return ReadString(defaultEncoding);
         }
 
-        public string ReadString(Encoding encoding, int length)
+        /// <summary>
+        /// 以指定格式读取字符串数据体,并且会在数据体前面读取一个ushort来表示字符串数据体的长度。
+        /// </summary>
+        /// <param name="v"></param>
+        /// <param name="encoding"></param>
+        public string ReadString(Encoding encoding)
         {
-            string v = encoding.GetString(_bytes, _pos, length);
+            ushort stringSize = ReadUShort();
+            string v = encoding.GetString(Bytes, Pos, stringSize);
+            MovePos(stringSize);
+            return v;
+        }
+
+        /// <summary>
+        /// 直接以默认格式读取字符串编码数据
+        /// </summary>
+        /// <param name="v"></param>
+        public string ReadStringBytes(int length)
+        {
+            return ReadStringBytes(defaultEncoding, length);
+        }
+
+        /// <summary>
+        /// 直接以指定格式读取字符串编码数据
+        /// </summary>
+        /// <param name="v"></param>
+        public string ReadStringBytes(Encoding encoding, int length)
+        {
+            string v = encoding.GetString(Bytes, Pos, length);
             MovePos(length);
             return v;
         }
 
         public byte ReadByte()
         {
-            byte v = _bytes[_pos];
+            byte v = Bytes[Pos];
             MovePos(BYTE_SIZE);
             return v;
         }
@@ -301,7 +458,7 @@ namespace Jing
         public byte[] ReadBytes(int length)
         {
             byte[] bytes = new byte[length];
-            Array.Copy(_bytes, _pos, bytes, 0, length);
+            Array.Copy(Bytes, Pos, bytes, 0, length);
             MovePos(length);
             return bytes;
         }

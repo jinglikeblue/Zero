@@ -66,6 +66,14 @@ namespace Zero
         /// <summary>
         /// 获取资源
         /// </summary>
+        /// <param name="abName"></param>
+        /// <param name="assetName"></param>
+        /// <returns></returns>
+        public abstract UnityEngine.Object Load(string abName, string assetName);
+
+        /// <summary>
+        /// 获取资源
+        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="abName"></param>
         /// <param name="assetName"></param>

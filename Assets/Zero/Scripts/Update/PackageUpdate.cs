@@ -1,6 +1,7 @@
 ﻿using Jing;
 using System;
 using System.Collections;
+using System.IO;
 using UnityEngine;
 
 namespace Zero
@@ -28,34 +29,69 @@ namespace Zero
 
                 Runtime.Ins.localData.IsInit = true;
 
-                //检查是否存在Package.zip
-                string path = FileSystem.CombinePaths(ZeroConst.STREAMING_ASSETS_PATH, ZeroConst.PACKAGE_ZIP_FILE_NAME);
-                WWW www = new WWW(path);
-                while (false == www.isDone)
+                string packageZipFilePath = FileSystem.CombinePaths(Application.streamingAssetsPath, ZeroConst.PACKAGE_ZIP_FILE_NAME);
+
+                if (Application.platform == RuntimePlatform.Android)
                 {
-                    onProgress(0f, 0);
-                    yield return new WaitForEndOfFrame();
+                    //如果是Android真机环境下，需要用android原生代码将文件拷贝到可读写目录，再进行操作
+                    string androidPackageZipTempPath = FileSystem.CombinePaths(ZeroConst.PERSISTENT_DATA_PATH, ZeroConst.PACKAGE_ZIP_FILE_NAME);
+
+                    Debug.LogFormat("压缩文件：{0}", packageZipFilePath);
+                    Debug.LogFormat("临时压缩文件：{0}", androidPackageZipTempPath);
+
+                    //请求Android原生代码，用文件流形式复制文件到临时位置
+                    AndroidJavaObject javaAssetFileCopy = new AndroidJavaObject("pieces.jing.zerolib.file.AssetFileCopy");                    
+                    var isRequestSuccess = javaAssetFileCopy.Call<bool>("copyAssetsFile", "package.zip", androidPackageZipTempPath);
+                    if (isRequestSuccess)
+                    {
+                        while (false == javaAssetFileCopy.Call<bool>("isDone"))
+                        {
+                            yield return new WaitForEndOfFrame();
+                        }
+
+                        var error = javaAssetFileCopy.Call<string>("error");
+                        if (error != null)
+                        {
+                            Debug.LogFormat("copyAssetsFile出现问题：" + error);
+                        }
+                        else
+                        {
+                            packageZipFilePath = androidPackageZipTempPath;
+                        }
+                    }
                 }
 
-                //Package.zip不存在
-                if (null != www.error)
+                //检查是否存在Package.zip
+                if (!File.Exists(packageZipFilePath))
                 {
-                    Debug.LogFormat("解压[{0}]:{1}", ZeroConst.PACKAGE_ZIP_FILE_NAME, www.error);
+                    Debug.LogFormat("解压的文件[{0}]不存在", packageZipFilePath);
                     break;
                 }
 
+                Debug.LogFormat("压缩文件：{0}", packageZipFilePath);
+                Debug.LogFormat("解压目录：{0}", ZeroConst.PERSISTENT_DATA_PATH);
+
                 //解压Zip
                 ZipHelper zh = new ZipHelper();
-                zh.UnZip(www.bytes, Runtime.Ins.localResDir);
+                //将文件解压到可读写目录中
+                zh.UnZip(packageZipFilePath, ZeroConst.PERSISTENT_DATA_PATH);
+
                 while (false == zh.isDone)
                 {
-                    Debug.LogFormat("[{0}]解压进度:{1}%", ZeroConst.PACKAGE_ZIP_FILE_NAME, zh.progress * 100);
-                    onProgress(zh.progress, www.bytes.Length);
+                    Debug.LogFormat("[{0}]解压进度:{1}% [{2}/{3}]", ZeroConst.PACKAGE_ZIP_FILE_NAME, zh.progress * 100, zh.decompessSize, zh.totalSize);
+                    onProgress(zh.progress, zh.totalSize);
                     yield return new WaitForEndOfFrame();
                 }
-                www.Dispose();
 
-                Debug.LogFormat("[{0}]解压完成", ZeroConst.PACKAGE_ZIP_FILE_NAME);
+                if (zh.error != null)
+                {
+                    Debug.LogFormat("解压出错：\n{0}", zh.error);
+                }
+                else
+                {
+                    Debug.LogFormat("[{0}]解压进度:{1}% [{2}/{3}]", ZeroConst.PACKAGE_ZIP_FILE_NAME, zh.progress * 100, zh.decompessSize, zh.totalSize);
+                    Debug.LogFormat("[{0}]解压完成", ZeroConst.PACKAGE_ZIP_FILE_NAME);
+                }
 
                 //重新加载一次版本号文件，因为可能被覆盖了
                 Runtime.Ins.localResVer.Load();

@@ -53,6 +53,11 @@ namespace Zero
         public event Action<Timer> onTriggered;
 
         /// <summary>
+        /// 完成事件
+        /// </summary>
+        public event Action<Timer> onComplete;
+
+        /// <summary>
         /// 下次触发的时间标记
         /// </summary>
         DateTime _triggerDT;
@@ -104,6 +109,7 @@ namespace Zero
         public void ClearEventListeners()
         {
             onTriggered = null;
+            onComplete = null;
         }
 
         /// <summary>
@@ -171,6 +177,7 @@ namespace Zero
                 onTriggered?.Invoke(this);
                 if(triggeredTimes == repeatCount)
                 {
+                    onComplete?.Invoke(this);
                     //停止计时器
                     Stop();
                 }

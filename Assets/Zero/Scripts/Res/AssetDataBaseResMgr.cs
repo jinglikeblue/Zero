@@ -76,11 +76,16 @@ namespace Zero
             return new string[0];
         }
 
+        public override UnityEngine.Object Load(string abName, string assetName)
+        {
+            return Load<UnityEngine.Object>(abName, assetName);
+        }
+
         public override T Load<T>(string abName, string assetName)
         {
 #if UNITY_EDITOR            
             string path = AssetBundlePath2ResourcePath(abName, assetName);
-            var asset = UnityEditor.AssetDatabase.LoadAssetAtPath<T>(path);
+            var asset = UnityEditor.AssetDatabase.LoadAssetAtPath<T>(path);            
             if (null == asset)
             {
                 Debug.LogErrorFormat("资源不存在：{0}", ResMgr.Ins.LinkAssetPath(abName, assetName));
@@ -114,6 +119,12 @@ namespace Zero
                 onProgress.Invoke(1);
             }
             T obj = UnityEditor.AssetDatabase.LoadAssetAtPath<T>(assetPath);
+
+            if(null == obj)
+            {
+                Debug.LogErrorFormat("资源并不存在: {0}", assetPath);                
+            }
+
             if (null != onLoaded)
             {
                 onLoaded.Invoke(obj);

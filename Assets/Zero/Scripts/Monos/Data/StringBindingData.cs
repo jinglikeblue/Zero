@@ -3,7 +3,10 @@ using UnityEngine;
 
 namespace Zero
 {
-    public class StringBindingData : MonoBehaviour
+    /// <summary>
+    /// 字符串绑定
+    /// </summary>
+    public class StringBindingData : BaseBinding
     {
         [Serializable]
         public struct BindingVO
@@ -22,12 +25,28 @@ namespace Zero
         /// <returns></returns>
         public string[] Find(string key)
         {
-            foreach(var vo in list)
+            foreach (var vo in list)
             {
-                if(vo.key == key)
+                if (vo.key == key)
                 {
                     return vo.list;
                 }
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// 获取Key中需要的资源
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="idx"></param>
+        /// <returns></returns>
+        public string Get(string key, int idx)
+        {
+            var datas = Find(key);
+            if (null != datas && datas.Length > idx)
+            {
+                return datas[idx];
             }
             return null;
         }

@@ -14,22 +14,17 @@ namespace Zero
         /// </summary>
         public static readonly Runtime Ins = new Runtime();
 
-        RuntimeVO _vo;
-
         /// <summary>
         /// RuntimeVO数据对象
         /// </summary>
-        public RuntimeVO VO
-        {
-            get { return _vo; }
-        }
+        public RuntimeVO VO { get; private set; }
 
         /// <summary>
         /// 资源模式
         /// </summary>
         public EHotResMode ResMode
         {
-            get { return _vo.hotResMode; }
+            get { return VO.hotResMode; }
         }
 
         /// <summary>
@@ -74,7 +69,7 @@ namespace Zero
         {
             get
             {
-                if(_vo.isHotResProject && _vo.hotResMode == EHotResMode.ASSET_DATA_BASE)
+                if(VO.isHotResProject && VO.hotResMode == EHotResMode.ASSET_DATA_BASE)
                 {
                     return true;
                 }
@@ -89,7 +84,7 @@ namespace Zero
         {
             get
             {
-                if (_vo.hotResMode == EHotResMode.NET_ASSET_BUNDLE)
+                if (VO.hotResMode == EHotResMode.NET_ASSET_BUNDLE)
                 {
                     return true;
                 }
@@ -104,13 +99,14 @@ namespace Zero
         {
             get
             {
-                return _vo.isHotResProject;
+                return VO.isHotResProject;
             }
         }
 
         public void Init(RuntimeVO vo)
         {
-            _vo = vo;
+            this.VO = vo;
+
             //日志控制
             Log.IsActive = vo.isLogEnable;
 
@@ -122,7 +118,7 @@ namespace Zero
                 case RuntimePlatform.WindowsEditor:
                 case RuntimePlatform.LinuxEditor:
                 case RuntimePlatform.OSXEditor:
-                    netResDir = FileSystem.CombineDirs(false, _vo.netRoot, ZeroConst.PLATFORM_DIR_NAME);                                                      
+                    netResDir = FileSystem.CombineDirs(false, VO.netRoot, ZeroConst.PLATFORM_DIR_NAME);                                                      
                     //开发环境
                     if (IsLoadAssetsFromNet)
                     {
@@ -154,7 +150,7 @@ namespace Zero
             localResVer = new LocalResVerModel();
 
             Debug.Log(Log.Zero1("Streaming Assets Dir: {0}", ZeroConst.STREAMING_ASSETS_PATH));
-            Debug.Log(Log.Zero1("Net Res Dir         : {0}", netResDir));
+            Debug.Log(Log.Zero1("Net Res Root        : {0}", netResDir));
             Debug.Log(Log.Zero1("Persistent Data Dir : {0}", ZeroConst.PERSISTENT_DATA_PATH));
             Debug.Log(Log.Zero1("Local Res Dir       : {0}", localResDir));
             Debug.Log(Log.Zero1("Generate Files Dir  : {0}", generateFilesDir));
