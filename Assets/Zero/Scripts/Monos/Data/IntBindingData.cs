@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Zero
 {
-    public class IntBindingData : MonoBehaviour
+    public class IntBindingData : BaseBinding
     {
         [Serializable]
         public struct BindingVO
@@ -22,9 +22,9 @@ namespace Zero
         /// <returns></returns>
         public int[] Find(string key)
         {
-            foreach(var vo in list)
+            foreach (var vo in list)
             {
-                if(vo.key == key)
+                if (vo.key == key)
                 {
                     return vo.list;
                 }

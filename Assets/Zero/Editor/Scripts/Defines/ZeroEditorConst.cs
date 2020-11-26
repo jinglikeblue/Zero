@@ -59,8 +59,10 @@ namespace ZeroEditor
             get
             {
                 BuildTarget platform;
-#if UNITY_STANDALONE
+#if UNITY_STANDALONE_WIN
                 platform = BuildTarget.StandaloneWindows;
+#elif UNITY_STANDALONE_OSX
+                platform = BuildTarget.StandaloneOSX;
 #elif UNITY_IPHONE
         platform = BuildTarget.iOS;
 #elif UNITY_ANDROID

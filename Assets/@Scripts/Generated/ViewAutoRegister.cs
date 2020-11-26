@@ -42,6 +42,9 @@ namespace ZeroHot
             R("roushan.ab", "GameStage");
             R("roushan.ab", "HelpWin");
             R("roushan.ab", "StartupPanel");
+            R("cross_depend_test/a.ab", "A");
+            R("cross_depend_test/a.ab", "C");
+            R("cross_depend_test/b.ab", "B");
         }
 
         void R(string abName, string viewName)

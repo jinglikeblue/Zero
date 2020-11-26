@@ -281,6 +281,12 @@ namespace ZeroHot
         public T CreateChildView<T>(string childName, object data = null) where T : AView
         {
             var childGameObject = GetChildGameObject(childName);
+
+            if(null == childGameObject)
+            {
+                Debug.LogErrorFormat("CreateChildView<{0}>执行失败  找不到childName:{1}", typeof(T).FullName, childName);
+            }
+
             return CreateChildView<T>(childGameObject, data);
         }
 
@@ -343,7 +349,7 @@ namespace ZeroHot
         /// <summary>
         /// 销毁对象
         /// </summary>
-        public void Destroy()
+        public virtual void Destroy()
         {
             if (isDestroyed)
             {

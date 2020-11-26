@@ -13,18 +13,28 @@
         },
         {
             "name" : "ab/manifest.ab",
-            "version" : "458fecfc3068222cf0119e13629fbd05",
-            "size"    : 1594
+            "version" : "87dc67ca81e6cc2edc067e15fc9418f7",
+            "size"    : 1675
         },
         {
             "name" : "ab/root_assets.ab",
-            "version" : "bcc5d529768d804e2bf3dfbb10a6cba2",
-            "size"    : 216446
+            "version" : "dcab4250385fc3f94f52371ca06d0274",
+            "size"    : 216455
         },
         {
             "name" : "ab/roushan.ab",
-            "version" : "f7d6b8183b24568329773589f1a39ee8",
-            "size"    : 1081029
+            "version" : "66df592fff4d4f602183413bf6bca1ea",
+            "size"    : 1070477
+        },
+        {
+            "name" : "ab/cross_depend_test/a.ab",
+            "version" : "d3823480c2358db947482e8df7a241f8",
+            "size"    : 2122
+        },
+        {
+            "name" : "ab/cross_depend_test/b.ab",
+            "version" : "8335685543295ac0cde153372e17afe4",
+            "size"    : 1699
         },
         {
             "name" : "configs/read_me.txt",
@@ -38,13 +48,13 @@
         },
         {
             "name" : "dll/scripts.dll",
-            "version" : "cfe15451ead181ab5bf606d51e6b3dd3",
-            "size"    : 33792
+            "version" : "5d9eb3a886f75df0a96cd915ae124e55",
+            "size"    : 38400
         },
         {
             "name" : "dll/scripts.pdb",
-            "version" : "f666ee2fadfdc70a507e7e73e43be04b",
-            "size"    : 12580
+            "version" : "1784ed650cc63e2a799386194f90847e",
+            "size"    : 13552
         }
     ]
 }

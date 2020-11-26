@@ -41,16 +41,16 @@ namespace ZeroEditor
             if (isSuccess)
             {
                 EditorUtility.DisplayProgressBar("生成绑定代码", "解析生成绑定代码", 0.9f);
-                try
-                {
+                //try
+                //{
                     //构建成功后开始解析生成绑定代码
                     GenerateCLRBindingByAnalysis(cmd.assemblyPath, GENERATED_OUTPUT_DIR);
-                }
-                catch(Exception e)
-                {
-                    Debug.LogError(e);
-                    isSuccess = false;
-                }                
+                //}
+                //catch(Exception e)
+                //{
+                //    Debug.LogError(e);
+                //    isSuccess = false;
+                //}                
             }
 
             if (isSuccess)

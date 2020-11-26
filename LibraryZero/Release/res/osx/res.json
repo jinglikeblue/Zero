@@ -1,0 +1,45 @@
+
+{
+    "items" : [
+        {
+            "name" : "ab/audios.ab",
+            "version" : "6474968218acd7feeab59772477b6808",
+            "size"    : 1465626
+        },
+        {
+            "name" : "ab/manifest.ab",
+            "version" : "3b361724ff6709f20d92ad2726555a32",
+            "size"    : 1592
+        },
+        {
+            "name" : "ab/root_assets.ab",
+            "version" : "f7cd6be97b74e96cf215a9d3f75b40d3",
+            "size"    : 214402
+        },
+        {
+            "name" : "ab/roushan.ab",
+            "version" : "2cbda096301a6614f92826f730696421",
+            "size"    : 1070478
+        },
+        {
+            "name" : "configs/read_me.txt",
+            "version" : "be7b606a7d3aef111d6388cdab5c02d4",
+            "size"    : 116
+        },
+        {
+            "name" : "configs/tests/test.json",
+            "version" : "2659de5d400d88e2decd57daacceef54",
+            "size"    : 176
+        },
+        {
+            "name" : "dll/scripts.dll",
+            "version" : "8fa42fc65f4761cd1d9726e2ac867fc4",
+            "size"    : 37376
+        },
+        {
+            "name" : "dll/scripts.pdb",
+            "version" : "c7039f1620b9411778050a892dbcafdc",
+            "size"    : 13564
+        }
+    ]
+}

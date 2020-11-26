@@ -9,9 +9,9 @@ namespace ILDemo
 {
     class HelpWin : AView
     {
-        UnityEngine.Object[] _tipSpriteList;
+        Sprite[] _tipSpriteList;
         String[] _tipStrList;        
-        RawImage _tip;
+        Image _tip;
         Text _textTip;
         Button _btnClose;
 
@@ -32,8 +32,8 @@ namespace ILDemo
 
         protected override void OnInit(object data)
         {
-            _tip = GetComponent<RawImage>();
-            var resData = gameObject.GetComponent<ObjectBindingData>();
+            _tip = GetComponent<Image>();
+            var resData = gameObject.GetComponent<SpriteBindingData>();
             var list = resData.Find("tips");
             _tipSpriteList = list;
             var stringData = gameObject.GetComponent<StringBindingData>();
@@ -54,7 +54,7 @@ namespace ILDemo
                 _page = 0;
             }
 
-            _tip.texture = _tipSpriteList[_page] as Texture2D;
+            _tip.sprite = _tipSpriteList[_page];
             _textTip.text = _tipStrList[_page];
         }
     }

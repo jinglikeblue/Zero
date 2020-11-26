@@ -105,13 +105,43 @@ namespace Zero
         /// <summary>
         /// 加载资源
         /// </summary>
+        /// <param name="abName"></param>
+        /// <param name="assetName"></param>
+        /// <returns></returns>
+        public UnityEngine.Object Load(string abName, string assetName)
+        {
+            return _mgr.Load(abName, assetName);
+        }
+
+        /// <summary>
+        /// 加载资源
+        /// </summary>
+        /// <param name="assetPath"></param>
+        /// <returns></returns>
+        public UnityEngine.Object Load(string assetPath)
+        {
+            string abName;
+            string assetName;
+            SeparateAssetPath(assetPath, out abName, out assetName);
+            return Load(abName, assetName);
+        }
+
+        /// <summary>
+        /// 加载资源
+        /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="abName">资源包名称</param>
         /// <param name="assetName">资源名称</param>
         /// <returns></returns>
         public T Load<T>(string abName, string assetName) where T : UnityEngine.Object
-        {            
-            return _mgr.Load<T>(abName, assetName);
+        {
+            //System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+            //sw.Start();
+            T obj = _mgr.Load<T>(abName, assetName);
+            //sw.Stop();
+            //Debug.LogFormat("获取资源耗时: {0}", sw.Elapsed.TotalMilliseconds);
+
+            return obj;
         }
 
         /// <summary>
@@ -199,7 +229,7 @@ namespace Zero
 
             if(assetName == null)
             {
-                assetName = null;
+                assetName = "";
             }
 
             return FileSystem.CombinePaths(abName, assetName);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ZeroHot
@@ -44,5 +45,27 @@ namespace ZeroHot
 
             return dic;
         }
+
+        /// <summary>
+        /// 转换数组类型
+        /// </summary>
+        /// <typeparam name="TInput"></typeparam>
+        /// <typeparam name="TOutput"></typeparam>
+        /// <param name="array"></param>
+        /// <param name="converter"></param>
+        /// <returns></returns>
+        static public TOutput[] ConvertAll<TInput, TOutput>(TInput[] array, Func<TInput, TOutput> converter)
+        {
+            var output = new TOutput[array.Length];
+
+            for(int i = 0; i < array.Length; i++)
+            {
+                output[i] = converter(array[i]);
+            }
+
+            return output;
+        }
+
     }
+
 }

@@ -54,48 +54,56 @@ namespace Jing
     /// </summary>
     public class FiniteStateMachine<T>
     {
+        public delegate void EnterStateDelegate(T fromState, object data);
+
+        public delegate void ExitStateDelegate(T toState, object data);
+
+        public delegate void UpdateStateDelegate(T currentState, object data);
+
+        public delegate bool CheckSwitchStateEnableDelegate(T toState, object data);
+
         /// <summary>
         /// 状态控制器
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        class StateController<T>
+        /// <typeparam name="TState"></typeparam>
+        class StateController<TState>
         {
             /// <summary>
             /// 进入状态的委托
             /// </summary>
             /// <param name="fromState"></param>
-            public Action<T, object> onEnter;
+            public EnterStateDelegate onEnter;
 
             /// <summary>
             /// 退出状态的委托
             /// </summary>
             /// <param name="toState"></param>
-            public Action<T> onExit;
+            public ExitStateDelegate onExit;
 
             /// <summary>
             /// 更新状态的委托
             /// <param name="curState"></param>
             /// </summary>
-            public Action<T> onUpdate;
+            public UpdateStateDelegate onUpdate;
 
             /// <summary>
             /// 切换状态检查的委托
             /// </summary>
             /// <param name="toState"></param>
             /// <returns></returns>
-            public Func<T, bool> checkSwitchEnable;
+            public CheckSwitchStateEnableDelegate checkSwitchEnable;
 
             /// <summary>
             /// 状态
             /// </summary>
-            public T state;
+            public TState state;
 
             /// <summary>
             /// 配置的能切换到的状态，null表示不限制
             /// </summary>
-            public HashSet<T> roleSwitch = null;
+            public HashSet<TState> roleSwitch = null;
 
-            public StateController(T state)
+            public StateController(TState state)
             {
                 this.state = state;
             }
@@ -129,7 +137,7 @@ namespace Jing
         /// <summary>
         /// 注册一个状态，不适用的方法可以传递Null
         /// </summary>
-        public void RegistState(T state, Action<T, object> onEnter = null, Action<T> onExit = null, Action<T> onUpdate = null, Func<T, bool> checkSwitchEnable = null)
+        public void RegistState(T state, EnterStateDelegate onEnter = null, ExitStateDelegate onExit = null, UpdateStateDelegate onUpdate = null, CheckSwitchStateEnableDelegate checkSwitchEnable = null)
         {
             StateController<T> sc = new StateController<T>(state);
             sc.onEnter = onEnter;
@@ -216,14 +224,14 @@ namespace Jing
 
             var newSC = _stateDic[toState];
 
-            if (null != oldSC.checkSwitchEnable && false == oldSC.checkSwitchEnable.Invoke(toState))
+            if (null != oldSC.checkSwitchEnable && false == oldSC.checkSwitchEnable.Invoke(toState, data))
             {
                 return false;
             }
 
             if (null != oldSC.onExit)
             {
-                oldSC.onExit.Invoke(toState);
+                oldSC.onExit.Invoke(toState, data);
             }
             CurState = toState;
             StateStayTime = 0;
@@ -238,13 +246,13 @@ namespace Jing
         /// 状态更新
         /// </summary>
         /// <param name="dt">距离上次状态更新的间隔，如果传入，可以统计状态持续的时间</param>
-        public void Update(float dt = 0f)
+        public void Update(float dt = 0f, object data = null)
         {
             StateStayTime += dt;
             var nowSC = _stateDic[CurState];
             if (null != nowSC.onUpdate)
             {
-                nowSC.onUpdate.Invoke(CurState);
+                nowSC.onUpdate.Invoke(CurState, data);
             }
         }
     }

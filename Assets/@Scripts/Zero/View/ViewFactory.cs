@@ -114,8 +114,8 @@ namespace ZeroHot
         /// <param name="data"></param>
         /// <returns></returns>
         public static AView Create(Type type, string abName, string viewName, Transform parent, object data = null)
-        {
-            GameObject prefab = ResMgr.Ins.Load<GameObject>(abName, viewName);
+        {            
+            GameObject prefab = ResMgr.Ins.Load<GameObject>(abName, viewName);            
             return Create(type, prefab, parent, data);
         }
 
@@ -131,6 +131,10 @@ namespace ZeroHot
             {
                 ViewEntry ve = _type2EntryDic[type];
                 return Create(ve.type, ve.abName, ve.viewName, parent, data);
+            }
+            else
+            {
+                Debug.LogErrorFormat("AView类[{0}]并没有对应的已注册视图", type.FullName);
             }
             return null;
         }
@@ -173,6 +177,10 @@ namespace ZeroHot
                 ViewEntry ve = _type2EntryDic[type];
                 new ViewAsyncCreater<AView>(ve.type, ve.abName, ve.viewName).Create(parent, data, onCreated, onProgress, onLoaded);
             }
+            else
+            {
+                Debug.LogErrorFormat("AView类[{0}]并没有对应的已注册视图", type.FullName);
+            }
         }
 
         public static void CreateAsync<T>(Transform parent, object data = null, Action<T> onCreated = null, Action<float> onProgress = null, Action<UnityEngine.Object> onLoaded = null) where T : AView
@@ -182,6 +190,10 @@ namespace ZeroHot
             {
                 ViewEntry ve = _type2EntryDic[type];
                 new ViewAsyncCreater<T>(ve.type, ve.abName, ve.viewName).Create(parent, data, onCreated, onProgress, onLoaded);
+            }
+            else
+            {
+                Debug.LogErrorFormat("AView类[{0}]并没有对应的已注册视图", type.FullName);
             }
         }
 

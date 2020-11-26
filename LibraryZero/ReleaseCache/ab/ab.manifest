@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 905275989
+CRC: 2770065510
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -9,5 +9,13 @@ AssetBundleManifest:
       Name: audios.ab
       Dependencies: {}
     Info_2:
+      Name: cross_depend_test/a.ab
+      Dependencies:
+        Dependency_0: cross_depend_test/b.ab
+    Info_3:
+      Name: cross_depend_test/b.ab
+      Dependencies:
+        Dependency_0: cross_depend_test/a.ab
+    Info_4:
       Name: roushan.ab
       Dependencies: {}

@@ -23,7 +23,7 @@ namespace marijnz.EditorCoroutines
 			public bool finished = false;
 
 			public EditorCoroutine(IEnumerator routine, int ownerHash, string ownerType)
-			{
+			{                
 				this.routine = routine;
 				this.ownerHash = ownerHash;
 				this.ownerType = ownerType;

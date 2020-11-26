@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Zero
 {
-    public class DoubleBindingData : MonoBehaviour
+    public class DoubleBindingData : BaseBinding
     {
         [Serializable]
         public struct BindingVO
@@ -36,7 +36,7 @@ namespace Zero
         public static double[] Find(GameObject go, string key)
         {
             var data = go.GetComponent<DoubleBindingData>();
-            if(null == data)
+            if (null == data)
             {
                 return null;
             }

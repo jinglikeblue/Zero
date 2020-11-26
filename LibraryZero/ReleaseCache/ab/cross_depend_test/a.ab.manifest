@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 1589208321
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a768d638bb17c685a65197b27542d944
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: cd0c0d5f72692899e89af872a1fe0f66
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+Assets:
+- Assets/@Resources/cross_depend_test/a/A.prefab
+- Assets/@Resources/cross_depend_test/a/C.prefab
+Dependencies:
+- D:/projects/Zero/Zero/LibraryZero/ReleaseCache/ab/cross_depend_test/b.ab

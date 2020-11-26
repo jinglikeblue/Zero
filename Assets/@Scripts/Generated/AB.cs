@@ -32,6 +32,12 @@ namespace ZeroHot
 			public const string click_mp3_assetPath = "audios/click.mp3";            
 		}
 
+		public sealed class CROSS_DEPEND_TEST
+		{
+			public const string NAME = "cross_depend_test.ab";
+            
+		}
+
 		public sealed class ROUSHAN
 		{
 			public const string NAME = "roushan.ab";
@@ -46,6 +52,24 @@ namespace ZeroHot
 			public const string HelpWin_assetPath = "roushan/HelpWin.prefab";
 			public const string StartupPanel = "StartupPanel.prefab";
 			public const string StartupPanel_assetPath = "roushan/StartupPanel.prefab";            
+		}
+
+		public sealed class CROSS_DEPEND_TEST_A
+		{
+			public const string NAME = "cross_depend_test/a.ab";
+
+			public const string A = "A.prefab";
+			public const string A_assetPath = "cross_depend_test/a/A.prefab";
+			public const string C = "C.prefab";
+			public const string C_assetPath = "cross_depend_test/a/C.prefab";            
+		}
+
+		public sealed class CROSS_DEPEND_TEST_B
+		{
+			public const string NAME = "cross_depend_test/b.ab";
+
+			public const string B = "B.prefab";
+			public const string B_assetPath = "cross_depend_test/b/B.prefab";            
 		}
 	}
 }

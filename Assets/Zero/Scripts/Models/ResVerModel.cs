@@ -173,7 +173,7 @@ namespace Zero
 
         /// <summary>
         /// 查找资源
-        /// <para>查找以name字符串为开头的资源，格式可以为 "res/h." 或 "res/ab/" </para>
+        /// <para>查找以name字符串为开头的资源，格式可以为 "ab/h.ab" 或 "dll/" </para>
         /// <para>如果没有以"."或"/"结尾，则会自动查超所有符合[name加上"."或"/"结尾]的文件</para>
         /// <para>输入 "" 或者 "/" 则会返回所有的资源</para>
         /// </summary>
@@ -192,6 +192,7 @@ namespace Zero
                 return totalList;
             }
 
+            //是否模糊搜索
             bool isFuzzy = true;
             string fuzzyName0 = null;
             string fuzzyName1 = null;
@@ -209,18 +210,19 @@ namespace Zero
             List<ResVerVO.Item> list = new List<ResVerVO.Item>();
             for (int i = 0; i < _vo.items.Length; i++)
             {
+                var item = _vo.items[i];
                 if (isFuzzy)
                 {
-                    if (_vo.items[i].name.StartsWith(fuzzyName0) || _vo.items[i].name.StartsWith(fuzzyName1) || _vo.items[i].name == name)
+                    if (item.name.StartsWith(fuzzyName0) || item.name.StartsWith(fuzzyName1) || item.name == name)
                     {
-                        list.Add(_vo.items[i]);
+                        list.Add(item);
                     }
                 }
                 else
                 {
-                    if (_vo.items[i].name.StartsWith(name) || _vo.items[i].name == name)
+                    if (item.name.StartsWith(name) || item.name == name)
                     {
-                        list.Add(_vo.items[i]);
+                        list.Add(item);
                     }
                 }
             }

@@ -65,6 +65,19 @@ namespace Zero
             return dependList;
         }
 
+        public override UnityEngine.Object Load(string abName, string assetName)
+        {
+            MakeABNameNotEmpty(ref abName);
+            abName = ABNameWithExtension(abName);
+            AssetBundle ab = LoadAssetBundle(abName);
+            var asset = ab.LoadAsset(assetName);
+            if (null == asset)
+            {
+                Debug.LogErrorFormat("获取的资源不存在： AssetBundle: {0}  Asset: {1}", abName, assetName);
+            }
+            return asset;
+        }
+
         public override T Load<T>(string abName, string assetName)
         {
             MakeABNameNotEmpty(ref abName);
@@ -189,6 +202,17 @@ namespace Zero
                 return null;                
             }
 
+            AssetBundle ab = null;
+            if (_loadedABDic.ContainsKey(abName))
+            {
+                ab = _loadedABDic[abName];
+            }
+            else
+            {
+                ab = AssetBundle.LoadFromFile(abPath);
+                _loadedABDic[abName] = ab;
+            }
+
             //依赖检查
             string[] dependList = _manifest.GetAllDependencies(abName);
             foreach (string depend in dependList)
@@ -200,16 +224,6 @@ namespace Zero
                 }
             }
 
-            AssetBundle ab = null;
-            if (_loadedABDic.ContainsKey(abName))
-            {
-                ab = _loadedABDic[abName];
-            }
-            else
-            {                
-                ab = AssetBundle.LoadFromFile(abPath);
-                _loadedABDic[abName] = ab;                
-            }
             return ab;
         }
     }

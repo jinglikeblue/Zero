@@ -1,0 +1,13 @@
+
+{
+    "client" : {
+        "version" : "1.0",
+        "url"     : "http://5t9whj.coding-pages.com/zero.apk"
+    },
+    "netResRoot" : "http://5t9whj.coding-pages.com",
+    "startupResGroups" : [
+        "/"
+    ],
+    "startupParams"    : {
+    }
+}
