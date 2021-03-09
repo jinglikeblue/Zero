@@ -62,6 +62,19 @@ QQ群：695429639
 ## 更新日志
 
 ```
+2021.01.07
+Version 2.0
+```
+
+>功能调整
+
+- Android环境中，当setting中的[client]->[url]参数指向的url为apk时，zero会在preload中下载APK，并尝试自动拉起apk进行安装
+
+>优化
+
+- 重写了下载工具类[Downloader.cs]，提高文件下载速度，增加扩展性
+
+```
 2020.11.26
 Version 2.0
 ```
