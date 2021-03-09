@@ -114,7 +114,7 @@ namespace Zero
             {
                 case RuntimePlatform.Android:                                        
                 case RuntimePlatform.IPhonePlayer:                                       
-                case RuntimePlatform.WindowsPlayer:
+                case RuntimePlatform.WindowsPlayer:                    
                 case RuntimePlatform.WindowsEditor:
                 case RuntimePlatform.LinuxEditor:
                 case RuntimePlatform.OSXEditor:

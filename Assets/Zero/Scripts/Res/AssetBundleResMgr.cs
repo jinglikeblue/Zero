@@ -202,6 +202,17 @@ namespace Zero
                 return null;                
             }
 
+            AssetBundle ab = null;
+            if (_loadedABDic.ContainsKey(abName))
+            {
+                ab = _loadedABDic[abName];
+            }
+            else
+            {
+                ab = AssetBundle.LoadFromFile(abPath);
+                _loadedABDic[abName] = ab;
+            }
+
             //依赖检查
             string[] dependList = _manifest.GetAllDependencies(abName);
             foreach (string depend in dependList)
@@ -213,16 +224,6 @@ namespace Zero
                 }
             }
 
-            AssetBundle ab = null;
-            if (_loadedABDic.ContainsKey(abName))
-            {
-                ab = _loadedABDic[abName];
-            }
-            else
-            {                
-                ab = AssetBundle.LoadFromFile(abPath);
-                _loadedABDic[abName] = ab;                
-            }
             return ab;
         }
     }

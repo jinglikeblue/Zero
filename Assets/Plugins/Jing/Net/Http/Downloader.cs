@@ -2,7 +2,10 @@
 using System.ComponentModel;
 using System.IO;
 using System.Net;
+using System.Net.Http;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Jing
 {
@@ -11,40 +14,159 @@ namespace Jing
     /// </summary>
     public class Downloader
     {
+        class HttpDownloader
+        {
+            /// <summary>
+            /// 下载取消的错误
+            /// </summary>
+            public const string ERROR_CANCEL = "ERROR_CANCEL";
+
+            /// <summary>
+            /// 下载缓冲区大小
+            /// </summary>
+            public const int BUFFER_SIZE = 65536;
+
+            /// <summary>
+            /// 下载过程中
+            /// </summary>
+            public event Action<HttpDownloader, long, long> onProgress;
+
+            /// <summary>
+            /// 下载完成
+            /// </summary>
+            public event Action<HttpDownloader, string> onComplete;
+
+            /// <summary>
+            /// 下载的Url
+            /// </summary>
+            public string Url { get; private set; }
+
+            /// <summary>
+            /// 保存地址
+            /// </summary>
+            public string SavePath { get; private set; }
+
+            /// <summary>
+            /// 已下载大小
+            /// </summary>
+            public long LoadedSize { get; private set; } = 0;
+
+            /// <summary>
+            /// 总大小
+            /// </summary>
+            public long TotalSize { get; private set; } = 0;
+
+            /// <summary>
+            /// 错误信息
+            /// </summary>
+            public string Error { get; private set; } = null;
+
+            /// <summary>
+            /// 是否正在下载中
+            /// </summary>
+            public bool IsDownloading
+            {
+                get
+                {
+                    return _thread != null ? true : false;
+                }
+            }
+
+            Thread _thread;
+
+            public HttpDownloader(string url, string savePath)
+            {
+                Url = url;
+                SavePath = savePath;
+            }
+
+            public void Download()
+            {
+                if (null == _thread)
+                {
+                    _thread = new Thread(new ThreadStart(DownloadProcess));
+                    _thread.Start();
+                }
+                else
+                {
+                    throw new Exception("Is Downloading");
+                }
+            }
+
+            public void Cancel()
+            {
+                onProgress = null;
+                onComplete = null;
+                _thread = null;
+            }
+
+            void DownloadProcess()
+            {
+                try
+                {
+                    // 设置参数
+                    HttpWebRequest request = WebRequest.Create(Url) as HttpWebRequest;
+
+                    //发送请求并获取相应回应数据
+                    HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+
+                    LoadedSize = 0;
+                    TotalSize = response.ContentLength;
+
+                    //直到request.GetResponse()程序才开始向目标网页发送Post请求
+                    Stream rs = response.GetResponseStream();
+
+                    //创建本地文件写入流
+                    FileStream fs = new FileStream(SavePath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
+                    byte[] buffer = new byte[BUFFER_SIZE];
+
+                    while (_thread != null)
+                    {
+                        int size = rs.Read(buffer, 0, buffer.Length);
+                        if (size > 0)
+                        {
+                            LoadedSize += size;
+                            fs.Write(buffer, 0, size);
+                            onProgress?.Invoke(this, LoadedSize, TotalSize);
+                            Thread.Sleep(1);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    fs.Close();
+                    rs.Close();
+
+                    if (null == _thread)
+                    {
+                        Error = ERROR_CANCEL;                                               
+                    }
+                    else
+                    {
+                        Error = null;
+                        _thread = null;                       
+                    }                    
+                }
+                catch (Exception e)
+                {
+                    Error = e.Message;                    
+                }
+                finally
+                {
+                    onComplete?.Invoke(this, Error);
+                }
+            }
+        }
+
         /// <summary>
         /// 下载连接数限制
         /// PS:修改该值可以直接简单的限制HTTP下载请求的并发数
         /// </summary>
         public static int downloadConnectionLimit = 500;
 
-        /// <summary>
-        /// 重写的WebClient类
-        /// </summary>
-        class DownloadWebClient : WebClient
-        {
-            readonly int _timeout;
-            public DownloadWebClient(int timeout = 60)
-            {
-                _timeout = timeout * 1000;
-            }
-
-            protected override WebRequest GetWebRequest(Uri address)
-            {                
-                HttpWebRequest request = base.GetWebRequest(address) as HttpWebRequest;
-                request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-                request.Timeout = _timeout;
-                request.ReadWriteTimeout = _timeout;
-                request.Proxy = null;
-                return request;
-            }
-
-            protected override WebResponse GetWebResponse(WebRequest request)
-            {
-                return base.GetWebResponse(request);
-            }
-        }
-
-        DownloadWebClient _client;
+        HttpDownloader _httpDownloader;
 
         bool _isDone;
 
@@ -54,7 +176,7 @@ namespace Jing
         public bool isDone
         {
             get
-            {
+            {                
                 if (false == _isDone)
                 {
                     CheckTimeout();
@@ -120,7 +242,7 @@ namespace Jing
         /// </summary>
         public bool isDisposeed
         {
-            get { return _client == null ? true : false; }
+            get { return _httpDownloader == null ? true : false; }
         }
 
 
@@ -161,7 +283,7 @@ namespace Jing
         /// <param name="savePath">保存文件的本地地址</param>
         /// <param name="version">URL对应文件的版本号</param>
         public Downloader(string url, string savePath, string version = null)
-        {           
+        {
             _url = url;
             _savePath = savePath;
             string saveDir = Path.GetDirectoryName(savePath);
@@ -169,9 +291,6 @@ namespace Jing
             {
                 Directory.CreateDirectory(saveDir);
             }
-            _client = new DownloadWebClient();            
-            _client.DownloadProgressChanged += OnDownloadProgressChanged;
-            _client.DownloadFileCompleted += OnDownloadFileCompleted;
 
             if (null != version)
             {
@@ -195,7 +314,10 @@ namespace Jing
                 serverPoint.ConnectionLimit = downloadConnectionLimit;
                 _progress = 0;
                 _lastProgressChangedDT = DateTime.Now;
-                _client.DownloadFileAsync(uri, savePath);                                
+                _httpDownloader = new HttpDownloader(url, savePath);
+                _httpDownloader.onProgress += OnDownloadProgress;
+                _httpDownloader.onComplete += OnDownloadComplete;
+                _httpDownloader.Download();
             }
             catch (Exception ex)
             {
@@ -204,23 +326,50 @@ namespace Jing
             }
         }
 
+        private void OnDownloadComplete(HttpDownloader loader, string error)
+        {
+            if (error != null)
+            {
+                SetError(error);
+            }
+            else if (_loadedSize < _totalSize)
+            {
+                SetError($"文件大小不一致: {_loadedSize} / {_totalSize}");
+            }
+            _isDone = true;
+        }
+
+        private void OnDownloadProgress(HttpDownloader loader, long loaded, long total)
+        {
+            _lastProgressChangedDT = DateTime.Now;
+            _loadedSize = loader.LoadedSize;
+            _totalSize = total;
+            if (0 == _totalSize)
+            {
+                _progress = 0;
+            }
+            else
+            {
+                _progress = _loadedSize / (float)_totalSize;
+            }
+        }
+
         /// <summary>
         /// 销毁对象，会停止所有的下载
         /// </summary>
         public void Dispose()
         {
-            if (_client != null)
+            if (_httpDownloader != null)
             {
-                _client.DownloadProgressChanged -= OnDownloadProgressChanged;
-                _client.DownloadFileCompleted -= OnDownloadFileCompleted;
-                _client.CancelAsync();
-                _client.Dispose();
-                _client = null;
-                if(false ==_isDone)
-                {                    
+                _httpDownloader.onProgress -= OnDownloadProgress;
+                _httpDownloader.onComplete -= OnDownloadComplete;
+                _httpDownloader.Cancel();
+                _httpDownloader = null;
+                if (false == _isDone)
+                {
                     SetError("Canceled");
                     _isDone = true;
-                }                
+                }
             }
         }
 
@@ -230,12 +379,16 @@ namespace Jing
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void OnDownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
-        {            
+        {
             if (e.Error != null)
             {
-                SetError(e.Error.Message);                
+                SetError(e.Error.Message);
             }
-            _isDone = true;                      
+            else if (_loadedSize < _totalSize)
+            {
+                SetError($"文件大小不一致: {_loadedSize} / {_totalSize}");
+            }
+            _isDone = true;
         }
 
         /// <summary>
@@ -245,7 +398,7 @@ namespace Jing
         /// <param name="e"></param>
         private void OnDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            if(e.BytesReceived > _loadedSize)
+            if (e.BytesReceived > _loadedSize)
             {
                 _lastProgressChangedDT = DateTime.Now;
                 _loadedSize = e.BytesReceived;
@@ -258,7 +411,7 @@ namespace Jing
                 {
                     _progress = _loadedSize / (float)_totalSize;
                 }
-            }      
+            }
         }
 
         /// <summary>
@@ -268,11 +421,11 @@ namespace Jing
         {
             TimeSpan ts = DateTime.Now - _lastProgressChangedDT;
             //Debug.LogFormat("检查时间差：{0} {1}", ts.TotalMilliseconds, url);
-            if(ts.TotalMilliseconds > timeout)
+            if (ts.TotalMilliseconds > timeout)
             {
                 //超时
                 Dispose();
-                SetError("TimeOut");                
+                SetError("TimeOut");
             }
         }
 
@@ -281,7 +434,7 @@ namespace Jing
             Debug.LogErrorFormat("下载失败 [{0}] ：{1}", _url, error);
 
             //删除文件
-            if(File.Exists(savePath))
+            if (File.Exists(savePath))
             {
                 File.Delete(savePath);
             }

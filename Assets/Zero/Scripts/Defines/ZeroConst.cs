@@ -56,6 +56,11 @@ namespace Zero
         public const string PACKAGE_ZIP_FILE_NAME = "package.zip";
 
         /// <summary>
+        /// 安卓安装包文件名称
+        /// </summary>
+        public const string ANDROID_APK_NAME = "android_install.apk";
+
+        /// <summary>
         /// AssetBundle文件存储的后缀名
         /// </summary>
         public const string AB_EXTENSION = ".ab";

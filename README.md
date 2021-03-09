@@ -62,6 +62,44 @@ QQ群：695429639
 ## 更新日志
 
 ```
+2020.11.26
+Version 2.0
+```
+
+>Bug修正
+
+- 解决AB包之间存在相互依赖关系时，读取其中一个AB文件会出现死循环的问题
+
+
+```
+2020.10
+Version 2.0
+```
+
+>功能调整
+
+- 增加对osx系统的支持
+- 增加一个插件工具，https://github.com/aliessmael/Unity-Logs-Viewer
+- 增加一个位图字体快速创建工具，https://github.com/jinglikeblue/Unity-BitmapFontCreater
+
+>优化
+- 代码结构优化
+
+
+```
+2020.4
+Version 2.0
+```
+
+>功能调整
+
+- 增加一个Android原生项目，用来生成zerolib.aar。提供Android原生层代码的封装。
+
+>优化
+- package.zip优化，现在可以支持超大zip的解压
+- 优化link.xml生成工具配置，尽量使用相对目录保存路径
+
+```
 2019.10
 Version 2.0
 ```

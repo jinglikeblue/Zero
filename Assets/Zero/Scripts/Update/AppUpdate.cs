@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Jing;
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Zero
@@ -8,6 +10,8 @@ namespace Zero
     /// </summary>
     public class AppUpdate
     {
+        const string APK_INSTALL_FILE_EXT = ".apk";
+
         Action<bool> _onOver;
         protected Action<float, long> _onProgress;
         protected Action<string> _onError;
@@ -34,12 +38,72 @@ namespace Zero
 
             if (result == -1)
             {
-                Application.OpenURL(Runtime.Ins.setting.client.url);
+                Uri updateURI = null;
+                try
+                {
+                    updateURI = new Uri(Runtime.Ins.setting.client.url);
+                    var url = string.IsNullOrEmpty(updateURI.Query) ? $"{updateURI.OriginalString}?ver={Runtime.Ins.setting.client.version}" : updateURI.AbsoluteUri;
+
+                    if (updateURI.AbsolutePath.EndsWith(APK_INSTALL_FILE_EXT))
+                    {
+                        //是APK安装文件
+                        ILBridge.Ins.StartCoroutine(UpdateAPK(url));
+                    }
+                    else
+                    {                        
+                        Application.OpenURL(url);
+                    }
+                }
+                catch
+                {
+                    _onError?.Invoke("更新App失败！");                        
+                }                
             }
             else
             {
                 _onOver.Invoke(result == 1 ? true : false);
             }            
+        }
+
+        IEnumerator UpdateAPK(string apkUrl)
+        {
+            Downloader loader = new Downloader(apkUrl, FileSystem.CombinePaths(Runtime.Ins.localResDir, ZeroConst.ANDROID_APK_NAME));
+
+            Debug.Log($"安装包保存路径:{loader.savePath}");
+            
+            while (!loader.isDone)
+            {
+                _onProgress?.Invoke(loader.progress, loader.totalSize);
+                yield return new WaitForEndOfFrame();
+            }
+
+            _onProgress?.Invoke(1, loader.totalSize);
+
+            if (loader.error != null)
+            {
+                _onError?.Invoke(loader.error);
+                yield break;
+            }
+
+#if UNITY_ANDROID
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                var apkInstallUtilityCls = new AndroidJavaClass("pieces.jing.zerolib.utilities.ApkInstallUtility");
+                var installResult = apkInstallUtilityCls.CallStatic<bool>("install", loader.savePath);
+                if (false == installResult)
+                {
+                    Debug.LogError("拉起安装程序失败");
+                }
+                else
+                {
+                    Debug.Log("拉起安装程序");
+                }
+            }
+            else
+            {
+                Debug.Log("真机环境下，会拉起安装Apk！");
+            }
+#endif
         }
 
 
