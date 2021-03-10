@@ -17,7 +17,7 @@ namespace ZeroEditor
 
         public HotConfigModule(Type type, string path, EditorWindow editorWin) : base(editorWin)
         {
-            _path = FileSystem.CombinePaths(ZeroConst.HOT_CONFIGS_ROOT_DIR, path);
+            _path = FileUtility.CombinePaths(ZeroConst.HOT_CONFIGS_ROOT_DIR, path);
 
             if (File.Exists(_path))
             {

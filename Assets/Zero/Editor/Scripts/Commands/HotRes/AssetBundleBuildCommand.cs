@@ -41,7 +41,7 @@ namespace ZeroEditor
 
         public AssetBundleBuildCommand(string resRootDir, string outputDir)
         {
-            this.resRootDir = FileSystem.CombineDirs(true, resRootDir);
+            this.resRootDir = FileUtility.CombineDirs(true, resRootDir);
             this.outputDir = outputDir;
             _abDic = new Dictionary<string, List<string>>();
             _dependsDic = new Dictionary<string, HashSet<string>>();
@@ -76,7 +76,7 @@ namespace ZeroEditor
                     continue;
                 }
 
-                var temp = FileSystem.StandardizeBackslashSeparator(assetFile);
+                var temp = FileUtility.StandardizeBackslashSeparator(assetFile);
                 AssetImporter ai = AssetImporter.GetAtPath(temp);
 
                 if (null == ai)
@@ -95,7 +95,7 @@ namespace ZeroEditor
                 }
                 else
                 {
-                    abName = FileSystem.StandardizeBackslashSeparator(abName);
+                    abName = FileUtility.StandardizeBackslashSeparator(abName);
                 }
 
                 //加上后缀名
@@ -282,11 +282,11 @@ namespace ZeroEditor
                 usefulFileSet.Add(abFile + ".manifest");
             }
 
-            var abDir = FileSystem.CombineDirs(true, ZeroEditorConst.ASSET_BUNDLE_CACHE_DIR);
+            var abDir = FileUtility.CombineDirs(true, ZeroEditorConst.ASSET_BUNDLE_CACHE_DIR);
             var files = Directory.GetFiles(ZeroEditorConst.ASSET_BUNDLE_CACHE_DIR, "*", SearchOption.AllDirectories);
             foreach (var file in files)
             {
-                var tempFile = FileSystem.StandardizeBackslashSeparator(file);
+                var tempFile = FileUtility.StandardizeBackslashSeparator(file);
                 var filePath = tempFile.Replace(abDir, "");
                 if (false == usefulFileSet.Contains(filePath))
                 {
@@ -309,7 +309,7 @@ namespace ZeroEditor
                 if (subFiles.Length == 0)
                 {
                     subdir.Delete(true);
-                    Debug.LogFormat("删除文件夹：" + FileSystem.StandardizeBackslashSeparator(subdir.FullName));
+                    Debug.LogFormat("删除文件夹：" + FileUtility.StandardizeBackslashSeparator(subdir.FullName));
                 }
             }
 
@@ -328,15 +328,15 @@ namespace ZeroEditor
             var assetBundles = assetBundleManifest.GetAllAssetBundles();
             foreach (var ab in assetBundles)
             {
-                string sourceABPath = FileSystem.CombinePaths(ZeroEditorConst.ASSET_BUNDLE_CACHE_DIR, ab);
-                string targetABPath = FileSystem.CombinePaths(outputDir, ab);
-                FileSystem.CopyFile(sourceABPath, targetABPath, true);
+                string sourceABPath = FileUtility.CombinePaths(ZeroEditorConst.ASSET_BUNDLE_CACHE_DIR, ab);
+                string targetABPath = FileUtility.CombinePaths(outputDir, ab);
+                FileUtility.CopyFile(sourceABPath, targetABPath, true);
             }
 
             //移动Manifest文件
-            string sourceManifestPath = FileSystem.CombinePaths(ZeroEditorConst.ASSET_BUNDLE_CACHE_DIR, ZeroConst.AB_DIR_NAME);
-            string targetManifestPath = FileSystem.CombinePaths(outputDir, ZeroConst.MANIFEST_FILE_NAME + ZeroConst.AB_EXTENSION);
-            FileSystem.CopyFile(sourceManifestPath, targetManifestPath, true);
+            string sourceManifestPath = FileUtility.CombinePaths(ZeroEditorConst.ASSET_BUNDLE_CACHE_DIR, ZeroConst.AB_DIR_NAME);
+            string targetManifestPath = FileUtility.CombinePaths(outputDir, ZeroConst.MANIFEST_FILE_NAME + ZeroConst.AB_EXTENSION);
+            FileUtility.CopyFile(sourceManifestPath, targetManifestPath, true);
         }
     }    
 }

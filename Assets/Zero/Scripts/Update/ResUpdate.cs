@@ -66,7 +66,7 @@ namespace Zero
                 var netItem = Runtime.Ins.netResVer.Get(resName);
 
                 //将要下载的文件依次添加入下载器
-                groupLoader.AddLoad(FileSystem.CombinePaths(Runtime.Ins.netResDir, resName), FileSystem.CombinePaths(Runtime.Ins.localResDir, resName), netItem.version, netItem.size, OnItemLoaded, netItem);
+                groupLoader.AddLoad(FileUtility.CombinePaths(Runtime.Ins.netResDir, resName), FileUtility.CombinePaths(Runtime.Ins.localResDir, resName), netItem.version, netItem.size, OnItemLoaded, netItem);
             }
             //启动下载器开始下载
             groupLoader.StartLoad();

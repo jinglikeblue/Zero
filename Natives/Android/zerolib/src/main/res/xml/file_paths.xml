@@ -1,0 +1,27 @@
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--context.getFilesDir()-->
+    <!--内部存储的files目录-->
+    <!--/data/user/0/[packageName]/files-->
+    <files-path name="files" path="." />
+
+    <!--Environment.getExternalStorageDirectory()-->
+    <!--/storage/emulated/0-->
+    <!--存储的根目录-->
+    <external-path name="externals" path="." />
+
+    <!--context.getCacheDir()-->
+    <!--内部存储的cache目录-->
+    <!--/data/user/0/[packageName]/cache-->
+    <cache-path name="caches" path="." />
+
+    <!--ContextCompat.getExternalFilesDirs-->
+    <!--外部私有存储的files目录-->
+    <!--/storage/emulated/0/Android/data/[packageName]/files-->
+    <external-files-path name="external_files" path="." />
+
+    <!--ContextCompat.getExternalCacheDirs-->
+    <!--外部私有存储的cache目录-->
+    <!--/storage/emulated/0/Android/data/[packageName]/cache-->
+    <external-cache-path name="external_caches" path="." />
+</paths>

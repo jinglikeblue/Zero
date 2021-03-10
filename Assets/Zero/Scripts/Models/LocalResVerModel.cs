@@ -18,7 +18,7 @@ namespace Zero
 
         public void Load()
         {
-            _path = FileSystem.CombinePaths(Runtime.Ins.generateFilesDir, FILE_NAME);
+            _path = FileUtility.CombinePaths(Runtime.Ins.generateFilesDir, FILE_NAME);
 
             if (File.Exists(_path))
             {
@@ -49,7 +49,7 @@ namespace Zero
         {
             foreach (var item in _vo.items)
             {
-                var filePath = FileSystem.CombinePaths(Runtime.Ins.localResDir, item.name);
+                var filePath = FileUtility.CombinePaths(Runtime.Ins.localResDir, item.name);
                 if (!File.Exists(filePath))
                 {
                     SetVer(item.name, "");

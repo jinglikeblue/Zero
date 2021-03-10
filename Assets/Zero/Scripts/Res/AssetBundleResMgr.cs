@@ -24,7 +24,7 @@ namespace Zero
             UnloadAll();
             _loadedABDic = new Dictionary<string, AssetBundle>();
 
-            RootDir = FileSystem.StandardizeBackslashSeparator(Path.GetDirectoryName(manifestFilePath));           
+            RootDir = FileUtility.StandardizeBackslashSeparator(Path.GetDirectoryName(manifestFilePath));           
 
             AssetBundle ab = AssetBundle.LoadFromFile(manifestFilePath);
             _manifest = ab.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
@@ -65,11 +65,29 @@ namespace Zero
             return dependList;
         }
 
+        public override string[] GetAllAsssetsNames(string abName)
+        {
+            MakeABNameNotEmpty(ref abName);
+            abName = ABNameWithExtension(abName);
+            AssetBundle ab = LoadAssetBundle(abName); 
+            string [] assetNames = ab.GetAllAssetNames();
+            for(int i = 0; i < assetNames.Length; i++)
+            {
+                assetNames[i] = Path.GetFileName(assetNames[i]);
+            }
+            return assetNames;
+        }
+
         public override UnityEngine.Object Load(string abName, string assetName)
         {
             MakeABNameNotEmpty(ref abName);
             abName = ABNameWithExtension(abName);
             AssetBundle ab = LoadAssetBundle(abName);
+            if(null == ab)
+            {
+                Debug.LogErrorFormat("AB资源不存在  abName: {0}", abName);
+                return null;
+            }
             var asset = ab.LoadAsset(assetName);
             if (null == asset)
             {
@@ -91,12 +109,20 @@ namespace Zero
             return asset;
         }
 
+        public override UnityEngine.Object[] LoadAll(string abName)
+        {
+            MakeABNameNotEmpty(ref abName);
+            abName = ABNameWithExtension(abName);
+            AssetBundle ab = LoadAssetBundle(abName);                   
+            return ab.LoadAllAssets();
+        }
+
         public override void LoadAsync(string abName, string assetName, Action<UnityEngine.Object> onLoaded, Action<float> onProgress = null)
         {
             MakeABNameNotEmpty(ref abName);
             abName = ABNameWithExtension(abName);
             AssetBundle ab = LoadAssetBundle(abName);
-            ILBridge.Ins.StartCoroutine(LoadAsync<UnityEngine.Object>(ab, assetName, onLoaded, onProgress));
+            ILBridge.Ins.StartCoroutine(this, LoadAsync<UnityEngine.Object>(ab, assetName, onLoaded, onProgress));
         }
 
         public override void LoadAsync<T>(string abName, string assetName, Action<T> onLoaded, Action<float> onProgress = null)
@@ -104,7 +130,15 @@ namespace Zero
             MakeABNameNotEmpty(ref abName);
             abName = ABNameWithExtension(abName);
             AssetBundle ab = LoadAssetBundle(abName);
-            ILBridge.Ins.StartCoroutine(LoadAsync(ab, assetName, onLoaded, onProgress));
+            ILBridge.Ins.StartCoroutine(this, LoadAsync(ab, assetName, onLoaded, onProgress));
+        }
+
+        public override void LoadAllAsync(string abName, Action<UnityEngine.Object[]> onLoaded, Action<float> onProgress = null)
+        {
+            MakeABNameNotEmpty(ref abName);
+            abName = ABNameWithExtension(abName);
+            AssetBundle ab = LoadAssetBundle(abName);
+            ILBridge.Ins.StartCoroutine(this, LoadAllAsync(ab, onLoaded, onProgress));
         }
 
         IEnumerator LoadAsync<T>(AssetBundle ab, string assetName, Action<T> onLoaded, Action<float> onProgress) where T : UnityEngine.Object
@@ -123,6 +157,25 @@ namespace Zero
 
             //加载完成
             onLoaded.Invoke((T)abr.asset);
+        }
+
+
+        IEnumerator LoadAllAsync(AssetBundle ab, Action<UnityEngine.Object[]> onLoaded, Action<float> onProgress)
+        {
+            AssetBundleRequest abr = ab.LoadAllAssetsAsync();
+
+            do
+            {
+                if (onProgress != null)
+                {
+                    onProgress.Invoke(abr.progress);
+                }
+                yield return new WaitForEndOfFrame();
+            }
+            while (false == abr.isDone);
+
+            //加载完成
+            onLoaded.Invoke(abr.allAssets);
         }
 
         public override void Unload(string abName, bool isUnloadAllLoaded = false, bool isUnloadDepends = true)
@@ -194,7 +247,7 @@ namespace Zero
         {
             MakeABNameNotEmpty(ref abName);
             abName = ABNameWithExtension(abName);
-            string abPath = FileSystem.CombinePaths(RootDir, abName);
+            string abPath = FileUtility.CombinePaths(RootDir, abName);
             if (false == File.Exists(abPath))
             {
                 //加载的AB资源不存在
@@ -226,5 +279,6 @@ namespace Zero
 
             return ab;
         }
+
     }
 }

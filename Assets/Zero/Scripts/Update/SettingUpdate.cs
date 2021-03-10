@@ -21,11 +21,11 @@ namespace Zero
             Debug.Log(Log.Zero1("「SettingUpdate」配置文件更新检查..."));
             _onLoaded = onLoaded;
             _onError = onError;
-            _localPath = FileSystem.CombinePaths(Runtime.Ins.localResDir, "setting.json");
+            _localPath = FileUtility.CombinePaths(Runtime.Ins.localResDir, "setting.json");
             
             if (Runtime.Ins.IsLoadAssetsFromNet && Runtime.Ins.localData.IsUpdateSetting)
             {
-                var netPath = FileSystem.CombinePaths(Runtime.Ins.netResDir , "setting.json");
+                var netPath = FileUtility.CombinePaths(Runtime.Ins.netResDir , "setting.json");
                 Debug.Log(Log.Zero1("配置文件: {0}", netPath));
                 ILBridge.Ins.StartCoroutine(Update(netPath));
             }
@@ -64,7 +64,7 @@ namespace Zero
 
             SettingVO vo = LoadLocalSetting();
             Runtime.Ins.setting = vo;
-            Runtime.Ins.netResDir = FileSystem.CombineDirs(true, vo.netResRoot, ZeroConst.PLATFORM_DIR_NAME);
+            Runtime.Ins.netResDir = FileUtility.CombineDirs(true, vo.netResRoot, ZeroConst.PLATFORM_DIR_NAME);
 
             _onLoaded();
             yield break;

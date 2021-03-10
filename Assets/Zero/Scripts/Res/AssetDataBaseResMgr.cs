@@ -1,6 +1,7 @@
 ﻿using Jing;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using Zero;
@@ -22,6 +23,21 @@ namespace Zero
             _assetRoot = assetRoot;
         }
 
+        string GetDirOfAB(string abName)
+        {
+            abName = ABNameWithoutExtension(abName);
+            string dir;
+            if (abName.ToLower() != ZeroConst.ROOT_AB_FILE_NAME) //resources表示从根目录获取资源，则不需要添加目录
+            {
+                dir = FileUtility.CombinePaths(_assetRoot, abName);
+            }
+            else
+            {
+                dir = FileUtility.CombinePaths(_assetRoot);
+            }
+            return dir;
+        }
+
         /// <summary>
         /// 将AB资源的路径格式转换为Resources目录中资源的路径
         /// </summary>
@@ -30,17 +46,8 @@ namespace Zero
         string AssetBundlePath2ResourcePath(string abName, string assetName)
         {
             try
-            {
-                abName = ABNameWithoutExtension(abName);
-                string dir;
-                if (abName.ToLower() != ZeroConst.ROOT_AB_FILE_NAME) //resources表示从根目录获取资源，则不需要添加目录
-                {
-                    dir = FileSystem.CombinePaths(_assetRoot, abName);
-                }
-                else
-                {
-                    dir = FileSystem.CombinePaths(_assetRoot);
-                }
+            {                
+                string dir = GetDirOfAB(abName);
 
                 //模糊匹配资源名称
                 var files = Directory.GetFiles(dir);
@@ -66,7 +73,7 @@ namespace Zero
             }
             catch
             {
-                throw new Exception(string.Format("在[{0}]下无法找到资源文件[{1}/{2}]", _assetRoot, abName, assetName));
+                throw new Exception(string.Format("在[{0}]下无法找到资源文件[{1}/{2}]", _assetRoot, ABNameWithoutExtension(abName), assetName));
             }
             return null;
         }
@@ -74,6 +81,37 @@ namespace Zero
         public override string[] GetDepends(string abName)
         {
             return new string[0];
+        }
+
+        public override string[] GetAllAsssetsNames(string abName)
+        {
+#if UNITY_EDITOR
+
+            var assetNames = new List<string>();
+
+            var dirPath = GetDirOfAB(abName);
+
+            //模糊匹配资源名称
+            var files = Directory.GetFiles(dirPath);
+
+            foreach (var file in files)
+            {
+                var filePath = FileUtility.StandardizeBackslashSeparator(file);
+                if (Path.GetExtension(filePath) == ".meta")
+                {
+                    continue;
+                }
+
+                if (File.Exists(filePath + ".meta"))
+                {
+                    assetNames.Add(Path.GetFileName(filePath));
+                }
+            }
+
+            return assetNames.Count > 0 ? assetNames.ToArray() : null;
+#else
+        return null;
+#endif
         }
 
         public override UnityEngine.Object Load(string abName, string assetName)
@@ -143,5 +181,66 @@ namespace Zero
         {
             Resources.UnloadUnusedAssets();
         }
+
+
+
+        public override UnityEngine.Object[] LoadAll(string abName)
+        {
+#if UNITY_EDITOR
+
+            var assets = new List<UnityEngine.Object>();
+
+            var dirPath = GetDirOfAB(abName);
+
+            //模糊匹配资源名称
+            var files = Directory.GetFiles(dirPath);            
+
+            foreach (var file in files)
+            {
+                var filePath = FileUtility.StandardizeBackslashSeparator(file);
+                if (Path.GetExtension(filePath) == ".meta")
+                {
+                    continue;
+                }
+                
+                if(File.Exists(filePath + ".meta"))
+                {
+                    var asset = UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(filePath);
+                    assets.Add(asset);
+                }                
+            }
+
+            return assets.Count > 0 ? assets.ToArray() : null;
+#else
+        return null;
+#endif
+        }
+
+        public override void LoadAllAsync(string abName, Action<UnityEngine.Object[]> onLoaded, Action<float> onProgress = null)
+        {
+            ILBridge.Ins.StartCoroutine(ResourceLoadAllAsync(abName, onLoaded, onProgress));
+        }
+
+        IEnumerator ResourceLoadAllAsync(string abName, Action<UnityEngine.Object[]> onLoaded, Action<float> onProgress)
+        {
+            if (null != onProgress)
+            {
+                onProgress.Invoke(0);
+            }
+            yield return new WaitForEndOfFrame();
+#if UNITY_EDITOR
+            if (null != onProgress)
+            {
+                onProgress.Invoke(1);
+            }
+            var assets = LoadAll(abName);
+
+            onLoaded?.Invoke(assets); 
+#else
+            onLoaded?.Invoke(null);
+#endif
+        }
+
+
     }
 }

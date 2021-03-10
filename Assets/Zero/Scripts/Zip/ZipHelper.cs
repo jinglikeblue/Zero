@@ -218,7 +218,7 @@ namespace Zero
 
                 while ((entry = s.GetNextEntry()) != null)
                 {
-                    string targetPath = FileSystem.CombinePaths(_targetDir, entry.Name);
+                    string targetPath = FileUtility.CombinePaths(_targetDir, entry.Name);
 
                     if (entry.IsDirectory)
                     {

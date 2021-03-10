@@ -21,7 +21,7 @@ namespace ZeroEditor
 
         public ResJsonBuildCommand(string sourceDir)
         {
-            _sourceDir = FileSystem.CombineDirs(true, sourceDir);
+            _sourceDir = FileUtility.CombineDirs(true, sourceDir);
         }
 
         public void Execute()
@@ -32,7 +32,7 @@ namespace ZeroEditor
                 return;
             }
 
-            var filePath = FileSystem.CombinePaths(_sourceDir, ZeroConst.RES_JSON_FILE_NAME);
+            var filePath = FileUtility.CombinePaths(_sourceDir, ZeroConst.RES_JSON_FILE_NAME);
 
             //首先删除旧的
             if (File.Exists(filePath))

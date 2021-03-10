@@ -647,7 +647,7 @@ MonoBehaviour:
     isLogEnable: 1
     className: ZeroHot.Main
     methodName: Startup
-    hotResMode: 2
+    hotResMode: 1
     netRoot: https://coding-pages-bucket-1277129-3398924-3774-354997-1251566732.cos-website.ap-guangzhou.myqcloud.com/res/
     isUseDll: 0
     ilType: 0

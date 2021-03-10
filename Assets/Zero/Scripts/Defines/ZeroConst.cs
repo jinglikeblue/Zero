@@ -95,7 +95,7 @@ namespace Zero
         /// <summary>
         /// 热更资源发布目录
         /// </summary>
-        static public string PUBLISH_RES_ROOT_DIR = FileSystem.CombineDirs(false, ZERO_LIBRARY_DIR, "Release", "res", PLATFORM_DIR_NAME);
+        static public string PUBLISH_RES_ROOT_DIR = FileUtility.CombineDirs(false, ZERO_LIBRARY_DIR, "Release", "res", PLATFORM_DIR_NAME);
 
         #endregion
 
@@ -159,9 +159,9 @@ namespace Zero
                 {
                     _persistentDataPath = Application.persistentDataPath;
 #if UNITY_EDITOR
-                    _persistentDataPath = FileSystem.CombineDirs(false, Directory.GetParent(Application.dataPath).FullName, ZERO_LIBRARY_DIR, "RuntimeCaches");
+                    _persistentDataPath = FileUtility.CombineDirs(false, Directory.GetParent(Application.dataPath).FullName, ZERO_LIBRARY_DIR, "RuntimeCaches");
 #elif UNITY_STANDALONE
-                _persistentDataPath = FileSystem.CombineDirs(false, Application.dataPath, "Caches");
+                _persistentDataPath = FileUtility.CombineDirs(false, Application.dataPath, "Caches");
 #endif
                 }
                 return _persistentDataPath;
@@ -171,11 +171,11 @@ namespace Zero
         /// <summary>
         /// 网络下载的更新资源存储的目录
         /// </summary>
-        public static string WWW_RES_PERSISTENT_DATA_PATH = FileSystem.CombineDirs(false, PERSISTENT_DATA_PATH, "zero", "res");
+        public static string WWW_RES_PERSISTENT_DATA_PATH = FileUtility.CombineDirs(false, PERSISTENT_DATA_PATH, "zero", "res");
 
         /// <summary>
         /// 框架生成文件存放地址
         /// </summary>
-        public static string GENERATES_PERSISTENT_DATA_PATH = FileSystem.CombineDirs(false, PERSISTENT_DATA_PATH, "zero", "generated");
+        public static string GENERATES_PERSISTENT_DATA_PATH = FileUtility.CombineDirs(false, PERSISTENT_DATA_PATH, "zero", "generated");
     }
 }

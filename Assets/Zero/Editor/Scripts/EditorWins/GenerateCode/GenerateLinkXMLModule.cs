@@ -69,7 +69,7 @@ namespace ZeroEditor
                 }
             }
 
-            var defaultDir = FileSystem.CombineDirs(true, EditorApplication.applicationContentsPath);
+            var defaultDir = FileUtility.CombineDirs(true, EditorApplication.applicationContentsPath);
             if (false == includeDirs.Contains(defaultDir))
             {
                 includeDirs.Add(defaultDir);
@@ -112,7 +112,7 @@ namespace ZeroEditor
                 return;
             }
             
-            var relativePath = FileSystem.GetRelativePath(ZeroEditorConst.PROJECT_PATH, dir);
+            var relativePath = FileUtility.GetRelativePath(ZeroEditorConst.PROJECT_PATH, dir);
             if(null != relativePath)
             {
                 dir = relativePath;
@@ -134,10 +134,10 @@ namespace ZeroEditor
 
             var fi = new FileInfo(dll);
 
-            var relativePath = FileSystem.GetRelativePath(ZeroEditorConst.PROJECT_PATH, fi.DirectoryName);
+            var relativePath = FileUtility.GetRelativePath(ZeroEditorConst.PROJECT_PATH, fi.DirectoryName);
             if (null != relativePath)
             {
-                dll = FileSystem.CombinePaths(relativePath, fi.Name);
+                dll = FileUtility.CombinePaths(relativePath, fi.Name);
             }            
 
             includeDlls.Add(dll);

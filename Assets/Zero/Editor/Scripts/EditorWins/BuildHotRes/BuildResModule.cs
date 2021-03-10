@@ -112,7 +112,7 @@ namespace ZeroEditor
                 Directory.Delete(ZeroEditorConst.CONFIG_PUBLISH_DIR, true);
             }
             //拷贝文件
-            FileSystem.CopyDir(ZeroConst.HOT_CONFIGS_ROOT_DIR, ZeroEditorConst.CONFIG_PUBLISH_DIR, (s,t)=> {
+            FileUtility.CopyDir(ZeroConst.HOT_CONFIGS_ROOT_DIR, ZeroEditorConst.CONFIG_PUBLISH_DIR, (s,t)=> {
                 var ext = Path.GetExtension(s);
                 if (ext.Equals(".meta"))
                 {

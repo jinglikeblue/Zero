@@ -94,9 +94,52 @@ namespace Zero
             abName = ABNameWithoutExtension(abName);
             if (abName.ToLower() != ZeroConst.ROOT_AB_FILE_NAME) //resources表示从根目录获取资源，则不需要添加目录
             {
-                assetName = FileSystem.CombinePaths(abName, assetName);
+                assetName = FileUtility.CombinePaths(abName, assetName);
             }
             return assetName;
+        }
+
+        public override UnityEngine.Object[] LoadAll(string abName)
+        {
+            abName = ABNameWithoutExtension(abName);
+            return Resources.LoadAll(abName);
+        }
+
+        public override void LoadAllAsync(string abName, Action<UnityEngine.Object[]> onLoaded, Action<float> onProgress = null)
+        {
+            ILBridge.Ins.StartCoroutine(ResourceLoadAllAsync(abName, onLoaded, onProgress));
+        }
+
+        IEnumerator ResourceLoadAllAsync(string abName, Action<UnityEngine.Object[]> onLoaded, Action<float> onProgress)
+        {
+            onProgress?.Invoke(0f);
+            yield return new WaitForEndOfFrame();
+            onProgress?.Invoke(1f);
+            var assets = LoadAll(abName);
+            onLoaded?.Invoke(assets);
+        }
+
+        public override string[] GetAllAsssetsNames(string abName)
+        {
+            const string RESOURCE_ROOT = "/";
+            abName = ABNameWithoutExtension(abName);
+            string dir;
+            if (abName.ToLower() != ZeroConst.ROOT_AB_FILE_NAME) //resources表示从根目录获取资源，则不需要添加目录
+            {
+                dir = FileUtility.CombinePaths(RESOURCE_ROOT, abName);
+            }
+            else
+            {
+                dir = RESOURCE_ROOT;
+            }
+
+            var assets = Resources.LoadAll(dir);
+            string[] assetNames = new string[assets.Length];
+            for(var i = 0; i < assets.Length; i++)
+            {
+                assetNames[i] = assets[i].name;
+            }
+            return assetNames;
         }
     }
 }

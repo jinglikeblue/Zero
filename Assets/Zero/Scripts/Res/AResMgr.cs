@@ -18,7 +18,7 @@ namespace Zero
             {
                 abName += ZeroConst.AB_EXTENSION;
             }
-            abName = FileSystem.StandardizeBackslashSeparator(abName);
+            abName = FileUtility.StandardizeBackslashSeparator(abName);
             return abName;
         }
 
@@ -33,7 +33,7 @@ namespace Zero
             {
                 abName = abName.Replace(ZeroConst.AB_EXTENSION, "");
             }
-            abName = FileSystem.StandardizeBackslashSeparator(abName);
+            abName = FileUtility.StandardizeBackslashSeparator(abName);
             return abName;
         }
 
@@ -64,12 +64,26 @@ namespace Zero
         public abstract void UnloadAll(bool isUnloadAllLoaded = false);
 
         /// <summary>
+        /// 获取AB包下面所有资源的名称
+        /// </summary>
+        /// <param name="abName"></param>
+        /// <returns></returns>
+        public abstract string[] GetAllAsssetsNames(string abName);        
+
+        /// <summary>
         /// 获取资源
         /// </summary>
         /// <param name="abName"></param>
         /// <param name="assetName"></param>
         /// <returns></returns>
         public abstract UnityEngine.Object Load(string abName, string assetName);
+
+        /// <summary>
+        /// 获取AB下的所有资源
+        /// </summary>
+        /// <param name="abName"></param>
+        /// <returns></returns>
+        public abstract UnityEngine.Object[] LoadAll(string abName);
 
         /// <summary>
         /// 获取资源
@@ -99,5 +113,13 @@ namespace Zero
         /// <param name="onLoaded"></param>
         /// <param name="onProgress"></param>
         public abstract void LoadAsync<T>(string abName, string assetName, Action<T> onLoaded, Action<float> onProgress = null) where T:UnityEngine.Object;
+
+        /// <summary>
+        /// 异步获取AB下的所有资源
+        /// </summary>
+        /// <param name="abName"></param>
+        /// <param name="onLoaded"></param>
+        /// <param name="onProgress"></param>
+        public abstract void LoadAllAsync(string abName, Action<UnityEngine.Object[]> onLoaded, Action<float> onProgress = null);
     }
 }

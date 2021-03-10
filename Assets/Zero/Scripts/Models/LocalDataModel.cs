@@ -44,7 +44,7 @@ namespace Zero
 
         public LocalDataModel()
         {
-            _path = FileSystem.CombinePaths(Runtime.Ins.generateFilesDir, FILE_NAME);
+            _path = FileUtility.CombinePaths(Runtime.Ins.generateFilesDir, FILE_NAME);
 
             if (File.Exists(_path))
             {

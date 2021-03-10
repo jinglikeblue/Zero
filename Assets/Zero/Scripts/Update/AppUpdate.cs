@@ -67,7 +67,7 @@ namespace Zero
 
         IEnumerator UpdateAPK(string apkUrl)
         {
-            Downloader loader = new Downloader(apkUrl, FileSystem.CombinePaths(Runtime.Ins.localResDir, ZeroConst.ANDROID_APK_NAME));
+            Downloader loader = new Downloader(apkUrl, FileUtility.CombinePaths(Runtime.Ins.localResDir, ZeroConst.ANDROID_APK_NAME));
 
             Debug.Log($"安装包保存路径:{loader.savePath}");
             

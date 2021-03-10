@@ -49,7 +49,7 @@ namespace Zero
                         //替换旧的需要继承一下已加载字典
                         newMgr.Inherit(_mgr as AssetBundleResMgr);
                     }
-                    _mgr = newMgr;
+                    _mgr = newMgr; 
                     break;
                 case EResMgrType.RESOURCES:
                     Debug.Log(Log.Zero1("初始化资源管理器... 资源来源：[Resources]"));                    
@@ -103,6 +103,16 @@ namespace Zero
         }
 
         /// <summary>
+        /// 获取AB中所有资源的名称
+        /// </summary>
+        /// <param name="abName"></param>
+        /// <returns></returns>
+        public string[] GetAllAsssetsNames(string abName)
+        {
+            return _mgr.GetAllAsssetsNames(abName);
+        }
+
+        /// <summary>
         /// 加载资源
         /// </summary>
         /// <param name="abName"></param>
@@ -111,6 +121,16 @@ namespace Zero
         public UnityEngine.Object Load(string abName, string assetName)
         {
             return _mgr.Load(abName, assetName);
+        }
+
+        /// <summary>
+        /// 获取AB下的所有资源
+        /// </summary>
+        /// <param name="abName"></param>
+        /// <returns></returns>
+        public UnityEngine.Object[] LoadAll(string abName)
+        {
+            return _mgr.LoadAll(abName);
         }
 
         /// <summary>
@@ -215,6 +235,17 @@ namespace Zero
         }
 
         /// <summary>
+        /// 异步获取AB下的所有资源
+        /// </summary>
+        /// <param name="abName"></param>
+        /// <param name="onLoaded"></param>
+        /// <param name="onProgress"></param>
+        public void LoadAllAsync(string abName, Action<UnityEngine.Object[]> onLoaded, Action<float> onProgress = null)
+        {
+            _mgr.LoadAllAsync(abName, onLoaded, onProgress);
+        }
+
+        /// <summary>
         /// 将资源所在路径以及资源名合并成一个完整的资源路径
         /// </summary>
         /// <param name="abName"></param>
@@ -232,7 +263,7 @@ namespace Zero
                 assetName = "";
             }
 
-            return FileSystem.CombinePaths(abName, assetName);
+            return FileUtility.CombinePaths(abName, assetName);
         }
 
         /// <summary>

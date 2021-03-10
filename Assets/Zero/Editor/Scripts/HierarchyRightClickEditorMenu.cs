@@ -32,7 +32,7 @@ namespace ZeroEditor
                 list.Reverse();
 
                 var path = "";
-                path = FileSystem.CombinePaths(list.ToArray());
+                path = FileUtility.CombinePaths(list.ToArray());
                 GUIUtility.systemCopyBuffer = path;
             }
             else

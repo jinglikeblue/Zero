@@ -37,7 +37,7 @@ namespace ZeroEditor
         {
             string json = JsonMapper.ToPrettyJson(data);
             json = Regex.Unescape(json);
-            File.WriteAllText(FileSystem.CombinePaths(ConfigDir, fileName), json, Encoding.UTF8);
+            File.WriteAllText(FileUtility.CombinePaths(ConfigDir, fileName), json, Encoding.UTF8);
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace ZeroEditor
         /// <returns></returns>
         public static T LoadConfig<T>(string fileName)
         {
-            string path = FileSystem.CombinePaths(ConfigDir, fileName);
+            string path = FileUtility.CombinePaths(ConfigDir, fileName);
             if (File.Exists(path))
             {
                 string json = File.ReadAllText(path, Encoding.UTF8);

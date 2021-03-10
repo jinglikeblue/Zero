@@ -29,12 +29,12 @@ namespace Zero
 
                 Runtime.Ins.localData.IsInit = true;
 
-                string packageZipFilePath = FileSystem.CombinePaths(Application.streamingAssetsPath, ZeroConst.PACKAGE_ZIP_FILE_NAME);
+                string packageZipFilePath = FileUtility.CombinePaths(Application.streamingAssetsPath, ZeroConst.PACKAGE_ZIP_FILE_NAME);
 
                 if (Application.platform == RuntimePlatform.Android)
                 {
                     //如果是Android真机环境下，需要用android原生代码将文件拷贝到可读写目录，再进行操作
-                    string androidPackageZipTempPath = FileSystem.CombinePaths(ZeroConst.PERSISTENT_DATA_PATH, ZeroConst.PACKAGE_ZIP_FILE_NAME);
+                    string androidPackageZipTempPath = FileUtility.CombinePaths(ZeroConst.PERSISTENT_DATA_PATH, ZeroConst.PACKAGE_ZIP_FILE_NAME);
 
                     Debug.LogFormat("压缩文件：{0}", packageZipFilePath);
                     Debug.LogFormat("临时压缩文件：{0}", androidPackageZipTempPath);

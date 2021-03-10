@@ -37,7 +37,7 @@ namespace ZeroEditor
 
         static void MarkDeep(string dir, string assetBundleName, string assetBundleVariant)
         {
-            var path = FileSystem.StandardizeBackslashSeparator(dir);
+            var path = FileUtility.StandardizeBackslashSeparator(dir);
             var ai = AssetImporter.GetAtPath(path);
 
             if (null == ai)

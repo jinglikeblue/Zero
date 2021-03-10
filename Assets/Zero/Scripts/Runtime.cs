@@ -118,7 +118,7 @@ namespace Zero
                 case RuntimePlatform.WindowsEditor:
                 case RuntimePlatform.LinuxEditor:
                 case RuntimePlatform.OSXEditor:
-                    netResDir = FileSystem.CombineDirs(false, VO.netRoot, ZeroConst.PLATFORM_DIR_NAME);                                                      
+                    netResDir = FileUtility.CombineDirs(false, VO.netRoot, ZeroConst.PLATFORM_DIR_NAME);                                                      
                     //开发环境
                     if (IsLoadAssetsFromNet)
                     {

@@ -34,7 +34,7 @@ namespace ZeroHot
         /// <returns></returns>
         public string LoadTextConfig(string path, bool cacheEnable = true)
         {
-            path = FileSystem.CombinePaths(ConfigsRootDir, path);
+            path = FileUtility.CombinePaths(ConfigsRootDir, path);
 
             string text = null;
 
@@ -68,7 +68,7 @@ namespace ZeroHot
         /// <returns></returns>
         public byte[] LoadBytesConfig(string path, bool cacheEnable = true)
         {
-            path = FileSystem.CombinePaths(ConfigsRootDir, path);
+            path = FileUtility.CombinePaths(ConfigsRootDir, path);
 
             byte[] bytes = null;
 
@@ -127,14 +127,14 @@ namespace ZeroHot
                 switch (Runtime.Ins.VO.hotResMode)
                 {
                     case EHotResMode.NET_ASSET_BUNDLE:
-                        path = FileSystem.CombineDirs(false, ZeroConst.WWW_RES_PERSISTENT_DATA_PATH, ZeroConst.CONFIG_DIR_NAME);
+                        path = FileUtility.CombineDirs(false, ZeroConst.WWW_RES_PERSISTENT_DATA_PATH, ZeroConst.CONFIG_DIR_NAME);
                         break;
                     case EHotResMode.LOCAL_ASSET_BUNDLE:
-                        path = FileSystem.CombineDirs(false, ZeroConst.PUBLISH_RES_ROOT_DIR, ZeroConst.CONFIG_DIR_NAME);
+                        path = FileUtility.CombineDirs(false, ZeroConst.PUBLISH_RES_ROOT_DIR, ZeroConst.CONFIG_DIR_NAME);
                         break;
                     case EHotResMode.ASSET_DATA_BASE:
                         //该种开发模式下，直接从Asset/@Configs取文件
-                        path = FileSystem.CombineDirs(false, ZeroConst.HOT_CONFIGS_ROOT_DIR);
+                        path = FileUtility.CombineDirs(false, ZeroConst.HOT_CONFIGS_ROOT_DIR);
                         break;
                 }
                 return path;

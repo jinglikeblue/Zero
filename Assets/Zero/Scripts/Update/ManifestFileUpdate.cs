@@ -23,10 +23,10 @@ namespace Zero
         {
             Debug.Log(Log.Zero1("「ManifestFileUpdate」Manifest描述文件更新检查..."));
             _rt = Runtime.Ins;
-            _manifestName = FileSystem.CombinePaths(ZeroConst.AB_DIR_NAME, ZeroConst.MANIFEST_FILE_NAME + ZeroConst.AB_EXTENSION);
+            _manifestName = FileUtility.CombinePaths(ZeroConst.AB_DIR_NAME, ZeroConst.MANIFEST_FILE_NAME + ZeroConst.AB_EXTENSION);
             _onUpdate = onUpdate;
             _onError = onError;
-            _localPath = FileSystem.CombinePaths(_rt.localResDir , _manifestName);
+            _localPath = FileUtility.CombinePaths(_rt.localResDir , _manifestName);
 
             if (Runtime.Ins.IsLoadAssetsFromNet && false == _rt.netResVer.IsSameVer(_manifestName, _rt.localResVer))
             {

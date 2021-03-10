@@ -170,7 +170,7 @@ namespace Zero
             var abDependList = ResMgr.Ins.GetDepends(abName);
             foreach (var ab in abDependList)
             {
-                nameList.Add(FileSystem.CombinePaths(abDir, ab));
+                nameList.Add(FileUtility.CombinePaths(abDir, ab));
             }
 
             return nameList;

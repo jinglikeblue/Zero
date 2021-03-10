@@ -32,9 +32,9 @@ namespace ZeroEditor
 
         void CheckFile(string file)
         {
-            file = FileSystem.StandardizeBackslashSeparator(file);
+            file = FileUtility.StandardizeBackslashSeparator(file);
             file = file.Replace(Application.dataPath + "/", "");
-            var ai = AssetImporter.GetAtPath(FileSystem.CombinePaths("Assets",file));
+            var ai = AssetImporter.GetAtPath(FileUtility.CombinePaths("Assets",file));
             if(null == ai)
             {
                 return;

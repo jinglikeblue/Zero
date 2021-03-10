@@ -19,7 +19,7 @@ namespace ZeroEditor
         {
             if (string.IsNullOrEmpty(path)) return;
 
-            var fullPath = FileSystem.CombineDirs(true, ZeroEditorConst.PROJECT_PATH, path);
+            var fullPath = FileUtility.CombineDirs(true, ZeroEditorConst.PROJECT_PATH, path);
             if (!Directory.Exists(fullPath))
             {
                 Debug.LogError("[无法打开文件夹]不存在: " + fullPath);
@@ -28,7 +28,7 @@ namespace ZeroEditor
 
             if (Application.platform == RuntimePlatform.WindowsEditor)
             {
-                fullPath = FileSystem.StandardizeSlashSeparator(fullPath);
+                fullPath = FileUtility.StandardizeSlashSeparator(fullPath);
                 System.Diagnostics.Process.Start("explorer.exe", fullPath);
             }
             else if(Application.platform == RuntimePlatform.OSXEditor)

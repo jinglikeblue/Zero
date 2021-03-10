@@ -124,7 +124,7 @@ namespace ZeroEditor
             string[] dirs = Directory.GetDirectories(_searchDir, "*", SearchOption.AllDirectories);
             foreach (var dir in dirs)
             {
-                var sDir = FileSystem.StandardizeBackslashSeparator(dir);
+                var sDir = FileUtility.StandardizeBackslashSeparator(dir);
                 var di = new DirectoryInfo(sDir);
                 var files = di.GetFiles();
                 if (di.GetFiles().Length == 0)

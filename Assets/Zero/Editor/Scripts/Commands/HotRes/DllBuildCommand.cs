@@ -40,7 +40,7 @@ namespace ZeroEditor
             {
                 Directory.CreateDirectory(outputDir);
             }
-            _outputAssemblyPath = FileSystem.CombinePaths(outputDir, ZeroConst.DLL_FILE_NAME + ".dll");
+            _outputAssemblyPath = FileUtility.CombinePaths(outputDir, ZeroConst.DLL_FILE_NAME + ".dll");
         }
 
         public void Execute()
@@ -66,10 +66,10 @@ namespace ZeroEditor
 
             //依赖Library/ScriptAssemblies下的DLL
             var projectDir = Directory.GetParent(assetDir).FullName;
-            var dllList1 = Directory.GetFiles(FileSystem.CombineDirs(true, projectDir, "Library", "ScriptAssemblies"), "*.dll", SearchOption.AllDirectories);
+            var dllList1 = Directory.GetFiles(FileUtility.CombineDirs(true, projectDir, "Library", "ScriptAssemblies"), "*.dll", SearchOption.AllDirectories);
 
             //依赖Unity安装目录下的DLL
-            var dir = FileSystem.CombineDirs(true, EditorApplication.applicationContentsPath, "Managed", "UnityEngine");
+            var dir = FileUtility.CombineDirs(true, EditorApplication.applicationContentsPath, "Managed", "UnityEngine");
             var dllList2 = Directory.GetFiles(dir, "*.dll", SearchOption.AllDirectories);
 
             string[] depends = new string[dllList0.Length + dllList1.Length + dllList2.Length];

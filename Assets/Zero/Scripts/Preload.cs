@@ -173,7 +173,7 @@ namespace Zero
             {
                 Debug.Log(Log.Zero1("@Scripts代码运行环境: [外部程序集]"));
 
-                string dllDir = FileSystem.CombineDirs(false, Runtime.Ins.localResDir, ZeroConst.DLL_DIR_NAME);
+                string dllDir = FileUtility.CombineDirs(false, Runtime.Ins.localResDir, ZeroConst.DLL_DIR_NAME);
                 //初始化IL
                 ILBridge.Ins.Startup(dllDir, ZeroConst.DLL_FILE_NAME, cfg.isDebugIL, cfg.isLoadPdb);
                 //调用启动方法
