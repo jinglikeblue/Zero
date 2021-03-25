@@ -62,6 +62,18 @@ QQ群：695429639
 ## 更新日志
 
 ```
+2021.03.10
+Version 2.0
+```
+
+>优化
+
+- 扩展ResMgr的接口：
+    - string[] GetAllAsssetsNames(string abName) 获取AB下所有资源的名称列表
+    - UnityEngine.Object[] LoadAll(string abName) 获取AB下所有的资源
+    - void LoadAllAsync(string abName, Action<UnityEngine.Object[]> onLoaded, Action<float> onProgress = null) 异步获取AB下所有的资源
+
+```
 2021.03.09
 Version 2.0
 ```
