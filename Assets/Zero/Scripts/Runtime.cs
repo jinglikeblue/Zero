@@ -38,6 +38,11 @@ namespace Zero
         public SettingVO setting;
 
         /// <summary>
+        /// 网络资源目录列表
+        /// </summary>
+        public string[] SettingFileNetDirList { get; private set; }
+
+        /// <summary>
         /// 基于运行平台的网络资源目录(使用的网络资源的地址)
         /// </summary>
         public string netResDir;
@@ -118,7 +123,11 @@ namespace Zero
                 case RuntimePlatform.WindowsEditor:
                 case RuntimePlatform.LinuxEditor:
                 case RuntimePlatform.OSXEditor:
-                    netResDir = FileUtility.CombineDirs(false, VO.netRoot, ZeroConst.PLATFORM_DIR_NAME);                                                      
+                    SettingFileNetDirList = new string[VO.netRoots.Length];
+                    for(var i = 0; i < SettingFileNetDirList.Length; i++)
+                    {
+                        SettingFileNetDirList[i] = FileUtility.CombineDirs(false, VO.netRoots[i], ZeroConst.PLATFORM_DIR_NAME);
+                    }                    
                     //开发环境
                     if (IsLoadAssetsFromNet)
                     {
@@ -150,7 +159,11 @@ namespace Zero
             localResVer = new LocalResVerModel();
 
             Debug.Log(Log.Zero1("Streaming Assets Dir: {0}", ZeroConst.STREAMING_ASSETS_PATH));
-            Debug.Log(Log.Zero1("Net Res Root        : {0}", netResDir));
+            Debug.Log(Log.Zero1("Net Res Root        : "));
+            for(var i = 0; i < SettingFileNetDirList.Length; i++)
+            {
+                Debug.Log(Log.Zero1($"{i} : {SettingFileNetDirList[i]}"));
+            }
             Debug.Log(Log.Zero1("Persistent Data Dir : {0}", ZeroConst.PERSISTENT_DATA_PATH));
             Debug.Log(Log.Zero1("Local Res Dir       : {0}", localResDir));
             Debug.Log(Log.Zero1("Generate Files Dir  : {0}", generateFilesDir));

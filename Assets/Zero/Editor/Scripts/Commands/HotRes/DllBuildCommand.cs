@@ -48,8 +48,11 @@ namespace ZeroEditor
             var scriptPaths = Directory.GetFiles(_sourcesDir, "*.cs", SearchOption.AllDirectories);
             var ab = new AssemblyBuilder(_outputAssemblyPath, scriptPaths);
             ab.compilerOptions = new ScriptCompilerOptions();
+#if UNITY_2019_1_OR_NEWER
+            ab.referencesOptions = ReferencesOptions.UseEngineModules;
+#endif
             ab.flags = AssemblyBuilderFlags.DevelopmentBuild | AssemblyBuilderFlags.EditorAssembly;
-            ab.additionalReferences = GetDepends();                       
+            ab.additionalReferences = GetDepends();
             ab.buildFinished += OnFinished;
             if (false == ab.Build())
             {
@@ -68,9 +71,13 @@ namespace ZeroEditor
             var projectDir = Directory.GetParent(assetDir).FullName;
             var dllList1 = Directory.GetFiles(FileUtility.CombineDirs(true, projectDir, "Library", "ScriptAssemblies"), "*.dll", SearchOption.AllDirectories);
 
+#if UNITY_2019_1_OR_NEWER
+            var dllList2 = new string[0];
+#else
             //依赖Unity安装目录下的DLL
             var dir = FileUtility.CombineDirs(true, EditorApplication.applicationContentsPath, "Managed", "UnityEngine");
             var dllList2 = Directory.GetFiles(dir, "*.dll", SearchOption.AllDirectories);
+#endif
 
             string[] depends = new string[dllList0.Length + dllList1.Length + dllList2.Length];
             Array.Copy(dllList0, 0, depends, 0, dllList0.Length);

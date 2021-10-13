@@ -47,12 +47,12 @@ namespace Zero
 
         public override void LoadAsync(string abName, string assetName, Action<UnityEngine.Object> onLoaded, Action<float> onProgress = null)
         {           
-            ILBridge.Ins.StartCoroutine(ResourceLoadAsync<UnityEngine.Object>(AssetBundlePath2ResourcePath(abName, assetName), onLoaded, onProgress));
+            ILBridge.Ins.StartCoroutine(this, ResourceLoadAsync<UnityEngine.Object>(AssetBundlePath2ResourcePath(abName, assetName), onLoaded, onProgress));
         }
 
         public override void LoadAsync<T>(string abName, string assetName, Action<T> onLoaded, Action<float> onProgress = null)
         {            
-            ILBridge.Ins.StartCoroutine(ResourceLoadAsync<T>(AssetBundlePath2ResourcePath(abName, assetName), onLoaded, onProgress));
+            ILBridge.Ins.StartCoroutine(this, ResourceLoadAsync<T>(AssetBundlePath2ResourcePath(abName, assetName), onLoaded, onProgress));
         }
 
         public override void Unload(string abName, bool isUnloadAllLoaded = false, bool isUnloadDepends = true)
@@ -107,7 +107,7 @@ namespace Zero
 
         public override void LoadAllAsync(string abName, Action<UnityEngine.Object[]> onLoaded, Action<float> onProgress = null)
         {
-            ILBridge.Ins.StartCoroutine(ResourceLoadAllAsync(abName, onLoaded, onProgress));
+            ILBridge.Ins.StartCoroutine(this, ResourceLoadAllAsync(abName, onLoaded, onProgress));
         }
 
         IEnumerator ResourceLoadAllAsync(string abName, Action<UnityEngine.Object[]> onLoaded, Action<float> onProgress)

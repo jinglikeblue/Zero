@@ -42,7 +42,7 @@ namespace Zero
 
         IEnumerator Update()
         {
-            Downloader loader = new Downloader(FileUtility.CombinePaths(Runtime.Ins.netResDir , ZeroConst.RES_JSON_FILE_NAME), _localPath, DateTime.UtcNow.ToFileTimeUtc().ToString());
+            Downloader loader = new Downloader(FileUtility.CombinePaths(Runtime.Ins.netResDir, ZeroConst.RES_JSON_FILE_NAME), _localPath, DateTime.UtcNow.ToFileTimeUtc().ToString());
             while (false == loader.isDone)
             {
                 yield return new WaitForEndOfFrame();

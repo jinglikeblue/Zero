@@ -58,12 +58,16 @@ namespace Zero
             appdomain.DelegateManager.RegisterMethodDelegate<PointerEventData>();
             appdomain.DelegateManager.RegisterMethodDelegate<AxisEventData>();
             appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Object>();
-            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Collider2D>();            appdomain.DelegateManager.RegisterMethodDelegate<System.Int32>();
-            appdomain.DelegateManager.RegisterMethodDelegate<System.String, System.String>();            appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance>();            appdomain.DelegateManager.RegisterMethodDelegate<System.Boolean>();
+            appdomain.DelegateManager.RegisterMethodDelegate<UnityEngine.Collider2D>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Int32>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.String, System.String>();
+            appdomain.DelegateManager.RegisterMethodDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Boolean>();
             appdomain.DelegateManager.RegisterFunctionDelegate<ILRuntime.Runtime.Intepreter.ILTypeInstance, ILRuntime.Runtime.Intepreter.ILTypeInstance, System.Int32>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Object, System.Net.DownloadProgressChangedEventArgs>();
             appdomain.DelegateManager.RegisterMethodDelegate<System.Object, System.ComponentModel.AsyncCompletedEventArgs>();
             appdomain.DelegateManager.RegisterMethodDelegate<Zero.Timer>();
+            appdomain.DelegateManager.RegisterMethodDelegate<System.Single, System.Int64>();            appdomain.DelegateManager.RegisterMethodDelegate<System.String>();
             #endregion            
         }
 

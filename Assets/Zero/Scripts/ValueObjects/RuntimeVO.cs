@@ -32,8 +32,9 @@ namespace Zero
         [LabelText("资源的来源"), ValueDropdown("HotResMode"), ShowIf("isHotResProject")]
         public EHotResMode hotResMode;
         
+        [InfoBox("Zero会按照队列依次尝试资源的下载，直到其中一个成功为止", InfoMessageType = InfoMessageType.Info)]
         [LabelText("网络资源的根目录"), ShowIf("isHotResProject"), ShowIf("hotResMode", EHotResMode.NET_ASSET_BUNDLE)]
-        public string netRoot;
+        public string[] netRoots = new string[1];
 
         //[LabelText("本地资源的根目录"), ShowIf("isHotResProject"), DisplayAsString, ShowIf("hotResMode", EHotResMode.LOCAL_ASSET_BUNDLE)]
         //public string localResRoot = ZeroConst.PUBLISH_RES_ROOT_DIR;

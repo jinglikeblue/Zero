@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Zero;
 using ZeroHot;
@@ -16,10 +17,16 @@ namespace ILDemo
             base.OnInit(data);
             buttonPrefab.SetActive(false);
 
-            AddBtn("Roushan", RoushanTest);
+            AddBtn("执行 Roushan Demo", RoushanTest);
             AddBtn("TestAndroidBridge", TestAndroidBridge);
             AddBtn("TestCrossDepend", TestCrossDepend);
             AddBtn("TestLoadAllAB", TestLoadAllAB);
+            AddBtn("测试HotRestart", TestHotRestart);
+        }
+
+        private void TestHotRestart()
+        {
+            SceneManager.LoadScene(0);
         }
 
         private void TestCrossDepend()

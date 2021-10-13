@@ -36,7 +36,8 @@ namespace ZeroHot
         private ViewAutoRegister()
         {
             R("root_assets.ab", "ILContent");
-            R("root_assets.ab", "MenuPanel");
+            R("root_assets.ab", "MainStartupPanel");
+            R("menu.ab", "MenuPanel");
             R("roushan.ab", "Block");
             R("roushan.ab", "GamePanel");
             R("roushan.ab", "GameStage");

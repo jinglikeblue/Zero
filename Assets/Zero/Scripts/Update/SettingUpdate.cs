@@ -25,9 +25,7 @@ namespace Zero
             
             if (Runtime.Ins.IsLoadAssetsFromNet && Runtime.Ins.localData.IsUpdateSetting)
             {
-                var netPath = FileUtility.CombinePaths(Runtime.Ins.netResDir , "setting.json");
-                Debug.Log(Log.Zero1("配置文件: {0}", netPath));
-                ILBridge.Ins.StartCoroutine(Update(netPath));
+                ILBridge.Ins.StartCoroutine(Update());
             }
             else
             {                
@@ -43,31 +41,37 @@ namespace Zero
             return vo;
         }
 
-        IEnumerator Update(string url)
+        IEnumerator Update()
         {
-            Downloader loader = new Downloader(url, _localPath, DateTime.UtcNow.ToFileTimeUtc().ToString());            
-            while(false == loader.isDone)
-            {                
-                yield return new WaitForEndOfFrame();
-            }
-
-            if (null != loader.error)
+            var list = Runtime.Ins.SettingFileNetDirList;
+            for(var i = 0; i < list.Length; i++)
             {
-                Debug.LogErrorFormat(loader.error);
-                if (null != _onError)
+                var settingFileUrl = FileUtility.CombinePaths(list[i], "setting.json");
+                Debug.Log(Log.Zero1("开始下载setting.json: {0}", settingFileUrl));
+                Downloader loader = new Downloader(settingFileUrl, _localPath, DateTime.UtcNow.ToFileTimeUtc().ToString());
+                while (false == loader.isDone)
                 {
-                    _onError.Invoke(loader.error);
+                    yield return new WaitForEndOfFrame();
                 }
-                yield break;
+                loader.Dispose();
+                if (null == loader.error)
+                {
+                    SettingVO vo = LoadLocalSetting();
+                    Runtime.Ins.setting = vo;
+                    Runtime.Ins.netResDir = FileUtility.CombineDirs(true, vo.netResRoot, ZeroConst.PLATFORM_DIR_NAME);
+
+                    _onLoaded();
+                    yield break;
+                }
+                else
+                {
+                    Debug.Log(Log.Zero2("setting.json下载失败: {0}", settingFileUrl));
+                }
             }
-            loader.Dispose();
 
-            SettingVO vo = LoadLocalSetting();
-            Runtime.Ins.setting = vo;
-            Runtime.Ins.netResDir = FileUtility.CombineDirs(true, vo.netResRoot, ZeroConst.PLATFORM_DIR_NAME);
-
-            _onLoaded();
-            yield break;
+            var errorMsg = "所有指向setting.json的URL都不可使用！";
+            Debug.LogErrorFormat(errorMsg);
+            _onError.Invoke(errorMsg);
         }
     }
 }

@@ -15,8 +15,8 @@ namespace ZeroHot
 
 			public const string ILContent = "ILContent.prefab";
 			public const string ILContent_assetPath = "root_assets/ILContent.prefab";
-			public const string MenuPanel = "MenuPanel.prefab";
-			public const string MenuPanel_assetPath = "root_assets/MenuPanel.prefab";            
+			public const string MainStartupPanel = "MainStartupPanel.prefab";
+			public const string MainStartupPanel_assetPath = "root_assets/MainStartupPanel.prefab";            
 		}
 
 		/// <summary>
@@ -36,6 +36,14 @@ namespace ZeroHot
 		{
 			public const string NAME = "cross_depend_test.ab";
             
+		}
+
+		public sealed class MENU
+		{
+			public const string NAME = "menu.ab";
+
+			public const string MenuPanel = "MenuPanel.prefab";
+			public const string MenuPanel_assetPath = "menu/MenuPanel.prefab";            
 		}
 
 		public sealed class ROUSHAN
